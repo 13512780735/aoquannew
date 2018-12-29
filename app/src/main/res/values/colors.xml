@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!-- customDialog-->
+    <color name="sd_color_black">#000000</color>
+    <color name="sd_color_white">#ffffff</color>
+    <color name="line">#e6e6e6</color>
+    <color name="text_red">#FF0000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="text_color">#969696</color>
+
+    <!--主题背景色-->
+    <color name="defualt_window_background">#F7F7F7</color>
+    <color name="gray_4">#eaeaea</color>
+
+    <!--产品详情-->
+    <color name="product_detail_rb_bg_color">#cbcbcb</color>
+    <color name="product_bottom_shopcar_bg_color">#d5d5d5</color>
+
+    <!--APP基本色调-->
+    <color name="app_base_color">#4D98FE</color>
+    <color name="register_text_color">#969696</color>
+    <color name="gray_text_color">#999999</color>
+    <color name="black_wlt_color">#666666</color>
+    <color name="theme_bg">#4D98FE</color>
+    <color name="title_text_color">#43413f</color>
+</resources>

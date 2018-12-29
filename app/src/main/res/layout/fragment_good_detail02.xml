@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.goods.GoodDetail02Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:id="@+id/tv01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <cn.iwgang.countdownview.CountdownView
+        android:id="@+id/cv_countdownView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isHideTimeBackground="false"
+        app:isShowDay="false"
+        app:isShowHour="true"
+        app:isShowMillisecond="false"
+        app:isShowMinute="true"
+        app:timeBgColor="@color/text_red"
+        app:isShowSecond="true"
+        app:timeTextColor="#FFFFFF" />
+
+
+
+</LinearLayout>

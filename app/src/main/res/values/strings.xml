@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--商品规格选择-->
+    <string name="comm_price_format">¥ %s</string>
+
+    <string name="product_detail">商品详情</string>
+    <string name="product_detail_sku_quantity">购买数量</string>
+    <string name="product_detail_sku_confirm">确定</string>
+    <string name="product_detail_sku_recommend_price">价格：¥%1$s/%2$s</string>
+    <string name="product_detail_sku_stock">(库存:%1$s)</string>
+    <string name="product_detail_sku_quantity_over">购买数量超出最大库存，请修改购买数量</string>
+    <string name="product_detail_sku_quantity_empty">购买数量不能为空</string>
+    <string name="product_detail_sku_add_succeed">商品添加成功，请前往进货单查看</string>
+    <string name="title_activity_coupon_list">CouponListActivity</string>
+
+    <!--登录注册-->
+    <string name="login_name">用户登录</string>
+    <string name="login_phone">请输入您的用户名/手机号码</string>
+    <string name="login_pwd">请输入密码</string>
+    <string name="login_phone_login">手机验证登录</string>
+    <string name="login_forget_pwd">找回密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_third_login">第三方登录</string>
+    <string name="login_qq_login">QQ登录</string>
+    <string name="login_wechat_login">微信登录</string>
+    <string name="register_phone">请输入您的手机号码</string>
+    <string name="register_code">请输入手机验证码</string>
+    <string name="register_pwd">请输入密码</string>
+    <string name="register_pwd_">请再次输入密码</string>
+    <string name="register_clinic_name">诊所名称</string>
+    <string name="register_name">请输入昵称</string>
+    <string name="third_login_now">立即登录</string>
+    <string name="login_send_code">发送验证码</string>
+    <string name="login_confirm">确定</string>
+    <string name="login_details">为了给您更好的服务，请关联一个XXXX帐号</string>
+    <string name="login_register_quick">快速注册</string>
+    <string name="login_quick_relevance">立即关联</string>
+    <string name="login_relevance">关联</string>
+</resources>

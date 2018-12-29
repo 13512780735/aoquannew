@@ -1,0 +1,107 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--主题-->
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/defualt_window_background</item>
+
+    </style>
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!--自定义Dialog-->
+    <style name="Custom_Dialog_Style" parent="@android:style/Theme.Dialog">
+        <!--窗口背景色透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--是否浮在界面上-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否允许背景变暗 --> <!--背景是否模糊显示-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--是否有标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否半透明-->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!--LoadingDialog-->
+    <style name="dialogStyle" parent="@android:style/Theme.Dialog">
+
+        <!-- 更换背景图片实现全透明 -->
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/txt_14</item>
+    </style>
+    <style name="CommonBottomDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="colorPrimary">@color/appColorPrimary</item>
+        <item name="colorPrimaryDark">@color/appColorPrimaryDark</item>
+        <item name="colorAccent">@color/appColorAccent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowAnimationStyle">@style/CommonBottomDialogAnim</item>
+
+
+    </style>
+
+    <style name="CommonBottomDialogAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+    </style>
+    <style name="fresco_rect">
+        <item name="fadeDuration">300</item>
+        <item name="actualImageScaleType">centerCrop</item>
+        <item name="backgroundImage">@color/comm_transparent</item>
+        <item name="placeholderImage">@color/comm_white</item>
+        <item name="placeholderImageScaleType">none</item>
+        <item name="failureImage">@color/comm_white</item>
+        <item name="failureImageScaleType">none</item>
+        <item name="retryImage">@color/comm_white</item>
+        <item name="retryImageScaleType">none</item>
+        <item name="overlayImage">@color/comm_transparent</item>
+        <item name="pressedStateOverlayImage">@color/comm_transparent</item>
+        <item name="roundedCornerRadius">3dp</item>
+        <item name="roundingBorderWidth">1dp</item>
+        <item name="roundingBorderColor">#eeeeee</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <!--是否选中注册-->
+    <style name="mycheckbox1" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/register_check</item>
+    </style>
+</resources>
