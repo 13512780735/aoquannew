@@ -33,6 +33,7 @@ import com.likeits.simple.network.model.home.MainHomePictureModel;
 import com.likeits.simple.network.model.home.MainHomePicturewModel;
 import com.likeits.simple.network.model.home.MainHomeTitleModel;
 import com.likeits.simple.network.model.home.MainHomekitchenwindowModel;
+import com.likeits.simple.network.model.member.MemberIconGroupItemModel;
 import com.likeits.simple.utils.HttpUtil;
 import com.likeits.simple.utils.SharedPreferencesUtils;
 import com.loopj.android.http.RequestParams;
@@ -69,21 +70,9 @@ public class GoodDetail01Fragment extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void lazyLoad() {
 
-        id = getArguments().getString("id");
+        //id = getArguments().getString("id");
+        id="526";
         initData();
-//        goodData = getArguments().getString("goodData");
-//        XLog.e("TAG5" + goodData);
-//        try {
-//            JSONObject object = new JSONObject(goodData);
-//            JSONObject object1 = object.optJSONObject("data");
-//            items = object1.optJSONArray("items"); //items数据
-//            goods = object1.optJSONObject("goods");
-//
-//            initUI();
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void initData() {
@@ -91,6 +80,7 @@ public class GoodDetail01Fragment extends BaseFragment implements SwipeRefreshLa
         String url = ApiService.Good_Detial;
         RequestParams params = new RequestParams();
         params.put("id", id);
+        params.put("openid", openid);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -104,7 +94,8 @@ public class GoodDetail01Fragment extends BaseFragment implements SwipeRefreshLa
                         JSONObject object1 = object.optJSONObject("data");
                         items = object1.optJSONArray("items"); //items数据
                         goods = object1.optJSONObject("goods");
-                        SharedPreferencesUtils.put(getActivity(), "productprice", goods.optString("productprice"));
+                        String productprice = goods.optString("productprice");
+                        SharedPreferencesUtils.put(getActivity(), "productprice", productprice);
                         SharedPreferencesUtils.put(getActivity(), "nowtime", goods.optLong("nowtime"));
                         SharedPreferencesUtils.put(getActivity(), "isseckill", goods.optBoolean("isseckill"));
                         initUI();
@@ -136,7 +127,7 @@ public class GoodDetail01Fragment extends BaseFragment implements SwipeRefreshLa
         mMessages = new ArrayList<>();
         for (int i = 0; i < items.length(); i++) {
             String id = items.optJSONObject(i).optString("id");
-            if ("detail_swipe".equals(id)) {//搜索
+            if ("detail_swipe".equals(id)) {//
                 GoodDetailBannerItemModel goodDetailBannerItemModel = JSON.parseObject(items.optString(i), GoodDetailBannerItemModel.class);
                 mMessages.add(goodDetailBannerItemModel);
             } else if ("detail_seckill".equals(id)) {
@@ -145,12 +136,6 @@ public class GoodDetail01Fragment extends BaseFragment implements SwipeRefreshLa
             } else if ("detail_info".equals(id)) {
                 GoodDetailInfoItemModel goodDetailInfoItemModel = JSON.parseObject(items.optString(i), GoodDetailInfoItemModel.class);
                 mMessages.add(goodDetailInfoItemModel);
-            } else if ("detail_sale".equals(id)) {
-                GoodDetailSaleItemModel goodDetailSaleItemModel = JSON.parseObject(items.optString(i), GoodDetailSaleItemModel.class);
-                mMessages.add(goodDetailSaleItemModel);
-            } else if ("detail_sale".equals(id)) {
-                GoodDetailSaleItemModel goodDetailSaleItemModel = JSON.parseObject(items.optString(i), GoodDetailSaleItemModel.class);
-                mMessages.add(goodDetailSaleItemModel);
             } else if ("goods".equals(id)) {//商品
                 MainHomeGoodModel mainHomeGoodModel = JSON.parseObject(items.optString(i), MainHomeGoodModel.class);
                 mMessages.add(mainHomeGoodModel);
@@ -187,10 +172,16 @@ public class GoodDetail01Fragment extends BaseFragment implements SwipeRefreshLa
             } else if ("detail_comment".equals(id)) {
                 GoodDetailCommentItemModel goodDetailCommentItemModel = JSON.parseObject(items.optString(i), GoodDetailCommentItemModel.class);
                 mMessages.add(goodDetailCommentItemModel);
-            }
-            else if ("detail_spec".equals(id)) {
+            } else if ("detail_spec".equals(id)) {
                 GoodDetailSpecItemModel goodDetailSpecItemModel = JSON.parseObject(items.optString(i), GoodDetailSpecItemModel.class);
                 mMessages.add(goodDetailSpecItemModel);
+            } else if ("detail_sale".equals(id)) {
+                GoodDetailSaleItemModel goodDetailSaleItemModel = JSON.parseObject(items.optString(i), GoodDetailSaleItemModel.class);
+                mMessages.add(goodDetailSaleItemModel);
+            }
+            else if ("icongroup".equals(id)) {
+                MemberIconGroupItemModel memberIconGroupItemModel = JSON.parseObject(items.optString(i), MemberIconGroupItemModel.class);
+                mMessages.add(memberIconGroupItemModel);
             }
         }
         mSwipeRefreshLayout.setRefreshing(true);

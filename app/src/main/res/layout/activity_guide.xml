@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchMatch"
+    tools:context=".activity.login_register.GuideActivity">
+
+    <com.likeits.simple.view.guide.BGAGuideLinkageLayout style="@style/MatchMatch">
+
+        <com.likeits.simple.view.guide.BGABanner
+            android:id="@+id/banner_guide_background"
+            style="@style/MatchMatch"
+            app:banner_pageChangeDuration="1000"
+            app:banner_pointAutoPlayAble="false"
+            app:banner_pointContainerBackground="@android:color/transparent"
+            app:banner_pointDrawable="@drawable/selector_banner_unequal"
+            app:banner_pointTopBottomMargin="15dp"
+            app:banner_transitionEffect="fade" />
+
+    </com.likeits.simple.view.guide.BGAGuideLinkageLayout>
+
+    <TextView
+        android:id="@+id/tv_guide_skip"
+        style="@style/WrapWrap"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="128dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/toumingbeijing_20"
+        android:clickable="true"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="跳过"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_guide_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/width40"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/selector_btn_test"
+        android:padding="8dp"
+        android:text="进入主界面"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+
+        tools:visibility="visible" />
+</RelativeLayout>

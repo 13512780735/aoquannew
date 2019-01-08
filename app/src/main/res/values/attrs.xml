@@ -287,17 +287,23 @@
         <attr name="isFlippingLessCount" format="boolean" />
     </declare-styleable>
 
-    <!--自定义TextView-->
-    <declare-styleable name="TextViewBorder">
-        <attr name="tvborderColor" format="color" />
-        <attr name="tvBorderWidth" format="integer" />
+    <!-- 有边框和背景的View -->
+    <declare-styleable name="BorderTextView">
+        <attr name="strokeWidth01" format="dimension" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="strokeColor01" format="color" />
+        <attr name="enableBackColor" format="color" />
+        <attr name="contentBackColor" format="color" />
+        <attr name="contentPressedColor" format="color" />
+        <attr name="followTextColor" format="boolean" />
     </declare-styleable>
 
+
     <declare-styleable name="IndicatorView">
-        <attr name="indicatorColor" format="color"/>
-        <attr name="indicatorColorSelected" format="color"/>
-        <attr name="indicatorWidth" format="integer"/>
-        <attr name="gravity" format="integer"/>
+        <attr name="indicatorColor" format="color" />
+        <attr name="indicatorColorSelected" format="color" />
+        <attr name="indicatorWidth" format="integer" />
+        <attr name="gravity" format="integer" />
     </declare-styleable>
     <!--button-->
     <declare-styleable name="customButton">
@@ -317,10 +323,10 @@
         <attr name="normalTextColor" format="color" />
         <attr name="selectedTextColor" format="color" />
         <attr name="strokeWidth" format="dimension" />
-        <attr name="noLeftStroke" format="boolean"/>
-        <attr name="noRightStroke" format="boolean"/>
-        <attr name="noTopStroke" format="boolean"/>
-        <attr name="noBottomStroke" format="boolean"/>
+        <attr name="noLeftStroke" format="boolean" />
+        <attr name="noRightStroke" format="boolean" />
+        <attr name="noTopStroke" format="boolean" />
+        <attr name="noBottomStroke" format="boolean" />
     </declare-styleable>
 
 
@@ -336,12 +342,12 @@
 
 
     <declare-styleable name="CustomHorizontalProgresStyle">
-        <attr name="HorizontalProgresUnReachColor" ></attr>
-        <attr name="HorizontalProgresUnReachHeight" ></attr>
-        <attr name="HorizontalProgresReachColor" ></attr>
-        <attr name="HorizontalProgresReachHeight" ></attr>
-        <attr name="HorizontalProgresTextColor" ></attr>
-        <attr name="HorizontalProgresTextSize" ></attr>
+        <attr name="HorizontalProgresUnReachColor"></attr>
+        <attr name="HorizontalProgresUnReachHeight"></attr>
+        <attr name="HorizontalProgresReachColor"></attr>
+        <attr name="HorizontalProgresReachHeight"></attr>
+        <attr name="HorizontalProgresTextColor"></attr>
+        <attr name="HorizontalProgresTextSize"></attr>
         <attr name="HorizontalProgresTextOffset"></attr>
 
     </declare-styleable>
@@ -358,16 +364,91 @@
     </declare-styleable>
 
     <declare-styleable name="RatingBar" tools:ignore="ResourceName">
-        <attr name="starImageSize" format="dimension"/>
-        <attr name="starImageWidth" format="dimension"/>
-        <attr name="starImageHeight" format="dimension"/>
-        <attr name="starImagePadding" format="dimension"/>
-        <attr name="starCount" format="integer"/>
-        <attr name="starNum" format="integer"/>
-        <attr name="starEmpty" format="reference"/>
-        <attr name="starFill" format="reference"/>
-        <attr name="starHalf" format="reference"/>
-        <attr name="clickable" format="boolean"/>
-        <attr name="halfstart" format="boolean"/>
+        <attr name="starImageSize" format="dimension" />
+        <attr name="starImageWidth" format="dimension" />
+        <attr name="starImageHeight" format="dimension" />
+        <attr name="starImagePadding" format="dimension" />
+        <attr name="starCount" format="integer" />
+        <attr name="starNum" format="integer" />
+        <attr name="starEmpty" format="reference" />
+        <attr name="starFill" format="reference" />
+        <attr name="starHalf" format="reference" />
+        <attr name="clickable" format="boolean" />
+        <attr name="halfstart" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="BGABanner">
+        <!-- 指示点容器背景 -->
+        <attr name="banner_pointContainerBackground" format="reference|color"/>
+        <!-- 指示点背景 -->
+        <attr name="banner_pointDrawable" format="reference"/>
+        <!-- 指示点容器左右内间距 -->
+        <attr name="banner_pointContainerLeftRightPadding" format="dimension"/>
+        <!-- 指示点上下外间距 -->
+        <attr name="banner_pointTopBottomMargin" format="dimension"/>
+        <!-- 指示点左右外间距 -->
+        <attr name="banner_pointLeftRightMargin" format="dimension"/>
+        <!-- 指示器的位置 -->
+        <attr name="banner_indicatorGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_horizontal" value="0x01"/>
+        </attr>
+        <!-- 是否开启自动轮播 -->
+        <attr name="banner_pointAutoPlayAble" format="boolean"/>
+        <!-- 自动轮播的时间间隔 -->
+        <attr name="banner_pointAutoPlayInterval" format="integer"/>
+        <!-- 页码切换过程的时间长度 -->
+        <attr name="banner_pageChangeDuration" format="integer"/>
+        <!-- 页面切换的动画效果 -->
+        <attr name="banner_transitionEffect" format="enum">
+            <enum name="defaultEffect" value="0"/>
+            <enum name="alpha" value="1"/>
+            <enum name="rotate" value="2"/>
+            <enum name="cube" value="3"/>
+            <enum name="flip" value="4"/>
+            <enum name="accordion" value="5"/>
+            <enum name="zoomFade" value="6"/>
+            <enum name="fade" value="7"/>
+            <enum name="zoomCenter" value="8"/>
+            <enum name="zoomStack" value="9"/>
+            <enum name="stack" value="10"/>
+            <enum name="depth" value="11"/>
+            <enum name="zoom" value="12"/>
+        </attr>
+        <!-- 提示文案的文字颜色 -->
+        <attr name="banner_tipTextColor" format="reference|color"/>
+        <!-- 提示文案的文字大小 -->
+        <attr name="banner_tipTextSize" format="dimension"/>
+        <!-- 加载网络数据时覆盖在 BGABanner 最上层的占位图 -->
+        <attr name="banner_placeholderDrawable" format="reference"/>
+        <!-- 是否是数字指示器 -->
+        <attr name="banner_isNumberIndicator" format="boolean"/>
+        <!-- 数字指示器文字颜色 -->
+        <attr name="banner_numberIndicatorTextColor" format="reference|color"/>
+        <!-- 数字指示器文字大小 -->
+        <attr name="banner_numberIndicatorTextSize" format="dimension"/>
+        <!-- 数字指示器背景 -->
+        <attr name="banner_numberIndicatorBackground" format="reference"/>
+        <!-- 当只有一页数据时是否显示指示器，默认值为 false -->
+        <attr name="banner_isNeedShowIndicatorOnOnlyOnePage" format="boolean"/>
+        <!-- 自动轮播区域距离 BGABanner 底部的距离 -->
+        <attr name="banner_contentBottomMargin" format="dimension"/>
+        <!-- 宽高比例，如果大于 0，则会根据宽度来计算高度，否则使用 android:layout_height 指定的高度 -->
+        <attr name="banner_aspectRatio" format="float"/>
+        <!-- 占位图和资源图片缩放模式 -->
+        <attr name="android:scaleType"/>
+    </declare-styleable>
+
+    <declare-styleable name="AmountView">
+        <!-- 左右2边+-按钮的宽度 -->
+        <attr name="btnWidth" format="dimension" />
+        <!-- 中间TextView的宽度 -->
+        <attr name="tvWidth" format="dimension" />
+        <!--<attr name="tvColor" format="color"/>-->
+        <attr name="tvTextSize" format="dimension" />
+        <attr name="btnTextSize" format="dimension" />
     </declare-styleable>
 </resources>

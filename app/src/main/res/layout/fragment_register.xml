@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".activity.login_register.RegisterFragment">
@@ -83,7 +84,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <TextView
+        <com.likeits.simple.view.BorderTextView
             android:id="@+id/send_code_btn"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -92,7 +93,10 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dip"
             android:layout_weight="2"
-            android:background="@drawable/shape_button_blue_border_bg_15"
+            app:contentBackColor="#999999"
+            app:strokeColor01="#999999"
+            app:strokeWidth01="1dp"
+            app:cornerRadius="@dimen/width20"
             android:gravity="center"
             android:padding="10dip"
             android:text="@string/login_send_code"
@@ -277,14 +281,17 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@color/line"></View>
 
-    <TextView
+    <com.likeits.simple.view.BorderTextView
         android:id="@+id/tv_register"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_xxlarge"
         android:layout_marginLeft="@dimen/dip_xxlarge"
         android:layout_marginRight="@dimen/dip_xxlarge"
         android:layout_marginTop="28dip"
-        android:background="@drawable/shape_round_grey_bg_5"
+        app:contentBackColor="#999999"
+        app:strokeColor01="#999999"
+        app:strokeWidth01="1dp"
+        app:cornerRadius="@dimen/dp_5"
         android:gravity="center"
         android:padding="8dip"
         android:text="@string/login_register"

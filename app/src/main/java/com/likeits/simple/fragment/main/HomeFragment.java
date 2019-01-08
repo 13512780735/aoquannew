@@ -10,7 +10,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -55,7 +57,7 @@ import butterknife.BindView;
  */
 public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.ll_search)
-    LinearLayout mLLSearch;
+    RelativeLayout mLLSearch;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
@@ -222,6 +224,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         Typeface iconTypeface = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
 
         llSearchbg.setBackgroundColor(Color.parseColor(mainHomeSearchModel.getStyle().getBackground()));
+        String opacity=mainHomeSearchModel.getStyle().getOpacity();
+        int color= (int) Math.ceil(Double.valueOf(opacity)*255);
+        XLog.e("color-->"+color);
+        llSearchbg.getBackground().mutate().setAlpha(color);
         if ("".equals(mainHomeSearchModel.getParams().getSearchstyle())) {
             llSearch.setBackground(getActivity().getResources().getDrawable(R.drawable.shape_search_round_0));
         } else if ("round".equals(mainHomeSearchModel.getParams().getSearchstyle())) {
@@ -253,19 +259,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private boolean isErr;
     @Override
     public void onRefresh() {
-       // adapter.setEnableLoadMore(false);//禁止加载
         initData();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                // mAdapter.setNewData(data);
-//                initData();
-//                isErr = false;
-//                //    mCurrentCounter = PAGE_SIZE;
-//                // pageNum = 1;//页数置为1 才能继续重新加载
-//                mSwipeRefreshLayout.setRefreshing(false);
-//                adapter.setEnableLoadMore(true);//启用加载
-//            }
-//        }, 2000);
     }
 }

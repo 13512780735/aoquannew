@@ -11,13 +11,13 @@ import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
 import com.likeits.simple.network.model.member.MemberItemModel;
 import com.likeits.simple.utils.StringUtil;
+import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.CircleImageView;
-import com.likeits.simple.view.TextViewBorder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseViewHolder> {
     private TextView tvMessage, tvSet, tv_balance01, tv_balance, tv_integral01, tv_integral, tv_name, tv_vip;
-    private TextViewBorder tv_recharge, tv_exchange;
+    private BorderTextView tv_recharge, tv_exchange;
     private CircleImageView ivAvatar;
 
     @Override
@@ -83,8 +83,6 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
         }
 
 
-
-
     }
 
     private void initUI(MemberItemModel data) {
@@ -95,8 +93,8 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
         tvMessage.setTextSize(16);
         tvMessage.setText(StringUtil.decode("\\u" + "e6df"));
         tvSet.setText(StringUtil.decode("\\u" + "e68a"));
-        tv_recharge.setBorderColor(Color.parseColor(data.getStyle().getTextcolor()));
-        tv_exchange.setBorderColor(Color.parseColor(data.getStyle().getTextcolor()));
+        tv_recharge.setStrokeColor01(Color.parseColor(data.getStyle().getTextcolor()));
+        tv_exchange.setStrokeColor01(Color.parseColor(data.getStyle().getTextcolor()));
         ImageLoader.getInstance().displayImage(data.getData().getAvatar(), ivAvatar);
         tv_recharge.setText(data.getParams().getLeftnav());
         tv_exchange.setText(data.getParams().getRightnav());

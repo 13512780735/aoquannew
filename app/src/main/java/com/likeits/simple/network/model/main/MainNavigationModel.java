@@ -7,11 +7,13 @@ public class MainNavigationModel implements Serializable {
 
 
     /**
-     * style : {"iconcolor":"#008040","iconcoloron":"#999999"}
-     * items : [{"linkurl":"home","iconclass":"icox-warehouse-delivery","iconclasscode":"e87e","text":"商城首页"},{"linkurl":"goods","iconclass":"icox-category","iconclasscode":"e699","text":"全部商品"},{"linkurl":"commission","iconclass":"icox-favorite","iconclasscode":"e6a0","text":"分销中心"},{"linkurl":"cart","iconclass":"icox-cart","iconclasscode":"e698","text":"购物车"},{"linkurl":"member","iconclass":"icox-account","iconclasscode":"e6b8","text":"个人中心"}]
+     * style : {"iconcolor":"#c0c0c0","iconcoloron":"#5cf2ff"}
+     * items : [{"linkurl":"home","iconclass":"icox-home1","iconclasscode":"e6d8","text":"首页"},{"linkurl":"category","iconclass":"icox-category","iconclasscode":"e699","text":"分类"},{"linkurl":"notice","iconclass":"icox-notice","iconclasscode":"e771","text":"公告"},{"linkurl":"cart","iconclass":"icox-cart1","iconclasscode":"e6d0","text":"购物车"},{"linkurl":"member","iconclass":"icox-people","text":"我的","iconclasscode":"e798"}]
+     * adv : {"params":{"autoclose":"5"},"data":["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"]}
      */
 
     private StyleBean style;
+    private AdvBean adv;
     private List<ItemsBean> items;
 
     public StyleBean getStyle() {
@@ -20,6 +22,14 @@ public class MainNavigationModel implements Serializable {
 
     public void setStyle(StyleBean style) {
         this.style = style;
+    }
+
+    public AdvBean getAdv() {
+        return adv;
+    }
+
+    public void setAdv(AdvBean adv) {
+        this.adv = adv;
     }
 
     public List<ItemsBean> getItems() {
@@ -32,8 +42,8 @@ public class MainNavigationModel implements Serializable {
 
     public static class StyleBean {
         /**
-         * iconcolor : #008040
-         * iconcoloron : #999999
+         * iconcolor : #c0c0c0
+         * iconcoloron : #5cf2ff
          */
 
         private String iconcolor;
@@ -56,12 +66,54 @@ public class MainNavigationModel implements Serializable {
         }
     }
 
+    public static class AdvBean {
+        /**
+         * params : {"autoclose":"5"}
+         * data : ["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"]
+         */
+
+        private ParamsBean params;
+        private List<String> data;
+
+        public ParamsBean getParams() {
+            return params;
+        }
+
+        public void setParams(ParamsBean params) {
+            this.params = params;
+        }
+
+        public List<String> getData() {
+            return data;
+        }
+
+        public void setData(List<String> data) {
+            this.data = data;
+        }
+
+        public static class ParamsBean {
+            /**
+             * autoclose : 5
+             */
+
+            private String autoclose;
+
+            public String getAutoclose() {
+                return autoclose;
+            }
+
+            public void setAutoclose(String autoclose) {
+                this.autoclose = autoclose;
+            }
+        }
+    }
+
     public static class ItemsBean {
         /**
          * linkurl : home
-         * iconclass : icox-warehouse-delivery
-         * iconclasscode : e87e
-         * text : 商城首页
+         * iconclass : icox-home1
+         * iconclasscode : e6d8
+         * text : 首页
          */
 
         private String linkurl;

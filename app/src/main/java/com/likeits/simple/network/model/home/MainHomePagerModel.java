@@ -1,11 +1,9 @@
 package com.likeits.simple.network.model.home;
 
-import java.io.Serializable;
-
 public class MainHomePagerModel extends HomeMessage{
 
+
     /**
-     * type : 2
      * title : 大商云－首页
      * name : 商城首页
      * desc :
@@ -13,9 +11,9 @@ public class MainHomePagerModel extends HomeMessage{
      * background : #f3f3f3
      * titlebarbg : #ffffff
      * titlebarcolor : #000000
+     * showtitlebar : 0
      */
 
-    private String type;
     private String title;
     private String name;
     private String desc;
@@ -23,14 +21,7 @@ public class MainHomePagerModel extends HomeMessage{
     private String background;
     private String titlebarbg;
     private String titlebarcolor;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    private String showtitlebar;
 
     public String getTitle() {
         return title;
@@ -86,5 +77,13 @@ public class MainHomePagerModel extends HomeMessage{
 
     public void setTitlebarcolor(String titlebarcolor) {
         this.titlebarcolor = titlebarcolor;
+    }
+
+    public String getShowtitlebar() {
+        return showtitlebar;
+    }
+
+    public void setShowtitlebar(String showtitlebar) {
+        this.showtitlebar = showtitlebar;
     }
 }

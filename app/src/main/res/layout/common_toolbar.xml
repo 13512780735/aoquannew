@@ -70,6 +70,7 @@
             android:layout_gravity="center"
             android:src="@null"
             android:visibility="gone" />
+
     </LinearLayout>
 
 </RelativeLayout>

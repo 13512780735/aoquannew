@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <com.likeits.simple.view.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/width30"
+            android:layout_height="@dimen/width30"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_default_picture" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="xx" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="xx" />
+    </LinearLayout>
+
+    <com.likeits.simple.view.RatingBar
+        android:id="@+id/ratingbar"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        hedgehog:clickable="false"
+        hedgehog:halfstart="false"
+        hedgehog:starCount="5"
+        hedgehog:starEmpty="@mipmap/star_empty"
+        hedgehog:starFill="@mipmap/star_full"></com.likeits.simple.view.RatingBar>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="xxx" />
+
+    <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+        android:id="@+id/mRecyclerView01"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_reply_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEE"
+        android:orientation="vertical"
+        android:visibility="gone"
+       >
+
+        <TextView
+            android:id="@+id/tv_reply_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5" />
+
+        <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+            android:id="@+id/mRecyclerView02"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_append_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="用户追加评论"
+            android:textColor="@color/apply"
+            android:textSize="@dimen/txt_12" />
+
+        <TextView
+            android:id="@+id/tv_append_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5" />
+
+        <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+            android:id="@+id/mRecyclerView03"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_append_reply_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEE"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_append_reply_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5" />
+
+        <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+            android:id="@+id/mRecyclerView04"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+    </LinearLayout>
+</LinearLayout>

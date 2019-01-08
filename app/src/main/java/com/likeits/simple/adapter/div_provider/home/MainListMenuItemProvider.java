@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
 import com.likeits.simple.network.model.home.MainHomeListmenuModel;
+import com.likeits.simple.utils.IntentUtils;
 import com.likeits.simple.utils.StringUtil;
 
 import java.util.List;
@@ -45,7 +47,7 @@ public class MainListMenuItemProvider extends BaseItemProvider<MainHomeListmenuM
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, MainHomeListmenuModel.DataBean item) {
+        protected void convert(BaseViewHolder helper, final MainHomeListmenuModel.DataBean item) {
             LinearLayout linearLayout = helper.getView(R.id.listmenu_bg);
             Typeface iconTypeface = Typeface.createFromAsset(mContext.getAssets(), "iconfont.ttf");
             TextView tvLeftPic = helper.getView(R.id.tv_left_pic);
@@ -63,6 +65,14 @@ public class MainListMenuItemProvider extends BaseItemProvider<MainHomeListmenuM
             tvLeftTitle.setTextColor(Color.parseColor(styleBean.getTextcolor()));
             tvRightTitle.setTextColor(Color.parseColor(styleBean.getRemarkcolor()));
             linearLayout.setBackgroundColor(Color.parseColor(styleBean.getBackground()));
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String linkurl = item.getLinkurl();
+                    String id = item.getParams().getId();
+                    IntentUtils.intentTo(mContext, linkurl, id);
+                }
+            });
 
         }
     }

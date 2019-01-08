@@ -2,6 +2,7 @@ package com.likeits.simple.activity.login_register;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Selection;
@@ -24,6 +25,7 @@ import com.likeits.simple.listener.IEditTextChangeListener;
 import com.likeits.simple.network.util.RetrofitUtil;
 import com.likeits.simple.utils.EditTextSizeCheckUtil;
 import com.likeits.simple.utils.SharedPreferencesUtils;
+import com.likeits.simple.view.BorderTextView;
 
 import rx.Subscriber;
 
@@ -36,7 +38,7 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
 
 
     private TextView tv_relevance_forget_pwd;
-    private TextView tv_relevance;
+    private BorderTextView tv_relevance;
     private ToggleButton tb_re_pwd;
     private EditText et_pwd, et_phone;
     private String type;
@@ -72,10 +74,12 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_relevance.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
+                    tv_relevance.setContentColorResource01(Color.parseColor(theme_bg_tex));
+                    tv_relevance.setStrokeColor01(Color.parseColor(theme_bg_tex));
                     tv_relevance.setOnClickListener(RelevanceUserFragment.this);
                 } else {
-                    tv_relevance.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
+                    tv_relevance.setContentColorResource01(Color.parseColor("#999999"));
+                    tv_relevance.setStrokeColor01(Color.parseColor("#999999"));
                 }
             }
         });

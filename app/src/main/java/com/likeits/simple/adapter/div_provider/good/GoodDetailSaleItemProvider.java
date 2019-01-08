@@ -17,7 +17,7 @@ import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
 import com.likeits.simple.network.model.gooddetails.GoodDetailSaleItemModel;
 import com.likeits.simple.utils.SharedPreferencesUtils;
-import com.likeits.simple.view.TextViewBorder;
+import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.custom_scrollview.HorizontalPageLayoutManager;
 import com.likeits.simple.view.custom_scrollview.MyRecyclerView;
 import com.likeits.simple.view.custom_scrollview.PagingScrollHelper;
@@ -39,6 +39,7 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
     private GoodActivityAdapter mAdater_activity;
     private LinearLayout.LayoutParams linearParams;
     private int h_screen;
+    private GoodDetailSaleItemModel.DataBeanX.MemberpriceBean memberprice;
 
     @Override
     public int viewType() {
@@ -54,6 +55,7 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
     public void convert(BaseViewHolder helper, GoodDetailSaleItemModel data, int position) {
         boolean isseckill = SharedPreferencesUtils.getBoolean(mContext, "isseckill");
         styleBean = data.getStyle();
+        memberprice = data.getData().getMemberprice();
         activity = data.getData().getActivity();
         gifts = data.getData().getGifts();
         service = data.getData().getService();
@@ -64,6 +66,7 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
         LinearLayout ll_activity = helper.getView(R.id.ll_activity);
         LinearLayout ll_gifts = helper.getView(R.id.ll_gifts);
         LinearLayout ll_service = helper.getView(R.id.ll_service);
+        LinearLayout ll_vip = helper.getView(R.id.ll_vip);
         if (isseckill) {
             ll_gifts.setVisibility(View.GONE);
             ll_activity.setVisibility(View.GONE);
@@ -94,6 +97,22 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
         } else {
             ll_coupons.setVisibility(View.GONE);
         }
+        if (memberprice != null) {
+            ll_vip.setVisibility(View.VISIBLE);
+            TextView tv_vip_title = helper.getView(R.id.tv_vip_title);
+            TextView tv_vip_content = helper.getView(R.id.tv_vip_content);
+            BorderTextView tv_title01 = helper.getView(R.id.tv_title01);
+            tv_vip_title.setText("会员");
+            tv_vip_title.setTextColor(Color.parseColor(styleBean.getTextcolor()));
+            tv_title01.setStrokeColor01(Color.parseColor(styleBean.getTextcolor()));
+            tv_title01.setStrokeWidth(2);
+            tv_title01.setTextColor(Color.parseColor(styleBean.getTextcolor()));
+            tv_title01.setText(memberprice.getTitle());
+            String content = String.format(memberprice.getAndroid_content());
+            tv_vip_content.setText(Html.fromHtml(content));
+        } else {
+            ll_vip.setVisibility(View.GONE);
+        }
         if (activity != null) {
             //活动
             TextView tv_activity_title = helper.getView(R.id.tv_activity_title);
@@ -111,7 +130,7 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
         } else {
             ll_activity.setVisibility(View.GONE);
         }
-        if (gifts != null) {
+        if (gifts.getData() != null) {
             TextView tv_gifts_title = helper.getView(R.id.tv_gifts_title);
             TextView tv_gifts_content = helper.getView(R.id.tv_gifts_content);
             tv_gifts_title.setText("赠品");
@@ -122,7 +141,7 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
         } else {
             ll_gifts.setVisibility(View.GONE);
         }
-        if (service != null) {
+        if (service.getLabellist() != null) {
             final LayoutInflater mInflater = LayoutInflater.from(mContext);
             final TagFlowLayout mFlowLayout = helper.getView(R.id.id_flowlayout);
             mFlowLayout.setMaxSelectCount(0);
@@ -132,7 +151,7 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
                 public View getView(FlowLayout parent, int position, String s) {
                     TextView tv = (TextView) mInflater.inflate(R.layout.good_service_items,
                             mFlowLayout, false);
-                     tv.setText(s);
+                    tv.setText(s);
                     return tv;
                 }
             });
@@ -151,10 +170,10 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
 
         @Override
         protected void convert(BaseViewHolder helper, GoodDetailSaleItemModel.DataBeanX.ActivityBean item) {
-            TextViewBorder tvTitle = helper.getView(R.id.tv_title);
+            BorderTextView tvTitle = helper.getView(R.id.tv_title);
             TextView tvContent = helper.getView(R.id.tv_content);
-            tvTitle.setBorderColor(Color.parseColor(styleBean.getTextcolor()));
-            tvTitle.setBorderWidth(2);
+            tvTitle.setStrokeColor01(Color.parseColor(styleBean.getTextcolor()));
+            tvTitle.setStrokeWidth(2);
             tvTitle.setTextColor(Color.parseColor(styleBean.getTextcolor()));
             tvTitle.setText(item.getTitle());
             String content = String.format(item.getAndroid_content());
@@ -173,7 +192,8 @@ public class GoodDetailSaleItemProvider extends BaseItemProvider<GoodDetailSaleI
 
         @Override
         protected void convert(BaseViewHolder helper, GoodDetailSaleItemModel.DataBeanX.CouponsBean item) {
-            TextView tvPrice = helper.getView(R.id.tv_coupons_price);
+            BorderTextView tvPrice = helper.getView(R.id.tv_coupons_price);
+            tvPrice.setStrokeWidth(2);
             tvPrice.setBackgroundColor(Color.parseColor(styleBean.getTextcolorhigh()));
             boolean backpre = item.isBackpre();
             String backtype = item.getBacktype();

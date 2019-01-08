@@ -111,18 +111,17 @@
                     android:text="xxx"
                     android:textSize="@dimen/txt_10" />
 
-                <com.likeits.simple.view.TextViewBorder
+                <com.likeits.simple.view.BorderTextView
                     android:id="@+id/tv_buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    app:cornerRadius="@dimen/dp_5"
+                    app:strokeWidth01="1dp"
                     android:padding="@dimen/dp_4"
                     android:text="购买"
-                    android:backgroundTintMode="src_over"
-                    android:backgroundTint="@color/text_red"
-                    android:background="@drawable/shape_search_round_5"
-                    app:tvborderColor="@color/text_red" />
+                  />
 
 
             </RelativeLayout>

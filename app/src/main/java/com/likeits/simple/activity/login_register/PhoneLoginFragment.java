@@ -2,6 +2,7 @@ package com.likeits.simple.activity.login_register;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,13 +19,14 @@ import com.likeits.simple.constants.Constants;
 import com.likeits.simple.listener.IEditTextChangeListener;
 import com.likeits.simple.utils.AppManager;
 import com.likeits.simple.utils.EditTextSizeCheckUtil;
+import com.likeits.simple.view.BorderTextView;
 
 import static com.likeits.simple.Interface.BaseInterface.KEY_FRAGMENT;
 
 public class PhoneLoginFragment extends BaseFragment implements View.OnClickListener {
 
 
-    private TextView tvLogin;
+    private BorderTextView tvLogin;
     private TextView tvLoginWechat, tvLoginQQ;
     private EditText et_phone, et_code;
 
@@ -50,10 +52,12 @@ public class PhoneLoginFragment extends BaseFragment implements View.OnClickList
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tvLogin.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
+                    tvLogin.setContentColorResource01(Color.parseColor(theme_bg_tex));
+                    tvLogin.setStrokeColor01(Color.parseColor(theme_bg_tex));
                     tvLogin.setOnClickListener(PhoneLoginFragment.this);
                 } else {
-                    tvLogin.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
+                    tvLogin.setContentColorResource01(Color.parseColor("#999999"));
+                    tvLogin.setStrokeColor01(Color.parseColor("#999999"));
                 }
             }
         });

@@ -8,8 +8,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
 import com.likeits.simple.network.model.gooddetails.GoodDetailShopItemModel;
+import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.RatioImageView;
-import com.likeits.simple.view.TextViewBorder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GoodDetailShopItemProvider extends BaseItemProvider<GoodDetailShopItemModel, BaseViewHolder> {
@@ -29,7 +29,7 @@ public class GoodDetailShopItemProvider extends BaseItemProvider<GoodDetailShopI
         LinearLayout ll_good_details_shop = helper.getView(R.id.ll_good_details_shop);
         TextView tv_shopname = helper.getView(R.id.tv_shopname);
         TextView tv_shopdesc = helper.getView(R.id.tv_shopdesc);
-        TextViewBorder rightnavtext = helper.getView(R.id.rightnavtext);
+        BorderTextView rightnavtext = helper.getView(R.id.rightnavtext);
         ImageLoader.getInstance().displayImage(data.getData().getMerch().getLogo(), ivLogo);
         tv_shopname.setText(data.getData().getMerch().getShopname());
         tv_shopdesc.setText(data.getData().getMerch().getDescription());
@@ -38,6 +38,6 @@ public class GoodDetailShopItemProvider extends BaseItemProvider<GoodDetailShopI
         tv_shopname.setTextColor(Color.parseColor(data.getStyle().getShopnamecolor()));
         tv_shopdesc.setTextColor(Color.parseColor(data.getStyle().getShopdesccolor()));
         rightnavtext.setTextColor(Color.parseColor(data.getStyle().getRightnavcolor()));
-        rightnavtext.setBorderColor(Color.parseColor(data.getStyle().getRightnavcolor()));
+        rightnavtext.setStrokeColor01(Color.parseColor(data.getStyle().getRightnavcolor()));
     }
 }

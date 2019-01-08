@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/ll_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -46,7 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+     >
 
         <TextView
             android:id="@+id/tv_vip_title"
@@ -54,6 +56,25 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10" />
 
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_title01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="center_vertical"
+            app:cornerRadius="@dimen/dp_5"
+            android:layout_gravity="center_vertical"
+            app:strokeWidth01="1dp"
+            android:padding="@dimen/dp_4"
+            android:text="xxxx"
+            />
+
+        <TextView
+            android:id="@+id/tv_vip_content"
+            android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -63,7 +84,7 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:background="@color/line"
-        android:visibility="gone"></View>
+      ></View>
 
     <LinearLayout
         android:id="@+id/ll_activity"

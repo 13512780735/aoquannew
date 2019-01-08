@@ -2,6 +2,7 @@ package com.likeits.simple.activity.login_register;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.likeits.simple.activity.FrameActivity;
 import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.constants.Constants;
 import com.likeits.simple.utils.SharedPreferencesUtils;
+import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -26,8 +28,8 @@ import static com.likeits.simple.Interface.BaseInterface.KEY_FRAGMENT;
 public class ThirdLoginFragment extends BaseFragment implements View.OnClickListener {
 
 
-    private TextView tv_relevance;
-    private TextView tv_register_quick;
+    private BorderTextView tv_relevance;
+    private BorderTextView tv_register_quick;
     private CircleImageView iv_avatar;
     private String avatarUrl;
 
@@ -50,6 +52,11 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
         setTitle("联合登录");
         tv_register_quick = findView(R.id.tv_register_quick);
         tv_relevance = findView(R.id.tv_relevance);
+        tv_register_quick.setContentColorResource01(Color.parseColor(theme_bg_tex));
+        tv_register_quick.setStrokeColor01(Color.parseColor(theme_bg_tex));
+        tv_relevance.setContentColorResource01(Color.parseColor("#FFFFFF"));
+        tv_relevance.setStrokeColor01(Color.parseColor(theme_bg_tex));
+        tv_relevance.setTextColor(Color.parseColor(theme_bg_tex));
         iv_avatar = findView(R.id.iv_avatar);
       //  LogUtils.d("avatarUrl-->"+avatarUrl);
         ImageLoader.getInstance().displayImage(avatarUrl, iv_avatar);

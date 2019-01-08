@@ -2,6 +2,7 @@ package com.likeits.simple.activity.login_register;
 
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.likeits.simple.R;
 import com.likeits.simple.base.BaseFragment;
+import com.likeits.simple.view.BorderTextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +22,7 @@ import com.likeits.simple.base.BaseFragment;
 public class RegisterProtocolFragment extends BaseFragment {
 
 
-    private TextView tv_confirm;
+    private BorderTextView tv_confirm;
     private WebView mWebView;
 
     public static RegisterProtocolFragment newInstance() {
@@ -35,6 +37,8 @@ public class RegisterProtocolFragment extends BaseFragment {
         setBackView();
         setTitle("注册协议");
         tv_confirm = findView(R.id.tv_confirm);
+        tv_confirm.setContentColorResource01(Color.parseColor(theme_bg_tex));
+        tv_confirm.setStrokeColor01(Color.parseColor(theme_bg_tex));
         mWebView = findView(R.id.webView);
         mWebView.loadUrl("file:///android_asset/Registeragreement.html");
         mWebView.setWebViewClient(new WebViewClient() {

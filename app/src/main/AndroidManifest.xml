@@ -23,9 +23,7 @@
             android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.login_register.LoginActivity">
-
-        </activity>
+        <activity android:name=".activity.login_register.LoginActivity" />
         <activity android:name=".activity.detail.GoodDetailActivity" />
         <activity android:name=".activity.FrameActivity" />
         <activity android:name=".activity.login_register.WelcomeActivity">
@@ -34,8 +32,42 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 支付宝支付调用 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.good.GoodListActivity" />
+        <activity android:name=".activity.cart.ConfirmOrderActivity" />
+        <activity android:name=".adapter.div_provider.Custom.CustomActivity" />
+        <activity android:name=".activity.login_register.GuideActivity" />
+        <activity android:name=".activity.cart.SelectAddressActivity" />
+        <activity android:name=".wxapi.PayActivity" />
+        <activity android:name=".wxapi.WXPayEntryActivity" />
+        <activity android:name=".activity.cart.EditAddressActivity" />
+        <activity android:name=".view.photoview.ViewPagerActivity" />
+        <activity android:name=".activity.indent.GoodsIndentActivity" />
+        <activity android:name=".activity.indent.IndentDetailsActivity" />
+        <activity android:name=".activity.indent.IndentAppraiseActivity" />
+        <activity android:name=".activity.indent.AfterSaleActivity" />
+        <activity android:name=".activity.user.FootprintActivity" />
+        <activity android:name=".activity.user.GoodsAttentionActivity"></activity>
     </application>
 
 </manifest>

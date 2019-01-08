@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--<com.likeits.simple.view.tablayout.widget.CommonTabLayout-->
+    <!--android:id="@+id/mTabLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/width70"-->
+    <!--android:layout_gravity="bottom|center"-->
+    <!--android:background="#ffffff"-->
+    <!--tl:tl_iconHeight="23dp"-->
+    <!--tl:tl_iconWidth="23dp"-->
+    <!--tl:tl_indicator_color="#2C97DE"-->
+    <!--tl:tl_indicator_height="0dp"-->
+    <!--tl:tl_textSelectColor="#2C97DE"-->
+    <!--tl:tl_textUnselectColor="#66000000"-->
+    <!--tl:tl_textsize="@dimen/txt_13"-->
+    <!--tl:tl_underline_color="#DDDDDD"-->
+    <!--/>-->
+
+    <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width80"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+</LinearLayout>

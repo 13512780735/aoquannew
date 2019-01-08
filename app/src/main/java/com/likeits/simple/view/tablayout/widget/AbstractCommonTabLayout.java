@@ -241,7 +241,7 @@ public abstract class AbstractCommonTabLayout extends AppCompatActivity {
     /**
      * viewpage 适配器
      */
-    private class CommonPagerAdapter extends FragmentPagerAdapter {
+    public class CommonPagerAdapter extends FragmentPagerAdapter {
         public CommonPagerAdapter(FragmentManager fm) {
             super(fm);
         }

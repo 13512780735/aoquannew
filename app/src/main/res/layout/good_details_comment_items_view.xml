@@ -43,6 +43,11 @@
         android:paddingRight="@dimen/dp_10"
         android:text=""
         android:textColor="@color/black" />
+    <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+
 
     <View
         android:layout_width="match_parent"

@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.login_register.LoginActivity">
 
     <FrameLayout
+        android:id="@+id/ll_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:background="@color/app_base_color">
@@ -153,20 +155,23 @@
 
         </LinearLayout>
 
-        <TextView
+        <com.likeits.simple.view.BorderTextView
             android:id="@+id/tv_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dip_xxlarge"
             android:layout_marginLeft="@dimen/dip_large"
             android:layout_marginRight="@dimen/dip_large"
             android:layout_marginTop="20dip"
-            android:background="@drawable/shape_round_grey_bg_5"
+            app:contentBackColor="#999999"
+            app:strokeColor01="#999999"
+            app:strokeWidth01="1dp"
+            app:cornerRadius="@dimen/dp_5"
             android:gravity="center"
             android:padding="8dip"
             android:text="@string/login_login"
             android:textColor="@color/white" />
 
-        <TextView
+        <com.likeits.simple.view.BorderTextView
             android:id="@+id/tv_register"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dip_xxlarge"
@@ -174,7 +179,10 @@
             android:layout_marginLeft="@dimen/dip_large"
             android:layout_marginRight="@dimen/dip_large"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_button_blue_border_bg_1"
+            app:contentBackColor="#999999"
+            app:strokeColor01="#999999"
+            app:strokeWidth01="1dp"
+            app:cornerRadius="@dimen/dp_5"
             android:gravity="center"
             android:padding="8dip"
             android:text="@string/login_register"

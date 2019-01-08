@@ -1,6 +1,8 @@
 package com.likeits.simple.adapter.div_provider.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +12,20 @@ import android.widget.LinearLayout;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
+import com.likeits.simple.adapter.div_provider.Custom.CustomActivity;
 import com.likeits.simple.network.model.home.MainHomeBannerModel;
+import com.likeits.simple.utils.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainBannerItemProvider extends BaseItemProvider<MainHomeBannerModel, BaseViewHolder> {
+public class MainBannerItemProvider extends BaseItemProvider<MainHomeBannerModel, BaseViewHolder> implements OnItemClickListener {
     private ConvenientBanner mBanner;
     List<MainHomeBannerModel.DataBean> adList;
     private List<MainHomeBannerModel.DataBean> networkImage = new ArrayList<>();
@@ -61,7 +66,21 @@ public class MainBannerItemProvider extends BaseItemProvider<MainHomeBannerModel
             public NetworkImageHolderView createHolder() {
                 return new NetworkImageHolderView();
             }
-        }, adList).setPageIndicator(new int[]{R.drawable.indicator_gray, R.drawable.indicator_red}).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).setScrollDuration(1500);
+        }, adList).setPageIndicator(new int[]{R.drawable.indicator_gray, R.drawable.indicator_red}).setOnItemClickListener(this).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).setScrollDuration(1500);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        String id = adList.get(position).getParams().getId();
+        String linkUrl=adList.get(position).getLinkurl();
+//        Intent intent = new Intent(mContext, CustomActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("id", id);
+//        intent.putExtras(bundle);
+//        mContext.startActivity(intent);
+        IntentUtils.intentTo(mContext,linkUrl,id);
+
+
     }
 
     public class NetworkImageHolderView implements Holder<MainHomeBannerModel.DataBean> {
@@ -80,16 +99,4 @@ public class MainBannerItemProvider extends BaseItemProvider<MainHomeBannerModel
         }
     }
 
-    @Override
-    public void onClick(BaseViewHolder helper, MainHomeBannerModel data, int position) {
-        //单击事件
-        //Toast.makeText(mContext, "Click: " + data.imgUrl, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public boolean onLongClick(BaseViewHolder helper, MainHomeBannerModel data, int position) {
-        //长按事件
-        // Toast.makeText(mContext, "longClick: " + data.imgUrl, Toast.LENGTH_SHORT).show();
-        return true;
-    }
 }

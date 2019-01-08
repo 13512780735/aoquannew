@@ -10,23 +10,11 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <TextView
-        android:id="@+id/tv01"
+    <WebView
+        android:id="@+id/web"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <cn.iwgang.countdownview.CountdownView
-        android:id="@+id/cv_countdownView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:isHideTimeBackground="false"
-        app:isShowDay="false"
-        app:isShowHour="true"
-        app:isShowMillisecond="false"
-        app:isShowMinute="true"
-        app:timeBgColor="@color/text_red"
-        app:isShowSecond="true"
-        app:timeTextColor="#FFFFFF" />
+        android:layout_height="match_parent"
+        />
 
 
 

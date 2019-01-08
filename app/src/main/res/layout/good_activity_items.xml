@@ -6,16 +6,17 @@
     android:layout_height="@dimen/width40"
     android:orientation="horizontal">
 
-    <com.likeits.simple.view.TextViewBorder
+    <com.likeits.simple.view.BorderTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/shape_search_round_10"
         android:gravity="center_vertical"
+        app:cornerRadius="@dimen/dp_5"
+        app:strokeWidth01="1dp"
         android:padding="@dimen/dp_4"
         android:text="xxxx"
-        app:tvborderColor="@color/text_red" />
+        />
 
     <TextView
         android:id="@+id/tv_content"

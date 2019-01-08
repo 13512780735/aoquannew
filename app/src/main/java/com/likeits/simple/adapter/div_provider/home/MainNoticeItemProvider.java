@@ -13,6 +13,7 @@ import com.likeits.simple.R;
 import com.likeits.simple.adapter.notice.MarqueeViewAdapter;
 import com.likeits.simple.fragment.main.NoticeDetailDialog;
 import com.likeits.simple.network.model.home.MainHomeNoticeModel;
+import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.HorizontalTextview;
 import com.likeits.simple.view.xmarqueeview.XMarqueeView;
 
@@ -47,8 +48,7 @@ public class MainNoticeItemProvider extends BaseItemProvider<MainHomeNoticeModel
         // marqueeviewone.setAdapter(marqueeViewAdapter);}
         // marqueeviewone.setAdapter(new MarqueeViewAdapter(data1, mContext));
         marqueeviewone.stopFlipping();
-        TextView tvTitle = helper.getView(R.id.tv_title);
-        LinearLayout rlTitle = helper.getView(R.id.rl_title);
+        BorderTextView tvTitle = helper.getView(R.id.tv_title);
         LinearLayout llNotice = helper.getView(R.id.ll_notice);
         RelativeLayout rlNotice = helper.getView(R.id.rlNotice);
         HorizontalTextview tvNotice = helper.getView(R.id.tv_notice);
@@ -68,8 +68,10 @@ public class MainNoticeItemProvider extends BaseItemProvider<MainHomeNoticeModel
         tvNotice.setSelected(true);
         tvNotice.setText(data1.get(0).getTitle());
         tvNotice.setTextColor(Color.parseColor(data.getStyle().getColor()));
+        String color1=data.getStyle().getColor();
+        String color = color1.substring(1, color1.length());
+        tvTitle.setContentColorResource01(Color.parseColor("#" + "80" + color));
         llNotice.setBackgroundColor(Color.parseColor(data.getStyle().getBackground()));
-        rlTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(data.getStyle().getIconcolor())));
         //  rlTitle.setBackgroundTintList(ColorStateList.valueOf(Color.p(0)));
         tvTitle.setText(data.getParams().getDesc());
 

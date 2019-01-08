@@ -39,8 +39,6 @@ public class GoodDetailsSpecItemProvider extends BaseItemProvider<GoodDetailSpec
         //  String json = data.getData().getSpec().toString();
         product = new Gson().fromJson(product1, new TypeToken<Product>() {
         }.getType());
-        //   product = new Gson().fromJson(data.getData().getSpec().toString(), new TypeToken<Product>() {
-        //    }.getType());
         ll_sales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +46,9 @@ public class GoodDetailsSpecItemProvider extends BaseItemProvider<GoodDetailSpec
                 showSkuDialog();
             }
         });
+        //   product = new Gson().fromJson(data.getData().getSpec().toString(), new TypeToken<Product>() {
+        //    }.getType());
+
     }
 
 
@@ -57,7 +58,6 @@ public class GoodDetailsSpecItemProvider extends BaseItemProvider<GoodDetailSpec
             dialog.setData(product, new ProductSkuDialog.Callback() {
                 @Override
                 public void onAdded(Sku sku, int quantity) {
-                    Log.d("Sku-->", sku + "quantity-->" + quantity);
                     if (sku == null) {
                         mTvSales.setText("数量：" + quantity);
                     } else {

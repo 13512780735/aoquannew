@@ -1,6 +1,7 @@
 package com.likeits.simple.activity.login_register;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import com.likeits.simple.utils.EditTextSizeCheckUtil;
 import com.likeits.simple.utils.SharedPreferencesUtils;
 import com.likeits.simple.utils.StringUtil;
 import com.likeits.simple.utils.ToastUtils;
+import com.likeits.simple.view.BorderTextView;
 
 import rx.Subscriber;
 
@@ -35,8 +37,8 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
     EditText et_pwd;
     EditText et_pwd_confirm, et_phone, et_code;
     ToggleButton tb_re_pwd_confirm;
-    private TextView tv_confirm;
-    private TextView tvSendCode;
+    private BorderTextView tv_confirm;
+    private BorderTextView tvSendCode;
     private String mobile;
     TimeCount time = new TimeCount(60000, 1000);
     private String pwd;
@@ -123,7 +125,7 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void ChangePwd(final String pwd) {
-        RetrofitUtil.getInstance().UserChangePwd(mobile, pwd, code,  new Subscriber<BaseResponse<EmptyEntity>>() {
+        RetrofitUtil.getInstance().UserChangePwd(mobile, pwd, code, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
 
@@ -171,16 +173,22 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
         tb_re_pwd_confirm = findView(R.id.tb_re_pwd_confirm);
         tv_confirm = findView(R.id.tv_confirm);
         tvSendCode.setOnClickListener(this);
+        tvSendCode.setContentColorResource01(Color.parseColor("#FFFFFF"));
+        tvSendCode.setStrokeColor01(Color.parseColor(theme_bg_tex));
+        tvSendCode.setTextColor(Color.parseColor(theme_bg_tex));
         EditTextSizeCheckUtil.textChangeListener textChangeListener = new EditTextSizeCheckUtil.textChangeListener(tv_confirm);
         textChangeListener.addAllEditText(et_pwd, et_pwd_confirm, et_phone, et_code);
         EditTextSizeCheckUtil.setChangeListener(new IEditTextChangeListener() {
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_confirm.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
+                    //   tv_confirm.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
+                    tv_confirm.setContentColorResource01(Color.parseColor(theme_bg_tex));
+                    tv_confirm.setStrokeColor01(Color.parseColor(theme_bg_tex));
                     tv_confirm.setOnClickListener(ForgetPwdFragment.this);
                 } else {
-                    tv_confirm.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
+                    tv_confirm.setContentColorResource01(Color.parseColor("#999999"));
+
                 }
             }
         });

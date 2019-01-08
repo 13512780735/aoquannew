@@ -1,8 +1,11 @@
 package com.likeits.simple.adapter.div_provider.good;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -10,14 +13,23 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
+import com.likeits.simple.adapter.comment.GoodCommentListAdapter;
 import com.likeits.simple.network.model.gooddetails.GoodDetailCommentItemModel;
 import com.likeits.simple.view.RatingBar;
+import com.likeits.simple.view.custom_scrollview.HorizontalPageLayoutManager;
 import com.likeits.simple.view.custom_scrollview.MyRecyclerView;
+import com.likeits.simple.view.custom_scrollview.PagingScrollHelper;
+import com.likeits.simple.view.photoview.ViewPagerActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoodDetailCommentItemProvider extends BaseItemProvider<GoodDetailCommentItemModel, BaseViewHolder> {
     private List<GoodDetailCommentItemModel.DataBean.CommentBean.ListBean> listBean;
+    private GoodCommentList01Adapter mAdapter;
+    private HorizontalPageLayoutManager horizontalPageLayoutManager;
+    PagingScrollHelper scrollHelper = new PagingScrollHelper();
 
     @Override
     public int viewType() {
@@ -54,9 +66,10 @@ public class GoodDetailCommentItemProvider extends BaseItemProvider<GoodDetailCo
 
         @Override
         protected void convert(BaseViewHolder helper, GoodDetailCommentItemModel.DataBean.CommentBean.ListBean item) {
+            final ArrayList<String> images = (ArrayList<String>) item.getImages();
             TextView tv_content = helper.getView(R.id.tv_content);
             TextView tv_time = helper.getView(R.id.tv_time);
-           RatingBar mRatingBar = helper.getView(R.id.ratingbar);
+            RatingBar mRatingBar = helper.getView(R.id.ratingbar);
             tv_content.setText(item.getContent());
             tv_time.setText("用户 " + item.getNickname() + "  " + item.getCreatetime());
             mRatingBar.setStarEmptyDrawable(mContext.getResources().getDrawable(R.mipmap.star_empty));
@@ -76,6 +89,47 @@ public class GoodDetailCommentItemProvider extends BaseItemProvider<GoodDetailCo
                         }
                     }
             );
+
+            MyRecyclerView mRecyclerView01 = helper.getView(R.id.mRecyclerView);
+            if (images != null) {
+                mAdapter = new GoodCommentList01Adapter(R.layout.coment_list_image_items, images);
+                mRecyclerView01.setHasFixedSize(true);
+                horizontalPageLayoutManager = new HorizontalPageLayoutManager(1, 5);
+                //滚动adapter
+                mRecyclerView01.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+                scrollHelper.setUpRecycleView(mRecyclerView01);
+                RecyclerView.LayoutManager layoutManager = null;
+                layoutManager = horizontalPageLayoutManager;
+                if (layoutManager != null) {
+                    mRecyclerView01.setLayoutManager(layoutManager);
+                    scrollHelper.updateLayoutManger();
+                }
+            } else {
+                mRecyclerView01.setVisibility(View.GONE);
+            }
+            mAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    //  Bundle bundle=new Bundle();
+                    //  bundle.putParcelableArrayList("items",images);
+                    Intent intent=new Intent(mContext, ViewPagerActivity.class);
+                    intent.putStringArrayListExtra("items",images);
+                    intent.putExtra("currentPosition",position);
+                    mContext.startActivity(intent);
+                }
+            });
+        }
+    }
+
+    public class GoodCommentList01Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
+        public GoodCommentList01Adapter(int layoutResId, List<String> data) {
+            super(R.layout.coment_list_image_items, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            ImageLoader.getInstance().displayImage(item, (ImageView) helper.getView(R.id.iv_pic));
         }
     }
 }

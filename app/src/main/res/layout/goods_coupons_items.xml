@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <com.likeits.simple.view.BorderTextView
         android:id="@+id/tv_coupons_price"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,6 +12,8 @@
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/dp_5"
         android:gravity="center"
+        app:cornerRadius="@dimen/dp_5"
+        app:strokeWidth01="1dp"
         android:text="xxx"
         android:textColor="@color/white" />
 </RelativeLayout>

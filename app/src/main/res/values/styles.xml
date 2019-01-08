@@ -104,4 +104,9 @@
     <style name="mycheckbox1" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/register_check</item>
     </style>
+    <!--地址默认-->
+    <style name="mycheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/address_check</item>
+    </style>
+
 </resources>

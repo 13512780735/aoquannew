@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -18,8 +19,8 @@ import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
 import com.likeits.simple.activity.detail.GoodDetailActivity;
 import com.likeits.simple.network.model.home.MainHomeGoodModel;
+import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.RatioImageView;
-import com.likeits.simple.view.TextViewBorder;
 import com.likeits.simple.view.custom_scrollview.HorizontalPageLayoutManager;
 import com.likeits.simple.view.custom_scrollview.PagingScrollHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -81,7 +82,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
                 mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        Intent intent=new Intent(mContext, GoodDetailActivity.class);
+                        Intent intent = new Intent(mContext, GoodDetailActivity.class);
                         mContext.startActivity(intent);
                     }
                 });
@@ -163,7 +164,14 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent=new Intent(mContext, GoodDetailActivity.class);
+//                Intent intent=new Intent(mContext, GoodDetailActivity.class);
+//                mContext.startActivity(intent);
+
+                String cid = dataBean.get(position).getGid();
+                Intent intent = new Intent(mContext, GoodDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", cid);
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
         });
@@ -188,7 +196,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
             TextView tv_price02 = helper.getView(R.id.tv_price02);//原价价格
             TextView tv_sales = helper.getView(R.id.tv_sales);//销量
             TextView tv_price = helper.getView(R.id.tv_price);//新价格
-            TextViewBorder tv_buy = helper.getView(R.id.tv_buy);//购买按钮
+            BorderTextView tv_buy = helper.getView(R.id.tv_buy);//购买按钮
             if (columns == 1 || columns == 2) {
                 tvTitle.setTextSize(13);
                 tv_price01.setTextSize(12);
@@ -226,15 +234,15 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
             tv_sales.setText(paramsBean.getSalestext() + ": " + item.getSales());
             tv_price.setText("¥ " + item.getPrice());
             tv_buy.setText(styleBean.getBuytext());
-            String buystyle=styleBean.getBuystyle();
-            if("buybtn-1".equals(buystyle)){
-                tv_buy.setBorderColor(Color.parseColor(styleBean.getBuybtncolor()));
+            String buystyle = styleBean.getBuystyle();
+            if ("buybtn-1".equals(buystyle)) {
+                tv_buy.setStrokeColor01(Color.parseColor(styleBean.getBuybtncolor()));
                 tv_buy.setTextColor(Color.parseColor(styleBean.getBuybtncolor()));
-                tv_buy.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-            }else if("buybtn-2".equals(buystyle)){
-                tv_buy.setBorderColor(Color.parseColor("#00000000"));
+                tv_buy.setContentColorResource01(Color.parseColor("#FFFFFF"));
+            } else if ("buybtn-2".equals(buystyle)) {
+                tv_buy.setStrokeColor01(Color.parseColor("#00000000"));
                 tv_buy.setTextColor(Color.parseColor("#FFFFFF"));
-                tv_buy.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(styleBean.getBuybtncolor())));
+                tv_buy.setContentColorResource01(Color.parseColor(styleBean.getBuybtncolor()));
             }
             tv_price.setTextColor(Color.parseColor(styleBean.getPricecolor()));
             tv_price01.setTextColor(Color.parseColor(styleBean.getProductpricecolor()));
@@ -263,7 +271,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
             TextView tv_price02 = helper.getView(R.id.tv_price02);//原价价格
             TextView tv_sales = helper.getView(R.id.tv_sales);//销量
             TextView tv_price = helper.getView(R.id.tv_price);//新价格
-            TextViewBorder tv_buy = helper.getView(R.id.tv_buy);//购买按钮
+            BorderTextView tv_buy = helper.getView(R.id.tv_buy);//购买按钮
             if (columns == 1 || columns == 2) {
                 tvTitle.setTextSize(13);
                 tv_price01.setTextSize(12);
@@ -302,15 +310,15 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
             tv_price.setText("¥ " + item.getPrice());
             tv_buy.setText(styleBean.getBuytext());
             tvTitle.setTextColor(Color.parseColor(styleBean.getTitlecolor()));
-            String buystyle=styleBean.getBuystyle();
-            if("buybtn-1".equals(buystyle)){
-                tv_buy.setBorderColor(Color.parseColor(styleBean.getBuybtncolor()));
+            String buystyle = styleBean.getBuystyle();
+            if ("buybtn-1".equals(buystyle)) {
+                tv_buy.setStrokeColor01(Color.parseColor(styleBean.getBuybtncolor()));
                 tv_buy.setTextColor(Color.parseColor(styleBean.getBuybtncolor()));
-                tv_buy.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-            }else if("buybtn-2".equals(buystyle)){
-                tv_buy.setBorderColor(Color.parseColor("#00000000"));
+                tv_buy.setContentColorResource01(Color.parseColor("#FFFFFF"));
+            } else if ("buybtn-2".equals(buystyle)) {
+                tv_buy.setStrokeColor01(Color.parseColor("#00000000"));
                 tv_buy.setTextColor(Color.parseColor("#FFFFFF"));
-                tv_buy.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(styleBean.getBuybtncolor())));
+                tv_buy.setContentColorResource01(Color.parseColor(styleBean.getBuybtncolor()));
             }
             tv_price.setTextColor(Color.parseColor(styleBean.getPricecolor()));
             tv_price01.setTextColor(Color.parseColor(styleBean.getProductpricecolor()));

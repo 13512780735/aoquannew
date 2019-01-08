@@ -1,13 +1,25 @@
 package com.likeits.simple.fragment.goods;
 
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.view.KeyEvent;
+import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.likeits.simple.R;
 import com.likeits.simple.base.BaseFragment;
+import com.likeits.simple.utils.SharedPreferencesUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import cn.iwgang.countdownview.CountdownView;
@@ -17,10 +29,11 @@ import cn.iwgang.countdownview.DynamicConfig;
  * A simple {@link Fragment} subclass.
  */
 public class GoodDetail02Fragment extends BaseFragment {
-    @BindView(R.id.tv01)
-    TextView tv;
-    @BindView(R.id.cv_countdownView)
-    CountdownView cv_countdownView;
+    @BindView(R.id.web)
+    WebView mWebView;
+    private WebSettings mWebSettings;
+    private String goodData;
+    private JSONObject goods;
 
     @Override
     protected int setContentView() {
@@ -29,27 +42,84 @@ public class GoodDetail02Fragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        //   String test = "前面的部分<font color='#ff0000'>关键字</font>后面的部分";
-       ; String test = String.format("<font color='#8000ff'>全场满<font color='#ff0080'>¥200</font>立减<font color='#8000ff'>¥10</font></font>");
-    //   ColorPicker picker = new ColorPicker(getActivity());
-        DynamicConfig dynamicConfig = new DynamicConfig.Builder().setBackgroundInfo(new DynamicConfig.BackgroundInfo().setColor(Color.parseColor("#000000"))).build();
-        cv_countdownView.dynamicShow(dynamicConfig);
-        cv_countdownView.start(600000);
+        goodData = getArguments().getString("goodData");
+        try {
+            JSONObject object = new JSONObject(goodData);
+            int code = object.optInt("code");
+            String msg = object.optString("msg");
+            if (code == 200) {
+                //goodData = response;
+                JSONObject object1 = object.optJSONObject("data");
+                goods = object1.optJSONObject("goods");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-
-        // cv_countdownView.app.s
-
-//        SpannableString spannableString = new SpannableString(test.toString());
-//
-////        for (int i = 0; i < indexList.size(); i++) {
-////            WelcomeIndex index = indexList.get(i);
-////
-////            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#f5863e")), index.getBeforeIndex(), index.getAfterIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-////        }
-////        tvWelcome.setText(spannableString);
-//        spannableString.setSpan(new BulletSpan(android.text.style.BulletSpan.STANDARD_GAP_WIDTH, Color.GREEN), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        tv.setText(spannableString);
-        tv.setText(Html.fromHtml(test));
+        mWebView.loadUrl(goods.optString("content"));
+        setupUI();
     }
 
+    private void setupUI() {
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        //   mWebView.addJavascriptInterface(new JsInterfaceLogic(this), "app");
+        mWebSettings = mWebView.getSettings();
+        mWebSettings.setJavaScriptEnabled(true);    //允许加载javascript
+        mWebSettings.setSupportZoom(false);          //允许缩放
+        mWebSettings.setBuiltInZoomControls(false);  //原网页基础上缩放
+        mWebSettings.setUseWideViewPort(false);      //任意比例缩放
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+
+                return true;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                loaddingDialog.show();
+
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                // mWebView.setVisibility(View.VISIBLE);
+                loaddingDialog.dismiss();
+                //hideErrorPage();
+                //super.onPageFinished(view, url);
+//                if (!isError) {
+//                    isSuccess = true;
+//                    //回调成功后的相关操作
+//                  //  ll_control_error.setVisibility(View.GONE);
+//                    mWebView.setVisibility(View.VISIBLE);
+//                } else {
+//                    isError = false;
+//                    ll_control_error.setVisibility(View.VISIBLE);
+//                }
+                mWebView.setVisibility(View.VISIBLE);
+            }
+
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                //6.0以上执行
+                mWebView.setVisibility(View.GONE);
+                //   ll_control_error.setVisibility(View.VISIBLE);
+            }
+        });
+        mWebView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
+                    mWebView.goBack();
+                    return true;
+                }
+                return false;
+
+            }
+        });
+    }
 }

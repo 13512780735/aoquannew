@@ -17,6 +17,8 @@
         android:layout_height="@dimen/width55"
         android:layout_gravity="bottom|center"
         android:background="#ffffff"
+        tl:tl_iconHeight="23dp"
+        tl:tl_iconWidth="23dp"
         tl:tl_indicator_color="#2C97DE"
         tl:tl_indicator_height="0dp"
         tl:tl_textsize="@dimen/txt_13"

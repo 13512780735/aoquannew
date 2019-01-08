@@ -1,6 +1,7 @@
 package com.likeits.simple.activity;
 
 import android.Manifest;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -28,8 +29,11 @@ public class MainActivity extends AbstractCommonTabLayout {
 
     private String[] mTitles;//未选中
 
-    private ArrayList<Fragment> mFragments = new ArrayList<>();//Fragment 集合
     private String[] mLinkurl;
+    private ArrayList<Fragment> mFragments = new ArrayList<>();//Fragment 集合
+    private String flag;
+    private String linkurl;
+    private int index;
 
 
     /**
@@ -48,9 +52,14 @@ public class MainActivity extends AbstractCommonTabLayout {
     @Override
     protected void initData() {
         super.initData();
-        setSelectDefaultIndex(0);//设置默认的选项
+        //setSelectDefaultIndex(0);//设置默认的选项
+        flag = getIntent().getExtras().getString("flag");
+        index=getIntent().getExtras().getInt("index");
+        if ("0".equals(flag)) {
+            setSelectDefaultIndex(index);
+        }
         // setShowDot(3);
-        //setUnReadMsg(2, 5, Color.parseColor("#FF0000"));
+        setUnReadMsg(2, 5, Color.parseColor("#FF0000"));
         //   setDivisionLine(Color.parseColor("#6D8FB0"),0.5F,20);
     }
 
@@ -77,11 +86,10 @@ public class MainActivity extends AbstractCommonTabLayout {
      **/
     @Override
     protected ArrayList<Fragment> getFragmentList() {
-        String token = SharedPreferencesUtils.getString(mContext, "token");
         mTitles = getIntent().getStringArrayExtra("mTitles");
         mLinkurl = getIntent().getStringArrayExtra("mLinkurl");
         mIconSelectIds = getIntent().getStringArrayExtra("mIconSelectIds");
-        XLog.e(mIconSelectIds);
+
         for (String linkurl : mLinkurl) {
             if ("home".equals(linkurl)) {
                 mFragments.add(new HomeFragment());

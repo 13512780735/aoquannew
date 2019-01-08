@@ -8,9 +8,9 @@ public class GoodDetailCommentItemModel extends HomeMessage{
 
 
     /**
-     * params : {"num":"2"}
+     * params : {"num":"3"}
      * id : detail_comment
-     * data : {"comment":{"count":"3","percent":66,"list":[{"nickname":"1**3","level":"5","content":"花样百出苛","images":null,"createtime":"2018-12-18 11:45"},{"nickname":"花**出","level":"5","content":"asd花样百出","images":null,"createtime":"2018-12-18 11:41"}]}}
+     * data : {"comment":{"count":"2","percent":50,"list":[{"nickname":"测**户","level":"3","content":"测试不错","images":["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/WG0kY6l98l980GM88UyL8k88lIIT8Y.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/jA3MSSdEEm18E81vmmU8mAD1aa73JM.png"],"createtime":"2019-01-05 14:32"},{"nickname":"用**6","level":"5","content":"测试评价内容&图片","images":["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ZKUDvkaM3mzRkzr8nv3BBveB2v8uAV.png","http://hidsy.maimaitoo.com/attachment/images/1/2019/01/Qad5bE1k1DsSLw4eBDLSlBKSCSL55d.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/WG0kY6l98l980GM88UyL8k88lIIT8Y.png"],"createtime":"2019-01-05 13:56"}]}}
      */
 
     private ParamsBean params;
@@ -43,7 +43,7 @@ public class GoodDetailCommentItemModel extends HomeMessage{
 
     public static class ParamsBean {
         /**
-         * num : 2
+         * num : 3
          */
 
         private String num;
@@ -59,7 +59,7 @@ public class GoodDetailCommentItemModel extends HomeMessage{
 
     public static class DataBean {
         /**
-         * comment : {"count":"3","percent":66,"list":[{"nickname":"1**3","level":"5","content":"花样百出苛","images":null,"createtime":"2018-12-18 11:45"},{"nickname":"花**出","level":"5","content":"asd花样百出","images":null,"createtime":"2018-12-18 11:41"}]}
+         * comment : {"count":"2","percent":50,"list":[{"nickname":"测**户","level":"3","content":"测试不错","images":["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/WG0kY6l98l980GM88UyL8k88lIIT8Y.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/jA3MSSdEEm18E81vmmU8mAD1aa73JM.png"],"createtime":"2019-01-05 14:32"},{"nickname":"用**6","level":"5","content":"测试评价内容&图片","images":["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ZKUDvkaM3mzRkzr8nv3BBveB2v8uAV.png","http://hidsy.maimaitoo.com/attachment/images/1/2019/01/Qad5bE1k1DsSLw4eBDLSlBKSCSL55d.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/WG0kY6l98l980GM88UyL8k88lIIT8Y.png"],"createtime":"2019-01-05 13:56"}]}
          */
 
         private CommentBean comment;
@@ -74,9 +74,9 @@ public class GoodDetailCommentItemModel extends HomeMessage{
 
         public static class CommentBean {
             /**
-             * count : 3
-             * percent : 66
-             * list : [{"nickname":"1**3","level":"5","content":"花样百出苛","images":null,"createtime":"2018-12-18 11:45"},{"nickname":"花**出","level":"5","content":"asd花样百出","images":null,"createtime":"2018-12-18 11:41"}]
+             * count : 2
+             * percent : 50
+             * list : [{"nickname":"测**户","level":"3","content":"测试不错","images":["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/WG0kY6l98l980GM88UyL8k88lIIT8Y.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/jA3MSSdEEm18E81vmmU8mAD1aa73JM.png"],"createtime":"2019-01-05 14:32"},{"nickname":"用**6","level":"5","content":"测试评价内容&图片","images":["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ZKUDvkaM3mzRkzr8nv3BBveB2v8uAV.png","http://hidsy.maimaitoo.com/attachment/images/1/2019/01/Qad5bE1k1DsSLw4eBDLSlBKSCSL55d.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/WG0kY6l98l980GM88UyL8k88lIIT8Y.png"],"createtime":"2019-01-05 13:56"}]
              */
 
             private String count;
@@ -109,18 +109,18 @@ public class GoodDetailCommentItemModel extends HomeMessage{
 
             public static class ListBean {
                 /**
-                 * nickname : 1**3
-                 * level : 5
-                 * content : 花样百出苛
-                 * images : null
-                 * createtime : 2018-12-18 11:45
+                 * nickname : 测**户
+                 * level : 3
+                 * content : 测试不错
+                 * images : ["http://hidsy.maimaitoo.com/attachment/images/1/2018/12/VLKrlcjCHn4zzk2lf7nxCkNnCbN2b7.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/WG0kY6l98l980GM88UyL8k88lIIT8Y.png","http://hidsy.maimaitoo.com/attachment/images/1/2018/12/jA3MSSdEEm18E81vmmU8mAD1aa73JM.png"]
+                 * createtime : 2019-01-05 14:32
                  */
 
                 private String nickname;
                 private String level;
                 private String content;
-                private Object images;
                 private String createtime;
+                private List<String> images;
 
                 public String getNickname() {
                     return nickname;
@@ -146,20 +146,20 @@ public class GoodDetailCommentItemModel extends HomeMessage{
                     this.content = content;
                 }
 
-                public Object getImages() {
-                    return images;
-                }
-
-                public void setImages(Object images) {
-                    this.images = images;
-                }
-
                 public String getCreatetime() {
                     return createtime;
                 }
 
                 public void setCreatetime(String createtime) {
                     this.createtime = createtime;
+                }
+
+                public List<String> getImages() {
+                    return images;
+                }
+
+                public void setImages(List<String> images) {
+                    this.images = images;
                 }
             }
         }

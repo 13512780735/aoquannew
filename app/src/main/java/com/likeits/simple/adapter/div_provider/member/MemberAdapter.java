@@ -22,7 +22,7 @@ public class MemberAdapter extends MultipleItemRvAdapter<HomeMessage, BaseViewHo
     public static final int TYPE_TITLE = 0; //标题
  //   public static final int TYPE_LISTMENU = 1;      //列表菜单
     public static final int TYPE_MEMBER = 2;      //頂部信息
-    public static final int TYPE_ICONGROUP = 3;      //列表菜单
+    public static final int TYPE_ICONGROUP = 22;      //列表菜单
     public static final int TYPE_LOGOUT = 4;      //退出
 
     public static final int TYPE_LISTMENU = 5;      //列表菜单
@@ -51,5 +51,7 @@ public class MemberAdapter extends MultipleItemRvAdapter<HomeMessage, BaseViewHo
     public void registerItemProvider() {
         mProviderDelegate.registerProvider(new MainListMenuItemProvider());
         mProviderDelegate.registerProvider(new MemberItemProvider());
+        mProviderDelegate.registerProvider(new MemberLogoutItemProvider());
+        mProviderDelegate.registerProvider(new MemberIconGroupItemProvider());
     }
 }

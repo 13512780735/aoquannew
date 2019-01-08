@@ -2,6 +2,7 @@ package com.likeits.simple.activity.login_register;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import com.likeits.simple.utils.EditTextSizeCheckUtil;
 import com.likeits.simple.utils.SharedPreferencesUtils;
 import com.likeits.simple.utils.StringUtil;
 import com.likeits.simple.utils.ToastUtils;
+import com.likeits.simple.view.BorderTextView;
 
 import rx.Subscriber;
 
@@ -46,8 +48,8 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     ToggleButton tb_re_pwd_confirm;
     CheckBox checkBox;
     private TextView protocol_tv01;
-    private TextView tv_register;
-    private TextView tvSendCode;
+    private BorderTextView tv_register;
+    private BorderTextView tvSendCode;
     private String mobile;
     TimeCount time = new TimeCount(60000, 1000);
     private String password;
@@ -68,7 +70,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onStart() {
         super.onStart();
-        isWeb= SharedPreferencesUtils.getString(getContext(),"isWeb");
+        isWeb = SharedPreferencesUtils.getString(getContext(), "isWeb");
     }
 
     public void initUI() {
@@ -87,6 +89,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         tv_register = findView(R.id.tv_register);//注册进入主页入口
         checkBox = findView(R.id.checkbox01);
         tvSendCode.setOnClickListener(this);
+        tvSendCode.setContentColorResource01(Color.parseColor("#FFFFFF"));
+        tvSendCode.setStrokeColor01(Color.parseColor(theme_bg_tex));
+        tvSendCode.setTextColor(Color.parseColor(theme_bg_tex));
         if (!checkBox.isChecked()) {
             showProgress("請同意條款");
             return;
@@ -98,10 +103,13 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_register.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
+                    tv_register.setContentColorResource01(Color.parseColor(theme_bg_tex));
+                    tv_register.setStrokeColor01(Color.parseColor(theme_bg_tex));
                     tv_register.setOnClickListener(RegisterFragment.this);
                 } else {
-                    tv_register.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
+                    tv_register.setContentColorResource01(Color.parseColor("#999999"));
+                    tv_register.setStrokeColor01(Color.parseColor("#999999"));
+
                     // tv_register.setClickable(false);
                 }
             }
@@ -222,7 +230,6 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
 //                    }
 
 
-
                 } else {
                     LoaddingDismiss();
                     showProgress(baseResponse.getMsg());
@@ -281,7 +288,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             LoaddingShow();
         }
     }
+
     String signature, newtime, random;
+
     private void VerificationCode() {
         RetrofitUtil.getInstance().getVerifycode(mobile, "sms_reg",
                 new Subscriber<BaseResponse<EmptyEntity>>() {

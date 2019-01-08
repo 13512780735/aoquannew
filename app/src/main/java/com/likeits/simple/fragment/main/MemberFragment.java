@@ -1,6 +1,8 @@
 package com.likeits.simple.fragment.main;
 
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,7 +18,9 @@ import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.network.ApiService;
 import com.likeits.simple.network.model.home.HomeMessage;
 import com.likeits.simple.network.model.home.MainHomeListmenuModel;
+import com.likeits.simple.network.model.member.MemberIconGroupItemModel;
 import com.likeits.simple.network.model.member.MemberItemModel;
+import com.likeits.simple.network.model.member.MemberLogoutItemModel;
 import com.likeits.simple.utils.HttpUtil;
 import com.loopj.android.http.RequestParams;
 
@@ -65,7 +69,10 @@ public class MemberFragment extends BaseFragment implements SwipeRefreshLayout.O
                     JSONObject object = new JSONObject(response);
                     int code = object.optInt("code");
                     if (code == 10020) {
-                        toActivityFinish(LoginActivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putString("linkurl","member");
+                        toActivity(LoginActivity.class,bundle);
+                        getActivity().finish();
                     } else if (code == 200) {
                         JSONObject object1 = object.optJSONObject("data");
                         page = object1.optJSONObject("page");//page数据
@@ -106,9 +113,15 @@ public class MemberFragment extends BaseFragment implements SwipeRefreshLayout.O
                 mMessages.add(memberItemModel);
             }
 //
-            if ("listmenu".equals(id)) {//轮播
+            else if ("listmenu".equals(id)) {//轮播
                 MainHomeListmenuModel mainHomeListmenuModel = JSON.parseObject(items.optString(i).toString(), MainHomeListmenuModel.class);
                 mMessages.add(mainHomeListmenuModel);
+            } else if ("logout".equals(id)) {//轮播
+                MemberLogoutItemModel memberLogoutItemModel = JSON.parseObject(items.optString(i).toString(), MemberLogoutItemModel.class);
+                mMessages.add(memberLogoutItemModel);
+            } else if ("icongroup".equals(id)) {//轮播
+                MemberIconGroupItemModel memberIconGroupItemModel = JSON.parseObject(items.optString(i).toString(), MemberIconGroupItemModel.class);
+                mMessages.add(memberIconGroupItemModel);
             }
         }
         mSwipeRefreshLayout.setRefreshing(true);
@@ -130,6 +143,11 @@ public class MemberFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onRefresh() {
+        if (mMessages != null) {
+            mMessages.clear();
+        } else {
+            return;
+        }
         initData();
     }
 }

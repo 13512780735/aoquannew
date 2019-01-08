@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/width80"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:id="@+id/ll_tap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/iv_tab_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="xxx"
+            android:textSize="@dimen/txt_18" />
+
+        <TextView
+            android:id="@+id/tv_tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="xxx" />
+    </LinearLayout>
+
+    <com.likeits.simple.view.tablayout.widget.MsgView xmlns:mv="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rtv_msg_tip"
+        android:layout_width="@dimen/width20"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ll_tap"
+        android:layout_toRightOf="@+id/ll_tap"
+        android:gravity="center"
+        android:text="50"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+
+        mv:mv_backgroundColor="#FD481F"
+        mv:mv_isRadiusHalfHeight="true"
+        mv:mv_strokeColor="#ffffff"
+        mv:mv_strokeWidth="1dp" />
+
+</RelativeLayout>

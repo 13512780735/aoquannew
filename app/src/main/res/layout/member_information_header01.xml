@@ -11,25 +11,29 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
-            android:padding="@dimen/dp_10"
             android:layout_height="wrap_content"
-            android:text="xxx"/>
+            android:padding="@dimen/dp_10"
+            android:text="xxx"
+            android:textSize="@dimen/txt_18" />
+
         <TextView
             android:id="@+id/tv_set"
             android:layout_width="wrap_content"
-            android:padding="@dimen/dp_10"
             android:layout_height="wrap_content"
-            android:text="xxx"/>
+            android:padding="@dimen/dp_10"
+            android:text="xxx"
+            android:textSize="@dimen/txt_18" />
 
     </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/dp_10"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_10">
 
         <com.likeits.simple.view.CircleImageView
             android:id="@+id/iv_avatar"
@@ -46,77 +50,92 @@
 
         <TextView
             android:id="@+id/tv_balance01"
-            android:layout_width="@dimen/width60"
+            android:layout_width="@dimen/width80"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="@dimen/width60"
-            android:text="余额"
             android:gravity="center_horizontal"
+            android:text="余额"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_integral01"
-            android:layout_width="@dimen/width60"
+            android:layout_width="@dimen/width80"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="@dimen/width60"
-            android:text="积分"
             android:gravity="center_horizontal"
+            android:text="积分"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_balance"
-            android:layout_width="@dimen/width60"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="99.99"
-            android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_balance01" />
-
-        <com.likeits.simple.view.TextViewBorder
-            android:id="@+id/tv_recharge"
-            android:layout_width="@dimen/width60"
+            android:layout_width="@dimen/width80"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="116dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
             android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="99.99ssssss"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/tv_recharge"
+            app:layout_constraintEnd_toStartOf="@+id/tv_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints" />
+
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_recharge"
+            android:layout_width="@dimen/width80"
+            android:layout_height="@dimen/width30"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="116dp"
+            android:gravity="center"
             android:text="充值"
             android:textAlignment="center"
+            app:cornerRadius="@dimen/dp_8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_exchange"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            app:strokeWidth01="1dp" />
 
         <TextView
             android:id="@+id/tv_integral"
-            android:layout_width="@dimen/width60"
+            android:layout_width="@dimen/width80"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="88dp"
+            android:ellipsize="end"
             android:gravity="center_horizontal"
-            android:layout_marginEnd="50dp"
-            android:layout_marginTop="10dp"
+            android:maxLines="1"
             android:text="5561"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_integral01" />
-
-        <com.likeits.simple.view.TextViewBorder
-            android:id="@+id/tv_exchange"
-            android:layout_width="@dimen/width60"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:layout_marginTop="116dp"
-            android:gravity="center_horizontal"
-            android:text="兑换"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_exchange"
+            android:layout_width="@dimen/width80"
+            android:layout_height="@dimen/width30"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="116dp"
+            android:gravity="center"
+            android:text="兑换"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth01="1dp" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -134,20 +153,20 @@
 
         <TextView
             android:id="@+id/tv_vip"
-            android:layout_width="@dimen/width60"
+            android:layout_width="@dimen/width80"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
+            android:ellipsize="end"
             android:gravity="center_horizontal"
+            android:maxLines="1"
             android:text="xxx"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
             tools:ignore="MissingConstraints" />
     </android.support.constraint.ConstraintLayout>
-
-
 
 
 </LinearLayout>

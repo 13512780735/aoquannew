@@ -19,6 +19,7 @@ import com.likeits.simple.adapter.div_provider.home.MainSeckillgroupItemProvider
 import com.likeits.simple.adapter.div_provider.home.MainTitleItemProvider;
 import com.likeits.simple.adapter.div_provider.home.MainVideoItemProvider;
 import com.likeits.simple.adapter.div_provider.home.MainkitchenwindowItemProvider;
+import com.likeits.simple.adapter.div_provider.member.MemberIconGroupItemProvider;
 import com.likeits.simple.network.model.gooddetails.GoodDetailBannerItemModel;
 import com.likeits.simple.network.model.gooddetails.GoodDetailCommentItemModel;
 import com.likeits.simple.network.model.gooddetails.GoodDetailInfoItemModel;
@@ -42,6 +43,7 @@ import com.likeits.simple.network.model.home.MainHomeSeckillgroupModel;
 import com.likeits.simple.network.model.home.MainHomeTitleModel;
 import com.likeits.simple.network.model.home.MainHomeVideoModel;
 import com.likeits.simple.network.model.home.MainHomekitchenwindowModel;
+import com.likeits.simple.network.model.member.MemberIconGroupItemModel;
 
 import java.util.List;
 
@@ -71,6 +73,7 @@ public class GoodDetailAdapter extends MultipleItemRvAdapter<HomeMessage, BaseVi
     public static final int TYPE_DETAILS_SHOP = 19;             //店铺
     public static final int TYPE_DETAILS_COMMENT = 20;             //评价
     public static final int TYPE_DETAILS_SPEC = 21;             //规格
+    public static final int TYPE_ICONGROUP =22;      //列表菜单
 
     public GoodDetailAdapter(@Nullable List<HomeMessage> data) {
         super(data);
@@ -124,6 +127,8 @@ public class GoodDetailAdapter extends MultipleItemRvAdapter<HomeMessage, BaseVi
             return TYPE_DETAILS_COMMENT;
         } else if (goodMessage instanceof GoodDetailSpecItemModel) {
             return TYPE_DETAILS_SPEC;
+        } else if (goodMessage instanceof MemberIconGroupItemModel) {
+            return TYPE_ICONGROUP;
         }
         return 0;
     }
@@ -154,5 +159,6 @@ public class GoodDetailAdapter extends MultipleItemRvAdapter<HomeMessage, BaseVi
         mProviderDelegate.registerProvider(new GoodDetailShopItemProvider());
         mProviderDelegate.registerProvider(new GoodDetailCommentItemProvider());
         mProviderDelegate.registerProvider(new GoodDetailsSpecItemProvider());
+        mProviderDelegate.registerProvider(new MemberIconGroupItemProvider());
     }
 }

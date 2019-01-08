@@ -44,6 +44,7 @@ public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;
     public LoaddingDialog loaddingDialog;
     public String openid;
+    public String theme_bg_tex;
 
     @Nullable
     @Override
@@ -52,8 +53,9 @@ public abstract class BaseFragment extends Fragment {
         isInit = true;
         /**初始化的时候去加载数据**/
         unbinder = ButterKnife.bind(this, view);
-        openid= SharedPreferencesUtils.getString(getActivity(),"openid");
-        loaddingDialog=new LoaddingDialog(getActivity());
+        openid = SharedPreferencesUtils.getString(getActivity(), "openid");
+        theme_bg_tex = SharedPreferencesUtils.getString(getActivity(), "theme_bg_tex");
+        loaddingDialog = new LoaddingDialog(getActivity());
         isCanLoadData();
         return view;
     }
@@ -62,9 +64,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         LoaddingDismiss();
-        XLog.e("TAG999"+"fragmnet");
+        XLog.e("TAG999" + "fragmnet");
     }
-
 
 
     /**
@@ -231,7 +232,7 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroyView();
         isInit = false;
         isLoad = false;
-     //   unbinder.unbind();
+        //   unbinder.unbind();
     }
 
     protected void showToast(String message) {

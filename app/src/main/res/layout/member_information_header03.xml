@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,12 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
+            android:textSize="@dimen/txt_18"
             android:text="xxx" />
 
         <TextView
             android:id="@+id/tv_set1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/txt_18"
             android:padding="@dimen/dp_10"
             android:text="xxx" />
 
@@ -81,12 +84,14 @@
                     android:gravity="left"
                     android:text="99.99" />
 
-                <com.likeits.simple.view.TextViewBorder
+                <com.likeits.simple.view.BorderTextView
                     android:id="@+id/tv_recharge1"
                     android:layout_width="@dimen/width60"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/width20"
                     android:gravity="center_horizontal"
+                    app:cornerRadius="@dimen/dp_8"
+                    app:strokeWidth01="1dp"
                     android:text="充值" />
 
             </LinearLayout>
@@ -112,10 +117,12 @@
                     android:gravity="left"
                     android:text="80" />
 
-                <com.likeits.simple.view.TextViewBorder
+                <com.likeits.simple.view.BorderTextView
                     android:id="@+id/tv_exchange1"
                     android:layout_width="@dimen/width60"
                     android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/dp_8"
+                    app:strokeWidth01="1dp"
                     android:layout_marginRight="@dimen/width20"
                     android:gravity="center_horizontal"
                     android:text="兑换" />

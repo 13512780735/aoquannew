@@ -2,7 +2,9 @@ package com.likeits.simple.activity.detail.product;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
@@ -18,17 +20,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.likeits.simple.R;
+import com.likeits.simple.activity.cart.ConfirmOrderActivity;
 import com.likeits.simple.activity.detail.product.bean.Product;
 import com.likeits.simple.activity.detail.product.image.GImageLoader;
 import com.likeits.simple.databinding.DialogProductSkuBinding;
+import com.likeits.simple.network.model.BaseResponse;
+import com.likeits.simple.network.model.EmptyEntity;
+import com.likeits.simple.network.util.RetrofitUtil;
 import com.likeits.simple.utils.LoaddingDialog;
 import com.likeits.simple.utils.SharedPreferencesUtils;
+import com.likeits.simple.utils.ToastUtils;
 import com.wuhenzhizao.sku.bean.Sku;
 import com.wuhenzhizao.sku.bean.SkuAttribute;
 import com.wuhenzhizao.sku.view.OnSkuListener;
 import com.wuhenzhizao.titlebar.utils.AppUtils;
 
 import java.util.List;
+
+import rx.Subscriber;
 
 
 /**
@@ -64,7 +73,7 @@ public class ProductSkuDialog extends Dialog {
         super.onStart();
       //  LogUtils.d("初始化1");
        // LogUtils.d("keys-->" + SharedPreferencesUtils.getString(getContext(), "keys"));
-        token= SharedPreferencesUtils.getString(getContext(),"token");
+        token= SharedPreferencesUtils.getString(getContext(),"openid");
         keys = SharedPreferencesUtils.getString(getContext(), "keys");//1.加入购物车 2.立即购买 0.点击规格
     }
 
@@ -225,21 +234,20 @@ public class ProductSkuDialog extends Dialog {
                     if ("0".equals(keys)) {
                         dismiss();
                     } else if ("1".equals(keys)) {
-                       // addCrat(optionid,quantityInt);
+                      addCrat(optionid,quantityInt);
                     } else if ("2".equals(keys)) {
-//                        LogUtils.d("id-->"+product.getId()+"optionid-->"+optionid);
-//                        Intent intent = new Intent(getContext(), ConfirmOrderActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("id", product.getId());
-//                        bundle.putString("optionid", optionid);
-//                        bundle.putString("total", String.valueOf(quantityInt));
-//                        bundle.putString("cartids", "");
-//                        bundle.putString("cartnum", "");
-//                        bundle.putString("indentFlag", "1");
-//                        bundle.putString("goodsIds", "");
-//                        intent.putExtras(bundle);
-//                        getContext().startActivity(intent);
-//                        dismiss();
+                        Intent intent = new Intent(getContext(), ConfirmOrderActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", product.getId());
+                        bundle.putString("optionid", optionid);
+                        bundle.putString("total", String.valueOf(quantityInt));
+                        bundle.putString("cartids", "");
+                        bundle.putString("cartnum", "");
+                        bundle.putString("indentFlag", "1");
+                        bundle.putString("goodsIds", "");
+                        intent.putExtras(bundle);
+                        getContext().startActivity(intent);
+                        dismiss();
                     }
 
                 } else {
@@ -249,38 +257,33 @@ public class ProductSkuDialog extends Dialog {
         });
     }
 
-//    private void addCrat(String optionid, int quantityInt) {
-//        loaddingDialog = new LoaddingDialog(getContext());
-//        loaddingDialog.show();
-//        String sign = SignUtils.getSign(getContext());
-//        String signs[] = sign.split("##");
-//        String signature = signs[0];
-//        String newtime = signs[1];
-//        String random = signs[2];
-//        RetrofitUtil.getInstance().addcart(token, signature, newtime, random, product.getId(), String.valueOf(quantityInt), optionid, new Subscriber<BaseResponse<EmptyEntity>>() {
-//            @Override
-//            public void onCompleted() {
-//
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                loaddingDialog.dismiss();
-//            }
-//
-//            @Override
-//            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
-//                loaddingDialog.dismiss();
-//                if (baseResponse.code == 200) {
-//                    ToastUtils.showToast(getContext(), "加入购物车成功");
-//                    dismiss();
-//                } else {
-//                    ToastUtils.showToast(getContext(), baseResponse.getMsg());
-//                }
-//            }
-//        });
-//    }
+    private void addCrat(String optionid, int quantityInt) {
+        loaddingDialog = new LoaddingDialog(getContext());
+        loaddingDialog.show();
+        RetrofitUtil.getInstance().addcart(token, product.getId(), String.valueOf(quantityInt), optionid, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                loaddingDialog.dismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                loaddingDialog.dismiss();
+                if (baseResponse.code == 200) {
+                    ToastUtils.showToast(getContext(), "加入购物车成功");
+                    dismiss();
+                } else {
+                    ToastUtils.showToast(getContext(), baseResponse.getMsg());
+                }
+            }
+        });
+    }
 
     public void setData(final Product product, Callback callback) {
         this.product = product;

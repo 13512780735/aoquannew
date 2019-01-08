@@ -1,5 +1,6 @@
 package com.likeits.simple.activity.detail;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.MainActivity;
 import com.likeits.simple.activity.detail.product.ProductSkuDialog;
 import com.likeits.simple.activity.detail.product.bean.Product;
 import com.likeits.simple.base.BaseActivity;
@@ -26,7 +28,10 @@ import com.likeits.simple.fragment.goods.GoodDetailTabAdapter;
 import com.likeits.simple.network.ApiService;
 import com.likeits.simple.network.model.gooddetails.GoodDetailNavbarItemModel;
 import com.likeits.simple.network.model.gooddetails.GoodDetailSpecItemModel;
+import com.likeits.simple.network.model.gooddetails.GoodParams;
 import com.likeits.simple.network.model.home.MainHomePagerModel;
+import com.likeits.simple.network.model.main.MainNavigationModel;
+import com.likeits.simple.utils.AppManager;
 import com.likeits.simple.utils.HttpUtil;
 import com.likeits.simple.utils.SharedPreferencesUtils;
 import com.likeits.simple.utils.StringUtil;
@@ -38,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -80,23 +86,52 @@ public class GoodDetailActivity extends BaseActivity {
     TextView tvBuy;
     private String id;
     private JSONArray items;
-    private JSONObject goods;
+    private GoodParams goods;
     private GoodDetailNavbarItemModel goodDetailNavbarItemModel;
     private ArrayList<String> mTitles;
     private String goodData;
     private ProductSkuDialog dialog;
     private Product product;
+    private String navtab;
+    private String[] mIconSelectIds;//标题
+    private String[] mTitles1;//未选中
+
+    private String[] mLinkurl;
+
+
+    ArrayList<String> stringArrayList = new ArrayList<String>();
+    ArrayList<String> stringArrayList1 = new ArrayList<String>();
+    ArrayList<String> stringArrayList2 = new ArrayList<String>();
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_detail);
-        id = "716";
+        //  id = getIntent().getExtras().getString("id");
+      id = "716";
 
         initData();
+        navtab = SharedPreferencesUtils.getString(this, "navtab");
+        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
+        }.getType();
+        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
+        for (int i = 0; i < items.size(); i++) {
+            stringArrayList.add(items.get(i).getText());
+            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
+            stringArrayList2.add(items.get(i).getLinkurl());
+        }
+        mTitles1 = stringArrayList.toArray(new String[stringArrayList.size()]);
+        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
+        for (int i = 0; i < mLinkurl.length; i++) {
+            if ("cart".equals(mLinkurl[i])) {
+                index = i;
+            }
+        }
     }
 
-    @OnClick({R.id.back_view, R.id.tv_add, R.id.tv_buy})
+    @OnClick({R.id.back_view, R.id.tv_add, R.id.tv_buy, R.id.ll_cart})
     public void onClick(View v) {
         switch (v.getId()) {
             default:
@@ -113,6 +148,18 @@ public class GoodDetailActivity extends BaseActivity {
                 // XLog.json("product1-->"+items.optString(i));
                 SharedPreferencesUtils.put(this, "keys", "2");
                 showSkuDialog();
+                break;
+            case R.id.ll_cart:
+                Bundle bundle = new Bundle();
+                //  bundle.putString("flag", "0");
+                bundle.putStringArray("mTitles", mTitles1);
+                bundle.putStringArray("mLinkurl", mLinkurl);
+                bundle.putStringArray("mIconSelectIds", mIconSelectIds);
+                bundle.putString("flag", "0");
+                bundle.putInt("index", index);
+                toActivity(MainActivity.class, bundle);
+                finish();
+                AppManager.getAppManager().finishAllActivity();
                 break;
         }
     }
@@ -135,6 +182,7 @@ public class GoodDetailActivity extends BaseActivity {
         String url = ApiService.Good_Detial;
         RequestParams params = new RequestParams();
         params.put("id", id);
+        params.put("openid", openid);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -148,7 +196,8 @@ public class GoodDetailActivity extends BaseActivity {
                         JSONObject object1 = object.optJSONObject("data");
                         JSONObject object2 = object1.optJSONObject("page");//page数据
                         items = object1.optJSONArray("items"); //items数据
-                        goods = object1.optJSONObject("goods");
+                        //goods = object1.optJSONObject("goods");
+                        goods=JSON.parseObject(object1.optString("goods"), GoodParams.class);
                         MainHomePagerModel pagerModel = JSON.parseObject(object2.toString(), MainHomePagerModel.class);
                         XLog.e(pagerModel);
                         XLog.e(items);
@@ -182,7 +231,6 @@ public class GoodDetailActivity extends BaseActivity {
     }
 
     private void initUI() {
-
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setupWithViewPager(mViewpager);
         List<Fragment> mfragments = new ArrayList<>();
@@ -195,17 +243,19 @@ public class GoodDetailActivity extends BaseActivity {
         bundle.putString("id", id);
         goodsDetails01Fragment.setArguments(bundle);
         goodsDetails02Fragment.setArguments(bundle);
+        goodsDetails03Fragment.setArguments(bundle);
+        goodsDetails04Fragment.setArguments(bundle);
 //
-        if (goods.optString("params") == null && !goods.optBoolean("showcomments")) {
+        if (goods.getParams() == null && !goods.isShowcomments()) {
             mTitles = new ArrayList<>(Arrays.asList("商品", "详情"));
             mfragments.add(goodsDetails01Fragment);
             mfragments.add(goodsDetails02Fragment);
-        } else if (goods.optString("params") == null && goods.optBoolean("showcomments")) {
+        } else if (goods.getParams() == null && goods.isShowcomments()) {
             mTitles = new ArrayList<>(Arrays.asList("商品", "详情", "评价"));
             mfragments.add(goodsDetails01Fragment);
             mfragments.add(goodsDetails02Fragment);
             mfragments.add(goodsDetails04Fragment);
-        } else if (goods.optString("params") != null && !goods.optBoolean("showcomments")) {
+        } else if (goods.getParams()!= null && !goods.isShowcomments()) {
             mTitles = new ArrayList<>(Arrays.asList("商品", "详情", "参数"));
             mfragments.add(goodsDetails01Fragment);
             mfragments.add(goodsDetails02Fragment);
@@ -240,6 +290,8 @@ public class GoodDetailActivity extends BaseActivity {
 
 
     }
+
+    String color;
 
     /**
      * 底部初始化
@@ -285,13 +337,18 @@ public class GoodDetailActivity extends BaseActivity {
         } else {
             tvAdd.setVisibility(View.VISIBLE);
         }
-        if (!goods.optBoolean("canbuy")) {
+        String color1 = goodDetailNavbarItemModel.getParams().getNobuybgcolor();
+        if (goods.getCanbuy() == 0) {
             tvBuy.setVisibility(View.VISIBLE);
             tvBuy.setClickable(false);
-            String color1 =  goodDetailNavbarItemModel.getParams().getNobuybgcolor();
-            String color = color1.substring(1, color1.length());
+
+            if (!StringUtil.isBlank(color1)) {
+                color = color1.substring(1, color1.length());
+            } else {
+                color = "#FFFFFF";
+            }
             tvBuy.setBackgroundColor(Color.parseColor("#" + "4D" + color));
-        //    tvBuy.setBackgroundColor(Color.parseColor("#00000000"));
+            //    tvBuy.setBackgroundColor(Color.parseColor("#00000000"));
             ll_cart.setVisibility(View.GONE);
             ll_shop.setVisibility(View.GONE);
             ll_attention.setVisibility(View.GONE);

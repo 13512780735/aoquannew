@@ -13,14 +13,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.elvishew.xlog.XLog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.likeits.simple.R;
 import com.likeits.simple.activity.FrameActivity;
 import com.likeits.simple.activity.MainActivity;
-import com.likeits.simple.base.BaseActivity;
 import com.likeits.simple.constants.Constants;
 import com.likeits.simple.listener.IEditTextChangeListener;
 import com.likeits.simple.network.model.BaseResponse;
@@ -34,11 +36,13 @@ import com.likeits.simple.utils.SharedPreferencesUtils;
 import com.likeits.simple.utils.StatusBarUtil;
 import com.likeits.simple.utils.StringUtil;
 import com.likeits.simple.utils.ToastUtils;
+import com.likeits.simple.view.BorderTextView;
 
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Subscriber;
@@ -49,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     ToggleButton tb_password;
     EditText et_password;
-    private TextView tv_login;
+    private BorderTextView tv_login, tv_register;
     private EditText et_phone, et_pwd;
     private String phone, pwd;
     private LoaddingDialog mDialog;
@@ -59,16 +63,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String isWeb;
     private String openid;
     private String avatarUrl;
+    private LoginActivity mContext;
     private String[] mIconSelectIds;//标题
     private String[] mTitles;//未选中
 
-    private LoginActivity mContext;
     private String[] mLinkurl;
 
 
     ArrayList<String> stringArrayList = new ArrayList<String>();
     ArrayList<String> stringArrayList1 = new ArrayList<String>();
     ArrayList<String> stringArrayList2 = new ArrayList<String>();
+    private String linkurl;
+    private int index;
+    private String theme_bg_tex;
+    private FrameLayout ll_frameLayout;
 
 
     @Override
@@ -78,18 +86,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         AppManager.getAppManager().addActivity(this);
         mContext = this;
         int color = getResources().getColor(R.color.theme_bg);
-        //isWeb = SharedPreferencesUtils.getString(this, "isWeb");
-//        mTitles = getIntent().getStringArrayExtra("mTitles");
-//        mLinkurl = getIntent().getStringArrayExtra("mLinkurl");
-//        mIconSelectIds = getIntent().getStringArrayExtra("mIconSelectIds");
-
-
         mDialog = new LoaddingDialog(this);
-        StatusBarUtil.setColor(this, color, 0);
+        theme_bg_tex = SharedPreferencesUtils.getString(this, "theme_bg_tex");
+        StatusBarUtil.setColor(this, Color.parseColor(theme_bg_tex), 0);
         StatusBarUtil.setLightMode(this);
         ButterKnife.bind(this);
-
-        initData();
+        linkurl = getIntent().getStringExtra("linkurl");
+        initTab();
         initUI();
         initView();
         addListeners();
@@ -99,14 +102,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void initUI() {
         tb_password = findViewById(R.id.tb_re_pwd);
+        ll_frameLayout = findViewById(R.id.ll_frameLayout);
         et_password = findViewById(R.id.login_et_pwd);
         et_phone = findViewById(R.id.login_et_phone);
         et_pwd = findViewById(R.id.login_et_pwd);
         tv_login = findViewById(R.id.tv_login);
+        tv_register = findViewById(R.id.tv_register);
+
+        tv_register.setContentColorResource01(Color.parseColor("#FFFFFF"));
+        tv_register.setStrokeColor01(Color.parseColor(theme_bg_tex));
+        tv_register.setTextColor(Color.parseColor(theme_bg_tex));
+        ll_frameLayout.setBackgroundColor(Color.parseColor(theme_bg_tex));
         phone = SharedPreferencesUtils.getString(this, "phone");
         pwd = SharedPreferencesUtils.getString(this, "pwd");
         if (!StringUtil.isBlank(phone) && !StringUtil.isBlank(pwd)) {
-            tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
+            tv_login.setContentColorResource01(Color.parseColor(theme_bg_tex));
+            tv_login.setStrokeColor01(Color.parseColor(theme_bg_tex));
             tv_login.setOnClickListener(LoginActivity.this);
         }
 
@@ -121,51 +132,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
+                    tv_login.setContentColorResource01(Color.parseColor(theme_bg_tex));
+                    tv_login.setStrokeColor01(Color.parseColor(theme_bg_tex));
                     tv_login.setOnClickListener(LoginActivity.this);
                 } else {
-                    tv_login.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
+                    tv_login.setContentColorResource01(Color.parseColor("#999999"));
+                    tv_login.setStrokeColor01(Color.parseColor("#999999"));
                 }
             }
         });
     }
 
-    public void initData() {
-        RetrofitUtil.getInstance().getMainNavigation("1", new Subscriber<BaseResponse<MainNavigationModel>>() {
-            @Override
-            public void onCompleted() {
+    public void initTab() {
+        String navtab = SharedPreferencesUtils.getString(mContext, "navtab");
+        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
+        }.getType();
+        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
+        for (int i = 0; i < items.size(); i++) {
+            stringArrayList.add(items.get(i).getText());
+            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
+            stringArrayList2.add(items.get(i).getLinkurl());
+        }
+        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
+        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(BaseResponse<MainNavigationModel> baseResponse) {
-                XLog.d(baseResponse.getCode());
-                if (baseResponse.getCode() == 200) {
-                    MainNavigationModel mainNavigationModel = baseResponse.getData();
-                    SharedPreferencesUtils.put(mContext, "iconcolor", baseResponse.getData().getStyle().getIconcolor());
-                    SharedPreferencesUtils.put(mContext, "iconcoloron", baseResponse.getData().getStyle().getIconcoloron());
-                    List<MainNavigationModel.ItemsBean> items = mainNavigationModel.getItems();
-                    XLog.e(items);
-                    for (int i = 0; i < items.size(); i++) {
-                        stringArrayList.add(items.get(i).getText());
-                        stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
-                        stringArrayList2.add(items.get(i).getLinkurl());
-                    }
-                    mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
-                    mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
-                    mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
-                    XLog.e(mTitles);
-                    XLog.e(mLinkurl);
-                    XLog.e(mIconSelectIds);
-
-                }
-            }
-        });
     }
 
     public void addListeners() {
@@ -223,12 +214,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void startMainActivity() {
+        for (int i = 0; i < mLinkurl.length; i++) {
+            if (linkurl.equals(mLinkurl[i])) {
+                index = i;
+            } else {
+                index = 0;
+            }
+        }
         Bundle bundle = new Bundle();
         //  bundle.putString("flag", "0");
         bundle.putStringArray("mTitles", mTitles);
         bundle.putStringArray("mLinkurl", mLinkurl);
         bundle.putStringArray("mIconSelectIds", mIconSelectIds);
-
+        bundle.putString("flag", "0");
+        bundle.putInt("index", index);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

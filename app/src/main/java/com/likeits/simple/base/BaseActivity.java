@@ -39,6 +39,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     protected final static int DATA_LOAD_FAIL = 0x003;
 
     public static Handler handler = new Handler();
+    public String theme_bg_tex;
 
     /**
      * 上下文 当进入activity时必须 mContext = this 方可使用，否则会报空指针
@@ -53,7 +54,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     protected String easemob_id;
     protected String isvip;
     private CustomDialog dialog;
-    public String token;
+    public String openid;
     public LoaddingDialog loaddingDialog;
 
     /**
@@ -69,7 +70,8 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         StatusBarUtil.setColor(this, color, 0);
         StatusBarUtil.setLightMode(this);
         loaddingDialog = new LoaddingDialog(this);
-        token = SharedPreferencesUtils.getString(this, "token");
+        openid= SharedPreferencesUtils.getString(this,"openid");
+        theme_bg_tex = SharedPreferencesUtils.getString(this, "theme_bg_tex");
         // RxBus.get().register(this);
         //  ukey = UtilPreference.getStringValue(this, "ukey");
 

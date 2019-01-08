@@ -6,9 +6,10 @@ import java.util.List;
 
 public class GoodDetailSpecItemModel extends HomeMessage {
 
+
     /**
      * id : detail_spec
-     * data : {"spec":{"id":"716","title":"骑士MD96136/8美式全铜玻璃客厅灯餐厅灯卧室灯","productprice":"2000.00","marketprice":"1554.00","total":"5295","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/cEAIUpSWfZlgESMJseEmjesNgGegUG.jpg","skus":[{"id":"880","originPrice":"100.00","sellingPrice":null,"stockQuantity":"880","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"大尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"},{"id":"881","originPrice":"200.00","sellingPrice":null,"stockQuantity":"881","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"中尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"},{"id":"882","originPrice":"300.00","sellingPrice":null,"stockQuantity":"882","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"小尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"},{"id":"883","originPrice":"150.00","sellingPrice":null,"stockQuantity":"883","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"大尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"},{"id":"884","originPrice":"250.00","sellingPrice":null,"stockQuantity":"884","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"中尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"},{"id":"885","originPrice":"350.00","sellingPrice":null,"stockQuantity":"885","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"小尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}]}}
+     * data : {"spec":{"id":"595","title":"测试","productprice":"0.00","marketprice":"10.00","total":"3530","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/03/FT2t2FkKf2A09gKC9Z92kJatelJ5Az.png","skus":[{"id":"840","originPrice":"1.00","stockQuantity":"885","attributes":[{"key":"规格01","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"key":"规格02","value":"03","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"},{"id":"841","originPrice":"2.00","stockQuantity":"879","attributes":[{"key":"规格01","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"key":"规格02","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"id":"842","originPrice":"3.00","stockQuantity":"881","attributes":[{"key":"规格01","value":"02","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gYoyY9Y7Ni0IpwoNod927MP7Z0By9h.png"},{"key":"规格02","value":"03","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"},{"id":"843","originPrice":"4.00","stockQuantity":"885","attributes":[{"key":"规格01","value":"02","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gYoyY9Y7Ni0IpwoNod927MP7Z0By9h.png"},{"key":"规格02","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}]}}
      */
 
     private String id;
@@ -32,7 +33,7 @@ public class GoodDetailSpecItemModel extends HomeMessage {
 
     public static class DataBean {
         /**
-         * spec : {"id":"716","title":"骑士MD96136/8美式全铜玻璃客厅灯餐厅灯卧室灯","productprice":"2000.00","marketprice":"1554.00","total":"5295","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/cEAIUpSWfZlgESMJseEmjesNgGegUG.jpg","skus":[{"id":"880","originPrice":"100.00","sellingPrice":null,"stockQuantity":"880","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"大尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"},{"id":"881","originPrice":"200.00","sellingPrice":null,"stockQuantity":"881","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"中尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"},{"id":"882","originPrice":"300.00","sellingPrice":null,"stockQuantity":"882","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"小尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"},{"id":"883","originPrice":"150.00","sellingPrice":null,"stockQuantity":"883","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"大尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"},{"id":"884","originPrice":"250.00","sellingPrice":null,"stockQuantity":"884","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"中尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"},{"id":"885","originPrice":"350.00","sellingPrice":null,"stockQuantity":"885","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"小尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}]}
+         * spec : {"id":"595","title":"测试","productprice":"0.00","marketprice":"10.00","total":"3530","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/03/FT2t2FkKf2A09gKC9Z92kJatelJ5Az.png","skus":[{"id":"840","originPrice":"1.00","stockQuantity":"885","attributes":[{"key":"规格01","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"key":"规格02","value":"03","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"},{"id":"841","originPrice":"2.00","stockQuantity":"879","attributes":[{"key":"规格01","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"key":"规格02","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"id":"842","originPrice":"3.00","stockQuantity":"881","attributes":[{"key":"规格01","value":"02","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gYoyY9Y7Ni0IpwoNod927MP7Z0By9h.png"},{"key":"规格02","value":"03","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"},{"id":"843","originPrice":"4.00","stockQuantity":"885","attributes":[{"key":"规格01","value":"02","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gYoyY9Y7Ni0IpwoNod927MP7Z0By9h.png"},{"key":"规格02","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}]}
          */
 
         private SpecBean spec;
@@ -47,13 +48,13 @@ public class GoodDetailSpecItemModel extends HomeMessage {
 
         public static class SpecBean {
             /**
-             * id : 716
-             * title : 骑士MD96136/8美式全铜玻璃客厅灯餐厅灯卧室灯
-             * productprice : 2000.00
-             * marketprice : 1554.00
-             * total : 5295
-             * thumb : http://hidsy.maimaitoo.com/attachment/images/1/2018/08/cEAIUpSWfZlgESMJseEmjesNgGegUG.jpg
-             * skus : [{"id":"880","originPrice":"100.00","sellingPrice":null,"stockQuantity":"880","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"大尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"},{"id":"881","originPrice":"200.00","sellingPrice":null,"stockQuantity":"881","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"中尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"},{"id":"882","originPrice":"300.00","sellingPrice":null,"stockQuantity":"882","attributes":[{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"小尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"},{"id":"883","originPrice":"150.00","sellingPrice":null,"stockQuantity":"883","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"大尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"},{"id":"884","originPrice":"250.00","sellingPrice":null,"stockQuantity":"884","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"中尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/OBZWLxJ22z2lwg7NBn3W79vgnWic3g.png"},{"id":"885","originPrice":"350.00","sellingPrice":null,"stockQuantity":"885","attributes":[{"key":"颜色","value":"黑色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/ol24NC30nczRdPD0h2H9z99SJ9R3Cp.png"},{"key":"尺寸","value":"小尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/qMhkWAbbRdiiirKrAYIebdr5HgerWI.png"}]
+             * id : 595
+             * title : 测试
+             * productprice : 0.00
+             * marketprice : 10.00
+             * total : 3530
+             * thumb : http://hidsy.maimaitoo.com/attachment/images/1/2018/03/FT2t2FkKf2A09gKC9Z92kJatelJ5Az.png
+             * skus : [{"id":"840","originPrice":"1.00","stockQuantity":"885","attributes":[{"key":"规格01","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"key":"规格02","value":"03","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"},{"id":"841","originPrice":"2.00","stockQuantity":"879","attributes":[{"key":"规格01","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"key":"规格02","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"id":"842","originPrice":"3.00","stockQuantity":"881","attributes":[{"key":"规格01","value":"02","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gYoyY9Y7Ni0IpwoNod927MP7Z0By9h.png"},{"key":"规格02","value":"03","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"},{"id":"843","originPrice":"4.00","stockQuantity":"885","attributes":[{"key":"规格01","value":"02","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gYoyY9Y7Ni0IpwoNod927MP7Z0By9h.png"},{"key":"规格02","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}],"image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"}]
              */
 
             private String id;
@@ -122,17 +123,15 @@ public class GoodDetailSpecItemModel extends HomeMessage {
 
             public static class SkusBean {
                 /**
-                 * id : 880
-                 * originPrice : 100.00
-                 * sellingPrice : null
-                 * stockQuantity : 880
-                 * attributes : [{"key":"颜色","value":"红色","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg"},{"key":"尺寸","value":"大尺寸","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png"}]
-                 * image : http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tcP4iYZSSiJaAJHVa3aMazfpiG0aiY.png
+                 * id : 840
+                 * originPrice : 1.00
+                 * stockQuantity : 885
+                 * attributes : [{"key":"规格01","value":"04","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg"},{"key":"规格02","value":"03","image":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg"}]
+                 * image : http://hidsy.maimaitoo.com/attachment/images/1/2018/08/gpsd111sdt5bpDT3aJafZ10QdMt4GQ.jpg
                  */
 
                 private String id;
                 private String originPrice;
-                private Object sellingPrice;
                 private String stockQuantity;
                 private String image;
                 private List<AttributesBean> attributes;
@@ -151,14 +150,6 @@ public class GoodDetailSpecItemModel extends HomeMessage {
 
                 public void setOriginPrice(String originPrice) {
                     this.originPrice = originPrice;
-                }
-
-                public Object getSellingPrice() {
-                    return sellingPrice;
-                }
-
-                public void setSellingPrice(Object sellingPrice) {
-                    this.sellingPrice = sellingPrice;
                 }
 
                 public String getStockQuantity() {
@@ -187,9 +178,9 @@ public class GoodDetailSpecItemModel extends HomeMessage {
 
                 public static class AttributesBean {
                     /**
-                     * key : 颜色
-                     * value : 红色
-                     * image : http://hidsy.maimaitoo.com/attachment/images/1/2018/12/FkZfff1CKzHr3C0577PKP79H5GFk0U.jpg
+                     * key : 规格01
+                     * value : 04
+                     * image : http://hidsy.maimaitoo.com/attachment/images/1/2018/08/ga39tInD02dCC4TMCK8vVdp4vXMHV7.jpg
                      */
 
                     private String key;
