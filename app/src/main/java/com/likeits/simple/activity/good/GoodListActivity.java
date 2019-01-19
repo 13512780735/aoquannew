@@ -275,28 +275,30 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
     @Override
     public void onLoadMoreRequested() {
-        mSwipeRefreshLayout.setEnabled(false);
-        TOTAL_COUNTER = Integer.valueOf(categoryListItemsModel.getTotal());
-        if (mAdapter.getData().size() < PAGE_SIZE) {
-            mAdapter.loadMoreEnd(true);
-        } else {
-            if (mCurrentCounter >= TOTAL_COUNTER) {
-                mAdapter.loadMoreEnd(mLoadMoreEndGone);
-            } else {
-                if (isErr) {
-                    pageNum += 1;
-                    initData(pageNum, true);
-                    //    mAdapter.addData(data);
-                    mCurrentCounter = mAdapter.getData().size();
-                    mAdapter.loadMoreComplete();
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mAdapter.loadMoreEnd();
                 } else {
-                    isErr = true;
-                    // Toast.makeText(getContext(), "错误", Toast.LENGTH_LONG).show();
-                    mAdapter.loadMoreFail();
+                    if (isErr) {
+                        //成功获取更多数据
+                        //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        pageNum+=1;
+                        initData(pageNum,true);
+                        mCurrentCounter = mAdapter.getData().size();
+                        mAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        mAdapter.loadMoreFail();
+
+                    }
                 }
             }
-            mSwipeRefreshLayout.setEnabled(true);
-        }
+
+        }, 3000);
     }
 
     @Override
