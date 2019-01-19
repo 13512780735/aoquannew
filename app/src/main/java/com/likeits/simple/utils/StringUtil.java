@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -298,14 +299,35 @@ public class StringUtil {
      */
     public static String getTime(String str) {
         try {
-            Date date = getDate(str, "MM月dd日 HH:mm:ss");
+            Date date = getDate(str, "yyyy-MM-dd");
             DateFormat d3 = DateFormat.getTimeInstance();
             return d3.format(date);
         } catch (Exception ex) {
         }
         return null;
     }
-
+    public static String getDateToString(long milSecond, String pattern) {
+        Date date = new Date(milSecond);
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
+    }
+    /**
+     *字符串转时间戳
+     * @param dateString
+     * @param pattern
+     * @return
+     */
+    public static long getStringToDate(String dateString, String pattern) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        Date date = new Date();
+        try{
+            date = dateFormat.parse(dateString);
+        } catch(ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return date.getTime();
+    }
     /**
      * 日期（天）相加减
      *

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_margin="8dp"
+    android:orientation="horizontal">
+
+    <com.likeits.simple.view.BorderRelativeLayout
+        android:id="@+id/rl_coupon_left"
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        app:cornerRadius="10dp"
+        app:strokeWidth01="1dp">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="xx"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_margin="@dimen/dp_5"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_price_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_price"
+            android:text="xx"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/tv_price_size"
+            android:layout_centerHorizontal="true"
+            android:text="xx"
+            android:textColor="@color/white" />
+    </com.likeits.simple.view.BorderRelativeLayout>
+
+    <com.likeits.simple.view.BorderRelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        app:contentBackColor="@color/white"
+        app:cornerRadius="10dp"
+        app:strokeColor01="@color/white"
+        app:strokeWidth01="1dp">
+
+        <LinearLayout
+            android:id="@+id/ll_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="xx"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/black_text_color"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="xx"
+                />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_name"
+            android:layout_margin="@dimen/dp_5"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:text="xx" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_margin="@dimen/dp_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_weight="1"
+                android:textSize="@dimen/txt_12"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="" />
+
+            <com.likeits.simple.view.BorderTextView
+                android:id="@+id/tv_use"
+                android:layout_width="@dimen/width70"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingTop="2dp"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="去使用"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:contentBackColor="@color/theme_bg_tex"
+                app:cornerRadius="15dp"
+                app:strokeColor01="@color/theme_bg_tex"
+                app:strokeWidth01="1dp" />
+
+        </LinearLayout>
+
+    </com.likeits.simple.view.BorderRelativeLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v4.widget.SwipeRefreshLayout
@@ -15,5 +16,8 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-
-</FrameLayout>
+    <View
+        android:id="@+id/popu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"></View>
+</LinearLayout>

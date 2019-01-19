@@ -4,7 +4,10 @@ import com.likeits.simple.adapter.sort.bean.CartDeleteModel;
 import com.likeits.simple.network.consts.Consts;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.EmptyEntity;
+import com.likeits.simple.network.model.GoodCategory.CategoryListItemsModel;
 import com.likeits.simple.network.model.GoodCategory.GoodsCategoryModel;
+import com.likeits.simple.network.model.GoodCommentmodel;
+import com.likeits.simple.network.model.Indent.IndentDetailModel;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.model.Indent.OrderCreateModel;
 import com.likeits.simple.network.model.LoginRegisterModel;
@@ -15,14 +18,17 @@ import com.likeits.simple.network.model.gooddetails.PayIndentModel;
 import com.likeits.simple.network.model.gooddetails.ProvincesModel;
 import com.likeits.simple.network.model.home.MainHomePagerModel;
 import com.likeits.simple.network.model.main.MainNavigationModel;
+import com.likeits.simple.network.model.member.AvatarModel;
+import com.likeits.simple.network.model.member.CouponCenterModel;
+import com.likeits.simple.network.model.member.CouponListModel;
+import com.likeits.simple.network.model.member.UserInfoModel;
+import com.likeits.simple.network.model.pay.BalacePayModel;
+import com.likeits.simple.network.model.pay.PayModel;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -153,27 +159,21 @@ public interface ApiService {
      * 商品列表
      *
      * @param openid
-     * @param signature
-     * @param newtime
-     * @param random1
      * @return
      */
-//    @FormUrlEncoded
-//    @POST("app.goods.categorylist")
-//    Observable<BaseResponse<CategoryListItemsModel>> CategoryList(@Field("openid") String openid,
-//                                                                  @Field("cid") String cid,
-//                                                                  @Field("signature") String signature,
-//                                                                  @Field("newtime") String newtime,
-//                                                                  @Field("random") String random1,
-//                                                                  @Field("page") String page,
-//                                                                  @Field("isnew") String isnew,
-//                                                                  @Field("ishot") String ishot,
-//                                                                  @Field("isrecommand") String isrecommand,
-//                                                                  @Field("isdiscount") String isdiscount,
-//                                                                  @Field("istime") String istime,
-//                                                                  @Field("issendfree") String issendfree,
-//                                                                  @Field("keyword") String keyword
-//    );
+    @FormUrlEncoded
+    @POST("nativeapp.goods.category.categorylist")
+    Observable<BaseResponse<CategoryListItemsModel>> CategoryList(@Field("openid") String openid,
+                                                                  @Field("keywords") String keywords,
+                                                                  @Field("cid") String cid,
+                                                                  @Field("isnew") String isnew,
+                                                                  @Field("ishot") String ishot,
+                                                                  @Field("isrecommand") String isrecommand,
+                                                                  @Field("isdiscount") String isdiscount,
+                                                                  @Field("istime") String istime,
+                                                                  @Field("issendfree") String issendfree,
+                                                                  @Field("pageNum") String pageNum
+    );
 
     /**
      * 我的订单
@@ -187,7 +187,58 @@ public interface ApiService {
     @POST("nativeapp.order.orderList")
     Observable<BaseResponse<IndentListModel>> orderform(@Field("openid") String openid,
                                                         @Field("status") String status,
-                                                        @Field("page") String page);
+                                                        @Field("pageNum") String pageNum);
+
+    /**
+     * 订单详情
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.detail")
+    Observable<BaseResponse<IndentDetailModel>> orderDetail(@Field("openid") String openid,
+                                                            @Field("id") String id
+    );
+
+    /**
+     * 取消订单
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.op.cancel")
+    Observable<BaseResponse<EmptyEntity>> orderCancel(@Field("openid") String openid,
+                                                      @Field("id") String id,
+                                                      @Field("closereason") String closereason
+
+    );
+
+    /**
+     * 删除或恢复订单	0(恢复订单);1(删除订单)
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.op.delete")
+    Observable<BaseResponse<EmptyEntity>> orderDelete(@Field("openid") String openid,
+                                                      @Field("id") String id,
+                                                      @Field("userdeleted") String userdeleted
+    );
+
+    /**
+     * 确认收货
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.op.finish")
+    Observable<BaseResponse<EmptyEntity>> orderFinish(@Field("openid") String openid,
+                                                      @Field("id") String id
+    );
 
     /**
      * 获取地址列表
@@ -275,7 +326,10 @@ public interface ApiService {
     Observable<BaseResponse<OrderCreateModel>> OrderCreate(@Field("openid") String openid,
                                                            @Field("id") String id,
                                                            @Field("optionid") String optionid,
-                                                           @Field("total") String total
+                                                           @Field("total") String total,
+                                                           @Field("giftid") String giftid,
+                                                           @Field("packageid") String packageid,
+                                                           @Field("liveid") String liveid
     );
 
     /**
@@ -315,7 +369,8 @@ public interface ApiService {
                                                          @Field("goodsid") String goodsid,
                                                          @Field("optionid") String optionid,
                                                          @Field("total") String total,
-                                                         @Field("addressid") String addressid
+                                                         @Field("addressid") String addressid,
+                                                         @Field("giftid") String giftid
     );
 
     /**
@@ -333,6 +388,22 @@ public interface ApiService {
                                                   @Field("id") String id,
                                                   @Field("total") String total,
                                                   @Field("optionid") String optionid
+
+    );
+
+    /**
+     * 商品收藏
+     *
+     * @param openid
+     * @param id
+     * @param isfavorite
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.favorite.toggle")
+    Observable<BaseResponse<EmptyEntity>> shopFavorite(@Field("openid") String openid,
+                                                       @Field("id") String id,
+                                                       @Field("isfavorite") String isfavorite
 
     );
 
@@ -374,7 +445,10 @@ public interface ApiService {
     @POST("nativeapp.order.create.orderTrue")
     Observable<BaseResponse<OrderCreateModel>> CreateCartOrder(@Field("openid") String openid,
                                                                @Field("cartids") String cartids,
-                                                               @Field("cartnum") String cartnum
+                                                               @Field("cartnum") String cartnum,
+                                                               @Field("giftid") String giftid,
+                                                               @Field("packageid") String packageid,
+                                                               @Field("liveid") String liveid
 
     );
 
@@ -394,7 +468,9 @@ public interface ApiService {
                                                                    @Field("cartid") String cartids,
                                                                    @Field("cartoption") String cartoption,
                                                                    @Field("carttotal") String carttotal,
-                                                                   @Field("addressid") String addressid
+                                                                   @Field("addressid") String addressid,
+                                                                   @Field("fromcart") String fromcart,
+                                                                   @Field("giftid") String giftid
 
     );
 
@@ -407,6 +483,107 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("nativeapp.goods.get_comment_list")
     Observable<BaseResponse<GoodCommentmodel>> GetCommentList(@Field("id") String id, @Field("level") String level
+
+    );
+
+    /**
+     * 我的优惠券列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.sale.coupon.my.getlist")
+    Observable<BaseResponse<CouponListModel>> GetCouponList(@Field("openid") String openid, @Field("cate") String cate, @Field("page") String page
+
+    );
+
+    /**
+     * 优惠券列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.sale.coupon.getlist")
+    Observable<BaseResponse<CouponCenterModel>> GetCouponCenterList(@Field("openid") String openid, @Field("cateid") String cateid, @Field("page") String page
+
+    );
+
+    /**
+     * 会员资料
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.info")
+    Observable<BaseResponse<UserInfoModel>> GetUserInfo(@Field("openid") String openid
+
+    );
+
+    /**
+     * 上传头像
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.info.upimage")
+    Observable<BaseResponse<AvatarModel>> UpAvatar(@Field("openid") String openid, @Field("imga") String imga
+
+    );
+
+    /**
+     * 编辑会员资料
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.info.submit")
+    Observable<BaseResponse<EmptyEntity>> UpUserInfo(@Field("openid") String openid,
+                                                     @Field("nickname") String nickname,
+                                                     @Field("avatar") String avatar,
+                                                     @Field("username") String username,
+                                                     @Field("gender") String gender,
+                                                     @Field("datetime") String datetime,
+                                                     @Field("province") String province,
+                                                     @Field("city") String city,
+                                                     @Field("area") String area
+
+    );
+
+    /**
+     * 修改手机
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.bind.submit")
+    Observable<BaseResponse<EmptyEntity>> EditPhone(@Field("openid") String openid,
+                                                    @Field("mobile") String mobile,
+                                                    @Field("password") String password
+
+    );
+
+    /**
+     * 收银台接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.pay")
+    Observable<BaseResponse<PayModel>> PayInto(@Field("openid") String openid,
+                                               @Field("id") String id
+
+    );
+
+    /**
+     * 余额支付接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.pay.complete")
+    Observable<BaseResponse<BalacePayModel>> BalancePay(@Field("openid") String openid,
+                                                        @Field("id") String id,
+                                                        @Field("type") String type
 
     );
 

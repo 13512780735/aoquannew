@@ -15,7 +15,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -107,6 +107,9 @@
     <!--地址默认-->
     <style name="mycheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/address_check</item>
+    </style>
+    <style name="RadioButtonStyles">
+        <item name="android:button">@drawable/selector_radio_bg</item>
     </style>
 
 </resources>

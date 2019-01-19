@@ -19,6 +19,7 @@ import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
 import com.likeits.simple.activity.detail.GoodDetailActivity;
 import com.likeits.simple.network.model.home.MainHomeGoodModel;
+import com.likeits.simple.utils.StringUtil;
 import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.RatioImageView;
 import com.likeits.simple.view.custom_scrollview.HorizontalPageLayoutManager;
@@ -42,6 +43,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
     private String showsales;
     private MainGoodsAdapter2 mAdapter2;
     private int w_screen;
+    private List<MainHomeGoodModel.DataBean> dataBean1;
 
     @Override
     public int viewType() {
@@ -59,7 +61,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
         linearParams = (LinearLayout.LayoutParams) mRecycleView.getLayoutParams();
         DisplayMetrics dm = mContext.getResources().getDisplayMetrics();
         w_screen = dm.widthPixels;
-        dataBean = data.getData();
+
         paramsBean = data.getParams();
         styleBean = data.getStyle();
         mRecycleView.setBackgroundColor(Color.parseColor(styleBean.getBackground()));
@@ -73,8 +75,9 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
         if ("0".equals(goodsscroll)) {
             if ("".equals(liststy)) {
                 columns = 1;
+                dataBean1 = data.getData();
                 mRecycleView.setLayoutManager(new GridLayoutManager(mContext, columns));
-                mAdapter2 = new MainGoodsAdapter2(R.layout.main_home_goods_item2, dataBean);
+                mAdapter2 = new MainGoodsAdapter2(R.layout.main_home_goods_item2, dataBean1);
                 mRecycleView.setAdapter(mAdapter2);
                 linearParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
                 mRecycleView.setLayoutParams(linearParams);
@@ -82,37 +85,82 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
                 mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        Intent intent = new Intent(mContext, GoodDetailActivity.class);
-                        mContext.startActivity(intent);
+                        String cid = dataBean1.get(position).getGid();
+                        if(!StringUtil.isBlank(cid)){
+                            Intent intent = new Intent(mContext, GoodDetailActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", cid);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);}
                     }
                 });
             } else if ("block one".equals(liststy)) {
                 columns = 1;
+                dataBean = data.getData();
                 mRecycleView.setLayoutManager(new GridLayoutManager(mContext, columns));
                 mAdapter = new MainGoodsAdapter(R.layout.main_home_goods_item, dataBean);
                 mRecycleView.setAdapter(mAdapter);
                 linearParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
                 mRecycleView.setLayoutParams(linearParams);
                 mRecycleView.setHasFixedSize(true);
+                mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        String cid = dataBean.get(position).getGid();
+                        if(!StringUtil.isBlank(cid)){
+                            Intent intent = new Intent(mContext, GoodDetailActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", cid);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);}
+                    }
+                });
             } else if ("block".equals(liststy)) {
                 columns = 2;
+                dataBean = data.getData();
                 mRecycleView.setLayoutManager(new GridLayoutManager(mContext, columns));
                 mAdapter = new MainGoodsAdapter(R.layout.main_home_goods_item, dataBean);
                 mRecycleView.setAdapter(mAdapter);
                 linearParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
                 mRecycleView.setLayoutParams(linearParams);
                 mRecycleView.setHasFixedSize(true);
+                mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        String cid = dataBean.get(position).getGid();
+                        if(!StringUtil.isBlank(cid)){
+                        Intent intent = new Intent(mContext, GoodDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", cid);
+                        intent.putExtras(bundle);
+                        mContext.startActivity(intent);}
+                    }
+                });
             } else if ("block three".equals(liststy)) {
                 columns = 3;
+                dataBean = data.getData();
                 mRecycleView.setLayoutManager(new GridLayoutManager(mContext, columns));
                 mAdapter = new MainGoodsAdapter(R.layout.main_home_goods_item, dataBean);
                 mRecycleView.setAdapter(mAdapter);
                 linearParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
                 mRecycleView.setLayoutParams(linearParams);
                 mRecycleView.setHasFixedSize(true);
+                mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        String cid = dataBean.get(position).getGid();
+                        if(!StringUtil.isBlank(cid)){
+                            Intent intent = new Intent(mContext, GoodDetailActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", cid);
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);}
+                    }
+                });
             }
 
         } else {
+            dataBean = data.getData();
             if ("block one".equals(liststy)) {
                 columns = 1;
             } else if ("block".equals(liststy)) {
@@ -160,21 +208,20 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
                 mRecycleView.setLayoutManager(layoutManager);
                 scrollHelper.updateLayoutManger();
             }
+            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    String cid = dataBean.get(position).getGid();
+                    if(!StringUtil.isBlank(cid)){
+                        Intent intent = new Intent(mContext, GoodDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", cid);
+                        intent.putExtras(bundle);
+                        mContext.startActivity(intent);}
+                }
+            });
         }
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Intent intent=new Intent(mContext, GoodDetailActivity.class);
-//                mContext.startActivity(intent);
 
-                String cid = dataBean.get(position).getGid();
-                Intent intent = new Intent(mContext, GoodDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", cid);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-            }
-        });
 
 
     }

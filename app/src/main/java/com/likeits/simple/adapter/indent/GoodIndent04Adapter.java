@@ -36,7 +36,7 @@ public class GoodIndent04Adapter extends BaseQuickAdapter<IndentListModel.ListBe
             baseViewHolder.setText(R.id.tv_indent_status, "等待评价");
             baseViewHolder.getView(R.id.ll_indent_button).setVisibility(View.VISIBLE);
             baseViewHolder.getView(R.id.tv_del_indent).setVisibility(View.VISIBLE);
-            baseViewHolder.getView(R.id.tv_appraise_indent).setVisibility(View.VISIBLE);
+            baseViewHolder.getView(R.id.tv_appraise_indent).setVisibility(View.GONE);
             baseViewHolder.getView(R.id.tv_check_wuLiu).setVisibility(View.VISIBLE);
             baseViewHolder.setText(R.id.tv_del_indent, "删除订单");
             baseViewHolder.setText(R.id.tv_appraise_indent, "评价");

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".activity.SearchLayoutActivity">
+
+    <LinearLayout
+        android:id="@+id/search_block"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width40"
+        android:layout_marginTop="@dimen/width25"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/search_back"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:visibility="gone" />
+
+        <com.likeits.simple.view.searchview.EditText_Clear
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="264"
+            android:paddingRight="@dimen/dp_5"
+            android:paddingLeft="@dimen/dp_10"
+            android:background="@drawable/shape_search_round_hui_5"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="8dp"
+            android:hint="请输入您要搜索的商品"
+            android:gravity="start|center_vertical"
+            android:imeOptions="actionSearch"
+            android:singleLine="true" />
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:text="取消"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_clear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/dp_10"
+                android:visibility="invisible">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+
+                    android:text="搜索历史" />
+
+                <TextView
+                    android:id="@+id/tv_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:text="清除"
+                    android:textColor="@color/theme_bg_tex" />
+            </RelativeLayout>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flowlayout_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="11dp"
+                zhy:max_select="0"></com.zhy.view.flowlayout.TagFlowLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

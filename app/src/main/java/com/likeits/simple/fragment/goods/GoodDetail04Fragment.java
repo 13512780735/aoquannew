@@ -15,7 +15,7 @@ import com.likeits.simple.fragment.goodComment.Comment02Fragment;
 import com.likeits.simple.fragment.goodComment.Comment03Fragment;
 import com.likeits.simple.fragment.goodComment.Comment04Fragment;
 import com.likeits.simple.fragment.goodComment.Comment05Fragment;
-import com.likeits.simple.network.GoodCommentmodel;
+import com.likeits.simple.network.model.GoodCommentmodel;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.util.RetrofitUtil;
 import com.likeits.simple.view.NoScrollViewPager;

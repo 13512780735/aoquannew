@@ -26,11 +26,14 @@ import com.likeits.simple.fragment.goods.GoodDetail03Fragment;
 import com.likeits.simple.fragment.goods.GoodDetail04Fragment;
 import com.likeits.simple.fragment.goods.GoodDetailTabAdapter;
 import com.likeits.simple.network.ApiService;
+import com.likeits.simple.network.model.BaseResponse;
+import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.gooddetails.GoodDetailNavbarItemModel;
 import com.likeits.simple.network.model.gooddetails.GoodDetailSpecItemModel;
 import com.likeits.simple.network.model.gooddetails.GoodParams;
 import com.likeits.simple.network.model.home.MainHomePagerModel;
 import com.likeits.simple.network.model.main.MainNavigationModel;
+import com.likeits.simple.network.util.RetrofitUtil;
 import com.likeits.simple.utils.AppManager;
 import com.likeits.simple.utils.HttpUtil;
 import com.likeits.simple.utils.SharedPreferencesUtils;
@@ -50,6 +53,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 public class GoodDetailActivity extends BaseActivity {
     @BindView(R.id.back_view)
@@ -103,14 +107,16 @@ public class GoodDetailActivity extends BaseActivity {
     ArrayList<String> stringArrayList1 = new ArrayList<String>();
     ArrayList<String> stringArrayList2 = new ArrayList<String>();
     private int index;
+    private String isfavorite;
+    private Typeface iconTypeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_detail);
-        //  id = getIntent().getExtras().getString("id");
-      id = "716";
-
+        id = getIntent().getExtras().getString("id");
+        // id = "716";
+        iconTypeface = Typeface.createFromAsset(mContext.getAssets(), "iconfont.ttf");
         initData();
         navtab = SharedPreferencesUtils.getString(this, "navtab");
         Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
@@ -131,7 +137,7 @@ public class GoodDetailActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.back_view, R.id.tv_add, R.id.tv_buy, R.id.ll_cart})
+    @OnClick({R.id.back_view, R.id.tv_add, R.id.tv_buy, R.id.ll_cart, R.id.ll_attention})
     public void onClick(View v) {
         switch (v.getId()) {
             default:
@@ -161,7 +167,46 @@ public class GoodDetailActivity extends BaseActivity {
                 finish();
                 AppManager.getAppManager().finishAllActivity();
                 break;
+            case R.id.ll_attention:
+                if ("1".equals(isfavorite)) {
+                    tvAttention01.setText(StringUtil.decode("\\u" + "e669"));
+                    tvAttention01.setTextColor(Color.parseColor("#999999"));
+                    isfavorite = "0";
+                } else if ("0".equals(isfavorite)) {
+                    tvAttention01.setText(StringUtil.decode("\\u" + "e668"));
+                    tvAttention01.setTextColor(Color.parseColor(theme_bg_tex));
+                    isfavorite = "1";
+                }
+
+                attention();
+                break;
         }
+    }
+
+    private void attention() {
+        LoaddingShow();
+
+        RetrofitUtil.getInstance().shopFavorite(openid, id, isfavorite, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                LoaddingDismiss();
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.msg);
+                } else {
+                    showToast(baseResponse.msg);
+                }
+            }
+        });
     }
 
     private void showSkuDialog() {
@@ -197,7 +242,7 @@ public class GoodDetailActivity extends BaseActivity {
                         JSONObject object2 = object1.optJSONObject("page");//page数据
                         items = object1.optJSONArray("items"); //items数据
                         //goods = object1.optJSONObject("goods");
-                        goods=JSON.parseObject(object1.optString("goods"), GoodParams.class);
+                        goods = JSON.parseObject(object1.optString("goods"), GoodParams.class);
                         MainHomePagerModel pagerModel = JSON.parseObject(object2.toString(), MainHomePagerModel.class);
                         XLog.e(pagerModel);
                         XLog.e(items);
@@ -255,7 +300,7 @@ public class GoodDetailActivity extends BaseActivity {
             mfragments.add(goodsDetails01Fragment);
             mfragments.add(goodsDetails02Fragment);
             mfragments.add(goodsDetails04Fragment);
-        } else if (goods.getParams()!= null && !goods.isShowcomments()) {
+        } else if (goods.getParams() != null && !goods.isShowcomments()) {
             mTitles = new ArrayList<>(Arrays.asList("商品", "详情", "参数"));
             mfragments.add(goodsDetails01Fragment);
             mfragments.add(goodsDetails02Fragment);
@@ -297,12 +342,20 @@ public class GoodDetailActivity extends BaseActivity {
      * 底部初始化
      */
     private void initNavTab() {
-        Typeface iconTypeface = Typeface.createFromAsset(mContext.getAssets(), "iconfont.ttf");
+
+        isfavorite = goodDetailNavbarItemModel.getParams().getCollect();
         tvAttention.setText(goodDetailNavbarItemModel.getParams().getLiketext());
         tvAttention.setTextColor(Color.parseColor(goodDetailNavbarItemModel.getStyle().getTextcolor()));
         tvAttention01.setTypeface(iconTypeface);
-        tvAttention01.setText(StringUtil.decode("\\u" + goodDetailNavbarItemModel.getParams().getLikeiconclass()));
-        tvAttention01.setTextColor(Color.parseColor(goodDetailNavbarItemModel.getStyle().getIconcolor()));
+        if ("0".equals(isfavorite)) {
+            tvAttention01.setText(StringUtil.decode("\\u" + "e669"));
+            tvAttention01.setTextColor(Color.parseColor("#999999"));
+        } else if ("1".equals(isfavorite)) {
+            tvAttention01.setText(StringUtil.decode("\\u" + "e668"));
+            tvAttention01.setTextColor(Color.parseColor(theme_bg_tex));
+        }
+//        tvAttention01.setText(StringUtil.decode("\\u" + goodDetailNavbarItemModel.getParams().getLikeiconclass()));
+//        tvAttention01.setTextColor(Color.parseColor(goodDetailNavbarItemModel.getStyle().getIconcolor()));
         tvShop.setText(goodDetailNavbarItemModel.getParams().getShoptext());
         tvShop.setTextColor(Color.parseColor(goodDetailNavbarItemModel.getStyle().getTextcolor()));
         tvShop01.setTypeface(iconTypeface);

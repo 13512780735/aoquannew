@@ -56,12 +56,13 @@
 
         </LinearLayout>
 
-        <ImageView
+        <TextView
             android:id="@+id/message_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/icon_sort_type" />
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/txt_16" />
     </LinearLayout>
 
     <View
@@ -102,7 +103,7 @@
                     android:singleLine="true"
                     android:text="综合"
                     android:textColor="#333333"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
 
             </RelativeLayout>
@@ -132,7 +133,7 @@
                     android:singleLine="true"
                     android:text="销量"
                     android:textColor="#333333"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
 
             </RelativeLayout>
@@ -162,15 +163,15 @@
                     android:singleLine="true"
                     android:text="价格"
                     android:textColor="#333333"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/iv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginRight="10px"
-                    android:layout_toRightOf="@+id/tv_sort_price"
-                    android:src="@mipmap/icon_sort_up_down" />
+                    android:layout_toRightOf="@+id/tv_sort_price" />
             </RelativeLayout>
 
             <View
@@ -197,7 +198,7 @@
                     android:singleLine="true"
                     android:text="筛选"
                     android:textColor="#333333"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"

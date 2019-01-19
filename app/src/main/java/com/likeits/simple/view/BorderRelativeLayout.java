@@ -25,8 +25,8 @@ import com.likeits.simple.R;
  */
 public class BorderRelativeLayout extends RelativeLayout {
 
-    private int strokeWidth;    // 边框线宽
-    private int strokeColor;    // 边框颜色
+    private int strokeWidth01;    // 边框线宽
+    private int strokeColor01;    // 边框颜色
     private int enableColor;    // 不可点击颜色
     private int contentColor;   // 背景颜色
     private int pressedColor;   // 按下背景颜色
@@ -51,9 +51,9 @@ public class BorderRelativeLayout extends RelativeLayout {
         contentColor = ta.getColor(R.styleable.BorderTextView_contentBackColor, Color.TRANSPARENT);
         pressedColor = ta.getColor(R.styleable.BorderTextView_contentPressedColor, contentColor);
         enableColor = ta.getColor(R.styleable.BorderTextView_enableBackColor, Color.parseColor("#999999"));
-        strokeWidth = ta.getDimensionPixelSize(R.styleable.BorderTextView_strokeWidth01, 0);
-        strokeColor = ta.getColor(R.styleable.BorderTextView_strokeColor01, Color.TRANSPARENT);
-        cornerRadius = ta.getDimensionPixelSize(R.styleable.BorderTextView_cornerRadius, 0);
+        strokeWidth01 = ta.getDimensionPixelSize(R.styleable.BorderTextView_strokeWidth01, 1);
+        strokeColor01 = ta.getColor(R.styleable.BorderTextView_strokeColor01, Color.TRANSPARENT);
+        cornerRadius = ta.getDimensionPixelSize(R.styleable.BorderTextView_cornerRadius, 5);
         ta.recycle();
         initView();
         //设置调用onDraw方法
@@ -64,7 +64,7 @@ public class BorderRelativeLayout extends RelativeLayout {
         // 初始化画笔
         mPaint.setStyle(Paint.Style.STROKE);     // 空心效果
         mPaint.setAntiAlias(true);               // 设置画笔为无锯齿
-        mPaint.setStrokeWidth(strokeWidth);      // 线宽
+        mPaint.setStrokeWidth(strokeWidth01);      // 线宽
         // 设置背景
         setBackground(DrawableUtil.getPressedSelector(enableColor , contentColor , pressedColor , cornerRadius));
 
@@ -74,12 +74,12 @@ public class BorderRelativeLayout extends RelativeLayout {
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         // 设置画笔颜色
-        mPaint.setColor(strokeColor);
+        mPaint.setColor(strokeColor01);
         // 画空心圆角矩形
-        if (strokeWidth > 0){
-            mRectF.left = mRectF.top = 0.5f * strokeWidth;
-            mRectF.right = getMeasuredWidth() - 0.5f * strokeWidth;
-            mRectF.bottom = getMeasuredHeight() - 0.5f * strokeWidth;
+        if (strokeWidth01 > 0){
+            mRectF.left = mRectF.top = 0.5f * strokeWidth01;
+            mRectF.right = getMeasuredWidth() - 0.5f * strokeWidth01;
+            mRectF.bottom = getMeasuredHeight() - 0.5f * strokeWidth01;
             canvas.drawRoundRect(mRectF, cornerRadius, cornerRadius, mPaint);
         }
     }
@@ -90,7 +90,7 @@ public class BorderRelativeLayout extends RelativeLayout {
      */
     public void setStrokeWidth(int roederWidth){
         try {
-            strokeWidth = roederWidth;
+            strokeWidth01 = roederWidth;
             invalidate();
         }catch (Exception e){
             Log.e("My_Error",e.toString());
@@ -102,8 +102,8 @@ public class BorderRelativeLayout extends RelativeLayout {
      * 修改边框颜色
      * @param colorResource  传值：R.color.XXXX
      */
-    public void setStrokeColor(int colorResource){
-        strokeColor = colorResource;
+    public void setStrokeColor01(int colorResource){
+        strokeColor01 = colorResource;
         invalidate();
         requestLayout();
 
@@ -113,9 +113,9 @@ public class BorderRelativeLayout extends RelativeLayout {
      * 修改背景颜色
      * @param colorResource  传值：R.color.XXXX
      */
-    public void setContentColorResource(int colorResource){
+    public void setContentColorResource01(int colorResource){
         try {
-            contentColor = ContextCompat.getColor(getContext(), colorResource);
+            contentColor = colorResource;
             setBackground(DrawableUtil.getPressedSelector(enableColor , contentColor , contentColor , cornerRadius));
         }catch (Exception e){
             Log.e("My_Error",e.toString());

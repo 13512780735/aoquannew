@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.elvishew.xlog.XLog;
 import com.likeits.simple.R;
 import com.likeits.simple.adapter.cart.CartShopItemsAdapter;
 import com.likeits.simple.base.BaseActivity;
@@ -86,6 +87,8 @@ public class ConfirmOrderActivity extends BaseActivity {
         cartnum = getIntent().getExtras().getString("cartnum");
         goodsIds = getIntent().getExtras().getString("goodsIds");
         indentFlag = getIntent().getExtras().getString("indentFlag");//1为商品详情：2，为购物车
+
+        XLog.e("optionid-->"+optionid+"<--cartIds-->"+cartids+"<--cartnum-->"+cartnum+"<--goodsIds-->"+goodsIds+"<--id-->"+id);
         data = new ArrayList<>();
         initUI();
 
@@ -115,7 +118,7 @@ public class ConfirmOrderActivity extends BaseActivity {
      */
     private void initData2() {
         loaddingDialog.show();
-        RetrofitUtil.getInstance().CreateCartOrder(openid, cartids, cartnum, new Subscriber<BaseResponse<OrderCreateModel>>() {
+        RetrofitUtil.getInstance().CreateCartOrder(openid, cartids, cartnum, "", "", "", new Subscriber<BaseResponse<OrderCreateModel>>() {
             @Override
             public void onCompleted() {
 
@@ -158,7 +161,7 @@ public class ConfirmOrderActivity extends BaseActivity {
      */
     private void initData1() {
         loaddingDialog.show();
-        RetrofitUtil.getInstance().OrderCreate(openid, id, optionid, total, new Subscriber<BaseResponse<OrderCreateModel>>() {
+        RetrofitUtil.getInstance().OrderCreate(openid, id, optionid, total, "","","",new Subscriber<BaseResponse<OrderCreateModel>>() {
             @Override
             public void onCompleted() {
 
@@ -171,6 +174,7 @@ public class ConfirmOrderActivity extends BaseActivity {
 
             @Override
             public void onNext(BaseResponse<OrderCreateModel> baseResponse) {
+                XLog.e("data-->"+baseResponse.getData().getGoods_list().get(0).getShopname());
                 loaddingDialog.dismiss();
                 if (baseResponse.code == 200) {
                     orderCreateModel = baseResponse.getData();
@@ -210,6 +214,7 @@ public class ConfirmOrderActivity extends BaseActivity {
         mTvExpressage.setText("¥ " + orderCreateModel.getDispatch_price());
         // tv_total_number.setText("共 " + "1" + " 件商品，合计: ");
         tv_total_price01.setText("¥ " + goodPrice);
+        tv_total_price01.setTextColor(Color.parseColor(theme_bg_tex));
         tv_total_number.setText("共 " + orderCreateModel.getTotal() + " 件商品，合计: ");
 //                tv_total_price.setText("¥ " + goodPrice);
 
@@ -253,8 +258,9 @@ public class ConfirmOrderActivity extends BaseActivity {
             showProgress("请选择地址");
             return;
         }
+        XLog.e("addressId-->"+addressId);
         loaddingDialog.show();
-        RetrofitUtil.getInstance().CreateCartSubmitorder(optionid, goodsIds, optionid, cartnum, addressId, new Subscriber<BaseResponse<PayIndentModel>>() {
+        RetrofitUtil.getInstance().CreateCartSubmitorder(openid, goodsIds, optionid, cartnum, addressId,"1","", new Subscriber<BaseResponse<PayIndentModel>>() {
             @Override
             public void onCompleted() {
 
@@ -272,6 +278,7 @@ public class ConfirmOrderActivity extends BaseActivity {
                     PayIndentModel payIndentModel = baseResponse.getData();
                     Bundle bundle = new Bundle();
                     bundle.putString("tid", payIndentModel.getOrder().getOrdersn());
+                    bundle.putString("id", payIndentModel.getOrder().getId());
                     bundle.putString("money", payIndentModel.getOrder().getPrice());
                     toActivity(PayActivity.class, bundle);
                 }
@@ -288,7 +295,7 @@ public class ConfirmOrderActivity extends BaseActivity {
             return;
         }
         loaddingDialog.show();
-        RetrofitUtil.getInstance().submitorder(optionid, id, optionid, total, addressId, new Subscriber<BaseResponse<PayIndentModel>>() {
+        RetrofitUtil.getInstance().submitorder(openid, id, optionid, total, addressId,"", new Subscriber<BaseResponse<PayIndentModel>>() {
             @Override
             public void onCompleted() {
 
@@ -306,6 +313,7 @@ public class ConfirmOrderActivity extends BaseActivity {
                     PayIndentModel payIndentModel = baseResponse.getData();
                     Bundle bundle = new Bundle();
                     bundle.putString("tid", payIndentModel.getOrder().getOrdersn());
+                    bundle.putString("id", payIndentModel.getOrder().getId());
                     bundle.putString("money", payIndentModel.getOrder().getPrice());
                     toActivity(PayActivity.class, bundle);
                 }

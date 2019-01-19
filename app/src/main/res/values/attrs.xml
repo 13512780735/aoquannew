@@ -451,4 +451,11 @@
         <attr name="tvTextSize" format="dimension" />
         <attr name="btnTextSize" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="Search_View">
+        <attr name="textSizeSearch" format="dimension"  />
+        <attr name="textColorSearch" format="color" />
+        <attr name="textHintSearch" format="string" />
+        <attr name="searchBlockHeight" format="integer" />
+        <attr name="searchBlockColor" format="color" />
+    </declare-styleable>
 </resources>

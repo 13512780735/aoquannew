@@ -180,7 +180,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onNext(BaseResponse<EmptyEntity> baseResponse) {
                 if (baseResponse.code == 200) {
-                    showToast(baseResponse.getMsg());
+                    showToast("删除成功");
                     Intent intent = new Intent();
                     intent.putExtra("result", "2");
                     intent.putExtra("position", position);
@@ -225,20 +225,6 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
         //  Toast.makeText(this, province + city + area, Toast.LENGTH_SHORT).show();
     }
 
-
-//    /**
-//     * 编辑地址
-//     */
-//    private void editAddress() {
-//        String sign = SignUtils.getSign(this);
-//        String signs[] = sign.split("##");
-//        String signature = signs[0];
-//        String newtime = signs[1];
-//        String random = signs[2];
-//        realname=mEdRecipientsName.getText().toString().trim();
-//        mobile=mEdRecipientsPhone.getText().toString().trim();
-//        address=mEdRecipientsDetailedAddress.getText().toString().trim();
-//    }
 
     /**
      * 添加地址

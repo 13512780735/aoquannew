@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_10"
     android:background="@color/white"
+    android:layout_marginTop="@dimen/dp_8"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -30,7 +30,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/dp_10"
             android:text=""
-            android:textColor="@color/register_text_color" />
+            android:textColor="@color/theme_bg_tex" />
     </RelativeLayout>
 
     <View
@@ -104,10 +104,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_4"
-            android:padding="@dimen/dp_5"
+            app:cornerRadius="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_5"
             android:visibility="gone"
             app:contentBackColor="@color/white"
-            app:cornerRadius="@dimen/dp_5"
             app:strokeColor01="#999999"
             app:strokeWidth01="1dp" />
 
@@ -116,10 +119,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_4"
-            android:padding="@dimen/dp_5"
             android:visibility="gone"
             app:contentBackColor="@color/white"
-            app:cornerRadius="@dimen/dp_5"
+            app:cornerRadius="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_5"
             app:strokeColor01="#999999"
             app:strokeWidth01="1dp" />
 
@@ -128,10 +134,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_4"
-            android:padding="@dimen/dp_5"
             android:visibility="gone"
             app:contentBackColor="@color/white"
-            app:cornerRadius="@dimen/dp_5"
+            app:cornerRadius="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_5"
             app:strokeColor01="#999999"
             app:strokeWidth01="1dp" />
 
@@ -140,10 +149,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_4"
-            android:padding="@dimen/dp_5"
+            app:cornerRadius="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_5"
             android:visibility="gone"
             app:contentBackColor="@color/white"
-            app:cornerRadius="@dimen/dp_5"
             app:strokeColor01="#999999"
             app:strokeWidth01="1dp" />
 
@@ -152,10 +164,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_4"
-            android:padding="@dimen/dp_5"
+            app:cornerRadius="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_5"
             android:visibility="gone"
             app:contentBackColor="@color/white"
-            app:cornerRadius="@dimen/dp_5"
             app:strokeColor01="#999999"
             app:strokeWidth01="1dp" />
 
@@ -164,13 +179,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_4"
-            android:padding="@dimen/dp_5"
             android:textColor="@color/white"
             android:visibility="gone"
             app:contentBackColor="@color/theme_bg_tex"
-            app:cornerRadius="5dp"
+            app:cornerRadius="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_5"
             app:strokeColor01="@color/theme_bg_tex"
             app:strokeWidth01="1dp" />
 
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_recover_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_4"
+            app:cornerRadius="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_5"
+            android:visibility="gone"
+            app:contentBackColor="@color/white"
+            app:strokeColor01="#999999"
+            app:strokeWidth01="1dp" />
+
     </LinearLayout>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
 </LinearLayout>

@@ -1,9 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".activity.indent.IndentDetailsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/common_toolbar"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_indent_middle_view"></include>
+
+        </LinearLayout>
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+
+    <LinearLayout
+        android:id="@+id/ll_indent_status"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="bottom|right"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_indent_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            app:cornerRadius="15dp"
+            app:strokeColor01="#999999"
+            app:contentBackColor="#FFFFFF"
+            app:strokeWidth01="1dp"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingLeft="@dimen/dp_8"
+            android:visibility="gone"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_5"
+            android:text="取消订单" />
+
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_indent_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            app:cornerRadius="15dp"
+            app:strokeColor01="#999999"
+            app:contentBackColor="#FFFFFF"
+            app:strokeWidth01="1dp"
+            android:paddingLeft="@dimen/dp_8"
+            android:visibility="gone"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_5"
+            android:text="删除订单" />
+
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_indent_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            app:cornerRadius="15dp"
+            app:strokeColor01="#999999"
+            app:contentBackColor="#FFFFFF"
+            android:visibility="gone"
+            app:strokeWidth01="1dp"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_5"
+            android:text="支付订单" />
+        <com.likeits.simple.view.BorderTextView
+            android:id="@+id/tv_indent_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            android:visibility="gone"
+            app:cornerRadius="15dp"
+            app:strokeColor01="#999999"
+            app:contentBackColor="#FFFFFF"
+            app:strokeWidth01="1dp"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_5"
+            android:text="确认收货" />
+    </LinearLayout>
+    <View
+        android:id="@+id/popu"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+</LinearLayout>

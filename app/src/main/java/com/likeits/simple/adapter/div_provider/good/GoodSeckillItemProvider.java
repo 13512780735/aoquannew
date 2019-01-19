@@ -55,14 +55,14 @@ public class GoodSeckillItemProvider extends BaseItemProvider<GoodDetailSeckillI
         customProgressBar.setProgressBgColor(Color.parseColor("#FFFFFF"));
         customProgressBar.setProgressColor(Color.parseColor("#" + "1A" + color));
 
-        String content = "¥" + productprice;
+        String content = "¥" + data.getData().getPrice();
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder(content);
         AbsoluteSizeSpan ab = new AbsoluteSizeSpan(12, true);
         //文本字体绝对的大小
         stringBuilder.setSpan(ab, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_productprice.setText(stringBuilder);
 
-        tv_price.setText(data.getData().getOptions().get(0).getPrice());
+        tv_price.setText(productprice);
         tv_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         DynamicConfig dynamicConfig = new DynamicConfig.Builder().setBackgroundInfo(new DynamicConfig.BackgroundInfo().setColor(Color.parseColor(color1))).build();
         mCountdownView.dynamicShow(dynamicConfig);

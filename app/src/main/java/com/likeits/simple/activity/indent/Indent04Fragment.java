@@ -15,6 +15,7 @@ import com.likeits.simple.R;
 import com.likeits.simple.adapter.indent.GoodIndent04Adapter;
 import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.network.model.BaseResponse;
+import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.util.RetrofitUtil;
 
@@ -42,6 +43,7 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
     int TOTAL_COUNTER = 0;
     private Bundle bundle;
     private IndentListModel indentListModel;
+    private String id;
 
 
     @Override
@@ -64,17 +66,51 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.rl_indent_details://订单详情
+                        id = data.get(position).getId();
                         bundle = new Bundle();
                         bundle.putInt("status", 4);
+                        bundle.putString("flag", "1");
+                        bundle.putString("id", id);
                         toActivity(IndentDetailsActivity.class, bundle);
                         break;
                     case R.id.tv_appraise_indent://评价
                         toActivity(IndentAppraiseActivity.class);
                         break;
                     case R.id.tv_check_wuLiu://查看无聊
+                        id = data.get(position).getId();
+                        bundle = new Bundle();
+                        bundle.putString("id", id);
+                        toActivity(LogisticsActivity.class,bundle);
                         break;
                     case R.id.tv_del_indent://删除订单
+                        id = data.get(position).getId();
+                        deleteIndent(id);
                         break;
+                }
+            }
+        });
+    }
+    private void deleteIndent(String id) {
+    //    LoaddingShow();
+        RetrofitUtil.getInstance().orderDelete(openid, id, "1", new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+               // LoaddingDismiss();
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
                 }
             }
         });
@@ -167,6 +203,7 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
                 isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }

@@ -3,7 +3,7 @@ package com.likeits.simple.network.model.gooddetails;
 public class GoodDetailNavbarItemModel {
 
     /**
-     * params : {"hidelike":"0","hideshop":"0","hidecart":"0","hidecartbtn":"0","textbuy":"您已经超出最大0件购买量","goodstext":"商品","liketext":"关注","likeiconclass":"e669","onlikeiconclass":"e668","shoptext":"店铺","shopiconclass":"e676","carttext":"购物车","carticonclass":"e698","nobuybgcolor":"#000000"}
+     * params : {"hidelike":"0","hideshop":"0","hidecart":"0","hidecartbtn":"0","textbuy":"立刻购买","goodstext":"商品","liketext":"关注","likeiconclass":"e669","onlikeiconclass":"e668","shoptext":"店铺","shopiconclass":"e676","carttext":"购物车","carticonclass":"e698","nobuybgcolor":"#000000","collect":"1"}
      * style : {"background":"#ffffff","textcolor":"#999999","iconcolor":"#999999","cartcolor":"#fe9402","buycolor":"#fd5555"}
      * id : detail_navbar
      * data : {"navbar":null}
@@ -52,7 +52,7 @@ public class GoodDetailNavbarItemModel {
          * hideshop : 0
          * hidecart : 0
          * hidecartbtn : 0
-         * textbuy : 您已经超出最大0件购买量
+         * textbuy : 立刻购买
          * goodstext : 商品
          * liketext : 关注
          * likeiconclass : e669
@@ -62,6 +62,7 @@ public class GoodDetailNavbarItemModel {
          * carttext : 购物车
          * carticonclass : e698
          * nobuybgcolor : #000000
+         * collect : 1
          */
 
         private String hidelike;
@@ -78,6 +79,7 @@ public class GoodDetailNavbarItemModel {
         private String carttext;
         private String carticonclass;
         private String nobuybgcolor;
+        private String collect;
 
         public String getHidelike() {
             return hidelike;
@@ -189,6 +191,14 @@ public class GoodDetailNavbarItemModel {
 
         public void setNobuybgcolor(String nobuybgcolor) {
             this.nobuybgcolor = nobuybgcolor;
+        }
+
+        public String getCollect() {
+            return collect;
+        }
+
+        public void setCollect(String collect) {
+            this.collect = collect;
         }
     }
 

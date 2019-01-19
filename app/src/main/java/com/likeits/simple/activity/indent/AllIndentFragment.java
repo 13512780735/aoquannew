@@ -8,15 +8,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeits.simple.R;
 import com.likeits.simple.adapter.indent.GoodAllIndentAdapter;
 import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.network.model.BaseResponse;
+import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.util.RetrofitUtil;
+import com.likeits.simple.view.CustomPopWindow;
 import com.likeits.simple.wxapi.PayActivity;
 
 import java.util.ArrayList;
@@ -31,11 +37,15 @@ import rx.Subscriber;
 public class AllIndentFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
 
+    @BindView(R.id.popu)
+    View view;
     @BindView(R.id.RecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     private GoodAllIndentAdapter mAdapter;
+    private CustomPopWindow mCustomPopWindow;
+
 
     private int pageNum = 1;
     private static final int PAGE_SIZE = 1;//为什么是6呢？
@@ -45,6 +55,8 @@ public class AllIndentFragment extends BaseFragment implements BaseQuickAdapter.
     int TOTAL_COUNTER = 0;
     private Bundle bundle;
     private IndentListModel indentListModel;
+    private String id;
+    private String closereason;
 
     public void initUI() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -57,26 +69,159 @@ public class AllIndentFragment extends BaseFragment implements BaseQuickAdapter.
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.rl_indent_details://订单详情
+                        id = data.get(position).getId();
                         bundle = new Bundle();
-                        bundle.putInt("status", 1);
+                        bundle.putInt("status", 0);
+                        bundle.putString("id", id);
                         toActivity(IndentDetailsActivity.class, bundle);
                         break;
                     case R.id.tv_cancel_indent://取消订单
+                        id = data.get(position).getId();
+                        // cancelIndent(id);
+                        showPopMenu(id);
+
                         break;
                     case R.id.tv_del_indent://删除订单
+                        id = data.get(position).getId();
+                        deleteIndent(id);
                         break;
                     case R.id.tv_pay://支付订单
                         String IndentId = data.get(position).getOrdersn();
+                        id = data.get(position).getId();
                         String money = data.get(position).getPrice();
                         bundle = new Bundle();
                         bundle.putString("tid", IndentId);
+                        bundle.putString("id", id);
                         bundle.putString("money", money);
                         toActivity(PayActivity.class, bundle);
                         break;
                     case R.id.tv_check_wuLiu://查看无聊
                         break;
-                    case R.id.tv_confirm_goods://确认售后
+                    case R.id.tv_confirm_goods://确认收货
+                        id = data.get(position).getId();
+                        confirmOrder(id);
                         break;
+                }
+            }
+        });
+    }
+
+    private void confirmOrder(String id) {
+        RetrofitUtil.getInstance().orderFinish(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
+    }
+
+    private void showPopMenu(String id) {
+        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu2, null);
+        //处理popWindow 显示内容
+        handleLogic(contentView, id);
+        //创建并显示popWindow
+        mCustomPopWindow = new CustomPopWindow.PopupWindowBuilder(getActivity()).size(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+                .setView(contentView)
+                .create()
+                .showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    private void handleLogic(View contentView, final String id) {
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCustomPopWindow != null) {
+                    mCustomPopWindow.dissmiss();
+                }
+                switch (v.getId()) {
+                    case R.id.menu1:
+                        closereason = "我不想买了";
+                        cancelIndent(id, closereason);
+                        break;
+                    case R.id.menu2:
+                        closereason = "信息填写错误，重新拍";
+                        cancelIndent(id, closereason);
+                        break;
+                    case R.id.menu3:
+                        closereason = "卖家缺货";
+                        cancelIndent(id, closereason);
+                        break;
+                    case R.id.menu4:
+                        closereason = "同城见面交易";
+                        cancelIndent(id, closereason);
+                        break;
+                    case R.id.menu5:
+                        closereason = "其他原因";
+                        cancelIndent(id, closereason);
+                        break;
+                }
+            }
+        };
+        contentView.findViewById(R.id.menu1).setOnClickListener(listener);
+        contentView.findViewById(R.id.menu2).setOnClickListener(listener);
+        contentView.findViewById(R.id.menu3).setOnClickListener(listener);
+        contentView.findViewById(R.id.menu4).setOnClickListener(listener);
+        contentView.findViewById(R.id.menu5).setOnClickListener(listener);
+    }
+
+    private void cancelIndent(String id, String closereason) {
+        RetrofitUtil.getInstance().orderCancel(openid, id, closereason, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
+    }
+
+    private void deleteIndent(String id) {
+        RetrofitUtil.getInstance().orderDelete(openid, id, "1", new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
                 }
             }
         });
@@ -89,7 +234,7 @@ public class AllIndentFragment extends BaseFragment implements BaseQuickAdapter.
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.disableLoadMoreIfNotFullPage();
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+       // mSwipeRefreshLayout.setOnRefreshListener(this);
         initData(pageNum, false);
         mCurrentCounter = mAdapter.getData().size();
     }
@@ -184,6 +329,7 @@ public class AllIndentFragment extends BaseFragment implements BaseQuickAdapter.
                 isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }

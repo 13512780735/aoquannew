@@ -1,1 +1,1 @@
-include ':app', ':library',':productlibrary',':addresslibrary'
+include ':app', ':library',':productlibrary',':addresslibrary', ':mylibrary'

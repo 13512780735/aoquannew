@@ -70,8 +70,8 @@ public class GoodDetail01Fragment extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void lazyLoad() {
 
-        //id = getArguments().getString("id");
-        id="526";
+       id = getArguments().getString("id");
+        //  id="526";
         initData();
     }
 

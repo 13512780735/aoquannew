@@ -1,8 +1,10 @@
 package com.likeits.simple.adapter.indent;
 
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -43,6 +45,7 @@ public class GoodAllIndentAdapter extends BaseQuickAdapter<IndentListModel.ListB
         } else if (status == 1) {
             baseViewHolder.setText(R.id.tv_indent_status, "待发货");
             baseViewHolder.getView(R.id.ll_indent_button).setVisibility(View.GONE);
+            baseViewHolder.getView(R.id.view).setVisibility(View.GONE);
 
         } else if (status == 2) {
             baseViewHolder.setText(R.id.tv_indent_status, "待收货");
@@ -61,12 +64,21 @@ public class GoodAllIndentAdapter extends BaseQuickAdapter<IndentListModel.ListB
             baseViewHolder.setText(R.id.tv_del_indent, "删除订单");
             baseViewHolder.setText(R.id.tv_appraise_indent, "评价");
             baseViewHolder.setText(R.id.tv_check_wuLiu, "查看物流");
+
+        } else if (status == 4) {
+            baseViewHolder.setText(R.id.tv_indent_status, item.getStatusstr());
+            baseViewHolder.getView(R.id.ll_indent_button).setVisibility(View.GONE);
+            baseViewHolder.getView(R.id.view).setVisibility(View.GONE);
+        } else if (status == 5) {
+            baseViewHolder.setText(R.id.tv_indent_status, "已取消");
+            ((TextView) (baseViewHolder.getView(R.id.tv_indent_status))).setTextColor(Color.parseColor("#999999"));
+            baseViewHolder.getView(R.id.ll_indent_button).setVisibility(View.VISIBLE);
+            baseViewHolder.getView(R.id.tv_recover_goods).setVisibility(View.GONE);
+            baseViewHolder.getView(R.id.tv_cancel_indent).setVisibility(View.GONE);
+            baseViewHolder.getView(R.id.tv_del_indent).setVisibility(View.VISIBLE);
+            baseViewHolder.getView(R.id.tv_pay).setVisibility(View.GONE);
+            baseViewHolder.setText(R.id.tv_del_indent, "删除订单");
         }
-//        else if (status == 4) {
-//            baseViewHolder.setText(R.id.tv_indent_status, "待付款");
-//        } else if (status == 5) {
-//            baseViewHolder.setText(R.id.tv_indent_status, "待付款");
-//        }
 
 
         baseViewHolder.addOnClickListener(R.id.rl_indent_details);

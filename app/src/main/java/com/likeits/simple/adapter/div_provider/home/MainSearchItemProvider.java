@@ -1,6 +1,7 @@
 package com.likeits.simple.adapter.div_provider.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.SearchLayoutActivity;
 import com.likeits.simple.network.model.home.MainHomeSearchModel;
 import com.likeits.simple.utils.StringUtil;
 
@@ -64,6 +66,13 @@ public class MainSearchItemProvider extends BaseItemProvider<MainHomeSearchModel
         tvRight.setTextColor(Color.parseColor(data.getStyle().getRightnavcolor()));
         tvLeft.setText(StringUtil.decode("\\u" + data.getParams().getLeftnaviconcode()));
         tvRight.setText(StringUtil.decode("\\u" + data.getParams().getRightnaviconcode()));
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, SearchLayoutActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
 

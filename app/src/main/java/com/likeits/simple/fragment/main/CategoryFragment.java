@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.elvishew.xlog.XLog;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.SearchLayoutActivity;
 import com.likeits.simple.adapter.sort.adapter.LeftAdapter;
 import com.likeits.simple.adapter.sort.adapter.RightAdapter;
 import com.likeits.simple.base.BaseFragment;
@@ -25,6 +26,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.OnClick;
 import rx.Subscriber;
 
 /**
@@ -133,6 +135,15 @@ public class CategoryFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    @OnClick(R.id.search_layout)
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.search_layout:
+                toActivity(SearchLayoutActivity.class);
+                break;
+        }
     }
 
     @Override

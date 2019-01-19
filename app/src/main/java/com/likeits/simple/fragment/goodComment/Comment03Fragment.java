@@ -1,18 +1,14 @@
 package com.likeits.simple.fragment.goodComment;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.likeits.simple.R;
 import com.likeits.simple.adapter.comment.GoodCommentListAdapter;
 import com.likeits.simple.base.BaseFragment;
-import com.likeits.simple.network.GoodCommentmodel;
+import com.likeits.simple.network.model.GoodCommentmodel;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.util.RetrofitUtil;
 
@@ -41,8 +37,8 @@ public class Comment03Fragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        //id = getArguments().getString("id");
-        id = "526";
+        id = getArguments().getString("id");
+        // id = "526";
         initData();
 
     }

@@ -99,5 +99,9 @@ dependencies {
     implementation files('libs/ShareSDK-Wechat-Favorite-3.3.0.jar')
     implementation files('libs/ShareSDK-Wechat-Moments-3.3.0.jar')
     implementation project(':addresslibrary')
+    implementation project(':mylibrary')
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation 'com.guoqi.widget:actionsheet:1.0'
+    implementation 'pub.devrel:easypermissions:1.0.1'
 }

@@ -36,4 +36,9 @@
     <color name="footbar_text_color">#7d7d7d</color>
     <color name="apply">#FF2150</color>
     <color name="page_backgroup">#f2f2f2</color>
+    <color name="gray">#8c8c8c</color>
+
+    <color name="colorDefault">#ffffff</color>
+    <color name="colorBackground">#f1f0f6</color>
+    <color name="colorText">#9b9b9b</color>
 </resources>

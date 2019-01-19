@@ -220,6 +220,7 @@ public class CustomDialog {
             @Override
             public void onClick(View v) {
                 listener.onClick(v);
+                dialog.dismiss();
             }
         });
         return this;

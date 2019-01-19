@@ -30,6 +30,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/text_red"
             android:backgroundTintMode="src_over"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -38,7 +40,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:focusable="false"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="10dip"
                 android:textSize="12sp" />

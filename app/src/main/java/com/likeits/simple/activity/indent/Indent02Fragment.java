@@ -2,11 +2,13 @@ package com.likeits.simple.activity.indent;
 
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeits.simple.R;
@@ -40,6 +42,8 @@ public class Indent02Fragment extends BaseFragment implements BaseQuickAdapter.R
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
     private IndentListModel indentListModel;
+    private Bundle bundle;
+    private String id;
 
     @Override
     protected int setContentView() {
@@ -56,6 +60,28 @@ public class Indent02Fragment extends BaseFragment implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         initAdapter();
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.rl_indent_details://订单详情
+                        id = data.get(position).getId();
+                        bundle = new Bundle();
+                        bundle.putInt("status", 2);
+                        bundle.putString("flag", "1");
+                        bundle.putString("id", id);
+                        toActivity(IndentDetailsActivity.class, bundle);
+                        break;
+//                    case R.id.tv_appraise_indent://评价
+//                        toActivity(IndentAppraiseActivity.class);
+//                        break;
+//                    case R.id.tv_check_wuLiu://查看无聊
+//                        break;
+//                    case R.id.tv_del_indent://删除订单
+//                        break;
+                }
+            }
+        });
     }
 
     private void initAdapter() {
@@ -145,6 +171,7 @@ public class Indent02Fragment extends BaseFragment implements BaseQuickAdapter.R
                 isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }

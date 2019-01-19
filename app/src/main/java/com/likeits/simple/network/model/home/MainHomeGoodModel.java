@@ -4,11 +4,10 @@ import java.util.List;
 
 public class MainHomeGoodModel extends HomeMessage{
 
-
     /**
-     * params : {"showtitle":"1","showprice":"1","goodsdata":"3","cateid":"","catename":"","groupid":"","groupname":"","goodssort":"0","goodsscroll":"1","goodsnum":"4","showicon":"1","iconposition":"left top","productprice":"1","showproductprice":"1","showsales":"1","productpricetext":"原价","salestext":"销量","productpriceline":"0","saleout":"0"}
-     * style : {"background":"#ffc0bd","liststyle":"block","buystyle":"buybtn-1","buytext":"购买","goodsicon":"推荐","iconstyle":"triangle","pricecolor":"#ff0000","productpricecolor":"#ff0080","iconpaddingtop":"0","iconpaddingleft":"0","buybtncolor":"#0000ff","iconzoom":"100","titlecolor":"#9769c9","tagbackground":"#fe5455","salescolor":"#80ffff"}
-     * data : [{"gid":"788","title":"新中式全铜如意系列SHT8807-8+4吊灯","subtitle":"","price":"4640.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/hAbJTzBD6mHtAM58JJaqJHhaq9jdra.jpg","total":"497","productprice":"0.00","ctype":"1","seecommission":0,"cansee":"0","seetitle":"","sales":3,"video":"","bargain":"0"},{"gid":"787","title":"新中式全铜如意系列SHT8807-8吊灯","subtitle":"","price":"3380.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/yPShSE0EO1vhi1PZg0EP12NzsgEoWE.png","total":"5","productprice":"0.00","ctype":"1","seecommission":0,"cansee":"0","seetitle":"","sales":6,"video":"","bargain":"0"},{"gid":"592","title":"天空之城58055-8艺术级高端全铜吊灯古典奢丽大厅灯餐厅灯书房灯","subtitle":"","price":"3560.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/DoB4zpCPYzvCCvg94Nq2yVv4TSvDYg.jpg","total":"492","productprice":"0.00","ctype":"1","seecommission":0,"cansee":"0","seetitle":"","sales":43,"video":"","bargain":"0"},{"gid":"526","title":"美妙人生11189-10美式黄铜玻璃吊灯餐厅灯客厅灯卧室灯","subtitle":"","price":"3780.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/08/CK9x9YUFXeUf2eTO4KT48b4C5zaLt4.jpg","total":"492","productprice":"0.00","ctype":"1","seecommission":0,"cansee":"0","seetitle":"","sales":133,"video":"","bargain":"0"}]
+     * params : {"showtitle":"1","showprice":"1","goodsdata":"7","cateid":"","catename":"","groupid":"2","groupname":"12.12","goodssort":"0","goodsscroll":"0","goodsnum":"9","showicon":"1","iconposition":"left top","productprice":"1","showproductprice":"0","showsales":"1","productpricetext":"原价","salestext":"销量","productpriceline":"0","saleout":"0"}
+     * style : {"background":"#ffffff","liststyle":"block three","buystyle":"buybtn-2","buytext":"购买","goodsicon":"推荐","iconstyle":"triangle","pricecolor":"#ff0000","productpricecolor":"#ff0080","iconpaddingtop":"0","iconpaddingleft":"0","buybtncolor":"#ff424d","iconzoom":"100","titlecolor":"#000000","tagbackground":"#fe5455","salescolor":"#80ffff"}
+     * data : [{"gid":"632","title":"星海雅信（Starrysea）家用负氧离子HEPA空气净化器 办公室除PM2.5空气净化器 白色","subtitle":"","price":"2699.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/06/FOV69wvTM9dgWVjbVmvVrVnvVnDV89.jpg","total":"500","productprice":"0.00","ctype":"1","seecommission":"","cansee":"","seetitle":"","sales":"26","video":"","bargain":"0"},{"gid":"769","title":"德克特斯榨汁机","subtitle":"","price":"198.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/aNdPjIJkdPPJaTmAYlp0gvLl0Pp6gT.jpg","total":"500","productprice":"0.00","ctype":"1","seecommission":"0","cansee":"","seetitle":"","sales":"124","video":"","bargain":"0"}]
      * id : goods
      */
 
@@ -53,18 +52,18 @@ public class MainHomeGoodModel extends HomeMessage{
         /**
          * showtitle : 1
          * showprice : 1
-         * goodsdata : 3
+         * goodsdata : 7
          * cateid :
          * catename :
-         * groupid :
-         * groupname :
+         * groupid : 2
+         * groupname : 12.12
          * goodssort : 0
-         * goodsscroll : 1
-         * goodsnum : 4
+         * goodsscroll : 0
+         * goodsnum : 9
          * showicon : 1
          * iconposition : left top
          * productprice : 1
-         * showproductprice : 1
+         * showproductprice : 0
          * showsales : 1
          * productpricetext : 原价
          * salestext : 销量
@@ -247,9 +246,9 @@ public class MainHomeGoodModel extends HomeMessage{
 
     public static class StyleBean {
         /**
-         * background : #ffc0bd
-         * liststyle : block
-         * buystyle : buybtn-1
+         * background : #ffffff
+         * liststyle : block three
+         * buystyle : buybtn-2
          * buytext : 购买
          * goodsicon : 推荐
          * iconstyle : triangle
@@ -257,9 +256,9 @@ public class MainHomeGoodModel extends HomeMessage{
          * productpricecolor : #ff0080
          * iconpaddingtop : 0
          * iconpaddingleft : 0
-         * buybtncolor : #0000ff
+         * buybtncolor : #ff424d
          * iconzoom : 100
-         * titlecolor : #9769c9
+         * titlecolor : #000000
          * tagbackground : #fe5455
          * salescolor : #80ffff
          */
@@ -403,18 +402,18 @@ public class MainHomeGoodModel extends HomeMessage{
 
     public static class DataBean {
         /**
-         * gid : 788
-         * title : 新中式全铜如意系列SHT8807-8+4吊灯
+         * gid : 632
+         * title : 星海雅信（Starrysea）家用负氧离子HEPA空气净化器 办公室除PM2.5空气净化器 白色
          * subtitle :
-         * price : 4640.00
-         * thumb : http://hidsy.maimaitoo.com/attachment/images/1/merch/155/hAbJTzBD6mHtAM58JJaqJHhaq9jdra.jpg
-         * total : 497
+         * price : 2699.00
+         * thumb : http://hidsy.maimaitoo.com/attachment/images/1/2018/06/FOV69wvTM9dgWVjbVmvVrVnvVnDV89.jpg
+         * total : 500
          * productprice : 0.00
          * ctype : 1
-         * seecommission : 0
-         * cansee : 0
+         * seecommission :
+         * cansee :
          * seetitle :
-         * sales : 3
+         * sales : 26
          * video :
          * bargain : 0
          */
@@ -427,10 +426,10 @@ public class MainHomeGoodModel extends HomeMessage{
         private String total;
         private String productprice;
         private String ctype;
-        private int seecommission;
+        private String seecommission;
         private String cansee;
         private String seetitle;
-        private int sales;
+        private String sales;
         private String video;
         private String bargain;
 
@@ -498,11 +497,11 @@ public class MainHomeGoodModel extends HomeMessage{
             this.ctype = ctype;
         }
 
-        public int getSeecommission() {
+        public String getSeecommission() {
             return seecommission;
         }
 
-        public void setSeecommission(int seecommission) {
+        public void setSeecommission(String seecommission) {
             this.seecommission = seecommission;
         }
 
@@ -522,11 +521,11 @@ public class MainHomeGoodModel extends HomeMessage{
             this.seetitle = seetitle;
         }
 
-        public int getSales() {
+        public String getSales() {
             return sales;
         }
 
-        public void setSales(int sales) {
+        public void setSales(String sales) {
             this.sales = sales;
         }
 

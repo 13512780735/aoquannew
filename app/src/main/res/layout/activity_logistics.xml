@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.indent.LogisticsActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingEnd="15dp">
+
+        <!--商品主图-->
+        <ImageView
+            android:id="@+id/main_pic_iv"
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+        <!--物流状态-->
+        <LinearLayout
+            android:id="@+id/ll_express_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/main_pic_iv"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/main_pic_iv"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="物流状态:"
+                android:textColor="#333333"
+                />
+
+            <TextView
+                android:id="@+id/express_status_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!--快递公司-->
+        <TextView
+            android:id="@+id/express_company_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/ll_express_status"
+            android:layout_below="@id/ll_express_status"
+            android:layout_marginTop="10dp"
+            android:text="快递公司:"
+            android:textColor="#666666"
+             />
+        <!--快递单号-->
+        <TextView
+            android:id="@+id/express_number_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/express_company_tv"
+            android:layout_below="@id/express_company_tv"
+            android:layout_marginTop="10dp"
+            android:text="快递单号:"
+            android:textColor="#666666"
+            />
+    </RelativeLayout>
+
+    <!--物流追踪的列表-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/traceRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff" />
+</LinearLayout>

@@ -1,15 +1,18 @@
 package com.likeits.simple.adapter.div_provider.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.SearchLayoutActivity;
 import com.likeits.simple.network.model.home.MainHomeSearch01Model;
 import com.likeits.simple.utils.StringUtil;
 
@@ -47,5 +50,12 @@ public class MainSearchsItemProvider extends BaseItemProvider<MainHomeSearch01Mo
         }
         llSearch.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(data.getStyle().getInputbackground())));
         llSearch.setPadding(data.getStyle().getPaddingleft(),data.getStyle().getPaddingtop(),data.getStyle().getPaddingleft(),data.getStyle().getPaddingtop());
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, SearchLayoutActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 }

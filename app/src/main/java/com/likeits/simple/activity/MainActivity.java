@@ -57,6 +57,8 @@ public class MainActivity extends AbstractCommonTabLayout {
         index=getIntent().getExtras().getInt("index");
         if ("0".equals(flag)) {
             setSelectDefaultIndex(index);
+        }else if("1".equals(flag)){
+            setSelectDefaultIndex(index);
         }
         // setShowDot(3);
         setUnReadMsg(2, 5, Color.parseColor("#FF0000"));

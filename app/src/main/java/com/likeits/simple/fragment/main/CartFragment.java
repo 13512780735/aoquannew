@@ -336,6 +336,7 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
                         bundle.putString("cartnum", cartNums);
                         bundle.putString("goodsIds", goodsIds);
                         bundle.putString("indentFlag", "2");
+                        XLog.e("optionid-->"+optionids+"<--cartIds-->"+cartIds+"<--cartNums-->"+cartNums+"<--goodsIds-->"+goodsIds);
                         toActivity(ConfirmOrderActivity.class, bundle);
                     }
                 });

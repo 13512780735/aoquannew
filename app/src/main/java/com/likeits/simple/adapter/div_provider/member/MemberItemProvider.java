@@ -1,7 +1,9 @@
 package com.likeits.simple.adapter.div_provider.member;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.user.UserInfoActivity;
 import com.likeits.simple.network.model.member.MemberItemModel;
 import com.likeits.simple.utils.StringUtil;
 import com.likeits.simple.view.BorderTextView;
@@ -82,7 +85,6 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
             initUI(data);
         }
 
-
     }
 
     private void initUI(MemberItemModel data) {
@@ -130,5 +132,14 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
         if ("1".equals(data.getParams().getHidesetbtn())) {
             tvSet.setVisibility(View.GONE);
         }
+        tvSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(mContext, UserInfoActivity.class);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
     }
 }

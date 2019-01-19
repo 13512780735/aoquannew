@@ -1,6 +1,7 @@
 package com.likeits.simple.fragment.main;
 
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,7 +11,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.elvishew.xlog.XLog;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.SearchLayoutActivity;
 import com.likeits.simple.adapter.div_provider.home.MainHomeAdapter;
 import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.network.ApiService;
@@ -255,6 +256,13 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         tvRight.setTextColor(Color.parseColor(mainHomeSearchModel.getStyle().getRightnavcolor()));
         tvLeft.setText(StringUtil.decode("\\u" + mainHomeSearchModel.getParams().getLeftnaviconcode()));
         tvRight.setText(StringUtil.decode("\\u" + mainHomeSearchModel.getParams().getRightnaviconcode()));
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), SearchLayoutActivity.class);
+               startActivity(intent);
+            }
+        });
     }
     private boolean isErr;
     @Override

@@ -2,17 +2,20 @@ package com.likeits.simple.activity.indent;
 
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeits.simple.R;
 import com.likeits.simple.adapter.indent.GoodIndent03Adapter;
 import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.network.model.BaseResponse;
+import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.util.RetrofitUtil;
 
@@ -39,6 +42,8 @@ public class Indent03Fragment extends BaseFragment implements BaseQuickAdapter.R
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
     private IndentListModel indentListModel;
+    private Bundle bundle;
+    private String id;
 
     @Override
     protected int setContentView() {
@@ -55,6 +60,58 @@ public class Indent03Fragment extends BaseFragment implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         initAdapter();
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.rl_indent_details://订单详情
+                        id = data.get(position).getId();
+                        bundle = new Bundle();
+                        bundle.putInt("status", 3);
+                        bundle.putString("id", id);
+                        bundle.putString("flag", "1");
+                        toActivity(IndentDetailsActivity.class, bundle);
+                        break;
+                    case R.id.tv_confirm_goods://确认收货
+                       // toActivity(IndentAppraiseActivity.class);
+                        id = data.get(position).getId();
+                        confirmOrder(id);
+                        break;
+                    case R.id.tv_check_wuLiu://查看物流
+                        id = data.get(position).getId();
+                        bundle = new Bundle();
+                        bundle.putString("id", id);
+                        toActivity(LogisticsActivity.class,bundle);
+                        break;
+                    case R.id.tv_del_indent://删除订单
+                        break;
+                }
+            }
+        });
+    }
+
+    private void confirmOrder(String id) {
+        RetrofitUtil.getInstance().orderFinish(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     private void initAdapter() {
@@ -145,6 +202,7 @@ public class Indent03Fragment extends BaseFragment implements BaseQuickAdapter.R
                 isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }

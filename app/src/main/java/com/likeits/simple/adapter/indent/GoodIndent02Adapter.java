@@ -32,6 +32,7 @@ public class GoodIndent02Adapter extends BaseQuickAdapter<IndentListModel.ListBe
         baseViewHolder.setText(R.id.tv_total_number, "共 " + item.getSum() + " 个商品,合计");
         baseViewHolder.setText(R.id.tv_total_price, "¥ " + item.getPrice());
         baseViewHolder.getView(R.id.ll_indent_button).setVisibility(View.GONE);
+        baseViewHolder.getView(R.id.view).setVisibility(View.GONE);
         // baseViewHolder.getView(R.id.tv_cancel_indent).setVisibility(View.VISIBLE);
         // baseViewHolder.getView(R.id.tv_pay).setVisibility(View.VISIBLE);
         //baseViewHolder.setText(R.id.tv_cancel_indent,"取消订单");

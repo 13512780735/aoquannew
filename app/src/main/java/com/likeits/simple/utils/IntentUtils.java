@@ -4,13 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.likeits.simple.activity.cart.SelectAddressActivity;
 import com.likeits.simple.activity.detail.GoodDetailActivity;
 import com.likeits.simple.activity.indent.AfterSaleActivity;
 import com.likeits.simple.activity.indent.GoodsIndentActivity;
+import com.likeits.simple.activity.indent.IndentRecycledActivity;
+import com.likeits.simple.activity.indent.IndentReturnsActivity;
+import com.likeits.simple.activity.user.CouponActivity;
 import com.likeits.simple.activity.user.FootprintActivity;
 import com.likeits.simple.activity.user.GoodsAttentionActivity;
+import com.likeits.simple.activity.user.MyCouponActivity;
+import com.likeits.simple.activity.user.SelectAddress01Activity;
 import com.likeits.simple.adapter.div_provider.Custom.CustomActivity;
+import com.likeits.simple.activity.user.UserInfoActivity;
 
 public class IntentUtils {
     public static void intentTo(Context mContext, String linkUrl, String id) {
@@ -21,7 +26,7 @@ public class IntentUtils {
             Intent intent = new Intent(mContext, CustomActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
-        }  //自定義DIY
+        }  //商品详情
         else if ("goods.detail".equals(linkUrl)) {
             Bundle bundle = new Bundle();
             bundle.putString("id", id);
@@ -33,6 +38,7 @@ public class IntentUtils {
         else if ("order".equals(linkUrl)) {
             Bundle bundle = new Bundle();
             bundle.putInt("status", 0);
+            bundle.putString("flag","0");
             Intent intent = new Intent(mContext, GoodsIndentActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
@@ -41,6 +47,7 @@ public class IntentUtils {
         else if ("orderstatus0".equals(linkUrl)) {
             Bundle bundle = new Bundle();
             bundle.putInt("status", 1);
+            bundle.putString("flag","0");
             Intent intent = new Intent(mContext, GoodsIndentActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
@@ -49,6 +56,7 @@ public class IntentUtils {
         else if ("orderstatus1".equals(linkUrl)) {
             Bundle bundle = new Bundle();
             bundle.putInt("status", 2);
+            bundle.putString("flag","0");
             Intent intent = new Intent(mContext, GoodsIndentActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
@@ -57,6 +65,7 @@ public class IntentUtils {
         else if ("orderstatus2".equals(linkUrl)) {
             Bundle bundle = new Bundle();
             bundle.putInt("status", 3);
+            bundle.putString("flag","0");
             Intent intent = new Intent(mContext, GoodsIndentActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
@@ -64,14 +73,14 @@ public class IntentUtils {
         //退换货
         else if ("orderstatus4".equals(linkUrl)) {
             Bundle bundle = new Bundle();
-            Intent intent = new Intent(mContext, AfterSaleActivity.class);
+            Intent intent = new Intent(mContext, IndentReturnsActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
         }
         //收货地址
         else if ("member.address".equals(linkUrl)) {
             Bundle bundle = new Bundle();
-            Intent intent = new Intent(mContext, SelectAddressActivity.class);
+            Intent intent = new Intent(mContext, SelectAddress01Activity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
         }
@@ -88,6 +97,36 @@ public class IntentUtils {
             Intent intent = new Intent(mContext, FootprintActivity.class);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
+        }
+        //我的优惠券
+        else if ("sale.coupon.my".equals(linkUrl)) {
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent(mContext, MyCouponActivity.class);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        }
+        //优惠券中心
+        else if ("sale.coupon".equals(linkUrl)) {
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent(mContext, CouponActivity.class);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        }
+        //我的资料
+        else if ("member.info".equals(linkUrl)) {
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent(mContext, UserInfoActivity.class);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        }
+        //会员充值
+        else if ("member.recharge".equals(linkUrl)) {
+        }
+        //账户提现
+        else if ("member.withdraw".equals(linkUrl)) {
+        }
+        //余额明细
+        else if ("member.log".equals(linkUrl)) {
         }
     }
 }

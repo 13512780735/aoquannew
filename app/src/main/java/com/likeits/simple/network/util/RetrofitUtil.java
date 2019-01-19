@@ -2,13 +2,14 @@ package com.likeits.simple.network.util;
 
 
 import com.likeits.simple.adapter.sort.bean.CartDeleteModel;
-import com.likeits.simple.adapter.sort.bean.CategoryListItemsModel;
 import com.likeits.simple.network.ApiService;
-import com.likeits.simple.network.GoodCommentmodel;
+import com.likeits.simple.network.model.GoodCategory.CategoryListItemsModel;
+import com.likeits.simple.network.model.GoodCommentmodel;
 import com.likeits.simple.network.consts.Consts;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.GoodCategory.GoodsCategoryModel;
+import com.likeits.simple.network.model.Indent.IndentDetailModel;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.model.Indent.OrderCreateModel;
 import com.likeits.simple.network.model.LoginRegisterModel;
@@ -19,6 +20,12 @@ import com.likeits.simple.network.model.gooddetails.PayIndentModel;
 import com.likeits.simple.network.model.gooddetails.ProvincesModel;
 import com.likeits.simple.network.model.home.MainHomePagerModel;
 import com.likeits.simple.network.model.main.MainNavigationModel;
+import com.likeits.simple.network.model.member.AvatarModel;
+import com.likeits.simple.network.model.member.CouponCenterModel;
+import com.likeits.simple.network.model.member.CouponListModel;
+import com.likeits.simple.network.model.member.UserInfoModel;
+import com.likeits.simple.network.model.pay.BalacePayModel;
+import com.likeits.simple.network.model.pay.PayModel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,9 +33,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -170,20 +174,17 @@ public class RetrofitUtil {
      * 商品列表
      *
      * @param openid
-     * @param signature
-     * @param newtime
-     * @param random
      * @param subscriber
      */
 
-//    public void CategoryList(String openid, String cid, String signature, String newtime, String random, String page, String isnew, String ishot, String isrecommand, String isdiscount, String istime, String issendfree, String keyword,
-//                             Subscriber<BaseResponse<CategoryListItemsModel>> subscriber) {
-//        mApiService.CategoryList(openid, cid, signature, newtime, random, page, isnew, ishot, isrecommand, isdiscount, istime, issendfree, keyword)
-//                .subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(subscriber);
-//    }
+    public void CategoryList(String openid, String keyword, String cid, String isnew, String ishot, String isrecommand, String isdiscount, String istime, String issendfree, String pageNum,
+                             Subscriber<BaseResponse<CategoryListItemsModel>> subscriber) {
+        mApiService.CategoryList(openid, keyword, cid, isnew, ishot, isrecommand, isdiscount, istime, issendfree, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 
     /**
@@ -191,12 +192,71 @@ public class RetrofitUtil {
      *
      * @param openid
      * @param status
-     * @param page
      * @param subscriber
      */
-    public void Orderform(String openid, String status, String page,
+    public void Orderform(String openid, String status, String pageNum,
                           Subscriber<BaseResponse<IndentListModel>> subscriber) {
-        mApiService.orderform(openid, status, page)
+        mApiService.orderform(openid, status, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 订单详情
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void orderDetail(String openid, String id,
+                            Subscriber<BaseResponse<IndentDetailModel>> subscriber) {
+        mApiService.orderDetail(openid, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 取消订单
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void orderCancel(String openid, String id, String closereason,
+                            Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.orderCancel(openid, id, closereason)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 删除或恢复订单	0(恢复订单);1(删除订单)
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void orderDelete(String openid, String id, String userdeleted,
+                            Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.orderDelete(openid, id, userdeleted)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 确认收货
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void orderFinish(String openid, String id,
+                            Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.orderFinish(openid, id)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -295,9 +355,9 @@ public class RetrofitUtil {
      * @param total
      * @param subscriber
      */
-    public void OrderCreate(String openid, String id, String optionid, String total,
+    public void OrderCreate(String openid, String id, String optionid, String total, String giftid, String packageid, String liveid,
                             Subscriber<BaseResponse<OrderCreateModel>> subscriber) {
-        mApiService.OrderCreate(openid, id, optionid, total)
+        mApiService.OrderCreate(openid, id, optionid, total, giftid, packageid, liveid)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -333,9 +393,9 @@ public class RetrofitUtil {
      * @param addressid
      * @param subscriber
      */
-    public void submitorder(String openid, String goodsid, String optionid, String total, String addressid,
+    public void submitorder(String openid, String goodsid, String optionid, String total, String addressid, String giftid,
                             Subscriber<BaseResponse<PayIndentModel>> subscriber) {
-        mApiService.submitorder(openid, goodsid, optionid, total, addressid)
+        mApiService.submitorder(openid, goodsid, optionid, total, addressid, giftid)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -350,9 +410,9 @@ public class RetrofitUtil {
      * @param cartnum
      * @param subscriber
      */
-    public void CreateCartOrder(String openid, String cartids, String cartnum,
+    public void CreateCartOrder(String openid, String cartids, String cartnum, String giftid, String packageid, String liveid,
                                 Subscriber<BaseResponse<OrderCreateModel>> subscriber) {
-        mApiService.CreateCartOrder(openid, cartids, cartnum)
+        mApiService.CreateCartOrder(openid, cartids, cartnum, giftid, packageid, liveid)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -371,6 +431,23 @@ public class RetrofitUtil {
     public void addcart(String openid, String id, String total, String optionid,
                         Subscriber<BaseResponse<EmptyEntity>> subscriber) {
         mApiService.addcart(openid, id, total, optionid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 商品收藏
+     *
+     * @param openid
+     * @param id
+     * @param isfavorite
+     * @param subscriber
+     */
+    public void shopFavorite(String openid, String id, String isfavorite,
+                             Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.shopFavorite(openid, id, isfavorite)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -418,9 +495,9 @@ public class RetrofitUtil {
      * @param addressid
      * @param subscriber
      */
-    public void CreateCartSubmitorder(String openid, String cartids, String cartoption, String carttotal, String addressid,
+    public void CreateCartSubmitorder(String openid, String cartids, String cartoption, String carttotal, String addressid, String fromcart, String giftid,
                                       Subscriber<BaseResponse<PayIndentModel>> subscriber) {
-        mApiService.CreateCartSubmitorder(openid, cartids, cartoption, carttotal, addressid)
+        mApiService.CreateCartSubmitorder(openid, cartids, cartoption, carttotal, addressid, fromcart, giftid)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -433,9 +510,113 @@ public class RetrofitUtil {
      * @param id
      * @param subscriber
      */
-    public void GetCommentList(String id,String level,
+    public void GetCommentList(String id, String level,
                                Subscriber<BaseResponse<GoodCommentmodel>> subscriber) {
-        mApiService.GetCommentList(id,level)
+        mApiService.GetCommentList(id, level)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 我的优惠券列表
+     *
+     * @param subscriber
+     */
+    public void GetCouponList(String openid, String cate, String page,
+                              Subscriber<BaseResponse<CouponListModel>> subscriber) {
+        mApiService.GetCouponList(openid, cate, page)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 优惠券列表
+     *
+     * @param subscriber
+     */
+    public void GetCouponCenterList(String openid, String cateid, String page,
+                                    Subscriber<BaseResponse<CouponCenterModel>> subscriber) {
+        mApiService.GetCouponCenterList(openid, cateid, page)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 会员资料
+     *
+     * @param subscriber
+     */
+    public void GetUserInfo(String openid,
+                            Subscriber<BaseResponse<UserInfoModel>> subscriber) {
+        mApiService.GetUserInfo(openid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 上传头像
+     *
+     * @param subscriber
+     */
+    public void UpAvatar(String openid, String imga,
+                         Subscriber<BaseResponse<AvatarModel>> subscriber) {
+        mApiService.UpAvatar(openid, imga)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 编辑会员资料
+     */
+    public void UpUserInfo(String openid, String nickname, String avatar, String username, String gender, String datetime, String province, String city, String area,
+                           Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.UpUserInfo(openid, nickname, avatar, username, gender, datetime, province, city, area)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 修改手机
+     */
+    public void EditPhone(String openid, String mobile, String password,
+                          Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.EditPhone(openid, mobile, password)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 收银台接口
+     */
+    public void PayInto(String openid, String id,
+                        Subscriber<BaseResponse<PayModel>> subscriber) {
+        mApiService.PayInto(openid, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 余额支付
+     */
+    public void BalancePay(String openid, String id, String type,
+                           Subscriber<BaseResponse<BalacePayModel>> subscriber) {
+        mApiService.BalancePay(openid, id, type)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

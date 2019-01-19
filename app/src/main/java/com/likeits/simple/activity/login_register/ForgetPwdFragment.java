@@ -211,17 +211,8 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
         }
     }
 
-    String signature, newtime, random;
 
     private void VerificationCode() {
-//        String Lkey = "uKmy0e45wgh0B3e7";
-//        String Lappid = "200001";
-//        String sign = SignUtils.getSign(getActivity());
-//        String signs[] = sign.split("##");
-//        signature = signs[0];
-//        newtime = signs[1];
-//        random = signs[2];
-        // String sha = SHAUtils.getSHA(Lappid + Lkey + random + newtime);
         RetrofitUtil.getInstance().getVerifycode(mobile, "sms_forget",
                 new Subscriber<BaseResponse<EmptyEntity>>() {
                     @Override

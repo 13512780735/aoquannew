@@ -1,4 +1,4 @@
-package com.likeits.simple.network;
+package com.likeits.simple.network.model;
 
 import java.util.List;
 

@@ -56,7 +56,7 @@ public class ProductSkuDialog extends Dialog {
     private String keys;
     private LoaddingDialog loaddingDialog;
     private String token;
-    private String optionid;
+    private String optionid="";
 
     public ProductSkuDialog(@NonNull Context context) {
         this(context, R.style.CommonBottomDialogStyle);

@@ -19,6 +19,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -54,7 +64,9 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.good.GoodListActivity" />
-        <activity android:name=".activity.cart.ConfirmOrderActivity" />
+        <activity
+            android:name=".activity.cart.ConfirmOrderActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".adapter.div_provider.Custom.CustomActivity" />
         <activity android:name=".activity.login_register.GuideActivity" />
         <activity android:name=".activity.cart.SelectAddressActivity" />
@@ -67,7 +79,20 @@
         <activity android:name=".activity.indent.IndentAppraiseActivity" />
         <activity android:name=".activity.indent.AfterSaleActivity" />
         <activity android:name=".activity.user.FootprintActivity" />
-        <activity android:name=".activity.user.GoodsAttentionActivity"></activity>
+        <activity android:name=".activity.user.GoodsAttentionActivity" />
+        <activity android:name=".activity.user.MyCouponActivity" />
+        <activity android:name=".activity.user.CouponActivity" />
+        <activity
+            android:name=".activity.user.UserInfoActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        >
+        <activity android:name=".activity.user.SelectAddress01Activity" />
+        <activity android:name=".activity.user.BindPhoneActivity" />
+        <activity android:name=".activity.indent.IndentSuccessActivity" />
+        <activity android:name=".activity.indent.IndentRecycledActivity" />
+        <activity android:name=".activity.indent.IndentReturnsActivity" />
+        <activity android:name=".activity.indent.LogisticsActivity" />
+        <activity android:name=".activity.SearchLayoutActivity"></activity>
     </application>
 
 </manifest>
