@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeits.simple.R;
 import com.likeits.simple.network.model.GoodCategory.GoodsCategoryModel;
+import com.likeits.simple.utils.SharedPreferencesUtils;
 
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class LeftAdapter extends BaseQuickAdapter<GoodsCategoryModel.ListBean,Ba
 	}
 	@Override
 	protected void convert(BaseViewHolder helper, GoodsCategoryModel.ListBean bean) {
+		String   catlevel= SharedPreferencesUtils.getString(mContext,"catlevel");
+		if("1".equals(catlevel)){
+
+		}
 		if(selectPos==helper.getAdapterPosition()){
 			helper.setVisible(R.id.item_main_left_bg,true);
 			helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));

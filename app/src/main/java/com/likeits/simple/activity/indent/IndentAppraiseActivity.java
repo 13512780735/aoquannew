@@ -1,8 +1,13 @@
 package com.likeits.simple.activity.indent;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -13,15 +18,27 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.elvishew.xlog.XLog;
 import com.guoqi.actionsheet.ActionSheet;
 import com.likeits.simple.R;
 import com.likeits.simple.base.BaseActivity;
+import com.likeits.simple.network.model.BaseResponse;
+import com.likeits.simple.network.model.EmptyEntity;
+import com.likeits.simple.network.model.Indent.CommentShopModel;
+import com.likeits.simple.network.model.member.AvatarModel;
+import com.likeits.simple.network.util.RetrofitUtil;
+import com.likeits.simple.utils.StringUtil;
 import com.likeits.simple.utils.photo.PhotoUtils;
 import com.likeits.simple.view.RatingBar;
 import com.likeits.simple.view.custom.GridViewAddImgesAdpter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +47,7 @@ import java.util.Map;
 import butterknife.BindView;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+import rx.Subscriber;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -48,18 +66,28 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
     TextView mTvShopSize;
     @BindView(R.id.tv_shop_number)
     TextView mTvShopNumber;
+    @BindView(R.id.tv_Submit)
+    TextView tv_Submit;
+    @BindView(R.id.tv_indent_name)
+    TextView tv_indent_name;
     @BindView(R.id.mGridView)
     GridView mGridView;
     @BindView(R.id.ed_tell_some)
     EditText mEdTellSome;
     @BindView(R.id.ratingbar)
     RatingBar mRatingBar;
+
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
     /**
      * 图片
      */
     private ArrayList<String> mPicList = new ArrayList<>(); //上传的图片凭证的数据源
     private List<Map<String, Object>> datas;
+    private String goodsId;
+    private String ordId;
+    private CommentShopModel commentShopModel;
+    private String level;
+    private String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +95,13 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
         setContentView(R.layout.activity_indent_appraise);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        goodsId = getIntent().getExtras().getString("goodsId");
+        ordId = getIntent().getExtras().getString("ordId");
+        setBackView();
+        setTitle("评价");
         datas = new ArrayList<>();//图片
-        initUI();
+        initData();
+
         PhotoUtils.getInstance().init(this, true, new PhotoUtils.OnSelectListener() {
             @Override
             public void onFinish(File outputFile, Uri outputUri) {
@@ -77,15 +110,48 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
         });
     }
 
-    private void initUI() {
-        setBackView();
-        setTitle("评价");
+    private void initData() {
+        LoaddingShow();
+        RetrofitUtil.getInstance().commentContent(openid, ordId, goodsId, new Subscriber<BaseResponse<CommentShopModel>>() {
+            @Override
+            public void onCompleted() {
 
-        ImageLoader.getInstance().displayImage("", mIvShopAvatar);
-        mTvShopName.setText("观雅 氢氧化钙根管消毒材料Ⅱ型 碘仿糊剂");
-        mTvShopPrice.setText("¥ 69.00");
-        mTvShopSize.setText("规格：" + "120ML");
-        mTvShopNumber.setText("X" + "1");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<CommentShopModel> baseResponse) {
+                LoaddingDismiss();
+                if (baseResponse.getCode() == 200) {
+                    commentShopModel = baseResponse.getData();
+
+                    initUI();
+                }
+            }
+        });
+    }
+
+    String imgId = "";
+
+    private void initUI() {
+
+        tv_Submit.setBackgroundColor(Color.parseColor(theme_bg_tex));
+        ImageLoader.getInstance().displayImage(commentShopModel.getGoods().getThumb(), mIvShopAvatar);
+        tv_indent_name.setText(commentShopModel.getShopname());
+        mTvShopName.setText(commentShopModel.getGoods().getTitle());
+        mTvShopPrice.setText("¥ " + commentShopModel.getGoods().getPrice());
+
+        String title = commentShopModel.getGoods().getOptiontitle();
+        if (StringUtil.isBlank(title)) {
+            mTvShopSize.setVisibility(View.INVISIBLE);
+        } else {
+            mTvShopSize.setText("规格：" + commentShopModel.getGoods().getOptiontitle());
+        }
+        mTvShopNumber.setText("X" + commentShopModel.getGoods().getTotal());
         /**
          * 图片
          */
@@ -104,25 +170,91 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
         //  mRatingBar.setStarHalfDrawable(mContext.getResources().getDrawable(R.mipmap.star_half));
         mRatingBar.setStarFillDrawable(mContext.getResources().getDrawable(R.mipmap.star_full));
         mRatingBar.setStarCount(5);
-        mRatingBar.setStar(3);
+        mRatingBar.setStar(5);
         mRatingBar.halfStar(false);
         mRatingBar.setmClickable(true);
         mRatingBar.setStarImageWidth(30f);
         mRatingBar.setStarImageHeight(30f);
         mRatingBar.setImagePadding(5);
+        level = String.valueOf(5);
         mRatingBar.setOnRatingChangeListener(
                 new RatingBar.OnRatingChangeListener() {
                     @Override
                     public void onRatingChange(float RatingCount) {
+                        XLog.e("RatingCount-->" + RatingCount);
+                        int i = (int) RatingCount;
+                        level = String.valueOf(i);
+
                     }
                 }
         );
+        tv_Submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < datas.size(); i++) {
+                    String fileName = datas.get(i).get("path").toString();
+                    Bitmap bm = BitmapFactory.decodeFile(fileName);
+                    XLog.e("bitmap-->" + bm);
+                    if (bm != null) {
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] bytes = baos.toByteArray();
+                        String base64Token = Base64.encodeToString(bytes, Base64.DEFAULT);//  编码后
+                        imgId += base64Token + ",";
+                    }
+                }
+                submit();
+            }
+        });
+    }
+
+
+    private void submit() {
+        LoaddingShow();
+        if (StringUtil.isBlank(imgId)) {
+            imageUrl = imgId;
+        } else {
+            imageUrl = imgId.substring(0, imgId.length() - 1);
+        }
+        String content = mEdTellSome.getText().toString();
+
+        XLog.e("imageUrl-->" + imageUrl);
+        XLog.e("level-->" + level);
+        XLog.e("content-->" + content);
+        XLog.e("goodsId-->" + goodsId);
+        XLog.e("ordId-->" + ordId);
+        XLog.e("openid-->" + openid);
+        RetrofitUtil.getInstance().commentSubmit(openid, ordId, goodsId, level, content, imageUrl, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                LoaddingDismiss();
+
+                XLog.e("code-->" + baseResponse.getCode());
+                XLog.e("msg-->" + baseResponse.getMsg());
+                XLog.e("data-->" + baseResponse.getData());
+                if (baseResponse.getCode() == 200) {
+                    finish();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     public void photoPath(String path) {
         Map<String, Object> map = new HashMap<>();
         map.put("path", path);
-        //upload(path);
+        //upAvatar(base64);
         datas.add(map);
         gridViewAddImgesAdpter.notifyDataSetChanged();
     }
@@ -197,5 +329,29 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         PhotoUtils.getInstance().bindForResult(requestCode, resultCode, data);
+    }
+
+    private void upAvatar(final String base64Token) {
+        XLog.e("base64Token-->" + base64Token);
+        LoaddingShow();
+        RetrofitUtil.getInstance().UpAvatar(openid, base64Token, new Subscriber<BaseResponse<AvatarModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<AvatarModel> baseResponse) {
+                LoaddingDismiss();
+                if (baseResponse.getCode() == 200) {
+                    imageUrl = baseResponse.getData().getImage();
+                }
+            }
+        });
     }
 }

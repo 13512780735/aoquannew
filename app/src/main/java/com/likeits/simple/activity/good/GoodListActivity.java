@@ -3,11 +3,14 @@ package com.likeits.simple.activity.good;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -81,7 +84,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
     //private ArrayList<CaseEntity> data;
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 6;//为什么是6呢？
+    private static final int PAGE_SIZE = 1;//为什么是6呢？
     private int mNextRequestPage = 1;
     private boolean isErr = true;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
@@ -94,6 +97,12 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     private Typeface iconTypeface;
 
     int flag01 = 0;//商品列表拍列样式  0 网格，1列表
+    private String attribute, merchid, order, by, pricemin, pricemax;
+
+    private DrawerLayout drawer;
+    private RelativeLayout navigationView;
+    private RightSideslipLay menuHeaderView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,25 +114,68 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mMessageImg.setTypeface(iconTypeface);
         SharedPreferencesUtils.put(this, "flag01", flag01);
         // LogUtils.d("GoodListActivity--cid-->" + cid);
+        attribute = "";
+        merchid = "";
+        order = "";
+        by = "";
+        pricemin = "";
+        pricemax = "";
         XLog.e("cid-->" + cid + keyword);
         initUI();
+        initEvent();
     }
 
+    private void initEvent() {
+        menuHeaderView.setCloseMenuCallBack(new RightSideslipLay.CloseMenuCallBack() {
+            // 重写内部方法
+            @Override
+            public void setupCloseMean() {
+                closeMenu();
+            }
+        });
+    }
+
+    public void closeMenu() {
+        drawer.closeDrawer(GravityCompat.END);
+    }
+
+    public void openMenu() {
+        drawer.openDrawer(GravityCompat.END);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.END))
+            drawer.closeDrawers();
+        else
+            super.onBackPressed();
+    }
 
     private void initUI() {
+        mSearchContentEt.setText(keyword);
         mMessageImg.setText(StringUtil.decode("\\u" + "e67c"));
         mMessageImg.setTextColor(Color.parseColor("#656565"));
         iv_price.setBackgroundResource(R.mipmap.icon_sort_up_down);
         mTvSynthesisSort.setTextColor(Color.parseColor(theme_bg_tex));
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (RelativeLayout) findViewById(R.id.nav_view);
+
+        //设置第一屏内容
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+        menuHeaderView = new RightSideslipLay(GoodListActivity.this);
+        navigationView.addView(menuHeaderView);
+
+
         //set layoutManager
         initAdapter();
         //onRefresh();
         //  mAdapter.setEnableLoadMore(true);
     }
 
-    @OnClick({R.id.iv_back, R.id.message_img, R.id.tv_synthesis_sort, R.id.layout_synthesis_sort, R.id.tv_sales_sort, R.id.layout_sales_sort, R.id.tv_sort_price, R.id.layout_expert_service})
+    @OnClick({R.id.iv_back, R.id.message_img, R.id.tv_synthesis_sort, R.id.layout_synthesis_sort, R.id.tv_sales_sort, R.id.layout_sales_sort, R.id.tv_sort_price, R.id.layout_expert_service, R.id.tv_filter_sort, R.id.layout_filter_sort})
     public void onClick(View v) {
         switch (v.getId()) {
             default:
@@ -134,10 +186,18 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
             case R.id.tv_synthesis_sort:
             case R.id.layout_synthesis_sort:
+                attribute = "";
+                merchid = "";
+                order = "";
+                by = "";
+                pricemin = "";
+                pricemax = "";
+                pageNum = 1;
                 mTvSalesSort.setTextColor(Color.parseColor("#333333"));
                 mTvSortPrice.setTextColor(Color.parseColor("#333333"));
                 mTvFilterSort.setTextColor(Color.parseColor("#333333"));
                 iv_price.setBackgroundResource(R.mipmap.icon_sort_up_down);
+
                 salesFalg = false;
                 priceFalg = false;
                 filterFalg = false;
@@ -146,9 +206,17 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                 } else {
                     mTvSynthesisSort.setTextColor(Color.parseColor("#333333"));
                 }
+                initAdapter();
                 break;
             case R.id.tv_sales_sort:
             case R.id.layout_sales_sort:
+                attribute = "";
+                merchid = "";
+                order = "salesreal";
+                by = "desc";
+                pricemin = "";
+                pricemax = "";
+                pageNum = 1;
                 mTvSynthesisSort.setTextColor(Color.parseColor("#333333"));
                 mTvSortPrice.setTextColor(Color.parseColor("#333333"));
                 mTvFilterSort.setTextColor(Color.parseColor("#333333"));
@@ -161,9 +229,17 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                 } else {
                     mTvSalesSort.setTextColor(Color.parseColor("#333333"));
                 }
+                initAdapter();
                 break;
             case R.id.tv_sort_price:
             case R.id.layout_expert_service:
+                attribute = "";
+                merchid = "";
+                order = "minprice";
+
+                pricemin = "";
+                pricemax = "";
+                pageNum = 1;
                 mTvSynthesisSort.setTextColor(Color.parseColor("#333333"));
                 mTvSalesSort.setTextColor(Color.parseColor("#333333"));
                 mTvFilterSort.setTextColor(Color.parseColor("#333333"));
@@ -173,19 +249,26 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                 if (!priceFalg) {
                     switch (priceFalg01) {
                         case 0:
+                            by = "asc";
                             mTvSortPrice.setTextColor(Color.parseColor(theme_bg_tex));
                             iv_price.setBackgroundResource(R.mipmap.icon_sort_up);
                             priceFalg01 = 1;
                             break;
                         case 1:
+                            by = "desc";
                             iv_price.setBackgroundResource(R.mipmap.icon_sort_down);
                             priceFalg01 = 0;
                             break;
                     }
                 }
+                initAdapter();
+                break;
+            case R.id.layout_filter_sort:
+            case R.id.tv_filter_sort:
+                showToast("点击了");
+                openMenu();
                 break;
             case R.id.message_img:
-
                 switch (flag01) {
                     case 0:
                         mMessageImg.setText(StringUtil.decode("\\u" + "e67c"));
@@ -217,6 +300,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mAdapter.disableLoadMoreIfNotFullPage();
         // mSwipeRefreshLayout.setOnRefreshListener(this);
         initData(pageNum, false);
+        LoaddingShow();
         mCurrentCounter = mAdapter.getData().size();
 
 
@@ -236,8 +320,16 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     private List<CategoryListItemsModel.ListBean> data = new ArrayList<>();
 
     public void initData(int pageNum, final boolean isloadmore) {
-        LoaddingShow();
-        RetrofitUtil.getInstance().CategoryList(openid, keyword, cid, "", "", "", "", "", "", String.valueOf(pageNum), new Subscriber<BaseResponse<CategoryListItemsModel>>() {
+        XLog.e("openid-->", openid);
+        XLog.e("keyword-->", keyword);
+        XLog.e("attribute-->", attribute);
+        XLog.e("merchid-->", merchid);
+        XLog.e("order-->", order);
+        XLog.e("by-->", by);
+        XLog.e("pricemin-->", pricemin);
+        XLog.e("pricemax-->", pricemax);
+        XLog.e("cid-->", cid);
+        RetrofitUtil.getInstance().CategoryList(openid, keyword, attribute, merchid, order, by, pricemin, pricemax, String.valueOf(pageNum), cid, new Subscriber<BaseResponse<CategoryListItemsModel>>() {
             @Override
             public void onCompleted() {
 
@@ -252,6 +344,9 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             public void onNext(BaseResponse<CategoryListItemsModel> baseResponse) {
                 LoaddingDismiss();
                 if (baseResponse.code == 200) {
+//                    if (!mAdapter.isLoadMoreEnable()) {
+//                        mAdapter.setEnableLoadMore(true);
+//                    }
                     categoryListItemsModel = baseResponse.getData();
                     List<CategoryListItemsModel.ListBean> list = categoryListItemsModel.getList();
                     XLog.json(baseResponse.data.getList().toString());
@@ -275,6 +370,29 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
     @Override
     public void onLoadMoreRequested() {
+//        mSwipeRefreshLayout.setEnabled(false);
+//        TOTAL_COUNTER = Integer.valueOf(categoryListItemsModel.getTotal());
+//        if (mAdapter.getData().size() < PAGE_SIZE) {
+//            mAdapter.loadMoreEnd(true);
+//        } else {
+//            if (mCurrentCounter >= TOTAL_COUNTER) {
+//                mAdapter.loadMoreEnd(mLoadMoreEndGone);
+//            } else {
+//                if (isErr) {
+//                    pageNum += 1;
+//                    initData(pageNum, true);
+//                    //    mAdapter.addData(data);
+//                    mCurrentCounter = mAdapter.getData().size();
+//                    mAdapter.loadMoreComplete();
+//                } else {
+//                    isErr = true;
+//                    // Toast.makeText(getContext(), "错误", Toast.LENGTH_LONG).show();
+//                    mAdapter.loadMoreFail();
+//                }
+//            }
+//            mSwipeRefreshLayout.setEnabled(true);
+//        }
+        TOTAL_COUNTER = Integer.valueOf(categoryListItemsModel.getTotal());
         mRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -285,8 +403,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                     if (isErr) {
                         //成功获取更多数据
                         //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
-                        pageNum+=1;
-                        initData(pageNum,true);
+                        pageNum += 1;
+                        initData(pageNum, true);
                         mCurrentCounter = mAdapter.getData().size();
                         mAdapter.loadMoreComplete();
                     } else {
@@ -314,6 +432,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
                 initData(pageNum, false);
+                LoaddingShow();
                 mAdapter.setEnableLoadMore(true);//启用加载
                 mSwipeRefreshLayout.setRefreshing(false);
             }

@@ -18,6 +18,7 @@ import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.util.RetrofitUtil;
+import com.likeits.simple.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,7 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
                 switch (view.getId()) {
                     case R.id.rl_indent_details://订单详情
                         id = data.get(position).getId();
+                        SharedPreferencesUtils.put(getActivity(),"ordId",id);
                         bundle = new Bundle();
                         bundle.putInt("status", 4);
                         bundle.putString("flag", "1");
@@ -74,7 +76,7 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
                         toActivity(IndentDetailsActivity.class, bundle);
                         break;
                     case R.id.tv_appraise_indent://评价
-                        toActivity(IndentAppraiseActivity.class);
+                      //  toActivity(IndentAppraiseActivity.class);
                         break;
                     case R.id.tv_check_wuLiu://查看无聊
                         id = data.get(position).getId();
@@ -124,13 +126,13 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
         mAdapter.disableLoadMoreIfNotFullPage();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         initData(pageNum, false);
+        LoaddingShow();
         mCurrentCounter = mAdapter.getData().size();
     }
 
     private List<IndentListModel.ListBean> data = new ArrayList<>();
 
     public void initData(int pageNum, final boolean isloadmore) {
-        LoaddingShow();
         RetrofitUtil.getInstance().Orderform(openid, "3", String.valueOf(pageNum), new Subscriber<BaseResponse<IndentListModel>>() {
             @Override
             public void onCompleted() {
@@ -169,28 +171,31 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
 
     @Override
     public void onLoadMoreRequested() {
-        mSwipeRefreshLayout.setEnabled(false);
-        //  TOTAL_COUNTER = Integer.valueOf(myfollowModel.getTotal());
-        if (mAdapter.getData().size() < PAGE_SIZE) {
-            mAdapter.loadMoreEnd(true);
-        } else {
-            if (mCurrentCounter >= TOTAL_COUNTER) {
-                mAdapter.loadMoreEnd(mLoadMoreEndGone);
-            } else {
-                if (isErr) {
-                    pageNum += 1;
-                    //  initDate(pageNum, true);
-                    //    mAdapter.addData(data);
-                    mCurrentCounter = mAdapter.getData().size();
-                    mAdapter.loadMoreComplete();
+        TOTAL_COUNTER = Integer.valueOf(indentListModel.getTotal());
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mAdapter.loadMoreEnd();
                 } else {
-                    isErr = true;
-                    // Toast.makeText(getContext(), "错误", Toast.LENGTH_LONG).show();
-                    mAdapter.loadMoreFail();
+                    if (isErr) {
+                        //成功获取更多数据
+                        //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        pageNum += 1;
+                        initData(pageNum, true);
+                        mCurrentCounter = mAdapter.getData().size();
+                        mAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        mAdapter.loadMoreFail();
+
+                    }
                 }
             }
-            mSwipeRefreshLayout.setEnabled(true);
-        }
+
+        }, 3000);
     }
 
     @Override
@@ -204,6 +209,7 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
                 initData(pageNum, false);
+                LoaddingShow();
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }

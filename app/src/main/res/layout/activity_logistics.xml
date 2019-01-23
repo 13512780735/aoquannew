@@ -19,23 +19,46 @@
         android:paddingEnd="15dp">
 
         <!--商品主图-->
-        <ImageView
-            android:id="@+id/main_pic_iv"
-            android:layout_width="@dimen/width60"
-            android:layout_height="@dimen/width60"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop" />
+        <FrameLayout
+            android:id="@+id/rl_iv"
+            android:layout_width="@dimen/width70"
+            android:layout_height="@dimen/width70">
+            <ImageView
+                android:id="@+id/main_pic_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:layout_margin="@dimen/dp_5"
+                android:src="@mipmap/icon_star"
+                android:scaleType="centerCrop" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/dp_5"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_shop_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:textColor="@color/white"
+                    android:layout_alignParentBottom="true"
+                    android:text="xxxx"
+                    android:gravity="center"
+                    android:background="#90000000"/>
+
+            </RelativeLayout>
+        </FrameLayout>
+
+
 
         <!--物流状态-->
         <LinearLayout
             android:id="@+id/ll_express_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/main_pic_iv"
+            android:layout_alignTop="@id/rl_iv"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/main_pic_iv"
+            android:layout_toEndOf="@id/rl_iv"
             android:orientation="horizontal">
 
             <TextView

@@ -10,9 +10,9 @@ import android.view.View;
 import com.likeits.simple.R;
 import com.likeits.simple.adapter.indent.GoodsIndentTabAdapter;
 import com.likeits.simple.base.BaseActivity;
-import com.likeits.simple.fragment.coupon.Coupon01Fragment;
-import com.likeits.simple.fragment.coupon.Coupon02Fragment;
-import com.likeits.simple.fragment.coupon.Coupon03Fragment;
+import com.likeits.simple.fragment.mycoupon.Coupon01Fragment;
+import com.likeits.simple.fragment.mycoupon.Coupon02Fragment;
+import com.likeits.simple.fragment.mycoupon.Coupon03Fragment;
 import com.likeits.simple.view.BorderTextView;
 import com.likeits.simple.view.NoScrollViewPager;
 
@@ -37,8 +37,6 @@ public class MyCouponActivity extends BaseActivity {
         setContentView(R.layout.activity_my_coupon);
         mTitles = new ArrayList<>(Arrays.asList("未使用", "已使用", "已过期"));
         initUI();
-        addListeners();
-        initData();
     }
 
     public void initUI() {
@@ -60,10 +58,6 @@ public class MyCouponActivity extends BaseActivity {
         mViewPager.setCurrentItem(0);
     }
 
-    public void initData() {
-
-    }
-
     @OnClick({R.id.tv_more})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -73,7 +67,4 @@ public class MyCouponActivity extends BaseActivity {
         }
     }
 
-    public void addListeners() {
-
-    }
 }

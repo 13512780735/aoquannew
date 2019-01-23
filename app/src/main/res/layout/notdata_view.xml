@@ -17,5 +17,5 @@
         android:textSize="@dimen/sp_16"
         android:layout_centerHorizontal="true"
         android:textColor="@color/footbar_text_color"
-        android:text="暂时没有任何商品"/>
+        android:text="暂时没有数据"/>
 </RelativeLayout>

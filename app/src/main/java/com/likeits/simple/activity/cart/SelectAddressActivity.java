@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.elvishew.xlog.XLog;
 import com.likeits.simple.R;
 import com.likeits.simple.base.BaseActivity;
 import com.likeits.simple.network.model.BaseResponse;
@@ -211,6 +210,22 @@ public class SelectAddressActivity extends BaseActivity {
                     } else {
                         addresses.get(position).setIsdefault("0");
                     }
+//                    if (viewHolder.cbSelected.isChecked()) {
+//                        if (position == 0) {
+//                            viewHolder.cbSelected.setClickable(false);
+//                            viewHolder.cbSelected.setChecked(true);
+//                        } else {
+//                            if (addresses.get(position).getIsdefault() == "1") {
+//                                addresses.get(position).setIsdefault("0");
+//                            } else {
+//                                addresses.get(position).setIsdefault("1");
+//                            }
+//                        }
+//                    } else {
+//                        addresses.get(position).setIsdefault("0");
+//                    }
+
+
                     String id = addresses.get(position).getId();
                     setDefaultAddress(id);
                     AddressAdapter.this.notifyDataSetChanged();
@@ -260,7 +275,7 @@ public class SelectAddressActivity extends BaseActivity {
             @Override
             public void onNext(BaseResponse<EmptyEntity> baseResponse) {
                 if (baseResponse.code == 200) {
-                  //  showToast(baseResponse.getMsg());
+                    //  showToast(baseResponse.getMsg());
                 } else {
                     showToast(baseResponse.getMsg());
                 }

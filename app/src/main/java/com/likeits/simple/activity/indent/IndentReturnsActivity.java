@@ -126,13 +126,13 @@ public class IndentReturnsActivity extends BaseActivity implements SwipeRefreshL
         mAdapter.disableLoadMoreIfNotFullPage();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         initData(pageNum, false);
+        LoaddingShow();
         mCurrentCounter = mAdapter.getData().size();
     }
 
     private List<IndentListModel.ListBean> data = new ArrayList<>();
 
     public void initData(int pageNum, final boolean isloadmore) {
-        LoaddingShow();
         RetrofitUtil.getInstance().Orderform(openid, "4", String.valueOf(pageNum), new Subscriber<BaseResponse<IndentListModel>>() {
             @Override
             public void onCompleted() {
@@ -173,28 +173,31 @@ public class IndentReturnsActivity extends BaseActivity implements SwipeRefreshL
 
     @Override
     public void onLoadMoreRequested() {
-        mSwipeRefreshLayout.setEnabled(false);
         TOTAL_COUNTER = Integer.valueOf(indentListModel.getTotal());
-        if (mAdapter.getData().size() < PAGE_SIZE) {
-            mAdapter.loadMoreEnd(true);
-        } else {
-            if (mCurrentCounter >= TOTAL_COUNTER) {
-                mAdapter.loadMoreEnd(mLoadMoreEndGone);
-            } else {
-                if (isErr) {
-                    pageNum += 1;
-                    initData(pageNum, true);
-                    //    mAdapter.addData(data);
-                    mCurrentCounter = mAdapter.getData().size();
-                    mAdapter.loadMoreComplete();
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mAdapter.loadMoreEnd();
                 } else {
-                    isErr = true;
-                    // Toast.makeText(getContext(), "错误", Toast.LENGTH_LONG).show();
-                    mAdapter.loadMoreFail();
+                    if (isErr) {
+                        //成功获取更多数据
+                        //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        pageNum += 1;
+                        initData(pageNum, true);
+                        mCurrentCounter = mAdapter.getData().size();
+                        mAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        mAdapter.loadMoreFail();
+
+                    }
                 }
             }
-            mSwipeRefreshLayout.setEnabled(true);
-        }
+
+        }, 3000);
     }
 
     @Override
@@ -208,6 +211,7 @@ public class IndentReturnsActivity extends BaseActivity implements SwipeRefreshL
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
                 initData(pageNum, false);
+                LoaddingShow();
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }

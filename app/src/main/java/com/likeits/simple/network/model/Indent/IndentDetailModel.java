@@ -6,14 +6,14 @@ import java.util.List;
 public class IndentDetailModel implements Serializable{
 
     /**
-     * order : {"id":"514","ordersn":"ME20190116104724842268","createtime":"2019-01-16 10:47:24","paytime":"2019-01-16 10:47:36","sendtime":"2019-01-16 10:51:42","finishtime":"2019-01-16 15:09:22","status":"3","statusstr":"交易完成","price":"2320.00","goodsprice":"4640.00","dispatchprice":"0.00","ispackage":"0","seckilldiscountprice":"0.00","deductenough":"0.00","couponprice":"0.00","discountprice":"2320.00","isdiscountprice":"0.00","deductprice":"0.00","deductcredit2":"0.00","diyformfields":null,"diyformdata":null,"showverify":false,"verifytitle":"消费码","dispatchtype":"0","verifyinfo":false,"invoicename":null,"merchid":155,"virtual":"0","virtual_str":null,"virtual_info":null,"isvirtualsend":"0","virtualsend_info":"","canrefund":null,"refundtext":"申请售后","refundtext_btn":"","cancancel":false,"canpay":false,"canverify":false,"candelete":true,"cancomment":true,"cancomment2":false,"cancomplete":false,"cancancelrefund":false,"candelete2":false,"canrestore":false,"verifytype":"0","refundstate":"0","icon":"e601","city_express_state":null,"iscycelbuy":"0","isonlyverifygoods":false}
+     * order : {"id":"523","ordersn":"ME20190116151439565841","createtime":"2019-01-16 15:14:39","paytime":"2019-01-16 15:14:41","sendtime":"2019-01-17 14:52:25","finishtime":"","status":"2","statusstr":"卖家已发货","price":"4010.00","goodsprice":"8020.00","dispatchprice":"0.00","ispackage":"0","seckilldiscountprice":"0.00","deductenough":"0.00","couponprice":"0.00","discountprice":"4010.00","isdiscountprice":"0.00","deductprice":"0.00","deductcredit2":"0.00","diyformfields":null,"diyformdata":null,"showverify":false,"verifytitle":"消费码","dispatchtype":"0","verifyinfo":false,"invoicename":null,"merchid":155,"virtual":"0","virtual_str":"","virtual_info":"","isvirtualsend":"0","virtualsend_info":"","canrefund":true,"refundtext":"申请售后","refundtext_btn":"申请售后","cancancel":false,"canpay":false,"canverify":false,"candelete":false,"cancomment":false,"cancomment2":false,"cancomplete":true,"cancancelrefund":false,"candelete2":false,"canrestore":false,"verifytype":"0","refundstate":"0","icon":"e623","city_express_state":null,"iscycelbuy":"0","isonlyverifygoods":false}
      * gift : null
      * address : {"id":"102","uniacid":"1","openid":"wap_user_1_13715679523","realname":"长春机场见","mobile":"123123123","province":"天津市","city":"天津辖县","area":"静海县","address":"12123","isdefault":"1","zipcode":"","deleted":"0","street":"","datavalue":"","streetdatavalue":"","lng":"","lat":""}
-     * express : {"time":"2018-12-15 22:05:46","step":"【中山市】 快件已在 【中山北区】 签收, 签收人: 拍照签收, 如有疑问请电联:13790738589 / 0760-88709095, 您的快递已经妥投, 如果您对我们的服务感到满意, 请给个五星好评, 鼓励一下我们【请在评价快递员处帮忙点亮五颗星星哦~】","expresscom":"中通速递","expresssn":"73107464543398"}
+     * express : {"time":"2018-10-13 13:15:12","step":"【中山市】 快件已在 【中山北区】 签收, 签收人: 拍照签收, 如有疑问请电联:13790738589 / 0760-88709095, 您的快递已经妥投, 如果您对我们的服务感到满意, 请给个五星好评, 鼓励一下我们【请在评价快递员处帮忙点亮五颗星星哦~】","expresscom":"中通速递","expresssn":"73104808754885"}
      * carrier : false
      * store : false
      * stores : false
-     * shop : {"name":"四合堂","logo":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tK3k9KJ9JJj7nIIn0jPNKn3KJNzfJr.jpg","goods":[{"id":"788","title":"新中式全铜如意系列SHT8807-8+4吊灯","price":"4640.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/hAbJTzBD6mHtAM58JJaqJHhaq9jdra.jpg","total":"1","isfullback":"0","fullbackgoods":null,"status":"1","optionname":"","diyformdata":null,"diyformfields":null}]}
+     * shop : {"name":"四合堂","logo":"http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tK3k9KJ9JJj7nIIn0jPNKn3KJNzfJr.jpg","goods":[{"id":"787","title":"新中式全铜如意系列SHT8807-8吊灯","price":"3380.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/yPShSE0EO1vhi1PZg0EP12NzsgEoWE.png","total":"1","isfullback":"0","fullbackgoods":null,"status":"1","optionname":"","diyformdata":null,"diyformfields":null,"refundtext_btn":"申请售后","closecomment":"0","goods_refundid":"0","optionid":"0","goods_refundtime":"0","rtype":"0","refundstatustext":"售后申请","isshowbtn":true,"payrefund":false,"afterrefund":true,"payrefundtext":"（未收到货）(包含未签收，)或卖家协商同意前提下","afterrefundtext":"(已收到货,产品有损坏或不符合)，需要卖家退货或退换"},{"id":"788","title":"新中式全铜如意系列SHT8807-8+4吊灯","price":"4640.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/hAbJTzBD6mHtAM58JJaqJHhaq9jdra.jpg","total":"1","isfullback":"0","fullbackgoods":null,"status":"1","optionname":"","diyformdata":null,"diyformfields":null,"refundtext_btn":"申请售后","closecomment":"0","goods_refundid":"0","optionid":"0","goods_refundtime":"0","rtype":"0","refundstatustext":"售后申请","isshowbtn":true,"payrefund":false,"afterrefund":true,"payrefundtext":"（未收到货）(包含未签收，)或卖家协商同意前提下","afterrefundtext":"(已收到货,产品有损坏或不符合)，需要卖家退货或退换"}]}
      * customer : 0
      * phone : 0
      * fullbacktext : 全返
@@ -151,22 +151,22 @@ public class IndentDetailModel implements Serializable{
 
     public static class OrderBean {
         /**
-         * id : 514
-         * ordersn : ME20190116104724842268
-         * createtime : 2019-01-16 10:47:24
-         * paytime : 2019-01-16 10:47:36
-         * sendtime : 2019-01-16 10:51:42
-         * finishtime : 2019-01-16 15:09:22
-         * status : 3
-         * statusstr : 交易完成
-         * price : 2320.00
-         * goodsprice : 4640.00
+         * id : 523
+         * ordersn : ME20190116151439565841
+         * createtime : 2019-01-16 15:14:39
+         * paytime : 2019-01-16 15:14:41
+         * sendtime : 2019-01-17 14:52:25
+         * finishtime :
+         * status : 2
+         * statusstr : 卖家已发货
+         * price : 4010.00
+         * goodsprice : 8020.00
          * dispatchprice : 0.00
          * ispackage : 0
          * seckilldiscountprice : 0.00
          * deductenough : 0.00
          * couponprice : 0.00
-         * discountprice : 2320.00
+         * discountprice : 4010.00
          * isdiscountprice : 0.00
          * deductprice : 0.00
          * deductcredit2 : 0.00
@@ -179,26 +179,26 @@ public class IndentDetailModel implements Serializable{
          * invoicename : null
          * merchid : 155
          * virtual : 0
-         * virtual_str : null
-         * virtual_info : null
+         * virtual_str :
+         * virtual_info :
          * isvirtualsend : 0
          * virtualsend_info :
-         * canrefund : null
+         * canrefund : true
          * refundtext : 申请售后
-         * refundtext_btn :
+         * refundtext_btn : 申请售后
          * cancancel : false
          * canpay : false
          * canverify : false
-         * candelete : true
-         * cancomment : true
+         * candelete : false
+         * cancomment : false
          * cancomment2 : false
-         * cancomplete : false
+         * cancomplete : true
          * cancancelrefund : false
          * candelete2 : false
          * canrestore : false
          * verifytype : 0
          * refundstate : 0
-         * icon : e601
+         * icon : e623
          * city_express_state : null
          * iscycelbuy : 0
          * isonlyverifygoods : false
@@ -232,11 +232,11 @@ public class IndentDetailModel implements Serializable{
         private Object invoicename;
         private int merchid;
         private String virtual;
-        private Object virtual_str;
-        private Object virtual_info;
+        private String virtual_str;
+        private String virtual_info;
         private String isvirtualsend;
         private String virtualsend_info;
-        private Object canrefund;
+        private boolean canrefund;
         private String refundtext;
         private String refundtext_btn;
         private boolean cancancel;
@@ -480,19 +480,19 @@ public class IndentDetailModel implements Serializable{
             this.virtual = virtual;
         }
 
-        public Object getVirtual_str() {
+        public String getVirtual_str() {
             return virtual_str;
         }
 
-        public void setVirtual_str(Object virtual_str) {
+        public void setVirtual_str(String virtual_str) {
             this.virtual_str = virtual_str;
         }
 
-        public Object getVirtual_info() {
+        public String getVirtual_info() {
             return virtual_info;
         }
 
-        public void setVirtual_info(Object virtual_info) {
+        public void setVirtual_info(String virtual_info) {
             this.virtual_info = virtual_info;
         }
 
@@ -512,11 +512,11 @@ public class IndentDetailModel implements Serializable{
             this.virtualsend_info = virtualsend_info;
         }
 
-        public Object getCanrefund() {
+        public boolean isCanrefund() {
             return canrefund;
         }
 
-        public void setCanrefund(Object canrefund) {
+        public void setCanrefund(boolean canrefund) {
             this.canrefund = canrefund;
         }
 
@@ -843,10 +843,10 @@ public class IndentDetailModel implements Serializable{
 
     public static class ExpressBean {
         /**
-         * time : 2018-12-15 22:05:46
+         * time : 2018-10-13 13:15:12
          * step : 【中山市】 快件已在 【中山北区】 签收, 签收人: 拍照签收, 如有疑问请电联:13790738589 / 0760-88709095, 您的快递已经妥投, 如果您对我们的服务感到满意, 请给个五星好评, 鼓励一下我们【请在评价快递员处帮忙点亮五颗星星哦~】
          * expresscom : 中通速递
-         * expresssn : 73107464543398
+         * expresssn : 73104808754885
          */
 
         private String time;
@@ -891,7 +891,7 @@ public class IndentDetailModel implements Serializable{
         /**
          * name : 四合堂
          * logo : http://hidsy.maimaitoo.com/attachment/images/1/2018/12/tK3k9KJ9JJj7nIIn0jPNKn3KJNzfJr.jpg
-         * goods : [{"id":"788","title":"新中式全铜如意系列SHT8807-8+4吊灯","price":"4640.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/hAbJTzBD6mHtAM58JJaqJHhaq9jdra.jpg","total":"1","isfullback":"0","fullbackgoods":null,"status":"1","optionname":"","diyformdata":null,"diyformfields":null}]
+         * goods : [{"id":"787","title":"新中式全铜如意系列SHT8807-8吊灯","price":"3380.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/yPShSE0EO1vhi1PZg0EP12NzsgEoWE.png","total":"1","isfullback":"0","fullbackgoods":null,"status":"1","optionname":"","diyformdata":null,"diyformfields":null,"refundtext_btn":"申请售后","closecomment":"0","goods_refundid":"0","optionid":"0","goods_refundtime":"0","rtype":"0","refundstatustext":"售后申请","isshowbtn":true,"payrefund":false,"afterrefund":true,"payrefundtext":"（未收到货）(包含未签收，)或卖家协商同意前提下","afterrefundtext":"(已收到货,产品有损坏或不符合)，需要卖家退货或退换"},{"id":"788","title":"新中式全铜如意系列SHT8807-8+4吊灯","price":"4640.00","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/merch/155/hAbJTzBD6mHtAM58JJaqJHhaq9jdra.jpg","total":"1","isfullback":"0","fullbackgoods":null,"status":"1","optionname":"","diyformdata":null,"diyformfields":null,"refundtext_btn":"申请售后","closecomment":"0","goods_refundid":"0","optionid":"0","goods_refundtime":"0","rtype":"0","refundstatustext":"售后申请","isshowbtn":true,"payrefund":false,"afterrefund":true,"payrefundtext":"（未收到货）(包含未签收，)或卖家协商同意前提下","afterrefundtext":"(已收到货,产品有损坏或不符合)，需要卖家退货或退换"}]
          */
 
         private String name;
@@ -924,10 +924,10 @@ public class IndentDetailModel implements Serializable{
 
         public static class GoodsBean {
             /**
-             * id : 788
-             * title : 新中式全铜如意系列SHT8807-8+4吊灯
-             * price : 4640.00
-             * thumb : http://hidsy.maimaitoo.com/attachment/images/1/merch/155/hAbJTzBD6mHtAM58JJaqJHhaq9jdra.jpg
+             * id : 787
+             * title : 新中式全铜如意系列SHT8807-8吊灯
+             * price : 3380.00
+             * thumb : http://hidsy.maimaitoo.com/attachment/images/1/merch/155/yPShSE0EO1vhi1PZg0EP12NzsgEoWE.png
              * total : 1
              * isfullback : 0
              * fullbackgoods : null
@@ -935,6 +935,19 @@ public class IndentDetailModel implements Serializable{
              * optionname :
              * diyformdata : null
              * diyformfields : null
+             * refundtext_btn : 申请售后
+             * closecomment : 0
+             * goods_refundid : 0
+             * optionid : 0
+             * comment_btn
+             * goods_refundtime : 0
+             * rtype : 0
+             * refundstatustext : 售后申请
+             * isshowbtn : true
+             * payrefund : false
+             * afterrefund : true
+             * payrefundtext : （未收到货）(包含未签收，)或卖家协商同意前提下
+             * afterrefundtext : (已收到货,产品有损坏或不符合)，需要卖家退货或退换
              */
 
             private String id;
@@ -948,6 +961,27 @@ public class IndentDetailModel implements Serializable{
             private String optionname;
             private Object diyformdata;
             private Object diyformfields;
+            private String refundtext_btn;
+            private String closecomment;
+            private String goods_refundid;
+            private String optionid;
+            private String goods_refundtime;
+            private String rtype;
+            private String refundstatustext;
+            private  String comment_btn;
+            private boolean isshowbtn;
+            private boolean payrefund;
+            private boolean afterrefund;
+            private String payrefundtext;
+            private String afterrefundtext;
+
+            public String getComment_btn() {
+                return comment_btn;
+            }
+
+            public void setComment_btn(String comment_btn) {
+                this.comment_btn = comment_btn;
+            }
 
             public String getId() {
                 return id;
@@ -1035,6 +1069,102 @@ public class IndentDetailModel implements Serializable{
 
             public void setDiyformfields(Object diyformfields) {
                 this.diyformfields = diyformfields;
+            }
+
+            public String getRefundtext_btn() {
+                return refundtext_btn;
+            }
+
+            public void setRefundtext_btn(String refundtext_btn) {
+                this.refundtext_btn = refundtext_btn;
+            }
+
+            public String getClosecomment() {
+                return closecomment;
+            }
+
+            public void setClosecomment(String closecomment) {
+                this.closecomment = closecomment;
+            }
+
+            public String getGoods_refundid() {
+                return goods_refundid;
+            }
+
+            public void setGoods_refundid(String goods_refundid) {
+                this.goods_refundid = goods_refundid;
+            }
+
+            public String getOptionid() {
+                return optionid;
+            }
+
+            public void setOptionid(String optionid) {
+                this.optionid = optionid;
+            }
+
+            public String getGoods_refundtime() {
+                return goods_refundtime;
+            }
+
+            public void setGoods_refundtime(String goods_refundtime) {
+                this.goods_refundtime = goods_refundtime;
+            }
+
+            public String getRtype() {
+                return rtype;
+            }
+
+            public void setRtype(String rtype) {
+                this.rtype = rtype;
+            }
+
+            public String getRefundstatustext() {
+                return refundstatustext;
+            }
+
+            public void setRefundstatustext(String refundstatustext) {
+                this.refundstatustext = refundstatustext;
+            }
+
+            public boolean isIsshowbtn() {
+                return isshowbtn;
+            }
+
+            public void setIsshowbtn(boolean isshowbtn) {
+                this.isshowbtn = isshowbtn;
+            }
+
+            public boolean isPayrefund() {
+                return payrefund;
+            }
+
+            public void setPayrefund(boolean payrefund) {
+                this.payrefund = payrefund;
+            }
+
+            public boolean isAfterrefund() {
+                return afterrefund;
+            }
+
+            public void setAfterrefund(boolean afterrefund) {
+                this.afterrefund = afterrefund;
+            }
+
+            public String getPayrefundtext() {
+                return payrefundtext;
+            }
+
+            public void setPayrefundtext(String payrefundtext) {
+                this.payrefundtext = payrefundtext;
+            }
+
+            public String getAfterrefundtext() {
+                return afterrefundtext;
+            }
+
+            public void setAfterrefundtext(String afterrefundtext) {
+                this.afterrefundtext = afterrefundtext;
             }
         }
     }

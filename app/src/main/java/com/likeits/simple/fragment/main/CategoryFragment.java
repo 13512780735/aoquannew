@@ -1,13 +1,17 @@
 package com.likeits.simple.fragment.main;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -17,10 +21,14 @@ import com.likeits.simple.R;
 import com.likeits.simple.activity.SearchLayoutActivity;
 import com.likeits.simple.adapter.sort.adapter.LeftAdapter;
 import com.likeits.simple.adapter.sort.adapter.RightAdapter;
+import com.likeits.simple.adapter.sort.adapter.RightAdapter1;
+import com.likeits.simple.adapter.sort.adapter.RightAdapter2;
 import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.GoodCategory.GoodsCategoryModel;
 import com.likeits.simple.network.util.RetrofitUtil;
+import com.likeits.simple.utils.SharedPreferencesUtils;
+import com.likeits.simple.utils.StringUtil;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 import java.util.ArrayList;
@@ -42,6 +50,12 @@ public class CategoryFragment extends BaseFragment {
     private List<GoodsCategoryModel.ListBean.TwotierBean> listBeanList;
     List<GoodsCategoryModel.ListBean> goodsCategoryBeanList;
     private ArrayList<GoodsCategoryModel.ListBean.TwotierBean.GoodsBean> goodsBeans;
+    private String catlevel;
+    private RightAdapter1 rightAdapter1;
+    private RightAdapter2 rightAdapter2;
+    private RelativeLayout rl_nodata;
+    private LinearLayout ll_category;
+    private TextView tv_nodata;
 
     @Override
     protected int setContentView() {
@@ -53,58 +67,106 @@ public class CategoryFragment extends BaseFragment {
         goodsCategoryBeanList = new ArrayList<>();
         listBeanList = new ArrayList<>();
         goodsBeans = new ArrayList<>();
-        mLeftRvRecyclerView = (RecyclerView) findViewById(R.id.main_left_rv);
-        mRightRvRecyclerView = (RecyclerView) findViewById(R.id.main_right_rv);
+        mLeftRvRecyclerView = findViewById(R.id.main_left_rv);
+        rl_nodata = findViewById(R.id.rl_nodata);
+        tv_nodata = findViewById(R.id.tv_nodata);
+        ll_category = findViewById(R.id.ll_category);
+        mRightRvRecyclerView = findViewById(R.id.main_right_rv);
         //initData();
         initData();
         loaddingDialog.show();
-        initUI();
+
     }
 
     private void initUI() {
-        leftAdapter = new LeftAdapter(R.layout.item_main_left, goodsCategoryBeanList);
-        rightAdapter = new RightAdapter(R.layout.item_main_right, listBeanList);
-        mLeftRvRecyclerView.setAdapter(leftAdapter);
-        mRightRvRecyclerView.setAdapter(rightAdapter);
+        if ("1".equals(catlevel)) {
+            mLeftRvRecyclerView.setVisibility(View.GONE);
+            rightAdapter1 = new RightAdapter1(R.layout.item_medical_tv, goodsCategoryBeanList);
+            mRightRvRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            mRightRvRecyclerView.setAdapter(rightAdapter1);
+        } else if ("2".equals(catlevel)) {
+            mLeftRvRecyclerView.setVisibility(View.VISIBLE);
+            leftAdapter = new LeftAdapter(R.layout.item_main_left, goodsCategoryBeanList);
+            rightAdapter2 = new RightAdapter2(R.layout.item_medical_tv, listBeanList);
+            mLeftRvRecyclerView.setAdapter(leftAdapter);
+            mRightRvRecyclerView.setAdapter(rightAdapter2);
+            mLeftRvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRightRvRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
+            mLeftRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                    GoodsCategoryModel.ListBean shopSortBean = goodsCategoryBeanList.get(i);
+                    listBeanList.clear();
+                    listBeanList.addAll(shopSortBean.getTwotier());
+                    leftAdapter.setSelectPos(i);
+                    leftAdapter.notifyDataSetChanged();
+                    rightAdapter2.notifyDataSetChanged();
+                }
 
-        mLeftRvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRightRvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mLeftRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                GoodsCategoryModel.ListBean shopSortBean = goodsCategoryBeanList.get(i);
-                listBeanList.clear();
-                listBeanList.addAll(shopSortBean.getTwotier());
-                leftAdapter.setSelectPos(i);
-                leftAdapter.notifyDataSetChanged();
-                rightAdapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onItemLongClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 
-            @Override
-            public void onItemLongClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                }
 
-            }
+                @Override
+                public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 
-            @Override
-            public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                }
 
-            }
+                @Override
+                public void onItemChildLongClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 
-            @Override
-            public void onItemChildLongClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                }
+            });
 
-            }
-        });
+
+        } else if ("3".equals(catlevel)) {
+            mLeftRvRecyclerView.setVisibility(View.VISIBLE);
+            leftAdapter = new LeftAdapter(R.layout.item_main_left, goodsCategoryBeanList);
+            rightAdapter = new RightAdapter(R.layout.item_main_right, listBeanList);
+            mLeftRvRecyclerView.setAdapter(leftAdapter);
+            mRightRvRecyclerView.setAdapter(rightAdapter);
+            mLeftRvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRightRvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mLeftRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                    GoodsCategoryModel.ListBean shopSortBean = goodsCategoryBeanList.get(i);
+                    listBeanList.clear();
+                    listBeanList.addAll(shopSortBean.getTwotier());
+                    leftAdapter.setSelectPos(i);
+                    leftAdapter.notifyDataSetChanged();
+                    rightAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onItemLongClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+
+                }
+
+                @Override
+                public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+
+                }
+
+                @Override
+                public void onItemChildLongClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+
+                }
+            });
+        }else {
+            Typeface iconTypeface = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
+            ll_category.setVisibility(View.GONE);
+            rl_nodata.setVisibility(View.VISIBLE);
+            tv_nodata.setTypeface(iconTypeface);
+            tv_nodata.setText(StringUtil.decode("\\u" + "e682"));
+        }
+
+
     }
 
     private void initData() {
-//        String sign = SignUtils.getSign(getActivity());
-//        String signs[] = sign.split("##");
-//        String signature = signs[0];
-//        String newtime = signs[1];
-//        String random = signs[2];
-
-        RetrofitUtil.getInstance().GoodsCategory("0", new Subscriber<BaseResponse<GoodsCategoryModel>>() {
+        RetrofitUtil.getInstance().GoodsCategory(openid, new Subscriber<BaseResponse<GoodsCategoryModel>>() {
             @Override
             public void onCompleted() {
 
@@ -120,16 +182,26 @@ public class CategoryFragment extends BaseFragment {
                 loaddingDialog.dismiss();
                 if (baseResponse.code == 200) {
                     //LogUtils.d("MainSortFragment-->" + baseResponse.getData());
-
+                    catlevel = baseResponse.getData().getCatlevel(); //0:无 1:分类1级 2:分类2级 3:分类3级
+                    SharedPreferencesUtils.put(getActivity(), "catlevel", catlevel);
                     goodsCategoryModel = baseResponse.getData();
                     goodsCategoryBeanList = goodsCategoryModel.getList();
                     for (int i = 0; i < goodsCategoryBeanList.size(); i++) {
                         listBeanList.addAll(goodsCategoryBeanList.get(i).getTwotier());
                     }
-                    leftAdapter.setNewData(goodsCategoryBeanList);
-                    rightAdapter.setNewData(listBeanList);
-                    leftAdapter.notifyDataSetChanged();
-                    rightAdapter.notifyDataSetChanged();
+                    initUI();
+                    if ("1".equals(catlevel)) {
+                        rightAdapter1.setNewData(goodsCategoryBeanList);
+                        rightAdapter1.notifyDataSetChanged();
+                    } else if ("2".equals(catlevel)) {
+                        rightAdapter2.setNewData(listBeanList);
+                        rightAdapter2.notifyDataSetChanged();
+                    } else if ("3".equals(catlevel)) {
+                        leftAdapter.setNewData(goodsCategoryBeanList);
+                        rightAdapter.setNewData(listBeanList);
+                        leftAdapter.notifyDataSetChanged();
+                        rightAdapter.notifyDataSetChanged();
+                    }
                     // LogUtils.d("goodsCategoryBeanList--》" + listBeanList.get(1).getName());
 
                 }
@@ -139,7 +211,7 @@ public class CategoryFragment extends BaseFragment {
 
     @OnClick(R.id.search_layout)
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.search_layout:
                 toActivity(SearchLayoutActivity.class);
                 break;

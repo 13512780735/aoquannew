@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.indent.AfterSaleTypeActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_check01"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width60"
+            android:layout_margin="@dimen/dp_5"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_selected01"
+                style="@style/mycheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:padding="@dimen/dp_5"
+                android:text="仅退款"
+                android:clickable="true" />
+
+            <TextView
+                android:id="@+id/tv_refund"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_5"
+                android:text="（未收到货）(包含未签收，)或卖家协商同意前提" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"></View>
+        <LinearLayout
+            android:id="@+id/ll_check02"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width60"
+            android:layout_margin="@dimen/dp_5"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_selected02"
+                style="@style/mycheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:padding="@dimen/dp_5"
+                android:text="退换货"
+                android:clickable="true" />
+
+            <TextView
+                android:id="@+id/tv_refund01"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_5"
+                android:text="（未收到货）(包含未签收，)或卖家协商同意前提" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width40"
+        android:layout_marginTop="@dimen/width40"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.likeits.simple.view.BorderTextView
+                android:id="@+id/tv_next"
+                android:layout_width="@dimen/width80"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:padding="@dimen/dp_8"
+                android:text="下一步"
+                android:textColor="@color/white"
+                app:contentBackColor="@color/theme_bg_tex"
+                app:cornerRadius="@dimen/dp_5"
+                app:strokeColor01="@color/theme_bg_tex"
+                app:strokeWidth01="1dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.likeits.simple.view.BorderTextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="@dimen/width80"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:padding="@dimen/dp_8"
+                android:text="取消"
+                android:textColor="@color/black"
+                app:contentBackColor="@color/white"
+                app:cornerRadius="@dimen/dp_5"
+                app:strokeColor01="@color/title_text_color"
+                app:strokeWidth01="1dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -7,6 +7,9 @@ import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.GoodCategory.CategoryListItemsModel;
 import com.likeits.simple.network.model.GoodCategory.GoodsCategoryModel;
 import com.likeits.simple.network.model.GoodCommentmodel;
+import com.likeits.simple.network.model.Indent.CommentShopModel;
+import com.likeits.simple.network.model.Indent.ExpressModel;
+import com.likeits.simple.network.model.Indent.GoodsRefundmodel;
 import com.likeits.simple.network.model.Indent.IndentDetailModel;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.model.Indent.OrderCreateModel;
@@ -155,6 +158,17 @@ public interface ApiService {
     @POST("nativeapp.goods.category.category")
     Observable<BaseResponse<GoodsCategoryModel>> GoodsCategory(@Field("ukey") String ukey
     );
+
+    /**
+     * 列表筛选
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.goods.category.filtrate")
+    Observable<BaseResponse<GoodsCategoryModel>> GoodsFiltrate(@Field("ukey") String ukey
+    );
+
     /**
      * 商品列表
      *
@@ -165,14 +179,14 @@ public interface ApiService {
     @POST("nativeapp.goods.category.categorylist")
     Observable<BaseResponse<CategoryListItemsModel>> CategoryList(@Field("openid") String openid,
                                                                   @Field("keywords") String keywords,
-                                                                  @Field("cid") String cid,
-                                                                  @Field("isnew") String isnew,
-                                                                  @Field("ishot") String ishot,
-                                                                  @Field("isrecommand") String isrecommand,
-                                                                  @Field("isdiscount") String isdiscount,
-                                                                  @Field("istime") String istime,
-                                                                  @Field("issendfree") String issendfree,
-                                                                  @Field("pageNum") String pageNum
+                                                                  @Field("attribute") String attribute,
+                                                                  @Field("merchid") String merchid,
+                                                                  @Field("order") String order,
+                                                                  @Field("by") String by,
+                                                                  @Field("pricemin") String pricemin,
+                                                                  @Field("pricemax") String pricemax,
+                                                                  @Field("pageNum") String pageNum,
+                                                                  @Field("cid") String cid
     );
 
     /**
@@ -180,7 +194,6 @@ public interface ApiService {
      *
      * @param openid
      * @param status
-     * @param page
      * @return
      */
     @FormUrlEncoded
@@ -238,6 +251,50 @@ public interface ApiService {
     @POST("nativeapp.order.op.finish")
     Observable<BaseResponse<EmptyEntity>> orderFinish(@Field("openid") String openid,
                                                       @Field("id") String id
+    );
+
+    /**
+     * 物流信息
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.express")
+    Observable<BaseResponse<ExpressModel>> expressInfo(@Field("openid") String openid,
+                                                       @Field("id") String id,
+                                                       @Field("sendtype") String sendtype,
+                                                       @Field("bundle") String bundle,
+                                                       @Field("cycelid") String cycelid
+    );
+
+    /**
+     * 订单评价商品
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.comment.comment")
+    Observable<BaseResponse<CommentShopModel>> commentContent(@Field("openid") String openid,
+                                                              @Field("orderid") String orderid,
+                                                              @Field("goodsid") String goodsid
+    );
+
+    /**
+     * 提交评价
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.comment.commentSubmit")
+    Observable<BaseResponse<EmptyEntity>> commentSubmit(@Field("openid") String openid,
+                                                        @Field("orderid") String orderid,
+                                                        @Field("goodsid") String goodsid,
+                                                        @Field("level") String level,
+                                                        @Field("content") String content,
+                                                        @Field("images") String images
     );
 
     /**
@@ -584,6 +641,42 @@ public interface ApiService {
     Observable<BaseResponse<BalacePayModel>> BalancePay(@Field("openid") String openid,
                                                         @Field("id") String id,
                                                         @Field("type") String type
+
+    );
+
+    /**
+     * 商品售后申请接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.goods_refund")
+    Observable<BaseResponse<GoodsRefundmodel>> goodsRefund(@Field("openid") String openid,
+                                                           @Field("goodsid") String goodsid,
+                                                           @Field("id") String id,
+                                                           @Field("optionid") String optionid,
+                                                           @Field("rtype") String rtype,
+                                                           @Field("grefundid") String grefundid
+
+    );
+
+    /**
+     * 商品售后申请提交接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.order.goods_refund.submit")
+    Observable<BaseResponse<BalacePayModel>> goodsRefundSubmit(@Field("openid") String openid,
+                                                               @Field("orderid") String orderid,
+                                                               @Field("goodsid") String goodsid,
+                                                               @Field("rtype") String rtype,
+                                                               @Field("optionid") String optionid,
+                                                               @Field("merchid") String merchid,
+                                                               @Field("applyprice") String applyprice,
+                                                               @Field("reason") String reason,
+                                                               @Field("goods_status") String goods_status,
+                                                               @Field("images") String images
 
     );
 

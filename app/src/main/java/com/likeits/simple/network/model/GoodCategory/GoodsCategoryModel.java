@@ -5,11 +5,19 @@ import java.util.List;
 
 public class GoodsCategoryModel implements Serializable{
 
-
+    private String catlevel;
     private List<ListBean> list;
 
     public List<ListBean> getList() {
         return list;
+    }
+
+    public String getCatlevel() {
+        return catlevel;
+    }
+
+    public void setCatlevel(String catlevel) {
+        this.catlevel = catlevel;
     }
 
     public void setList(List<ListBean> list) {
@@ -25,7 +33,16 @@ public class GoodsCategoryModel implements Serializable{
 
         private String id;
         private String name;
+        private String thumb;
         private List<TwotierBean> twotier;
+
+        public String getThumb() {
+            return thumb;
+        }
+
+        public void setThumb(String thumb) {
+            this.thumb = thumb;
+        }
 
         public String getId() {
             return id;
@@ -60,7 +77,16 @@ public class GoodsCategoryModel implements Serializable{
 
             private String id;
             private String name;
+            private String thumb;
             private List<GoodsBean> goods;
+
+            public String getThumb() {
+                return thumb;
+            }
+
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
+            }
 
             public String getId() {
                 return id;

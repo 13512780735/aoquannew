@@ -120,6 +120,12 @@ public class IndentDetailsActivity extends BaseActivity {
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initData();
     }
 
@@ -216,7 +222,7 @@ public class IndentDetailsActivity extends BaseActivity {
         mAdapter = new IndentDatailsShopAdapter(R.layout.layout_indent_details_listview_items, data);
         //mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
-        initData();
+       // initData();
     }
 
     public void initData() {

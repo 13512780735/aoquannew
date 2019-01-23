@@ -37,7 +37,7 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     private String id;
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 6;//为什么是6呢？
+    private static final int PAGE_SIZE = 1;//为什么是6呢？
     private boolean isErr;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
@@ -49,6 +49,7 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
     SwipeRefreshLayout mSwipeRefreshLayout;
     private List<CouponCenterModel.ListBean> data;
     private CouponCenterListAdapter mAdapter;
+    private CouponCenterModel couponCenterModel;
 
     @Override
     protected int setContentView() {
@@ -73,25 +74,13 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
     private void initUI() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getActivity()));
-        initData();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        initAdapter();
+
+
     }
 
-    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
-        public WrapContentLinearLayoutManager(Context context) {
-            super(context);
-        }
-
-        @Override
-        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-            try {
-                super.onLayoutChildren(recycler, state);
-            } catch (IndexOutOfBoundsException e) {
-            }
-        }
-    }
-
-    private void initData() {
+    private void initData(int pageNum,  final boolean isloadmore) {
       //  LoaddingShow();
         RetrofitUtil.getInstance().GetCouponCenterList(openid, id, String.valueOf(pageNum), new Subscriber<BaseResponse<CouponCenterModel>>() {
             @Override
@@ -105,7 +94,30 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
             @Override
             public void onNext(BaseResponse<CouponCenterModel> baseResponse) {
                // LoaddingDismiss();
+
+                if (baseResponse.code == 200) {
+                    couponCenterModel = baseResponse.getData();
+                    List<CouponCenterModel.ListBean> list =couponCenterModel.getList();
+
+                    if (list != null && list.size() > 0) {
+                        if (!isloadmore) {
+                            data = list;
+                        } else {
+                            data.addAll(list);
+                        }
+                        mAdapter.setNewData(data);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        mAdapter.setEmptyView(R.layout.notdata_view);
+                    }
+
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+
+
                 if (baseResponse.getCode() == 200) {
+                    TOTAL_COUNTER = Integer.valueOf(baseResponse.getData().getTotal());
                     data = baseResponse.getData().getList();
                     initAdapter();
                 }
@@ -117,6 +129,8 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
         mAdapter = new CouponCenterListAdapter(R.layout.layout_coupon_listview_items, data);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.disableLoadMoreIfNotFullPage();
+        initData(pageNum, false);
         mCurrentCounter = mAdapter.getData().size();
     }
 
@@ -130,6 +144,7 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
                 isErr = false;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }
@@ -138,27 +153,30 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onLoadMoreRequested() {
-        mSwipeRefreshLayout.setEnabled(false);
-        //  TOTAL_COUNTER = Integer.valueOf(myfollowModel.getTotal());
-        if (mAdapter.getData().size() < PAGE_SIZE) {
-            mAdapter.loadMoreEnd(true);
-        } else {
-            if (mCurrentCounter >= TOTAL_COUNTER) {
-                mAdapter.loadMoreEnd(mLoadMoreEndGone);
-            } else {
-                if (isErr) {
-                    pageNum += 1;
-                    //  initDate(pageNum, true);
-                    //    mAdapter.addData(data);
-                    mCurrentCounter = mAdapter.getData().size();
-                    mAdapter.loadMoreComplete();
+        TOTAL_COUNTER = Integer.valueOf(couponCenterModel.getTotal());
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mAdapter.loadMoreEnd();
                 } else {
-                    isErr = true;
-                    // Toast.makeText(getContext(), "错误", Toast.LENGTH_LONG).show();
-                    mAdapter.loadMoreFail();
+                    if (isErr) {
+                        //成功获取更多数据
+                        //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        pageNum += 1;
+                        initData(pageNum, true);
+                        mCurrentCounter = mAdapter.getData().size();
+                        mAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        mAdapter.loadMoreFail();
+
+                    }
                 }
             }
-            mSwipeRefreshLayout.setEnabled(true);
-        }
+
+        }, 3000);
     }
 }

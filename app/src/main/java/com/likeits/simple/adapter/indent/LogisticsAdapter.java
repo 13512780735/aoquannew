@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.likeits.simple.R;
+import com.likeits.simple.network.model.Indent.ExpressModel;
 import com.likeits.simple.network.model.Indent.Trace;
 
 import java.util.List;
@@ -19,10 +20,10 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.Trac
     private static final int TYPE_CURR = 0; //当前
     private static final int TYPE_NORMAL = 1; //历史记录
     private Context mContext;
-    private List<Trace> mList;
+    private List<ExpressModel.ExpresslistBean> mList;
     private LayoutInflater inflater;
 
-    public LogisticsAdapter(Context mContext, List<Trace> mList) {
+    public LogisticsAdapter(Context mContext, List<ExpressModel.ExpresslistBean> mList) {
         this.mContext = mContext;
         this.mList = mList;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -41,8 +42,8 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.Trac
     @Override
     public void onBindViewHolder(TraceViewHolder holder, int position) {
         //设置相关数据
-        Trace trace = mList.get(position);
-        int type = trace.getType();
+        ExpressModel.ExpresslistBean trace = mList.get(position);
+        int type = Integer.valueOf(trace.getDefined());
         if (type == TYPE_CURR) {
             holder.acceptStationTv.setTextColor(mContext.getResources().getColor(R.color.theme_bg_tex));
 
@@ -54,8 +55,8 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.Trac
             holder.acceptTimeTv.setTextColor(Color.parseColor("#999999"));
             holder.dotIv.setImageResource(R.mipmap.dot_black);
         }
-        holder.acceptTimeTv.setText(trace.getAcceptTime());
-        holder.acceptStationTv.setText(trace.getAcceptStation());
+        holder.acceptTimeTv.setText(trace.getTime());
+        holder.acceptStationTv.setText(trace.getStep());
         if (position == mList.size() - 1) {
             //最后一条数据，隐藏时间轴的竖线和水平的分割线
             holder.timeLineView.setVisibility(View.INVISIBLE);

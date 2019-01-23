@@ -1,4 +1,4 @@
-package com.likeits.simple.fragment.coupon;
+package com.likeits.simple.fragment.mycoupon;
 
 
 import android.graphics.Color;
@@ -20,6 +20,7 @@ import com.likeits.simple.adapter.div_provider.member.CouponListAdapter;
 import com.likeits.simple.base.BaseFragment;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.CaseEntity;
+import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.model.member.CouponListModel;
 import com.likeits.simple.network.util.RetrofitUtil;
 
@@ -41,15 +42,16 @@ public class Coupon01Fragment extends BaseFragment implements BaseQuickAdapter.R
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    private List<CouponListModel.ListBean> data;
+    private List<CouponListModel.ListBean> data = new ArrayList<>();
     private CouponListAdapter mAdapter;
 
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 6;//为什么是6呢？
+    private static final int PAGE_SIZE = 1;//为什么是6呢？
     private boolean isErr;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
+    private CouponListModel couponListModel;
 
     @Override
     protected int setContentView() {
@@ -62,22 +64,27 @@ public class Coupon01Fragment extends BaseFragment implements BaseQuickAdapter.R
     }
 
     private void initUI() {
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initData();
+
+        initAdapter();
+
 
     }
     private void initAdapter() {
 
         mAdapter = new CouponListAdapter(R.layout.layout_coupon_listview_items, data);
+        mAdapter.setEnableLoadMore(false);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.disableLoadMoreIfNotFullPage();
+        initData(pageNum,false);
+        LoaddingShow();
         mCurrentCounter = mAdapter.getData().size();
     }
-    public void initData() {
-        data = new ArrayList<>();
-        LoaddingShow();
+    public void initData(int pageNum,  final boolean isloadmore) {
         RetrofitUtil.getInstance().GetCouponList(openid, "",String.valueOf(pageNum), new Subscriber<BaseResponse<CouponListModel>>() {
             @Override
             public void onCompleted() {
@@ -86,15 +93,33 @@ public class Coupon01Fragment extends BaseFragment implements BaseQuickAdapter.R
 
             @Override
             public void onError(Throwable e) {
-
+                LoaddingDismiss();
             }
 
             @Override
             public void onNext(BaseResponse<CouponListModel> baseResponse) {
                 LoaddingDismiss();
-                if(baseResponse.getCode()==200){
-                    data=baseResponse.getData().getList();
-                    initAdapter();
+                if (baseResponse.code == 200) {
+//                    if (!mAdapter.isLoadMoreEnable()) {
+//                        mAdapter.setEnableLoadMore(true);
+//                    }
+                    couponListModel = baseResponse.getData();
+                    List<CouponListModel.ListBean> list =couponListModel.getList();
+
+                    if (list != null && list.size() > 0) {
+                        if (!isloadmore) {
+                            data = list;
+                        } else {
+                            data.addAll(list);
+                        }
+                        mAdapter.setNewData(data);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        mAdapter.setEmptyView(R.layout.notdata_view);
+                    }
+
+                } else {
+                    showProgress(baseResponse.getMsg());
                 }
             }
         });
@@ -103,28 +128,31 @@ public class Coupon01Fragment extends BaseFragment implements BaseQuickAdapter.R
     }
     @Override
     public void onLoadMoreRequested() {
-        mSwipeRefreshLayout.setEnabled(false);
-        //  TOTAL_COUNTER = Integer.valueOf(myfollowModel.getTotal());
-        if (mAdapter.getData().size() < PAGE_SIZE) {
-            mAdapter.loadMoreEnd(true);
-        } else {
-            if (mCurrentCounter >= TOTAL_COUNTER) {
-                mAdapter.loadMoreEnd(mLoadMoreEndGone);
-            } else {
-                if (isErr) {
-                    pageNum += 1;
-                    //  initDate(pageNum, true);
-                    //    mAdapter.addData(data);
-                    mCurrentCounter = mAdapter.getData().size();
-                    mAdapter.loadMoreComplete();
+        TOTAL_COUNTER = Integer.valueOf(couponListModel.getTotal());
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mAdapter.loadMoreEnd();
                 } else {
-                    isErr = true;
-                    // Toast.makeText(getContext(), "错误", Toast.LENGTH_LONG).show();
-                    mAdapter.loadMoreFail();
+                    if (isErr) {
+                        //成功获取更多数据
+                        //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        pageNum += 1;
+                        initData(pageNum, true);
+                        mCurrentCounter = mAdapter.getData().size();
+                        mAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        mAdapter.loadMoreFail();
+
+                    }
                 }
             }
-            mSwipeRefreshLayout.setEnabled(true);
-        }
+
+        }, 3000);
     }
 
     @Override
@@ -134,9 +162,11 @@ public class Coupon01Fragment extends BaseFragment implements BaseQuickAdapter.R
             @Override
             public void run() {
                 // mAdapter.setNewData(data);
-                isErr = false;
+                isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
+                LoaddingShow();
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.setEnableLoadMore(true);//启用加载
             }

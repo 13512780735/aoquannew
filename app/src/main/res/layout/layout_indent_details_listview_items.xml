@@ -95,7 +95,7 @@
             android:paddingRight="@dimen/dp_8"
             android:paddingTop="@dimen/dp_5"
             android:text="查看退款申请进度" />
-        <com.likeits.simple.view.BorderTextView
+      <!--  <com.likeits.simple.view.BorderTextView
             android:id="@+id/tv_02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
             android:paddingLeft="@dimen/dp_8"
             android:paddingRight="@dimen/dp_8"
             android:paddingTop="@dimen/dp_5"
-            android:text="申请退款" />
+            android:text="申请退款" />-->
         <com.likeits.simple.view.BorderTextView
             android:id="@+id/tv_03"
             android:layout_width="wrap_content"

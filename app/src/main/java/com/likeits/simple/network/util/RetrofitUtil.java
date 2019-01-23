@@ -9,6 +9,9 @@ import com.likeits.simple.network.consts.Consts;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.GoodCategory.GoodsCategoryModel;
+import com.likeits.simple.network.model.Indent.CommentShopModel;
+import com.likeits.simple.network.model.Indent.ExpressModel;
+import com.likeits.simple.network.model.Indent.GoodsRefundmodel;
 import com.likeits.simple.network.model.Indent.IndentDetailModel;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.model.Indent.OrderCreateModel;
@@ -169,6 +172,19 @@ public class RetrofitUtil {
                 .subscribe(subscriber);
     }
 
+    /**
+     * 商品分類
+     *
+     * @param subscriber
+     */
+    public void GoodsFiltrate(String openid, Subscriber<BaseResponse<GoodsCategoryModel>> subscriber) {
+        mApiService.GoodsFiltrate(openid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 
     /**
      * 商品列表
@@ -177,9 +193,9 @@ public class RetrofitUtil {
      * @param subscriber
      */
 
-    public void CategoryList(String openid, String keyword, String cid, String isnew, String ishot, String isrecommand, String isdiscount, String istime, String issendfree, String pageNum,
+    public void CategoryList(String openid, String keyword, String attribute, String merchid, String order, String by, String pricemin, String pricemax, String pageNum, String cid,
                              Subscriber<BaseResponse<CategoryListItemsModel>> subscriber) {
-        mApiService.CategoryList(openid, keyword, cid, isnew, ishot, isrecommand, isdiscount, istime, issendfree, pageNum)
+        mApiService.CategoryList(openid, keyword, attribute, merchid, order, by, pricemin, pricemax, pageNum ,cid)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -257,6 +273,51 @@ public class RetrofitUtil {
     public void orderFinish(String openid, String id,
                             Subscriber<BaseResponse<EmptyEntity>> subscriber) {
         mApiService.orderFinish(openid, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 物流信息
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void expressInfo(String openid, String id, String sendtype, String bundle, String cycelid,
+                            Subscriber<BaseResponse<ExpressModel>> subscriber) {
+        mApiService.expressInfo(openid, id, sendtype, bundle, cycelid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 订单评价商品
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void commentContent(String openid, String orderid, String goodsid,
+                               Subscriber<BaseResponse<CommentShopModel>> subscriber) {
+        mApiService.commentContent(openid, orderid, goodsid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 物流信息
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void commentSubmit(String openid, String orderid, String goodsid, String level, String content, String images,
+                              Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.commentSubmit(openid, orderid, goodsid, level, content, images)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -605,6 +666,18 @@ public class RetrofitUtil {
     public void PayInto(String openid, String id,
                         Subscriber<BaseResponse<PayModel>> subscriber) {
         mApiService.PayInto(openid, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 商品售后申请接口
+     */
+    public void goodsRefund(String openid, String goodsid, String id, String optionid, String type, String grefundid,
+                            Subscriber<BaseResponse<GoodsRefundmodel>> subscriber) {
+        mApiService.goodsRefund(openid, goodsid, id, optionid, type, grefundid)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
