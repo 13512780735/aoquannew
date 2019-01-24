@@ -1,5 +1,6 @@
 package com.likeits.simple.activity.good;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -12,8 +13,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,6 +27,7 @@ import com.likeits.simple.activity.detail.GoodDetailActivity;
 import com.likeits.simple.activity.good.filter.view.FilterPopupWindow;
 import com.likeits.simple.adapter.sort.adapter.GoodListAdapter;
 import com.likeits.simple.base.BaseActivity;
+import com.likeits.simple.listener.OnFilterInforCompleted;
 import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.GoodCategory.CategoryListItemsModel;
 import com.likeits.simple.network.util.RetrofitUtil;
@@ -37,7 +41,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Subscriber;
 
-public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, OnFilterInforCompleted {
 
     @BindView(R.id.iv_back)
     ImageView mIvBack;
@@ -125,6 +129,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     }
 
 
+    @SuppressLint("WrongConstant")
     private void initUI() {
         mSearchContentEt.setText(keyword);
         mMessageImg.setText(StringUtil.decode("\\u" + "e67c"));
@@ -134,7 +139,9 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         popupWindow = new FilterPopupWindow(GoodListActivity.this);
-
+        popupWindow.setOnFilterInforCompleted(this);
+        // popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
+        //  popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         //set layoutManager
         initAdapter();
         //onRefresh();
@@ -231,8 +238,6 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                 break;
             case R.id.layout_filter_sort:
             case R.id.tv_filter_sort:
-                showToast("点击了");
-
                 popupWindow.showFilterPopup(main);
                 break;
             case R.id.message_img:
@@ -404,5 +409,15 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         }, 2000);
+    }
+
+
+    @Override
+    public void inputFilterInforCompleted(String pricemin, String pricemax, String attribute, String merchid, String cid) {
+        XLog.e("pricemin", pricemin);
+        XLog.e("pricemax", pricemax);
+        XLog.e("attribute", attribute);
+        XLog.e("merchid", merchid);
+        XLog.e("cid", cid);
     }
 }

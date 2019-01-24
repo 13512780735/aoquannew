@@ -72,7 +72,11 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.good.GoodListActivity" />
+        <activity android:name=".activity.good.GoodListActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            />
+
         <activity
             android:name=".activity.cart.ConfirmOrderActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />

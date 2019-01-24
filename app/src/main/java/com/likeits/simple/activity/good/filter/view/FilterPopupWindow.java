@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -24,6 +26,7 @@ import com.likeits.simple.activity.good.filter.adapter.GoodsAttrListAdapter;
 import com.likeits.simple.activity.good.filter.adapter.GoodsAttrsAdapter;
 import com.likeits.simple.activity.good.filter.vo.SaleAttributeNameVo;
 import com.likeits.simple.activity.good.filter.vo.SaleAttributeVo;
+import com.likeits.simple.listener.OnFilterInforCompleted;
 import com.likeits.simple.network.ApiService;
 import com.likeits.simple.network.model.home.MainHomePagerModel;
 import com.likeits.simple.utils.HttpUtil;
@@ -42,6 +45,8 @@ import java.util.List;
  * 筛选商品属性选择的popupwindow
  */
 public class FilterPopupWindow extends PopupWindow {
+    private final EditText ed_low_price;
+    private final EditText ed_high_price;
     private View contentView;
     private Context context;
     private View goodsNoView;
@@ -55,12 +60,19 @@ public class FilterPopupWindow extends PopupWindow {
     private List<SaleAttributeNameVo> itemData;
     private List<SaleAttributeVo> serviceList;
     private String[] serviceStr = new String[]{"推荐商品", "新品上市", "热卖商品", "促销商品", "卖家包邮", "限时抢购"};
+    String attribute = "";
+    String merchid = "";
+    String cid = "";
+    String pricemin = "";
+    String pricemax = "";
+    private String attribute1;
 
     /**
      * 商品属性选择的popupwindow
      */
     public FilterPopupWindow(final Activity context) {
         this.context = context;
+        context.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.popup_goods_details, null);
         goodsNoView = contentView.findViewById(R.id.popup_goods_noview);
@@ -68,6 +80,8 @@ public class FilterPopupWindow extends PopupWindow {
         View headerView = LayoutInflater.from(context).inflate(R.layout.filter_header_view, selectionList, false);
         selectionList.addHeaderView(headerView);
         serviceGrid = (GridView) headerView.findViewById(R.id.yuguo_service);
+        ed_low_price = (EditText) headerView.findViewById(R.id.ed_low_price);
+        ed_high_price = (EditText) headerView.findViewById(R.id.ed_high_price);
         filterReset = (TextView) contentView.findViewById(R.id.filter_reset);
         filterSure = (TextView) contentView.findViewById(R.id.filter_sure);
         goodsNoView.setOnClickListener(new CancelOnClickListener());
@@ -92,12 +106,15 @@ public class FilterPopupWindow extends PopupWindow {
         serviceGrid.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 //设置当前选中的位置的状态为非。
-                serviceList.get(arg2).setChecked(!serviceList.get(arg2).isChecked());
+                serviceList.get(position).setChecked(!serviceList.get(position).isChecked());
+                XLog.e("position-->" + position);
+                attribute1 = String.valueOf(position);
                 for (int i = 0; i < serviceList.size(); i++) {
                     //跳过已设置的选中的位置的状态
-                    if (i == arg2) {
+
+                    if (i == position) {
                         continue;
                     }
                     serviceList.get(i).setChecked(false);
@@ -115,6 +132,13 @@ public class FilterPopupWindow extends PopupWindow {
 
             @Override
             public void onClick(View v) {
+                ed_low_price.setText("");
+                ed_high_price.setText("");
+                attribute1="";
+                for (int i = 0; i < serviceList.size(); i++) {
+                    //跳过已设置的选中的位置的状态
+                    serviceList.get(i).setChecked(false);
+                }
                 for (int i = 0; i < itemData.size(); i++) {
                     for (int j = 0; j < itemData.get(i).getSaleVo().size(); j++) {
                         itemData.get(i).getSaleVo().get(j).setChecked(false);
@@ -124,6 +148,7 @@ public class FilterPopupWindow extends PopupWindow {
             }
         });
         // 确定的点击监听，将所有已选中项列出
+        //  filterSure.setOnClickListener(this);
         filterSure.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -133,10 +158,35 @@ public class FilterPopupWindow extends PopupWindow {
                     for (int j = 0; j < itemData.get(i).getSaleVo().size(); j++) {
                         if (itemData.get(i).getSaleVo().get(j).isChecked()) {
                             str = str + itemData.get(i).getSaleVo().get(j).getValue();
+                            String fields = itemData.get(i).getNameId();
+                            XLog.e("str-->" + itemData.get(i).getNameId());
+                            XLog.e("strid-->" + itemData.get(i).getSaleVo().get(j).getGoodsAndValId());
+                            if ("cid".equals(fields)) {
+                                cid = itemData.get(i).getSaleVo().get(j).getGoodsAndValId();
+                            } else if ("merchid".equals(fields)) {
+                                merchid = itemData.get(i).getSaleVo().get(j).getGoodsAndValId();
+                            }
                         }
                     }
                 }
+                pricemin = ed_low_price.getText().toString();
+                pricemax = ed_high_price.getText().toString();
+                attribute=attribute1;
+                XLog.e("pricemin", pricemin);
+                XLog.e("pricemax", pricemax);
+                XLog.e("attribute", attribute);
+                XLog.e("merchid", merchid);
+                XLog.e("cid", cid);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        mOnFilterInforCompleted.inputFilterInforCompleted(pricemin,pricemax,attribute,merchid,cid);
+                    }
+                }).start();
+
                 Toast.makeText(FilterPopupWindow.this.context, str, Toast.LENGTH_SHORT).show();
+              //  dismiss();
             }
         });
 
@@ -149,6 +199,12 @@ public class FilterPopupWindow extends PopupWindow {
         this.setOutsideTouchable(false);
         this.update();
 
+    }
+
+    private OnFilterInforCompleted mOnFilterInforCompleted;
+
+    public void setOnFilterInforCompleted(OnFilterInforCompleted onFilterInforCompleted) {
+        mOnFilterInforCompleted = onFilterInforCompleted;
     }
 
     private void initData() {
@@ -198,15 +254,16 @@ public class FilterPopupWindow extends PopupWindow {
         for (int i = 0; i < json.length(); i++) {
             SaleAttributeNameVo saleName = new SaleAttributeNameVo();
             JSONObject obj = (JSONObject) json.opt(i);
-            saleName.setName(obj.getString("title"));
+            saleName.setName(obj.optString("title"));
+            saleName.setNameId(obj.optString("fields"));
             List<SaleAttributeVo> list = new ArrayList<SaleAttributeVo>();
             JSONArray array = new JSONArray();
             array = obj.optJSONArray("list");
             for (int j = 0; j < array.length(); j++) {
                 JSONObject object = array.getJSONObject(j);
                 SaleAttributeVo vo = new SaleAttributeVo();
-                vo.setValue(object.getString("name"));
-                vo.setGoodsAndValId(object.getString("id"));
+                vo.setValue(object.optString("name"));
+                vo.setGoodsAndValId(object.optString("id"));
                 vo.setChecked(false);
 //                if ("1".equals(object.getString("checkStatus"))) {
 //                    vo.setChecked(true);

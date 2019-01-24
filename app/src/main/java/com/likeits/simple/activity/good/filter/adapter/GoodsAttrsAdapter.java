@@ -96,7 +96,7 @@ public class GoodsAttrsAdapter extends BaseAdapter {
                 data.add(tempData.get(2));
                 data.add(tempData.get(3));
                 data.add(tempData.get(4));
-            }else if (tempData.size() == 6) {
+            }else if (tempData.size() >= 6) {
                 data.add(tempData.get(0));
                 data.add(tempData.get(1));
                 data.add(tempData.get(2));
