@@ -172,18 +172,18 @@ public class RetrofitUtil {
                 .subscribe(subscriber);
     }
 
-    /**
-     * 商品分類
-     *
-     * @param subscriber
-     */
-    public void GoodsFiltrate(String openid, Subscriber<BaseResponse<GoodsCategoryModel>> subscriber) {
-        mApiService.GoodsFiltrate(openid)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
+//    /**
+//     * 商品分類
+//     *
+//     * @param subscriber
+//     */
+//    public void GoodsFiltrate(String openid, Subscriber<BaseResponse<GoodsCategoryModel>> subscriber) {
+//        mApiService.GoodsFiltrate(openid)
+//                .subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(subscriber);
+//    }
 
 
     /**

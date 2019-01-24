@@ -99,7 +99,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         loaddingDialog.show();
         String url = ApiService.Main_Home;
         RequestParams params = new RequestParams();
-        params.put("openid", "");
+        params.put("openid", openid);
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {

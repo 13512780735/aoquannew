@@ -21,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.likeits.simple.R;
 import com.likeits.simple.activity.detail.GoodDetailActivity;
+import com.likeits.simple.activity.good.filter.view.FilterPopupWindow;
 import com.likeits.simple.adapter.sort.adapter.GoodListAdapter;
 import com.likeits.simple.base.BaseActivity;
 import com.likeits.simple.network.model.BaseResponse;
@@ -71,6 +72,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     TextView mTvFilterSort;
     @BindView(R.id.layout_filter_sort)
     RelativeLayout mLayoutFilterSort;
+    @BindView(R.id.main)
+    View main;
 
     private TextView tvCancel, tvConfirm;
 
@@ -98,10 +101,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
     int flag01 = 0;//商品列表拍列样式  0 网格，1列表
     private String attribute, merchid, order, by, pricemin, pricemax;
-
-    private DrawerLayout drawer;
-    private RelativeLayout navigationView;
-    private RightSideslipLay menuHeaderView;
+    private FilterPopupWindow popupWindow;
 
 
     @Override
@@ -122,34 +122,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         pricemax = "";
         XLog.e("cid-->" + cid + keyword);
         initUI();
-        initEvent();
     }
 
-    private void initEvent() {
-        menuHeaderView.setCloseMenuCallBack(new RightSideslipLay.CloseMenuCallBack() {
-            // 重写内部方法
-            @Override
-            public void setupCloseMean() {
-                closeMenu();
-            }
-        });
-    }
-
-    public void closeMenu() {
-        drawer.closeDrawer(GravityCompat.END);
-    }
-
-    public void openMenu() {
-        drawer.openDrawer(GravityCompat.END);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.END))
-            drawer.closeDrawers();
-        else
-            super.onBackPressed();
-    }
 
     private void initUI() {
         mSearchContentEt.setText(keyword);
@@ -159,15 +133,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mTvSynthesisSort.setTextColor(Color.parseColor(theme_bg_tex));
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (RelativeLayout) findViewById(R.id.nav_view);
-
-        //设置第一屏内容
-        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
-        menuHeaderView = new RightSideslipLay(GoodListActivity.this);
-        navigationView.addView(menuHeaderView);
-
+        popupWindow = new FilterPopupWindow(GoodListActivity.this);
 
         //set layoutManager
         initAdapter();
@@ -266,7 +232,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             case R.id.layout_filter_sort:
             case R.id.tv_filter_sort:
                 showToast("点击了");
-                openMenu();
+
+                popupWindow.showFilterPopup(main);
                 break;
             case R.id.message_img:
                 switch (flag01) {

@@ -67,6 +67,13 @@ public interface ApiService {
      * @return
      */
     String Custom_diyPage = Consts.APP_HOST + "nativeapp.diypage";
+    /**
+     * 列表筛选
+     *
+     * @param ukey
+     * @return
+     */
+    String GoodsFiltrate = Consts.APP_HOST + "nativeapp.goods.category.filtrate";
 
     /**
      * 首页导航
@@ -159,15 +166,15 @@ public interface ApiService {
     Observable<BaseResponse<GoodsCategoryModel>> GoodsCategory(@Field("ukey") String ukey
     );
 
-    /**
-     * 列表筛选
-     *
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("nativeapp.goods.category.filtrate")
-    Observable<BaseResponse<GoodsCategoryModel>> GoodsFiltrate(@Field("ukey") String ukey
-    );
+//    /**
+//     * 列表筛选
+//     *
+//     * @return
+//     */
+//    @FormUrlEncoded
+//    @POST("nativeapp.goods.category.filtrate")
+//    Observable<BaseResponse<GoodsCategoryModel>> GoodsFiltrate(@Field("ukey") String ukey
+//    );
 
     /**
      * 商品列表
