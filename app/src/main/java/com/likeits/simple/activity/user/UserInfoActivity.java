@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.guoqi.actionsheet.ActionSheet;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.good.filter.view.FilterPopupWindow;
 import com.likeits.simple.base.BaseActivity;
 import com.likeits.simple.listener.IEditTextChangeListener;
 import com.likeits.simple.network.model.BaseResponse;
@@ -240,7 +241,8 @@ public class UserInfoActivity extends BaseActivity implements ActionSheet.OnActi
                 showDatePickDialog(DateType.TYPE_YMD);
                 break;
             case R.id.tv_edit:
-                editUserInfo();
+             editUserInfo();
+
                 break;
         }
     }

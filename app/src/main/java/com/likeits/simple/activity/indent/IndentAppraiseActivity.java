@@ -138,7 +138,6 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
     String imgId = "";
 
     private void initUI() {
-
         tv_Submit.setBackgroundColor(Color.parseColor(theme_bg_tex));
         ImageLoader.getInstance().displayImage(commentShopModel.getGoods().getThumb(), mIvShopAvatar);
         tv_indent_name.setText(commentShopModel.getShopname());
@@ -218,12 +217,12 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
         }
         String content = mEdTellSome.getText().toString();
 
-        XLog.e("imageUrl-->" + imageUrl);
-        XLog.e("level-->" + level);
-        XLog.e("content-->" + content);
-        XLog.e("goodsId-->" + goodsId);
-        XLog.e("ordId-->" + ordId);
-        XLog.e("openid-->" + openid);
+//        XLog.e("imageUrl-->" + imageUrl);
+//        XLog.e("level-->" + level);
+//        XLog.e("content-->" + content);
+//        XLog.e("goodsId-->" + goodsId);
+//        XLog.e("ordId-->" + ordId);
+//        XLog.e("openid-->" + openid);
         RetrofitUtil.getInstance().commentSubmit(openid, ordId, goodsId, level, content, imageUrl, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
@@ -238,10 +237,10 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
             @Override
             public void onNext(BaseResponse<EmptyEntity> baseResponse) {
                 LoaddingDismiss();
-
-                XLog.e("code-->" + baseResponse.getCode());
-                XLog.e("msg-->" + baseResponse.getMsg());
-                XLog.e("data-->" + baseResponse.getData());
+//
+//                XLog.e("code-->" + baseResponse.getCode());
+//                XLog.e("msg-->" + baseResponse.getMsg());
+//                XLog.e("data-->" + baseResponse.getData());
                 if (baseResponse.getCode() == 200) {
                     finish();
                 } else {

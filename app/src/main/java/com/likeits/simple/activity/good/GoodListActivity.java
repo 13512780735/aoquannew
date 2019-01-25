@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
@@ -33,6 +34,7 @@ import com.likeits.simple.network.model.GoodCategory.CategoryListItemsModel;
 import com.likeits.simple.network.util.RetrofitUtil;
 import com.likeits.simple.utils.SharedPreferencesUtils;
 import com.likeits.simple.utils.StringUtil;
+import com.likeits.simple.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     LinearLayout mSearchLayout;
     @BindView(R.id.ll_filter)
     LinearLayout mFilter;
+    @BindView(R.id.ll_header)
+    LinearLayout ll_header;
     @BindView(R.id.message_img)
     TextView mMessageImg;
     @BindView(R.id.SwipeRefreshLayout)
@@ -139,7 +143,9 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         popupWindow = new FilterPopupWindow(GoodListActivity.this);
+      //  popupWindow.setClippingEnabled(false);
         popupWindow.setOnFilterInforCompleted(this);
+        //popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         // popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
         //  popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         //set layoutManager
@@ -238,7 +244,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                 break;
             case R.id.layout_filter_sort:
             case R.id.tv_filter_sort:
-                popupWindow.showFilterPopup(main);
+
+                popupWindow.showFilterPopup(ll_header);
                 break;
             case R.id.message_img:
                 switch (flag01) {
@@ -301,6 +308,9 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         XLog.e("pricemin-->", pricemin);
         XLog.e("pricemax-->", pricemax);
         XLog.e("cid-->", cid);
+        String str1="openid-"+openid+"keyword-"+keyword+"pricemin-"+pricemin+"pricemax-"+pricemax+"attribute-"+attribute+"merchid-"+merchid+"cid-"+cid+"order-"+order+"by-"+by;
+        //Toast.makeText(mContext,str1, Toast.LENGTH_LONG).show();
+
         RetrofitUtil.getInstance().CategoryList(openid, keyword, attribute, merchid, order, by, pricemin, pricemax, String.valueOf(pageNum), cid, new Subscriber<BaseResponse<CategoryListItemsModel>>() {
             @Override
             public void onCompleted() {
@@ -413,11 +423,15 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
 
     @Override
-    public void inputFilterInforCompleted(String pricemin, String pricemax, String attribute, String merchid, String cid) {
-        XLog.e("pricemin", pricemin);
-        XLog.e("pricemax", pricemax);
-        XLog.e("attribute", attribute);
-        XLog.e("merchid", merchid);
-        XLog.e("cid", cid);
+    public void inputFilterInforCompleted(String pricemin1, String pricemax1, String attribute1, String merchid1, String cid1) {
+
+        //Toast.makeText(FilterPopupWindow.this.context, pricemin, Toast.LENGTH_SHORT).show();
+        pricemin=pricemin1;
+        pricemax=pricemax1;
+        attribute=attribute1;
+        merchid=merchid1;
+        cid=cid1;
+      //  ToastUtils.showToast(mContext,"attribute"+attribute);
+        initAdapter();
     }
 }

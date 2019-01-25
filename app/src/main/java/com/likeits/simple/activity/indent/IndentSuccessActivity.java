@@ -142,6 +142,7 @@ public class IndentSuccessActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.tv_toIndent_detail://跳订单详情
                 id=String.valueOf(balacePayModel.getOrder().getId());
+                SharedPreferencesUtils.put(mContext,"ordId",id);
                 bundle = new Bundle();
                 bundle.putInt("status", 1);
                 bundle.putString("id", id);

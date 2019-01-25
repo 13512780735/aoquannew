@@ -24,13 +24,15 @@ import java.util.List;
  */
 
 public class IndentDatailsShopAdapter extends BaseQuickAdapter<IndentDetailModel.ShopBean.GoodsBean, BaseViewHolder> {
+    private String ordId;
+
     public IndentDatailsShopAdapter(int layoutResId, List<IndentDetailModel.ShopBean.GoodsBean> data) {
         super(R.layout.layout_indent_details_listview_items, data);
     }
 
     @Override
     protected void convert(BaseViewHolder baseViewHolder, final IndentDetailModel.ShopBean.GoodsBean item) {
-        final String ordId = SharedPreferencesUtils.getString(mContext, "ordId");
+       ordId = SharedPreferencesUtils.getString(mContext, "ordId");
         // ImageLoader.getInstance().displayImage(item.getUrl(), (ImageView) baseViewHolder.getView(R.id.iv_shop_avatar));
         BorderTextView tv01 = baseViewHolder.getView(R.id.tv_01);//查看售后申请进度
         //      BorderTextView tv02=baseViewHolder.getView(R.id.tv_02);//申请售后
@@ -86,12 +88,19 @@ public class IndentDatailsShopAdapter extends BaseQuickAdapter<IndentDetailModel
                     boolean payrefund = item.isPayrefund();
                     String payrefundtext = item.getPayrefundtext();
                     String afterrefundtext = item.getAfterrefundtext();
+                    String goodsid=item.getId();
+                    String optionid=item.getOptionid();
+                    String grefundid=item.getGoods_refundid();
                     Intent intent = new Intent(mContext, AfterSaleTypeActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("payrefundtext", payrefundtext);
                     bundle.putString("afterrefundtext", afterrefundtext);
                     bundle.putBoolean("afterrefund", afterrefund);
                     bundle.putBoolean("payrefund", payrefund);
+                    bundle.putString("goodsid", goodsid);
+                    bundle.putString("optionid", optionid);
+                    bundle.putString("grefundid", grefundid);
+                    bundle.putString("orderid", ordId);
                     intent.putExtras(bundle);
                     mContext.startActivity(intent);
                 }

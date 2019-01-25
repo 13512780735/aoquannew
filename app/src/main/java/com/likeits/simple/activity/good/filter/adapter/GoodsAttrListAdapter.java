@@ -65,6 +65,7 @@ public class GoodsAttrListAdapter extends BaseAdapter {
         final GoodsAttrsAdapter adapter = new GoodsAttrsAdapter(context);
         myView.grid.setAdapter(adapter);
         adapter.notifyDataSetChanged(data.get(position).isNameIsChecked(), data.get(position).getSaleVo());
+
         myView.img.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -84,6 +85,7 @@ public class GoodsAttrListAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 //设置当前选中的位置的状态为非。
                 data.get(position).getSaleVo().get(arg2).setChecked(!data.get(position).getSaleVo().get(arg2).isChecked());
+              //  myView.tv_name.setText(data.get(position).getSaleVo().get(arg2).getValue());
                 for (int i = 0; i < data.get(position).getSaleVo().size(); i++) {
                     //跳过已设置的选中的位置的状态
                     if (i == arg2) {

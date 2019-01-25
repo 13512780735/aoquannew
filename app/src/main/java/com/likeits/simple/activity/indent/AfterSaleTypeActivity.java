@@ -32,7 +32,7 @@ public class AfterSaleTypeActivity extends BaseActivity {
             TextView tv_refund01;
 
 
-    private String payrefundtext, afterrefundtext;
+    private String payrefundtext, afterrefundtext, goodsid, optionid, grefundid, ordId;
     private boolean afterrefund, payrefund;
     private String type;
 
@@ -45,6 +45,10 @@ public class AfterSaleTypeActivity extends BaseActivity {
         setBackView();
         payrefundtext = getIntent().getExtras().getString("payrefundtext");
         afterrefundtext = getIntent().getExtras().getString("afterrefundtext");
+        goodsid = getIntent().getExtras().getString("goodsid");
+        optionid = getIntent().getExtras().getString("optionid");
+        grefundid = getIntent().getExtras().getString("grefundid");
+        ordId = getIntent().getExtras().getString("orderid");
         afterrefund = getIntent().getExtras().getBoolean("afterrefund");
         payrefund = getIntent().getExtras().getBoolean("payrefund");
         initUI();
@@ -72,7 +76,7 @@ public class AfterSaleTypeActivity extends BaseActivity {
             cb_selected01.setClickable(false);
             cb_selected02.setClickable(false);
         } else {
-            cb_selected01.setChecked(false);;
+            cb_selected01.setChecked(false);
             ll_check02.setVisibility(View.GONE);
             ll_check01.setVisibility(View.GONE);
             cb_selected02.setChecked(false);
@@ -86,6 +90,13 @@ public class AfterSaleTypeActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_next:
+                Bundle bundle = new Bundle();
+                bundle.putString("type", type);
+                bundle.putString("goodsid", goodsid);
+                bundle.putString("optionid", optionid);
+                bundle.putString("grefundid", grefundid);
+                bundle.putString("orderid", ordId);
+                toActivity(RefundActivity.class, bundle);
                 break;
             case R.id.tv_cancel:
                 finish();

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/rl_iv"
+        android:layout_width="@dimen/width70"
+        android:layout_height="@dimen/width70">
+
+        <ImageView
+            android:id="@+id/main_pic_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_5"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+           />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_5">
+
+            <TextView
+                android:id="@+id/tv_shop_num"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginLeft="@dimen/width20"
+                android:layout_alignParentBottom="true"
+                android:background="#90000000"
+                android:gravity="center"
+                android:text="xxxx"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

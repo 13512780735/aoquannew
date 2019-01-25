@@ -5,30 +5,22 @@ import java.util.List;
 public class GoodsRefundmodel {
 
     /**
-     * rtype : 1
      * rtypetext : 退款
-     * goods : [{"goodsid":"595","goods_refundstate":"1","goods_refundid":"142","goods_refundtime":"0","optionid":"843","title":"测试","thumb":"images/1/2018/03/FT2t2FkKf2A09gKC9Z92kJatelJ5Az.png","realprice":"8.00","optiontitle":"02+04"}]
+     * goods : [{"goodsid":"266","goods_refundstate":"1","goods_refundid":"143","goods_refundtime":"1548381718","optionid":"0","title":"金玉满堂P9271-12+6吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/Q08N0Gni8nhoz0SNQNvnJ2JMNhiGjG.jpg","realprice":"6760.00","optiontitle":""},{"goodsid":"269","goods_refundstate":"1","goods_refundid":"143","goods_refundtime":"1548381718","optionid":"0","title":"金玉满堂P9271-6吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/u90WTQQk9qr79e7tZwSeC8qK7zTofW.jpg","realprice":"2360.00","optiontitle":""},{"goodsid":"403","goods_refundstate":"1","goods_refundid":"143","goods_refundtime":"1548381718","optionid":"0","title":"金玉满堂P9271-8+4吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/gCrJDV15jq988i89Q5kW4koQsb9nQ1.jpg","realprice":"6560.00","optiontitle":""}]
      * handletype : 仅退款
-     * goods_refund : {"id":"142","uniacid":"1","orderid":"571","goodsid":"595","refundno":"SR20190121162049264848","reason":"拍错规格/型号/款式","images":["images/1/2019/01/Gc29E9jSA2922Z1KAw713DaD9WGKyc.jpg"],"content":"","createtime":"1548058849","refundtype":null,"status":"0","merch_status":"0","reply":null,"price":null,"applyprice":"8.00","rtype":"1","refundaddress":null,"message":null,"express":"","expresscom":"","expresssn":"","operatetime":"0","sendtime":"0","returntime":"0","refundtime":"0","rexpress":"","rexpresscom":"","rexpresssn":"","refundaddressid":"0","endtime":"0","merchid":"0","parts_num":"0","optionid":"843","realgrefundprice":"0.00","goods_status":"","openid":null,"ordersn":null,"merch_remark":null,"merch_status_time":"0","isread":"0"}
-     * order : {"id":"571","status":"1","price":"23.00","dispatchprice":"15.00","ordersn":"SH20190118163919262212","finishtime":"0","merchid":"0"}
-     * goodslist : [{"title":"测试","thumb":"images/1/2018/03/FT2t2FkKf2A09gKC9Z92kJatelJ5Az.png","optiontitle":"02+04","optionid":"843","goodsid":"595","realprice":"8.00"}]
+     * goods_refund : {"id":"143","uniacid":"1","orderid":"575","goodsid":"266,269,403","refundno":"SR20190124113026811858","reason":"拍错规格/型号/款式","images":["http://hidsy.maimaitoo.com/attachment/images/1/2019/01/OHw7zipRhQR1f2fErfp1EV0EH2z2ei.jpg"],"content":"","createtime":"1548314291","refundtype":"1","status":"1","merch_status":"1","reply":"","price":"15680.00","applyprice":"15680.00","rtype":"1","refundaddress":null,"message":null,"express":"","expresscom":"","expresssn":"","operatetime":"1548381718","sendtime":"0","returntime":"0","refundtime":"1548381718","rexpress":"","rexpresscom":"","rexpresssn":"","refundaddressid":"0","endtime":"0","merchid":"113","parts_num":"0","optionid":"0,0,0","realgrefundprice":"15680.00","goods_status":"","openid":null,"ordersn":null,"merch_remark":"优秀","merch_status_time":"1548381678","isread":"1","statustext":"退款处理已完成"}
+     * order : {"id":"575","status":"-1","price":"22800.00","dispatchprice":"0.00","ordersn":"ME20190121164558604864","finishtime":"0","merchid":"113"}
+     * goodslist : [{"title":"金玉满堂P9271-12+6吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/Q08N0Gni8nhoz0SNQNvnJ2JMNhiGjG.jpg","optiontitle":"","optionid":"0","goodsid":"266","realprice":"6760.00"},{"title":"金玉满堂P9271-8吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/IK0e0HB0kbyy0b424B42l0PPK22n0T.jpg","optiontitle":"","optionid":"0","goodsid":"268","realprice":"3160.00"},{"title":"金玉满堂P9271-6吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/u90WTQQk9qr79e7tZwSeC8qK7zTofW.jpg","optiontitle":"","optionid":"0","goodsid":"269","realprice":"2360.00"},{"title":"金玉满堂P9271-8+4吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/gCrJDV15jq988i89Q5kW4koQsb9nQ1.jpg","optiontitle":"","optionid":"0","goodsid":"403","realprice":"6560.00"},{"title":"金玉满堂P9271-10吊灯艺术水晶灯客厅灯餐厅灯卧室灯","thumb":"http://hidsy.maimaitoo.com/attachment/images/1/2018/09/kpr381y3885RP0004reX3iXtZkRr97.jpg","optiontitle":"","optionid":"0","goodsid":"267","realprice":"3960.00"}]
+     * step : 3
      */
 
-    private int rtype;
     private String rtypetext;
     private String handletype;
     private GoodsRefundBean goods_refund;
     private OrderBean order;
+    private int step;
     private List<GoodsBean> goods;
     private List<GoodslistBean> goodslist;
-
-    public int getRtype() {
-        return rtype;
-    }
-
-    public void setRtype(int rtype) {
-        this.rtype = rtype;
-    }
 
     public String getRtypetext() {
         return rtypetext;
@@ -62,6 +54,14 @@ public class GoodsRefundmodel {
         this.order = order;
     }
 
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
     public List<GoodsBean> getGoods() {
         return goods;
     }
@@ -80,46 +80,47 @@ public class GoodsRefundmodel {
 
     public static class GoodsRefundBean {
         /**
-         * id : 142
+         * id : 143
          * uniacid : 1
-         * orderid : 571
-         * goodsid : 595
-         * refundno : SR20190121162049264848
+         * orderid : 575
+         * goodsid : 266,269,403
+         * refundno : SR20190124113026811858
          * reason : 拍错规格/型号/款式
-         * images : ["images/1/2019/01/Gc29E9jSA2922Z1KAw713DaD9WGKyc.jpg"]
+         * images : ["http://hidsy.maimaitoo.com/attachment/images/1/2019/01/OHw7zipRhQR1f2fErfp1EV0EH2z2ei.jpg"]
          * content :
-         * createtime : 1548058849
-         * refundtype : null
-         * status : 0
-         * merch_status : 0
-         * reply : null
-         * price : null
-         * applyprice : 8.00
+         * createtime : 1548314291
+         * refundtype : 1
+         * status : 1
+         * merch_status : 1
+         * reply :
+         * price : 15680.00
+         * applyprice : 15680.00
          * rtype : 1
          * refundaddress : null
          * message : null
          * express :
          * expresscom :
          * expresssn :
-         * operatetime : 0
+         * operatetime : 1548381718
          * sendtime : 0
          * returntime : 0
-         * refundtime : 0
+         * refundtime : 1548381718
          * rexpress :
          * rexpresscom :
          * rexpresssn :
          * refundaddressid : 0
          * endtime : 0
-         * merchid : 0
+         * merchid : 113
          * parts_num : 0
-         * optionid : 843
-         * realgrefundprice : 0.00
+         * optionid : 0,0,0
+         * realgrefundprice : 15680.00
          * goods_status :
          * openid : null
          * ordersn : null
-         * merch_remark : null
-         * merch_status_time : 0
-         * isread : 0
+         * merch_remark : 优秀
+         * merch_status_time : 1548381678
+         * isread : 1
+         * statustext : 退款处理已完成
          */
 
         private String id;
@@ -130,11 +131,11 @@ public class GoodsRefundmodel {
         private String reason;
         private String content;
         private String createtime;
-        private Object refundtype;
+        private String refundtype;
         private String status;
         private String merch_status;
-        private Object reply;
-        private Object price;
+        private String reply;
+        private String price;
         private String applyprice;
         private String rtype;
         private Object refundaddress;
@@ -158,9 +159,10 @@ public class GoodsRefundmodel {
         private String goods_status;
         private Object openid;
         private Object ordersn;
-        private Object merch_remark;
+        private String merch_remark;
         private String merch_status_time;
         private String isread;
+        private String statustext;
         private List<String> images;
 
         public String getId() {
@@ -227,11 +229,11 @@ public class GoodsRefundmodel {
             this.createtime = createtime;
         }
 
-        public Object getRefundtype() {
+        public String getRefundtype() {
             return refundtype;
         }
 
-        public void setRefundtype(Object refundtype) {
+        public void setRefundtype(String refundtype) {
             this.refundtype = refundtype;
         }
 
@@ -251,19 +253,19 @@ public class GoodsRefundmodel {
             this.merch_status = merch_status;
         }
 
-        public Object getReply() {
+        public String getReply() {
             return reply;
         }
 
-        public void setReply(Object reply) {
+        public void setReply(String reply) {
             this.reply = reply;
         }
 
-        public Object getPrice() {
+        public String getPrice() {
             return price;
         }
 
-        public void setPrice(Object price) {
+        public void setPrice(String price) {
             this.price = price;
         }
 
@@ -451,11 +453,11 @@ public class GoodsRefundmodel {
             this.ordersn = ordersn;
         }
 
-        public Object getMerch_remark() {
+        public String getMerch_remark() {
             return merch_remark;
         }
 
-        public void setMerch_remark(Object merch_remark) {
+        public void setMerch_remark(String merch_remark) {
             this.merch_remark = merch_remark;
         }
 
@@ -475,6 +477,14 @@ public class GoodsRefundmodel {
             this.isread = isread;
         }
 
+        public String getStatustext() {
+            return statustext;
+        }
+
+        public void setStatustext(String statustext) {
+            this.statustext = statustext;
+        }
+
         public List<String> getImages() {
             return images;
         }
@@ -486,13 +496,13 @@ public class GoodsRefundmodel {
 
     public static class OrderBean {
         /**
-         * id : 571
-         * status : 1
-         * price : 23.00
-         * dispatchprice : 15.00
-         * ordersn : SH20190118163919262212
+         * id : 575
+         * status : -1
+         * price : 22800.00
+         * dispatchprice : 0.00
+         * ordersn : ME20190121164558604864
          * finishtime : 0
-         * merchid : 0
+         * merchid : 113
          */
 
         private String id;
@@ -562,15 +572,15 @@ public class GoodsRefundmodel {
 
     public static class GoodsBean {
         /**
-         * goodsid : 595
+         * goodsid : 266
          * goods_refundstate : 1
-         * goods_refundid : 142
-         * goods_refundtime : 0
-         * optionid : 843
-         * title : 测试
-         * thumb : images/1/2018/03/FT2t2FkKf2A09gKC9Z92kJatelJ5Az.png
-         * realprice : 8.00
-         * optiontitle : 02+04
+         * goods_refundid : 143
+         * goods_refundtime : 1548381718
+         * optionid : 0
+         * title : 金玉满堂P9271-12+6吊灯艺术水晶灯客厅灯餐厅灯卧室灯
+         * thumb : http://hidsy.maimaitoo.com/attachment/images/1/2018/09/Q08N0Gni8nhoz0SNQNvnJ2JMNhiGjG.jpg
+         * realprice : 6760.00
+         * optiontitle :
          */
 
         private String goodsid;
@@ -658,12 +668,12 @@ public class GoodsRefundmodel {
 
     public static class GoodslistBean {
         /**
-         * title : 测试
-         * thumb : images/1/2018/03/FT2t2FkKf2A09gKC9Z92kJatelJ5Az.png
-         * optiontitle : 02+04
-         * optionid : 843
-         * goodsid : 595
-         * realprice : 8.00
+         * title : 金玉满堂P9271-12+6吊灯艺术水晶灯客厅灯餐厅灯卧室灯
+         * thumb : http://hidsy.maimaitoo.com/attachment/images/1/2018/09/Q08N0Gni8nhoz0SNQNvnJ2JMNhiGjG.jpg
+         * optiontitle :
+         * optionid : 0
+         * goodsid : 266
+         * realprice : 6760.00
          */
 
         private String title;

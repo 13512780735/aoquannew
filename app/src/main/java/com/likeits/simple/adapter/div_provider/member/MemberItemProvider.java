@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeits.simple.R;
+import com.likeits.simple.activity.good.GoodListActivity;
+import com.likeits.simple.activity.good.filter.view.FilterPopupWindow;
 import com.likeits.simple.activity.user.UserInfoActivity;
 import com.likeits.simple.network.model.member.MemberItemModel;
 import com.likeits.simple.utils.StringUtil;
@@ -139,6 +141,8 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
                 Intent intent = new Intent(mContext, UserInfoActivity.class);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
+
+
             }
         });
     }

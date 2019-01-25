@@ -72,11 +72,9 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.good.GoodListActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"
-            />
-
+        <activity
+            android:name=".activity.good.GoodListActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".activity.cart.ConfirmOrderActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
@@ -106,7 +104,10 @@
         <activity android:name=".activity.indent.IndentReturnsActivity" />
         <activity android:name=".activity.indent.LogisticsActivity" />
         <activity android:name=".activity.SearchLayoutActivity" />
-        <activity android:name=".activity.indent.AfterSaleTypeActivity"></activity>
+        <activity android:name=".activity.indent.AfterSaleTypeActivity" />
+        <activity android:name=".activity.indent.Refund01Activity" />
+        <activity android:name=".activity.indent.Refund02Activity" />
+        <activity android:name=".activity.indent.RefundActivity"></activity>
     </application>
 
 </manifest>

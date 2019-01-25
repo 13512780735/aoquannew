@@ -22,6 +22,7 @@ import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.util.RetrofitUtil;
+import com.likeits.simple.utils.SharedPreferencesUtils;
 import com.likeits.simple.view.CustomPopWindow;
 import com.likeits.simple.wxapi.PayActivity;
 
@@ -70,6 +71,7 @@ public class AllIndentFragment extends BaseFragment implements BaseQuickAdapter.
                 switch (view.getId()) {
                     case R.id.rl_indent_details://订单详情
                         id = data.get(position).getId();
+                        SharedPreferencesUtils.put(getActivity(),"ordId",id);
                         bundle = new Bundle();
                         bundle.putInt("status", 0);
                         bundle.putString("id", id);

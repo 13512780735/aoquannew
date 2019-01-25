@@ -660,7 +660,7 @@ public interface ApiService {
     @POST("nativeapp.order.goods_refund")
     Observable<BaseResponse<GoodsRefundmodel>> goodsRefund(@Field("openid") String openid,
                                                            @Field("goodsid") String goodsid,
-                                                           @Field("id") String id,
+                                                           @Field("orderid") String id,
                                                            @Field("optionid") String optionid,
                                                            @Field("rtype") String rtype,
                                                            @Field("grefundid") String grefundid

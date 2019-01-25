@@ -18,6 +18,7 @@ import com.likeits.simple.network.model.BaseResponse;
 import com.likeits.simple.network.model.EmptyEntity;
 import com.likeits.simple.network.model.Indent.IndentListModel;
 import com.likeits.simple.network.util.RetrofitUtil;
+import com.likeits.simple.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,7 @@ public class Indent03Fragment extends BaseFragment implements BaseQuickAdapter.R
                 switch (view.getId()) {
                     case R.id.rl_indent_details://订单详情
                         id = data.get(position).getId();
+                        SharedPreferencesUtils.put(getActivity(),"ordId",id);
                         bundle = new Bundle();
                         bundle.putInt("status", 3);
                         bundle.putString("id", id);

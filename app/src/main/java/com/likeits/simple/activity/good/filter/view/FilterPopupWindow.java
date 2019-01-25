@@ -3,7 +3,9 @@ package com.likeits.simple.activity.good.filter.view;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,11 +62,7 @@ public class FilterPopupWindow extends PopupWindow {
     private List<SaleAttributeNameVo> itemData;
     private List<SaleAttributeVo> serviceList;
     private String[] serviceStr = new String[]{"推荐商品", "新品上市", "热卖商品", "促销商品", "卖家包邮", "限时抢购"};
-    String attribute = "";
-    String merchid = "";
-    String cid = "";
-    String pricemin = "";
-    String pricemax = "";
+
     private String attribute1;
 
     /**
@@ -72,7 +70,6 @@ public class FilterPopupWindow extends PopupWindow {
      */
     public FilterPopupWindow(final Activity context) {
         this.context = context;
-        context.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.popup_goods_details, null);
         goodsNoView = contentView.findViewById(R.id.popup_goods_noview);
@@ -139,6 +136,9 @@ public class FilterPopupWindow extends PopupWindow {
                     //跳过已设置的选中的位置的状态
                     serviceList.get(i).setChecked(false);
                 }
+                serviceAdapter.notifyDataSetChanged(true, serviceList);
+             //   initData();
+//
                 for (int i = 0; i < itemData.size(); i++) {
                     for (int j = 0; j < itemData.get(i).getSaleVo().size(); j++) {
                         itemData.get(i).getSaleVo().get(j).setChecked(false);
@@ -153,12 +153,19 @@ public class FilterPopupWindow extends PopupWindow {
 
             @Override
             public void onClick(View v) {
+                String attribute = "";
+                String merchid = "";
+                String cid = "";
+                String pricemin = "";
+                String pricemax = "";
                 String str = "";
                 for (int i = 0; i < itemData.size(); i++) {
                     for (int j = 0; j < itemData.get(i).getSaleVo().size(); j++) {
                         if (itemData.get(i).getSaleVo().get(j).isChecked()) {
                             str = str + itemData.get(i).getSaleVo().get(j).getValue();
                             String fields = itemData.get(i).getNameId();
+
+                            attribute=attribute1;
                             XLog.e("str-->" + itemData.get(i).getNameId());
                             XLog.e("strid-->" + itemData.get(i).getSaleVo().get(j).getGoodsAndValId());
                             if ("cid".equals(fields)) {
@@ -172,20 +179,19 @@ public class FilterPopupWindow extends PopupWindow {
                 pricemin = ed_low_price.getText().toString();
                 pricemax = ed_high_price.getText().toString();
                 attribute=attribute1;
-                XLog.e("pricemin", pricemin);
-                XLog.e("pricemax", pricemax);
-                XLog.e("attribute", attribute);
-                XLog.e("merchid", merchid);
-                XLog.e("cid", cid);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+                String str1=pricemin+"-"+pricemax+"-"+attribute1+"-"+merchid+"-"+cid;
+                mOnFilterInforCompleted.inputFilterInforCompleted(pricemin,pricemax,attribute,merchid,cid);
+                dismiss();
+               // Toast.makeText(FilterPopupWindow.this.context, pricemax, Toast.LENGTH_SHORT).show();
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        mOnFilterInforCompleted.inputFilterInforCompleted(pricemin,pricemax,attribute,merchid,cid);
+//                    }
+//                }).start();
 
-                        mOnFilterInforCompleted.inputFilterInforCompleted(pricemin,pricemax,attribute,merchid,cid);
-                    }
-                }).start();
-
-                Toast.makeText(FilterPopupWindow.this.context, str, Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(FilterPopupWindow.this.context, str, Toast.LENGTH_SHORT).show();
               //  dismiss();
             }
         });
@@ -302,5 +308,32 @@ public class FilterPopupWindow extends PopupWindow {
             this.dismiss();
         }
     }
+
+
+    @Override
+    public void showAsDropDown(View anchor) {
+        if(Build.VERSION.SDK_INT >= 24) {
+            Rect rect = new Rect();
+            anchor.getGlobalVisibleRect(rect);
+            int h = anchor.getResources().getDisplayMetrics().heightPixels - rect.bottom;
+            setHeight(h);
+        }
+        super.showAsDropDown(anchor);
+    }
+
+    @Override
+    public void showAsDropDown(View anchor, int xoff, int yoff) {
+        if(Build.VERSION.SDK_INT >= 24) {
+            Rect rect = new Rect();
+            anchor.getGlobalVisibleRect(rect);
+            int h = anchor.getResources().getDisplayMetrics().heightPixels - rect.bottom;
+            setHeight(h);
+        }
+        super.showAsDropDown(anchor, xoff, yoff);
+    }
+
+
+
+
 
 }
