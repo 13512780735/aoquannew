@@ -78,7 +78,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.likeits.simple.view.NoScrollViewPager
+    <com.likeit.aqe365.view.NoScrollViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0px"

@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <com.likeits.simple.view.BorderTextView
+            <com.likeit.aqe365.view.BorderTextView
                 android:id="@+id/tv_next"
                 android:layout_width="@dimen/width80"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <com.likeits.simple.view.BorderTextView
+            <com.likeit.aqe365.view.BorderTextView
                 android:id="@+id/tv_cancel"
                 android:layout_width="@dimen/width80"
                 android:layout_height="wrap_content"

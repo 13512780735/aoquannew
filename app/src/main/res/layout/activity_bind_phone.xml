@@ -86,7 +86,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <com.likeits.simple.view.BorderTextView
+        <com.likeit.aqe365.view.BorderTextView
             android:id="@+id/send_code_btn"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
     </LinearLayout>
 
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:id="@+id/tv_bind"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_xxlarge"

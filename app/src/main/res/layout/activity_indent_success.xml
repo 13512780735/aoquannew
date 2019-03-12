@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/width40">
 
-        <com.likeits.simple.view.BorderTextView
+        <com.likeit.aqe365.view.BorderTextView
             android:id="@+id/tv_toIndent_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
             app:cornerRadius="@dimen/dp_10"
             app:strokeColor01="#989898" />
 
-        <com.likeits.simple.view.BorderTextView
+        <com.likeit.aqe365.view.BorderTextView
             android:id="@+id/tv_toMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -12,43 +12,44 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:layout_marginTop="@dimen/dp_10"
+        android:background="#ffffff"
         android:paddingBottom="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_10"
-        android:paddingEnd="15dp">
+        android:paddingEnd="15dp"
+        android:paddingTop="@dimen/dp_10">
 
         <!--商品主图-->
         <FrameLayout
             android:id="@+id/rl_iv"
             android:layout_width="@dimen/width70"
             android:layout_height="@dimen/width70">
+
             <ImageView
                 android:id="@+id/main_pic_iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@null"
                 android:layout_margin="@dimen/dp_5"
-                android:src="@mipmap/icon_star"
-                android:scaleType="centerCrop" />
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                />
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_margin="@dimen/dp_5"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp_5">
 
                 <TextView
                     android:id="@+id/tv_shop_num"
                     android:layout_width="match_parent"
                     android:layout_height="15dp"
-                    android:textColor="@color/white"
                     android:layout_alignParentBottom="true"
-                    android:text="xxxx"
+                    android:background="#90000000"
                     android:gravity="center"
-                    android:background="#90000000"/>
+                    android:text="xxxx"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
         </FrameLayout>
-
 
 
         <!--物流状态-->
@@ -66,8 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="物流状态:"
-                android:textColor="#333333"
-                />
+                android:textColor="#333333" />
 
             <TextView
                 android:id="@+id/express_status_tv"
@@ -84,8 +84,7 @@
             android:layout_below="@id/ll_express_status"
             android:layout_marginTop="10dp"
             android:text="快递公司:"
-            android:textColor="#666666"
-             />
+            android:textColor="#666666" />
         <!--快递单号-->
         <TextView
             android:id="@+id/express_number_tv"
@@ -95,8 +94,7 @@
             android:layout_below="@id/express_company_tv"
             android:layout_marginTop="10dp"
             android:text="快递单号:"
-            android:textColor="#666666"
-            />
+            android:textColor="#666666" />
     </RelativeLayout>
 
     <!--物流追踪的列表-->
@@ -105,5 +103,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:background="#ffffff" />
+        android:background="#ffffff"
+
+     />
+
+    <RelativeLayout
+        android:id="@+id/noData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:visibility="gone"
+      >
+
+        <ImageView
+            android:id="@+id/icon_text1"
+            android:layout_width="@dimen/width80"
+            android:layout_height="@dimen/width80"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/width20"
+            android:gravity="center_horizontal"
+            android:src="@mipmap/imag_a"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_text1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/width20"
+            android:text="暂时没有物流信息！"
+            android:textSize="@dimen/txt_16" />
+
+    </RelativeLayout>
 </LinearLayout>

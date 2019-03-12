@@ -24,7 +24,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:id="@+id/tv_edit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_xxlarge"

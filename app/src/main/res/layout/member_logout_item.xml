@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/width30"
     android:layout_height="wrap_content">
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:id="@+id/tv_change_pwd"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:id="@+id/tv_logout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/width40"

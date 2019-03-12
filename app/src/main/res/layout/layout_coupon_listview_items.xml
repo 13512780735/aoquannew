@@ -6,7 +6,7 @@
     android:layout_margin="8dp"
     android:orientation="horizontal">
 
-    <com.likeits.simple.view.BorderRelativeLayout
+    <com.likeit.aqe365.view.BorderRelativeLayout
         android:id="@+id/rl_coupon_left"
         android:layout_width="110dp"
         android:layout_height="match_parent"
@@ -46,9 +46,9 @@
             android:layout_centerHorizontal="true"
             android:text="xx"
             android:textColor="@color/white" />
-    </com.likeits.simple.view.BorderRelativeLayout>
+    </com.likeit.aqe365.view.BorderRelativeLayout>
 
-    <com.likeits.simple.view.BorderRelativeLayout
+    <com.likeit.aqe365.view.BorderRelativeLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="2"
@@ -118,7 +118,7 @@
                 android:maxLines="1"
                 android:text="" />
 
-            <com.likeits.simple.view.BorderTextView
+            <com.likeit.aqe365.view.BorderTextView
                 android:id="@+id/tv_use"
                 android:layout_width="@dimen/width70"
                 android:layout_height="wrap_content"
@@ -140,5 +140,5 @@
 
         </LinearLayout>
 
-    </com.likeits.simple.view.BorderRelativeLayout>
+    </com.likeit.aqe365.view.BorderRelativeLayout>
 </LinearLayout>

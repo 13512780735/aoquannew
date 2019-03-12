@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:layout_width="200dp"
         android:layout_height="50dp"
         app:contentBackColor="@color/white"
@@ -17,7 +17,7 @@
         android:layout_margin="20dp"
         android:clickable="true"/>
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:layout_width="200dp"
         android:layout_height="50dp"
         app:contentBackColor="#fff"

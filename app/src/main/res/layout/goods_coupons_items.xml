@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:id="@+id/tv_coupons_price"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -33,7 +33,7 @@
         android:layout_height="130dp"
         android:layout_marginBottom="@dimen/width20"
         android:orientation="horizontal">
-        <com.likeits.simple.view.CircleImageView
+        <com.likeit.aqe365.view.CircleImageView
             android:id="@+id/iv_avatar1"
             android:layout_width="@dimen/width60"
             android:layout_gravity="center_vertical"
@@ -84,7 +84,7 @@
                     android:gravity="left"
                     android:text="99.99" />
 
-                <com.likeits.simple.view.BorderTextView
+                <com.likeit.aqe365.view.BorderTextView
                     android:id="@+id/tv_recharge1"
                     android:layout_width="@dimen/width60"
                     android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                     android:gravity="left"
                     android:text="80" />
 
-                <com.likeits.simple.view.BorderTextView
+                <com.likeit.aqe365.view.BorderTextView
                     android:id="@+id/tv_exchange1"
                     android:layout_width="@dimen/width60"
                     android:layout_height="wrap_content"

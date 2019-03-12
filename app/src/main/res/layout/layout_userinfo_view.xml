@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:orientation="horizontal">
 
-            <com.likeits.simple.view.CircleImageView
+            <com.likeit.aqe365.view.CircleImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

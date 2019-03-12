@@ -21,12 +21,12 @@
             android:gravity="center_vertical"
             android:text="xx" />
 
-        <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+        <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
             android:id="@+id/mRecyclerView_coupons"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="1"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+            android:layout_weight="1"></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
 
         <ImageView
             android:layout_width="@dimen/width20"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10" />
 
-        <com.likeits.simple.view.BorderTextView
+        <com.likeit.aqe365.view.BorderTextView
             android:id="@+id/tv_title01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

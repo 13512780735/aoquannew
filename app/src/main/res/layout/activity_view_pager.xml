@@ -45,7 +45,7 @@
     </LinearLayout>
 
 
-    <com.likeits.simple.view.photoview.PhotoViewPager
+    <com.likeit.aqe365.view.photoview.PhotoViewPager
         android:id="@+id/mViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

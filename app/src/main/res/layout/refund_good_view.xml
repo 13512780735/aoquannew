@@ -26,11 +26,12 @@
                 android:id="@+id/tv_shop_num"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:layout_marginLeft="@dimen/width20"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_alignParentBottom="true"
                 android:background="#90000000"
                 android:gravity="center"
-                android:text="xxxx"
+                android:text="xxx"
+                android:textSize="@dimen/dp_10"
                 android:textColor="@color/white" />
 
         </RelativeLayout>

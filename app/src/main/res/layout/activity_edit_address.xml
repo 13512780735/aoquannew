@@ -146,7 +146,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:id="@+id/tv_save"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_xxlarge"

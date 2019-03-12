@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.likeits.simple.view.RatioImageView
+    <com.likeit.aqe365.view.RatioImageView
         android:id="@+id/iv_pic"
         android:layout_width="match_parent"
         app:is_height_fix_drawable_size_ratio="true"

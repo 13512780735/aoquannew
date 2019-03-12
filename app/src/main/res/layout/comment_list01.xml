@@ -13,7 +13,7 @@
         android:layout_height="45dp"
         android:orientation="horizontal">
 
-        <com.likeits.simple.view.CircleImageView
+        <com.likeit.aqe365.view.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/width30"
             android:layout_height="@dimen/width30"
@@ -38,7 +38,7 @@
             android:text="xx" />
     </LinearLayout>
 
-    <com.likeits.simple.view.RatingBar
+    <com.likeit.aqe365.view.RatingBar
         android:id="@+id/ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -48,7 +48,7 @@
         hedgehog:halfstart="false"
         hedgehog:starCount="5"
         hedgehog:starEmpty="@mipmap/star_empty"
-        hedgehog:starFill="@mipmap/star_full"></com.likeits.simple.view.RatingBar>
+        hedgehog:starFill="@mipmap/star_full"></com.likeit.aqe365.view.RatingBar>
 
     <TextView
         android:id="@+id/tv_content"
@@ -57,10 +57,10 @@
         android:padding="@dimen/dp_5"
         android:text="xxx" />
 
-    <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+    <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
         android:id="@+id/mRecyclerView01"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+        android:layout_height="@dimen/width70"></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
 
     <LinearLayout
         android:id="@+id/ll_reply_content"
@@ -77,10 +77,10 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_5" />
 
-        <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+        <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
             android:id="@+id/mRecyclerView02"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+            android:layout_height="@dimen/width70"></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
     </LinearLayout>
 
     <LinearLayout
@@ -104,10 +104,10 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_5" />
 
-        <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+        <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
             android:id="@+id/mRecyclerView03"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+            android:layout_height="@dimen/width70"></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
     </LinearLayout>
 
     <LinearLayout
@@ -124,9 +124,9 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_5" />
 
-        <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+        <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
             android:id="@+id/mRecyclerView04"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/width70"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+            android:layout_height="@dimen/width70"></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
     </LinearLayout>
 </LinearLayout>

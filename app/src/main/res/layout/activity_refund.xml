@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:padding="@dimen/dp_10">
 
-        <com.likeits.simple.view.BorderTextView
+        <com.likeit.aqe365.view.BorderTextView
             android:id="@+id/tv_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +28,7 @@
             android:paddingLeft="@dimen/dp_8"
             android:paddingRight="@dimen/dp_8"
             android:paddingTop="@dimen/dp_5"
+            android:visibility="gone"
             android:text="添加和编辑"
             android:textColor="@color/theme_bg_tex"
             app:contentBackColor="@color/white"
@@ -38,6 +39,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/width70"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
             android:orientation="horizontal">
 
             <TextView
@@ -45,21 +48,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="xxx" />
+                android:text="" />
 
-            <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+            <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
                 android:id="@+id/mRecyclerView"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-              ></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+              ></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
 
             <TextView
                 android:id="@id/tv_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="xxx" />
+                android:text="" />
         </LinearLayout>
 
         <View
@@ -219,7 +222,7 @@
             android:gravity="bottom|right"
             android:orientation="horizontal">
 
-            <com.likeits.simple.view.BorderTextView
+            <com.likeit.aqe365.view.BorderTextView
                 android:id="@+id/tv_apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

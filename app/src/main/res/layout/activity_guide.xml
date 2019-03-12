@@ -5,9 +5,9 @@
     style="@style/MatchMatch"
     tools:context=".activity.login_register.GuideActivity">
 
-    <com.likeits.simple.view.guide.BGAGuideLinkageLayout style="@style/MatchMatch">
+    <com.likeit.aqe365.view.guide.BGAGuideLinkageLayout style="@style/MatchMatch">
 
-        <com.likeits.simple.view.guide.BGABanner
+        <com.likeit.aqe365.view.guide.BGABanner
             android:id="@+id/banner_guide_background"
             style="@style/MatchMatch"
             app:banner_pageChangeDuration="1000"
@@ -17,7 +17,7 @@
             app:banner_pointTopBottomMargin="15dp"
             app:banner_transitionEffect="fade" />
 
-    </com.likeits.simple.view.guide.BGAGuideLinkageLayout>
+    </com.likeit.aqe365.view.guide.BGAGuideLinkageLayout>
 
     <TextView
         android:id="@+id/tv_guide_skip"

@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
 
-        <com.likeits.simple.view.RatingBar
+        <com.likeit.aqe365.view.RatingBar
             android:id="@+id/ratingbar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -122,7 +122,7 @@
             hedgehog:halfstart="false"
             hedgehog:starCount="5"
             hedgehog:starEmpty="@mipmap/star_empty"
-            hedgehog:starFill="@mipmap/star_full"></com.likeits.simple.view.RatingBar>
+            hedgehog:starFill="@mipmap/star_full"></com.likeit.aqe365.view.RatingBar>
     </LinearLayout>
 
     <LinearLayout

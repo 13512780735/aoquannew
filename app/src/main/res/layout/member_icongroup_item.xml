@@ -21,10 +21,10 @@
     <!--tl:tl_underline_color="#DDDDDD"-->
     <!--/>-->
 
-    <com.likeits.simple.view.custom_scrollview.MyRecyclerView
+    <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/width80"></com.likeits.simple.view.custom_scrollview.MyRecyclerView>
+        android:layout_height="@dimen/width80"></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
 
     <View
         android:layout_width="match_parent"

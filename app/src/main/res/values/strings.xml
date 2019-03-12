@@ -40,4 +40,8 @@
     <string name="login_register_quick">快速注册</string>
     <string name="login_quick_relevance">立即关联</string>
     <string name="login_relevance">关联</string>
+
+    <!--图标-->
+    <string name="ic_address">&#xe651; </string> <!--未收藏-->
+
 </resources>

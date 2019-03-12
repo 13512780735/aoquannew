@@ -52,7 +52,7 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <com.likeits.simple.view.AmountView
+            <com.likeit.aqe365.view.AmountView
                 android:id="@+id/amount_view"
                 android:layout_width="120dip"
                 android:layout_height="36dp"

@@ -155,7 +155,7 @@
 
         </LinearLayout>
 
-        <com.likeits.simple.view.BorderTextView
+        <com.likeit.aqe365.view.BorderTextView
             android:id="@+id/tv_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dip_xxlarge"
@@ -171,7 +171,7 @@
             android:text="@string/login_login"
             android:textColor="@color/white" />
 
-        <com.likeits.simple.view.BorderTextView
+        <com.likeit.aqe365.view.BorderTextView
             android:id="@+id/tv_register"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dip_xxlarge"

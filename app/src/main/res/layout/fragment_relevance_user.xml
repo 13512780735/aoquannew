@@ -98,7 +98,7 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@color/line"></View>
 
-    <com.likeits.simple.view.BorderTextView
+    <com.likeit.aqe365.view.BorderTextView
         android:id="@+id/tv_relevance"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_xxlarge"

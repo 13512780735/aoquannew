@@ -32,7 +32,7 @@
             android:text="xxx" />
     </LinearLayout>
 
-    <com.likeits.simple.view.tablayout.widget.MsgView xmlns:mv="http://schemas.android.com/apk/res-auto"
+    <com.likeit.aqe365.view.tablayout.widget.MsgView xmlns:mv="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rtv_msg_tip"
         android:layout_width="@dimen/width20"
         android:layout_height="20dp"

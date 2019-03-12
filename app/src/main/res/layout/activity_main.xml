@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.likeits.simple.view.NoScrollViewPager
+    <com.likeit.aqe365.view.NoScrollViewPager
         android:id="@+id/vp_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.8" />
 
-    <com.likeits.simple.view.tablayout.widget.CommonTabLayout
+    <com.likeit.aqe365.view.tablayout.widget.CommonTabLayout
         android:id="@+id/tl_2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/width55"

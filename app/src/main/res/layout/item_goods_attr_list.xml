@@ -30,7 +30,7 @@
             android:src="@drawable/sort_common_down" />
     </RelativeLayout>
 
-    <com.likeits.simple.activity.good.filter.view.NoScrollGridview
+    <com.likeit.aqe365.activity.good.filter.view.NoScrollGridview
         android:id="@+id/attr_list_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
