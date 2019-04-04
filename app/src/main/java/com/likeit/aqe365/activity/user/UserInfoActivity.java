@@ -393,7 +393,7 @@ public class UserInfoActivity extends BaseActivity implements ActionSheet.OnActi
     }
 
     public List<LinkageItem> getCityList() {
-        String json = getJson("city.json");
+        String json = getJson("city1.json");
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<ProvincesModel>>() {
         }.getType();

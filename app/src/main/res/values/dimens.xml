@@ -11,6 +11,7 @@
     <!-- 内外边距 -->
     <dimen name="margin_normal">10dp</dimen>
     <dimen name="padding_normal">10dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
     <dimen name="dip_small">5dp</dimen>
     <dimen name="dip_normal">10dp</dimen>
     <dimen name="dip_large">15dp</dimen>
@@ -20,6 +21,7 @@
     <dimen name="dip_edittext">60dp</dimen>
 
     <!-- 固定边距 -->
+    <dimen name="width120">120dp</dimen>
     <dimen name="width100">100dp</dimen>
     <dimen name="width90">90dp</dimen>
     <dimen name="width80">80dp</dimen>
@@ -56,4 +58,9 @@
     <dimen name="txt_24">24sp</dimen>
     <dimen name="txt_26">26sp</dimen>
     <dimen name="txt_28">28sp</dimen>
+
+
+    <dimen name="side_letter_bar_letter_size">12sp</dimen>
+    <dimen name="side_letter_bar_width">36dp</dimen>
+    <dimen name="city_text_size">16sp</dimen>
 </resources>

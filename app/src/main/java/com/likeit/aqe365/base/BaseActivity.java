@@ -3,6 +3,9 @@ package com.likeit.aqe365.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -25,8 +28,10 @@ import com.likeit.aqe365.utils.LoaddingDialog;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.utils.ToastUtils;
+import com.likeit.aqe365.view.IconfontTextView;
 
 import butterknife.ButterKnife;
+import onekeyshare.OnekeyShare;
 
 
 /**
@@ -56,7 +61,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     private CustomDialog dialog;
     public String openid;
     public LoaddingDialog loaddingDialog;
-
+    public String lat,lng;
     /**
      * 初始化创建
      */
@@ -70,8 +75,10 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         StatusBarUtil.setColor(this, color, 0);
         StatusBarUtil.setLightMode(this);
         loaddingDialog = new LoaddingDialog(this);
-        openid= SharedPreferencesUtils.getString(this,"openid");
+        openid = SharedPreferencesUtils.getString(this, "openid");
         theme_bg_tex = SharedPreferencesUtils.getString(this, "theme_bg_tex");
+        lat = SharedPreferencesUtils.getString(this, "lat");
+        lng = SharedPreferencesUtils.getString(this, "lng");
         // RxBus.get().register(this);
         //  ukey = UtilPreference.getStringValue(this, "ukey");
 
@@ -188,6 +195,21 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         toolbar_righ_tv.setOnClickListener(onClickListener);
     }
 
+    public void setRightText02(String txt, View.OnClickListener onClickListener) {
+        IconfontTextView toolbar_righ_tv = (IconfontTextView) findViewById(R.id.toolbar_righ_tv);
+        if (toolbar_righ_tv == null) {
+            return;
+        }
+        ImageView toolbar_righ_iv = (ImageView) findViewById(R.id.toolbar_righ_iv);
+        if (toolbar_righ_iv == null) {
+            return;
+        }
+        toolbar_righ_iv.setVisibility(View.GONE);
+        toolbar_righ_tv.setVisibility(View.VISIBLE);
+        toolbar_righ_tv.setText(txt);
+        toolbar_righ_tv.setOnClickListener(onClickListener);
+    }
+
     /**
      * 右侧只显示一个图片
      *
@@ -208,6 +230,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         toolbar_righ_iv.setImageResource(resId);
         toolbar_righ_iv.setOnClickListener(onClickListener);
     }
+
 
     /**
      * 显示文字和图片，可以设置文字内容及字体颜色，图片资源
@@ -270,7 +293,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     public void showProgress(String message) {
         // dialog = new CustomDialog(getActivity());
         dialog = new CustomDialog(this).builder()
-                .setGravity(Gravity.CENTER).setTitle01("提示",getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
+                .setGravity(Gravity.CENTER).setTitle01("提示", getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
                 .setSubTitle(message);
         dialog.show();
         new Handler().postDelayed(new Runnable() {
@@ -437,7 +460,29 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     public void showToast(String msg) {
         ToastUtils.showToast(mContext, msg);
     }
+    public void showShare(String url){
+        Resources res = mContext.getResources();
+        Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
 
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle("經理是傻冒");
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        oks.setImageData(bmp);
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网使用
+        oks.setComment("我是测试评论文本");
+        // 启动分享GUI
+        oks.show(mContext);
+    }
     public void LoaddingDismiss() {
         if (loaddingDialog != null && loaddingDialog.isShowing()) {
             loaddingDialog.dismiss();

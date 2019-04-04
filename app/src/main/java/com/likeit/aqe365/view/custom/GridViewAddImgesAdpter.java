@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.view.RoundImageView;
 
 import java.io.File;
 import java.util.List;
@@ -130,12 +131,12 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
     }
 
     public class ViewHolder {
-        public final ImageView ivimage;
+        public final RoundImageView ivimage;
         public final Button btdel;
         public final View root;
 
         public ViewHolder(View root) {
-            ivimage = (ImageView) root.findViewById(R.id.iv_image);
+            ivimage = (RoundImageView) root.findViewById(R.id.iv_image);
             btdel = (Button) root.findViewById(R.id.bt_del);
             this.root = root;
         }

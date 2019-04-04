@@ -2,12 +2,13 @@ package com.likeit.aqe365.fragment.goods;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import java.util.List;
 
-public class GoodDetailTabAdapter extends FragmentStatePagerAdapter {
+public class GoodDetailTabAdapter extends FragmentPagerAdapter {
     private List<Fragment> mfragments;
     private List<String> list_Title;
 

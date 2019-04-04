@@ -138,7 +138,7 @@ public class GuideActivity extends BaseActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     Bundle bundle = new Bundle();
                     bundle.putString("linkurl", "");
                     toActivity(LoginActivity.class, bundle);

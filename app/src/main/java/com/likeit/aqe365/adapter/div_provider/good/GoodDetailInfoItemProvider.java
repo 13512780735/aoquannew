@@ -1,6 +1,9 @@
 package com.likeit.aqe365.adapter.div_provider.good;
 
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -17,6 +20,7 @@ import com.likeit.aqe365.utils.StringUtil;
 
 import cn.iwgang.countdownview.CountdownView;
 import cn.iwgang.countdownview.DynamicConfig;
+import onekeyshare.OnekeyShare;
 
 
 public class GoodDetailInfoItemProvider extends BaseItemProvider<GoodDetailInfoItemModel, BaseViewHolder> {
@@ -150,7 +154,36 @@ public class GoodDetailInfoItemProvider extends BaseItemProvider<GoodDetailInfoI
         } else {
             tv_number.setVisibility(View.GONE);
         }
+        tv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShare();
+            }
+        });
+    }
 
+    private void showShare() {
+        Resources res = mContext.getResources();
+        Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle("經理是傻冒");
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        oks.setImageData(bmp);
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网使用
+        oks.setComment("我是测试评论文本");
+        // 启动分享GUI
+        oks.show(mContext);
     }
 
 }

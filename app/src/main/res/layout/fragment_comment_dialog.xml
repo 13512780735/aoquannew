@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.find.CommentDialogFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_colse"
+                android:layout_width="@dimen/width40"
+                android:layout_height="@dimen/width40"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dp_10"
+                android:src="@mipmap/icon_delete" />
+
+            <TextView
+                android:id="@+id/tv_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp_10"
+                android:text="发表"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_14" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/ed_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="评论:"
+            android:padding="@dimen/dp_10" />
+
+    </LinearLayout>
+
+</RelativeLayout>

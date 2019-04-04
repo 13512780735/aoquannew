@@ -52,7 +52,7 @@ android {
 //                keyPassword "123456"
 //                v2SigningEnabled true
 //            }
- //      }
+    //      }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -120,7 +120,7 @@ dependencies {
     implementation 'com.github.iwgang:countdownview:2.1.5'
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     implementation project(':productlibrary')
-    implementation project(':productlibrary')
+    implementation project(':weixinrecorded')
     //  implementation 'net.sf.json-lib:json-lib:2.4:jdk15'
     implementation files('libs/ShareSDK-Wechat-3.3.0.jar')
     implementation files('libs/ShareSDK-Wechat-Core-3.3.0.jar')
@@ -131,6 +131,7 @@ dependencies {
     implementation files('libs/ShareSDK-Wechat-Moments-3.3.0.jar')
     implementation project(':addresslibrary')
     implementation project(':mylibrary')
+    implementation project(path: ':pulltorefreshlibrary')
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.guoqi.widget:actionsheet:1.0'
     implementation 'pub.devrel:easypermissions:1.0.1'
@@ -144,4 +145,19 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'
     //2D地图
     implementation 'com.amap.api:map2d:latest.integration'
+    implementation files('libs/MobCommons-2018.1011.1129.jar')
+    implementation files('libs/MobTools-2018.1009.1056.jar')
+    implementation files('libs/ShareSDK-Core-3.3.0.jar')
+    implementation files('libs/ShareSDK-QQ-3.3.0.jar')
+    implementation files('libs/ShareSDK-QZone-3.3.0.jar')
+    implementation files('libs/ShareSDK-Wechat-3.3.0.jar')
+    implementation files('libs/ShareSDK-Wechat-Core-3.3.0.jar')
+    implementation files('libs/ShareSDK-Wechat-Moments-3.3.0.jar')
+    implementation files('libs/ShareSDK-ShortMessage-3.3.0.jar')
+    implementation files('libs/ShareSDK-Wechat-Favorite-3.3.0.jar')
+    implementation 'com.github.limedroid:ARecyclerView:v1.2.1'
+    //权限管理
+    implementation 'com.github.Andy-13:ZbPermission:1.0.0'
+    //implementation 'com.github.GeniusLiu:QuickItemDecorationDemo:1.0.0'
+    // implementation "com.mob.sdk:MobSDK:2018.0319.1724"
 }

@@ -40,8 +40,32 @@
     <string name="login_register_quick">快速注册</string>
     <string name="login_quick_relevance">立即关联</string>
     <string name="login_relevance">关联</string>
-
+    <string name="cp_select_city">选择城市</string>
+    <string name="cp_hot_city">热门城市</string>
+    <string name="cp_located_city">定位城市</string>
+    <string name="cp_hint_search_box">请输入城市名或拼音</string>
+    <string name="cp_nothing_found">没有搜索结果~</string>
+    <string name="cp_locating">正在定位…</string>
+    <string name="cp_located_failed">定位失败</string>
     <!--图标-->
     <string name="ic_address">&#xe651; </string> <!--未收藏-->
+    <string name="ic_eyes">&#xe79f; </string> <!--浏览-->
+    <string name="ic_share">&#xe751; </string> <!--分享-->
+    <string name="ic_attention">&#xe668; </string> <!--关注-->
+    <string name="ic_publish">&#xe649; </string> <!--发布帖子-->
+    <string name="ic_time">&#xe7a9; </string> <!--日期图标-->
+    <string name="ic_back">&#xe679; </string> <!--返回-->
+    <string name="ic_good">&#xe738; </string> <!--已点赞-->
+    <string name="ic_isgood">&#xe644; </string> <!--未点赞-->
+    <string name="ic_comment">&#xe667; </string> <!--回复-->
+    <string name="ic_collect">&#xe64b; </string> <!--收藏-->
+    <string name="ic_iscollect">&#xe64c; </string> <!--未收藏-->
+    <string name="ic_close">&#xe646; </string> <!--关闭-->
+    <string name="ic_time01">&#xe65e; </string> <!--时间-->
+    <string name="ic_up_pic">&#xe6be; </string> <!--上传图片-->
+    <string name="ic_relevant_users">&#xe703; </string> <!--关联用户-->
+    <string name="ic_takephoto">&#xe721; </string> <!--拍照-->
+    <string name="ic_video">&#xe7ea; </string> <!--录制视频-->
+
 
 </resources>

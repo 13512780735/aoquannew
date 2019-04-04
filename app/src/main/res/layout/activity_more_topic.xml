@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".activity.find.MoreTopicActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width50"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.likeit.aqe365.view.BorderRelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:contentBackColor="@color/defualt_window_background"
+            app:cornerRadius="20dp"
+            app:strokeColor01="@color/defualt_window_background"
+            app:strokeWidth01="0dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="搜索更多话题"
+                android:padding="@dimen/dp_10" />
+        </com.likeit.aqe365.view.BorderRelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/width20"
+            android:paddingRight="@dimen/width20"
+            android:text="搜索"
+            android:textSize="@dimen/txt_14" />
+    </LinearLayout>
+
+    <com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView
+        android:id="@+id/flsv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        app:height_space="10dp"
+        app:width_space="10dp"></com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView>
+</LinearLayout>

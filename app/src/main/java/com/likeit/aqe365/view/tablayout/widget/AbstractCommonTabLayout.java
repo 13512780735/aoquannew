@@ -114,6 +114,7 @@ public abstract class AbstractCommonTabLayout extends AppCompatActivity {
         }
         mTabLayout.setTabData(mTabEntities);//填充数据
         mViewPager.setAdapter(new CommonPagerAdapter(getSupportFragmentManager()));
+        mViewPager.setOffscreenPageLimit(4);
         //设置监听事件
         mTabLayout.setOnTabSelectListener(mOnTabSelectListener);
         //设置viewpage滑动监听事件

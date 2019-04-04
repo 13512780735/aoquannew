@@ -1,9 +1,11 @@
 package com.likeit.aqe365.activity.login_register;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.likeit.aqe365.R;
@@ -14,6 +16,7 @@ import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
+import com.unistrong.yang.zb_permission.ZbPermission;
 
 
 import java.util.ArrayList;
@@ -45,11 +48,41 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
         view = View.inflate(this, R.layout.activity_welcome, null);
         setContentView(view);
+        /**
+         * 获取权限问题
+         */
+        openPermission();
         initData();
         animation = AnimationUtils.loadAnimation(this, R.anim.splash_alpha);
-        isLogin = "0";
+        isLogin = "1";
         SharedPreferencesUtils.put(this, "isLogin", isLogin);
     }
+
+    private final int REQUEST_CONTACT = 50;
+
+    private void openPermission() {
+        ZbPermission.with(WelcomeActivity.this)
+                .addRequestCode(REQUEST_CONTACT)
+                .permissions(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
+                .request(new ZbPermission.ZbPermissionCallback() {
+
+                    @Override
+                    public void permissionSuccess(int requestCode) {
+
+                        Toast.makeText(WelcomeActivity.this, "授予權限成功: " + requestCode, Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void permissionFail(int requestCode) {
+
+                        Toast.makeText(WelcomeActivity.this, "授予權限失敗: " + requestCode, Toast.LENGTH_SHORT).show();
+
+                    }
+
+                });
+    }
+
 
     private void initData() {
         RetrofitUtil.getInstance().getMainNavigation("1", new Subscriber<BaseResponse<MainNavigationModel>>() {

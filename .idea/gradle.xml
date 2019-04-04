@@ -8,11 +8,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/WeiXinRecorded" />
             <option value="$PROJECT_DIR$/addresslibrary" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/mylibrary" />
             <option value="$PROJECT_DIR$/productlibrary" />
+            <option value="$PROJECT_DIR$/pulltorefreshlibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

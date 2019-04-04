@@ -103,7 +103,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             TextView toolbar_righ_tv;
     @BindView(R.id.indent_TabLayout)
     TabLayout mTabLayout;
-    @BindView(R.id.viewpager)
+    @BindView(R.id.viewpager1)
     NoScrollViewPager mViewpager;
 
     private JSONArray items;
@@ -191,7 +191,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             stringArrayList.add(diyTabModel.getData().get(i).getText());
             stringArrayList1.add(diyTabModel.getData().get(i).getLinkurl());
         }
-        mTitles = new ArrayList<>(Arrays.asList("首页"));
+   //     mTitles = new ArrayList<>(Arrays.asList("首页"));
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setTabTextColors(Color.parseColor(diyTabModel.getStyle().getColor()),Color.parseColor(diyTabModel.getStyle().getActivecolor()));
         mTabLayout.setSelectedTabIndicatorColor(Color.parseColor(diyTabModel.getStyle().getActivecolor()));
@@ -395,6 +395,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        initData();
+        initTab();
     }
 }

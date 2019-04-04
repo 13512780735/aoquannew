@@ -3,16 +3,19 @@ package com.likeit.aqe365.fragment.find;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.find.PostDetailsActivity;
 import com.likeit.aqe365.adapter.find.AllFind01Adapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
@@ -34,8 +37,7 @@ public class AllFindFragment extends BaseFragment implements SwipeRefreshLayout.
 
     private int pageNum = 1;
     private static final int PAGE_SIZE = 1;//为什么是6呢？
-    private boolean isErr;
-    private boolean mLoadMoreEndGone = false; //是否加载更多完毕
+    private boolean isErr = true;
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
     @BindView(R.id.RecyclerView)
@@ -58,31 +60,14 @@ public class AllFindFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     protected void lazyLoad() {
-
-
-
-        Log.d("TAG989", SharedPreferencesUtils.getString(getActivity(),"city") + SharedPreferencesUtils.getString(getActivity(),"lat") + SharedPreferencesUtils.getString(getActivity(),"lng"));
-
-        Bundle bundle = getArguments();
-        id = bundle.getString("id");
-        XLog.e("id:" + id);
-        // initUI();
-        if ("推荐".equals(id)) {
-             initUI1();
-        } else if ("关注".equals(id)) {
-        } else if ("话题".equals(id)) {
-            initUI1();
-        } else if ("附近".equals(id)) {
-        } else if ("用户".equals(id)) {
-        } else if ("医院".equals(id)) {
-        }
+        initUI1();
     }
 
     private void initUI1() {
         data = new ArrayList<>();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager( 2,StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         initAdapter();
     }
 
@@ -93,12 +78,19 @@ public class AllFindFragment extends BaseFragment implements SwipeRefreshLayout.
         mAdapter.disableLoadMoreIfNotFullPage();
         initData(pageNum, false);
         mCurrentCounter = mAdapter.getData().size();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String id = data.get(position).getId();
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                toActivity(PostDetailsActivity.class, bundle);
+            }
+        });
     }
 
     private void initData(int pageNum, final boolean isloadmore) {
-        String lat = SharedPreferencesUtils.getString(getContext(), "lat");
-        String lng = SharedPreferencesUtils.getString(getContext(), "lng");
-        RetrofitUtil.getInstance().Postlist(openid, String.valueOf(pageNum), "", lat, lng,"isrecommend","", new Subscriber<BaseResponse<PostListModel>>() {
+        RetrofitUtil.getInstance().Postlist(openid, String.valueOf(pageNum), "", lat, lng, "isrecommend", "", "", new Subscriber<BaseResponse<PostListModel>>() {
             @Override
             public void onCompleted() {
 
@@ -114,6 +106,7 @@ public class AllFindFragment extends BaseFragment implements SwipeRefreshLayout.
                 if (baseResponse.code == 200) {
                     postListModel = baseResponse.getData();
                     List<PostListModel.ListBean> list = postListModel.getList();
+                    TOTAL_COUNTER = Integer.valueOf(postListModel.getTotal());
                     if (list != null && list.size() > 0) {
                         if (!isloadmore) {
                             data = list;
@@ -133,16 +126,49 @@ public class AllFindFragment extends BaseFragment implements SwipeRefreshLayout.
         });
     }
 
-    private void initUI() {
-    }
-
     @Override
     public void onRefresh() {
-
+        mAdapter.setEnableLoadMore(false);//禁止加载
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // mAdapter.setNewData(data);
+                isErr = false;
+                mCurrentCounter = PAGE_SIZE;
+                pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
+                mSwipeRefreshLayout.setRefreshing(false);
+                mAdapter.setEnableLoadMore(true);//启用加载
+            }
+        }, 2000);
     }
 
     @Override
     public void onLoadMoreRequested() {
 
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mAdapter.loadMoreEnd();
+                } else {
+                    if (isErr) {
+                        //成功获取更多数据
+                        //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        pageNum += 1;
+                        initData(pageNum, true);
+                        mCurrentCounter = mAdapter.getData().size();
+                        mAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        mAdapter.loadMoreFail();
+
+                    }
+                }
+            }
+
+        }, 3000);
     }
 }

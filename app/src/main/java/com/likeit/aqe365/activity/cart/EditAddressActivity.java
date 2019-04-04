@@ -96,7 +96,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initData() {
-        String json = getJson("city.json");
+        String json = getJson("city1.json");
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<ProvincesModel>>() {
         }.getType();
@@ -261,7 +261,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     }
 
     public List<LinkageItem> getCityList() {
-        String json = getJson("city.json");
+        String json = getJson("city1.json");
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<ProvincesModel>>() {
         }.getType();

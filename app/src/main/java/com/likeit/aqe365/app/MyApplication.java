@@ -1,7 +1,11 @@
 package com.likeit.aqe365.app;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
@@ -18,6 +22,7 @@ import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.image.GImageLoader;
+import com.mob.MobSDK;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -55,63 +60,15 @@ public class MyApplication extends Application {
         GImageLoader.init(this, new OkHttpClient.Builder().build());  //图片加载初始化
         initLogger();//日志打印初始化
         initData1();
-        addGeoFence();//获取高德定位坐标
+
+        MobSDK.init(this);//shareSDk初始化
         // ZXingLibrary.initDisplayOpinion(this);
         // initX5WebView();
-        //MobSDK.init(this);//shareSDk初始化
         // DemoHelper.getInstance().init(mContext);
-        //                                                           initX5WebView();
+        //
+        //                                             initX5WebView();
     }
 
-    private void addGeoFence() {
-        //初始化定位
-        mLocationClient = new AMapLocationClient(getApplicationContext());
-        //设置定位回调监听
-        mLocationClient.setLocationListener(new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation != null) {
-                    if (aMapLocation.getErrorCode() == 0) {
-                        //可在其中解析amapLocation获取相应内容。
-                        double latitude = aMapLocation.getLatitude();//获取纬度
-                        double longitude = aMapLocation.getLongitude();//获取经度
-
-                        String city = aMapLocation.getCity();
-                        Log.d(TAG, city);
-                        SharedPreferencesUtils.put(mContext, "lat", String.valueOf(latitude));
-                        SharedPreferencesUtils.put(mContext, "lng", String.valueOf(longitude));
-                        SharedPreferencesUtils.put(mContext, "city", city);
-                        Log.d("TAG989", city + String.valueOf(longitude) + String.valueOf(latitude) + aMapLocation.getProvince());
-                        // upLoadLocation(latitude, longitude);
-                    } else {
-                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                        SharedPreferencesUtils.put(mContext, "city", "定位失败");
-                        Log.e("AmapError", "location Error, ErrCode:"
-                                + aMapLocation.getErrorCode() + ", errInfo:"
-                                + aMapLocation.getErrorInfo());
-                    }
-                }
-            }
-        });
-        //初始化定位参数
-        mLocationOption = new AMapLocationClientOption();
-        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //设置是否返回地址信息（默认返回地址信息）
-        mLocationOption.setNeedAddress(true);
-        //设置是否只定位一次,默认为false
-        mLocationOption.setOnceLocation(false);
-        //设置是否强制刷新WIFI，默认为强制刷新
-        mLocationOption.setWifiActiveScan(true);
-        //设置是否允许模拟位置,默认为false，不允许模拟位置
-        mLocationOption.setMockEnable(false);
-        //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(100000);
-        //给定位客户端对象设置定位参数
-        mLocationClient.setLocationOption(mLocationOption);
-        //启动定位
-        mLocationClient.startLocation();
-    }
 
 
     private void initData1() {

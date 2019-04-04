@@ -31,7 +31,7 @@ public class CouponFragment extends BaseFragment implements SwipeRefreshLayout.O
     private String id;
     private int pageNum = 1;
     private static final int PAGE_SIZE = 1;//为什么是6呢？
-    private boolean isErr;
+    private boolean isErr=true;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.find.EditDiary01Activity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width45"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/ed_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请在这里输入4-25个字的标题"
+                android:paddingLeft="@dimen/width20" />
+
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:text="xx"
+                android:textColorHint="@color/register_text_color" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@color/line"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width45"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <com.likeit.aqe365.view.IconfontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/width20"
+                android:text="@string/ic_time"
+                android:textColor="#cccccc"
+                android:textSize="@dimen/txt_18" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:text="康复期" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:drawableRight="@mipmap/icon_more"
+                android:gravity="center_vertical"
+                android:hint="请选择日期"
+                android:paddingRight="@dimen/dp_10"
+                android:textColorHint="@color/register_text_color" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@color/line"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width120"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/ed_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="请在这里发布您的日记内容，不少于20字"
+                android:paddingLeft="@dimen/width20" />
+
+
+            <TextView
+                android:id="@+id/tv_num01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:padding="@dimen/dp_10"
+                android:text="xx"
+                android:textColorHint="@color/register_text_color" />
+
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/mGridView01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="5dp"
+            android:numColumns="4"
+            android:padding="@dimen/dp_10"
+            android:verticalSpacing="5dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/line"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_shuhou"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:text="术前照片"
+                android:textColor="@color/black" />
+
+            <GridView
+                android:id="@+id/mGridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="5dp"
+                android:numColumns="4"
+                android:padding="@dimen/dp_10"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

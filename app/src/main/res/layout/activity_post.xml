@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.find.PostActivity">
+
+
+    <RelativeLayout
+        android:id="@id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@color/defualt_window_background"
+        android:orientation="vertical"
+        android:paddingTop="20dip">
+
+        <LinearLayout
+            android:id="@+id/back_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:id="@+id/toolbar_left_iv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_back" />
+
+            <TextView
+                android:id="@+id/toolbar_left_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_14" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/width30"
+        android:gravity="center_horizontal"
+        android:text="您想发布什么内容"
+        android:textColor="@color/black"
+        android:textSize="@dimen/txt_20" />
+
+    <LinearLayout
+        android:id="@+id/ll_riji"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width80"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.likeit.aqe365.view.CircleImageView
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:src="@mipmap/default_pic"
+            android:layout_margin="@dimen/dp_10" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="写日记"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_18" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="支持图文日记，快来体验吧……"
+                android:textSize="@dimen/txt_16" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_xinqing"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width80"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.likeit.aqe365.view.CircleImageView
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:src="@mipmap/default_pic"
+            android:layout_margin="@dimen/dp_10" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="写心情"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_18" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="记录这一秒，分享给懂你的人……"
+                android:textSize="@dimen/txt_16" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_post_tiezi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width80"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.likeit.aqe365.view.CircleImageView
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:src="@mipmap/default_pic"
+            android:layout_margin="@dimen/dp_10" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="发布帖子"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_18" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="支持10秒钟小视频or图文，参与话题讨论吧……"
+                android:textSize="@dimen/txt_16" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_ask"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width80"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <com.likeit.aqe365.view.CircleImageView
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:src="@mipmap/default_pic"
+            android:layout_margin="@dimen/dp_10" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="向医生提问"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_18" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="仅认证医生才能回答您的问题……"
+                android:textSize="@dimen/txt_16" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

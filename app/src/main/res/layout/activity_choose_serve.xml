@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".activity.find.ChooseSevreActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <LinearLayout
+        android:id="@+id/ll_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+       >
+
+        <LinearLayout
+            android:id="@+id/ll_search_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width55"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/search_address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawablePadding="@dimen/dp_5"
+                android:drawableRight="@mipmap/down"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dip"
+                android:paddingRight="@dimen/dp_10"
+                android:text="中山"
+                android:textSize="12sp" />
+
+            <com.likeit.aqe365.view.BorderRelativeLayout
+                android:id="@+id/search_layout"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/text_red"
+                android:focusable="true"
+                app:contentBackColor="#F5F5F5"
+                app:cornerRadius="20dp"
+                app:strokeColor01="#F5F5F5"
+                app:strokeWidth01="20dp"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/search_content_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="搜索医院"
+                    android:textColor="#737373"
+                    android:singleLine="true"
+                    android:imeOptions="actionSearch"
+                    android:paddingLeft="10dip"
+                    android:textSize="12sp" />
+
+            </com.likeit.aqe365.view.BorderRelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:text="可能相关联的医院"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/defualt_window_background">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/defualt_window_background"></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

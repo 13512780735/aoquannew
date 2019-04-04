@@ -29,17 +29,19 @@ public final class Consts {
      * 中转服
      * 测试的API地址
      */
-   //public final static String APP_HOST = "http://aoquan2.maimaitoo.com/api/";
+    //public final static String APP_HOST = "http://aoquan2.maimaitoo.com/api/";
 
 
-    public final static String APP_HOST = "http://aoquan.maimaitoo.com/api/";
+      public final static String APP_HOST = "http://aoquan.maimaitoo.com/api/"; //正式环境
+    // public final static String APP_HOST = "http://aqe365.maimaitoo.com/api/";   //测试
+    // public final static String APP_HOST = "http://192.168.1.186/aoquan/api/";
     /**
      * 正式服
      * 的API地址
      */
     // public final static String APP_HOST = "http://wx.aqe365.com/api/";
 
-   // public final static String HOME_HOST = "http://wx.aqe365.com/";
+    // public final static String HOME_HOST = "http://wx.aqe365.com/";
 
 
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.find.UserInfoActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_10">
+
+        <com.likeit.aqe365.view.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="@dimen/dp_10" />
+
+        <com.likeit.aqe365.view.BorderTextView
+            android:id="@+id/tv_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="@dimen/dp_8"
+            android:paddingLeft="@dimen/width20"
+            android:paddingRight="@dimen/width20"
+            android:paddingTop="@dimen/dp_8"
+            android:text="已关注"
+            android:textSize="@dimen/txt_14"
+            app:contentBackColor="@color/theme_bg_tex"
+            app:cornerRadius="@dimen/dp_15"
+            app:strokeColor01="@color/theme_bg_tex"
+            app:strokeWidth01="1dp" />
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/indent_TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/black" />
+
+
+    <com.likeit.aqe365.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width60"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@color/theme_bg_tex"
+            android:gravity="center"
+            android:text="私信"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_14" />
+
+    </LinearLayout>
+</LinearLayout>

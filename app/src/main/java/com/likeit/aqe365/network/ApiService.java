@@ -3,6 +3,7 @@ package com.likeit.aqe365.network;
 import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.network.consts.Consts;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.CaseEntity;
 import com.likeit.aqe365.network.model.DiyTabModel;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.GoodCategory.CategoryListItemsModel;
@@ -16,7 +17,19 @@ import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.LoginRegisterModel;
 import com.likeit.aqe365.network.model.cart.CartListModel;
+import com.likeit.aqe365.network.model.find.BoardListModel;
+import com.likeit.aqe365.network.model.find.ConcernsListModel;
+import com.likeit.aqe365.network.model.find.DiaryListModel;
+import com.likeit.aqe365.network.model.find.DiarydetailsModel;
+import com.likeit.aqe365.network.model.find.FollowlistModel;
+import com.likeit.aqe365.network.model.find.HospitalandServeModel;
+import com.likeit.aqe365.network.model.find.JournalDetailsModel;
+import com.likeit.aqe365.network.model.find.JournalModel;
+import com.likeit.aqe365.network.model.find.MoreDiaryModel;
+import com.likeit.aqe365.network.model.find.MyDiaryListModel;
+import com.likeit.aqe365.network.model.find.PostDetailsModel;
 import com.likeit.aqe365.network.model.find.PostListModel;
+import com.likeit.aqe365.network.model.find.UserListModel;
 import com.likeit.aqe365.network.model.gooddetails.AddressModel;
 import com.likeit.aqe365.network.model.gooddetails.CaculateModel;
 import com.likeit.aqe365.network.model.gooddetails.PayIndentModel;
@@ -30,9 +43,17 @@ import com.likeit.aqe365.network.model.member.UserInfoModel;
 import com.likeit.aqe365.network.model.pay.BalacePayModel;
 import com.likeit.aqe365.network.model.pay.PayModel;
 
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import rx.Observable;
 
 
@@ -766,6 +787,378 @@ public interface ApiService {
                                                      @Field("lat") String lat,
                                                      @Field("lng") String lng,
                                                      @Field("type") String type,
+                                                     @Field("memberid") String memberid,
                                                      @Field("bid") String bid
     );
+
+    /**
+     * 话题列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.get_boardlist")
+    Observable<BaseResponse<BoardListModel>> GetBoardlist(@Field("openid") String openid,
+                                                          @Field("keyword") String keyword,
+                                                          @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 关注话题列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.followlist")
+    Observable<BaseResponse<FollowlistModel>> GetFollowlist(@Field("openid") String openid,
+                                                            @Field("keyword") String keyword,
+                                                            @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 关注话题
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.follow")
+    Observable<BaseResponse<EmptyEntity>> GetFollow(@Field("openid") String openid,
+                                                    @Field("bid") String bid
+    );
+
+    /**
+     * 用户
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.user")
+    Observable<BaseResponse<UserListModel>> GetUser(@Field("openid") String openid,
+                                                    @Field("keyword") String keyword,
+                                                    @Field("lat") String lat,
+                                                    @Field("lng") String lng,
+                                                    @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 关注用户
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.followmember")
+    Observable<BaseResponse<EmptyEntity>> Followmember(@Field("openid") String openid,
+                                                       @Field("memberid") String memberid
+    );
+
+    /**
+     * 日记列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.journallist")
+    Observable<BaseResponse<DiaryListModel>> Journallist(@Field("openid") String openid,
+                                                         @Field("memberid") String memberid,
+                                                         @Field("type") String type,
+                                                         @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 用户日记列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.diarylist")
+    Observable<BaseResponse<DiaryListModel>> diarylist(@Field("openid") String openid,
+                                                       @Field("memberid") String memberid,
+                                                       @Field("type") String type,
+                                                       @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 用户帖子列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.postuser")
+    Observable<BaseResponse<FollowlistModel>> PostserList(@Field("openid") String openid,
+                                                          @Field("memberid") String memberid,
+                                                          @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 我的日记本
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.mydiary")
+    Observable<BaseResponse<MyDiaryListModel>> MyDiary(@Field("openid") String openid,
+                                                       @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 创建日记本
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.createbook")
+    Observable<BaseResponse<CaseEntity>> Createbook(@Field("openid") String openid,
+                                                    @Field("title") String title,
+                                                    @Field("hospital") String hospital,
+                                                    @Field("category") String category,
+                                                    @Field("service") String service,
+                                                    @Field("lat") String lat,
+                                                    @Field("lng") String lng,
+                                                    @Field("addtime") String addtime,
+                                                    @Field("type") String type
+    );
+
+    /**
+     * 日记编辑
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.editdiary")
+    Observable<BaseResponse<HospitalandServeModel>> Editdiary(@Field("openid") String openid,
+                                                              @Field("type") String type,
+                                                              @Field("keyword") String keyword,
+                                                              @Field("city") String city,
+                                                              @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 帖子详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.postdetails")
+    Observable<BaseResponse<PostDetailsModel>> postDetails(@Field("openid") String openid,
+                                                           @Field("id") String id,
+                                                           @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 帖子点赞
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.postlike")
+    Observable<BaseResponse<EmptyEntity>> postlike(@Field("openid") String openid,
+                                                   @Field("bid") String bid,
+                                                   @Field("pid") String pid
+    );
+
+    /**
+     * 帖子收藏
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.collectpost")
+    Observable<BaseResponse<EmptyEntity>> collectpost(@Field("openid") String openid,
+                                                      @Field("id") String id
+    );
+
+    /**
+     * 帖子回复
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.reply")
+    Observable<BaseResponse<EmptyEntity>> postReply(@Field("openid") String openid,
+                                                    @Field("pid") String id,
+                                                    @Field("bid") String bid,
+                                                    @Field("rpid") String rpid,
+                                                    @Field("mpid") String mpid,
+                                                    @Field("content") String content
+    );
+
+    /**
+     * 日記本详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.diarydetails")
+    Observable<BaseResponse<DiarydetailsModel>> diarydetails(@Field("openid") String openid,
+                                                             @Field("memberid") String memberid,
+                                                             @Field("diaryid") String diaryid,
+                                                             @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 日記本收藏
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.collect")
+    Observable<BaseResponse<EmptyEntity>> diaryCollect(@Field("openid") String openid,
+                                                       @Field("diaryid") String diaryid
+    );
+
+    /**
+     * 关注日记
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.follow")
+    Observable<BaseResponse<EmptyEntity>> diaryFollow(@Field("openid") String openid,
+                                                      @Field("id") String id
+    );
+
+    /**
+     * 日记/日记本更多评论
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.diaryComment")
+    Observable<BaseResponse<MoreDiaryModel>> diaryComment(@Field("openid") String openid,
+                                                          @Field("type") String type,
+                                                          @Field("diaryid") String diaryid,
+                                                          @Field("id") String id,
+                                                          @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 日记本回复
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.reply")
+    Observable<BaseResponse<EmptyEntity>> diaryReply(@Field("openid") String openid,
+                                                     @Field("diaryid") String diaryid,
+                                                     @Field("rdid") String rdid,
+                                                     @Field("mdid") String mdid,
+                                                     @Field("content") String content
+    );
+
+    /**
+     * 日记本点赞
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.diarylike")
+    Observable<BaseResponse<EmptyEntity>> diarylike(@Field("openid") String openid,
+                                                    @Field("diaryid") String diaryid,
+                                                    @Field("commentid") String commentid
+    );
+
+    /**
+     * 日记点赞
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.journallike")
+    Observable<BaseResponse<EmptyEntity>> journallike(@Field("openid") String openid,
+                                                      @Field("diaryid") String diaryid,
+                                                      @Field("cid") String cid
+
+    );
+
+    /**
+     * 日记本详情日记列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.detailjournallist")
+    Observable<BaseResponse<JournalModel>> detailjournallist(@Field("openid") String openid,
+                                                             @Field("memberid") String memberid,
+                                                             @Field("diaryid") String diaryid,
+                                                             @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 日记详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.journaldetails")
+    Observable<BaseResponse<JournalDetailsModel>> journalDetails(@Field("openid") String openid,
+                                                                 @Field("id") String id,
+                                                                 @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 日记回复
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.replyjournal")
+    Observable<BaseResponse<EmptyEntity>> replyJournal(@Field("openid") String openid,
+                                                       @Field("diaryid") String diaryid,
+                                                       @Field("cid") String cid,
+                                                       @Field("rcid") String rcid,
+                                                       @Field("mcid") String mcid,
+                                                       @Field("content") String content
+    );
+
+    /**
+     * 关注日记
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.follow")
+    Observable<BaseResponse<EmptyEntity>> follow(@Field("openid") String openid,
+                                                 @Field("id") String id
+    );
+
+
+    /**
+     * 发布日记
+     *
+     * @param openid
+     * @param diaryid
+     * @param lat
+     * @param lng
+     * @param title
+     * @param content
+     * @param recoverytime
+     * @param type
+     * @param image
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST("nativeapp.discover.journal.submit")
+    Observable<BaseResponse<EmptyEntity>> submit(
+            @Part("openid") RequestBody openid,
+            @Part("diaryid") RequestBody diaryid,
+            @Part("lat") RequestBody lat,
+            @Part("lng") RequestBody lng,
+            @Part("title") RequestBody title,
+            @Part("content") RequestBody content,
+            @Part("recoverytime") RequestBody recoverytime,
+            @Part("type") RequestBody type,
+            @Part List<MultipartBody.Part> image,
+            @Part List<MultipartBody.Part> file
+    );
+
+    /**
+     * 发布心情和帖子用户列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.mood.concernslist")
+    Observable<BaseResponse<ConcernsListModel>> concernslist(@Field("openid") String openid
+                                                             );
 }

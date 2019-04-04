@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,29 +6,65 @@
     android:orientation="vertical"
     tools:context="com.likeit.aqe365.fragment.main.FindFragment">
 
-    <include layout="@layout/common_toolbar"></include>
-
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line"></View>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/indent_TabLayout"
+        <include layout="@layout/common_toolbar"></include>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"></View>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/indent_TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/black" />
+
+
+        <com.likeit.aqe365.view.NoScrollViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        app:tabIndicatorColor="@color/colorAccent"
-        app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="@color/colorAccent"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="@color/black" />
+        android:layout_height="match_parent">
+
+        <com.likeit.aqe365.view.BorderRelativeLayout
+            android:id="@+id/rl_post"
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/width60"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/width100"
+            android:layout_marginRight="@dimen/dp_10"
+            app:contentBackColor="#4D98FE"
+            app:cornerRadius="@dimen/width30"
+            app:strokeColor01="#4D98FE"
+            app:strokeWidth01="1dp">
+
+            <com.likeit.aqe365.view.IconfontTextView
+                android:layout_width="@dimen/width40"
+                android:layout_height="@dimen/width40"
+                android:layout_centerInParent="true"
+                android:text="@string/ic_publish"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="34sp" />
+        </com.likeit.aqe365.view.BorderRelativeLayout>
 
 
-    <com.likeit.aqe365.view.NoScrollViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1" />
-</LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

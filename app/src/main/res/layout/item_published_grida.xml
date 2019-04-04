@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:roundiv="http://schemas.android.com/apk/res-auto"
     android:layout_width="66dp"
     android:layout_height="66dp">
 
@@ -7,12 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.likeit.aqe365.view.RoundImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:gravity="center"
+            android:scaleType="centerCrop"
+            roundiv:left_bottom_radius="4dp"
+            roundiv:left_top_radius="4dp"
+            roundiv:right_bottom_radius="4dp"
+            roundiv:right_top_radius="4dp" />
 
         <Button
             android:id="@+id/bt_del"

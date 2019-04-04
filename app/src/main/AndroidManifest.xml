@@ -3,20 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.likeit.aqe365">
 
-    <!--允许程序打开网络套接字-->
+    <!-- 允许程序打开网络套接字 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--允许程序设置内置sd卡的写权限-->
+    <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--允许程序获取网络状态-->
+    <!-- 允许程序获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--允许程序访问WiFi网络信息-->
+    <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--允许程序读写手机状态和身份-->
+    <!-- 允许程序读写手机状态和身份 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 用于申请调用相机 -->
@@ -30,7 +29,6 @@
         tools:ignore="ProtectedPermissions" />
 
     <!-- 高德地图定位 -->
-
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -39,6 +37,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="您的AppKey" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="您的AppSecret" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -48,23 +59,27 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8d4ef2907ff74b9d5604413b0a35053f" />
-        <service android:name="com.amap.api.location.APSService">
-        </service>  <meta-data
-        android:name="com.amap.api.v2.apikey"
-        android:value="8d4ef2907ff74b9d5604413b0a35053f" />
-        <service android:name="com.amap.api.location.APSService">
-        </service>
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="8d4ef2907ff74b9d5604413b0a35053f" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
         <activity
-            android:name="com.likeit.aqe365.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name="com.likeit.aqe365.activity.login_register.LoginActivity" />
-        <activity android:name="com.likeit.aqe365.activity.detail.GoodDetailActivity" />
-        <activity android:name="com.likeit.aqe365.activity.FrameActivity" />
-        <activity android:name="com.likeit.aqe365.activity.login_register.WelcomeActivity">
+        <activity android:name=".activity.login_register.LoginActivity" />
+        <activity android:name=".activity.detail.GoodDetailActivity" />
+        <activity android:name=".activity.FrameActivity" />
+        <activity android:name=".activity.login_register.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,7 +87,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.likeit.aqe365.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -92,43 +107,62 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.likeit.aqe365.activity.good.GoodListActivity"
+            android:name=".activity.good.GoodListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.likeit.aqe365.activity.cart.ConfirmOrderActivity"
+            android:name=".activity.cart.ConfirmOrderActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name="com.likeit.aqe365.adapter.div_provider.Custom.CustomActivity" />
-        <activity android:name="com.likeit.aqe365.activity.login_register.GuideActivity" />
-        <activity android:name="com.likeit.aqe365.activity.cart.SelectAddressActivity" />
-        <activity android:name="com.likeit.aqe365.wxapi.PayActivity" />
-        <activity android:name="com.likeit.aqe365.wxapi.WXPayEntryActivity" />
-        <activity android:name="com.likeit.aqe365.activity.cart.EditAddressActivity" />
-        <activity android:name="com.likeit.aqe365.view.photoview.ViewPagerActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.GoodsIndentActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.IndentDetailsActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.IndentAppraiseActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.AfterSaleActivity" />
-        <activity android:name="com.likeit.aqe365.activity.user.FootprintActivity" />
-        <activity android:name="com.likeit.aqe365.activity.user.GoodsAttentionActivity" />
-        <activity android:name="com.likeit.aqe365.activity.user.MyCouponActivity" />
-        <activity android:name="com.likeit.aqe365.activity.user.CouponActivity" />
+        <activity android:name=".adapter.div_provider.Custom.CustomActivity" />
+        <activity android:name=".activity.login_register.GuideActivity" />
+        <activity android:name=".activity.cart.SelectAddressActivity" />
+        <activity android:name=".wxapi.PayActivity" />
+        <activity android:name=".wxapi.WXPayEntryActivity" />
+        <activity android:name=".activity.cart.EditAddressActivity" />
+        <activity android:name=".view.photoview.ViewPagerActivity" />
+        <activity android:name=".activity.indent.GoodsIndentActivity" />
+        <activity android:name=".activity.indent.IndentDetailsActivity" />
+        <activity android:name=".activity.indent.IndentAppraiseActivity" />
+        <activity android:name=".activity.indent.AfterSaleActivity" />
+        <activity android:name=".activity.user.FootprintActivity" />
+        <activity android:name=".activity.user.GoodsAttentionActivity" />
+        <activity android:name=".activity.user.MyCouponActivity" />
+        <activity android:name=".activity.user.CouponActivity" />
         <activity
-            android:name="com.likeit.aqe365.activity.user.UserInfoActivity"
+            android:name=".activity.user.UserInfoActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         >
-        <activity android:name="com.likeit.aqe365.activity.user.SelectAddress01Activity" />
-        <activity android:name="com.likeit.aqe365.activity.user.BindPhoneActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.IndentSuccessActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.IndentRecycledActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.IndentReturnsActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.LogisticsActivity" />
-        <activity android:name="com.likeit.aqe365.activity.SearchLayoutActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.AfterSaleTypeActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.Refund01Activity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.Refund02Activity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.RefundActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.EditExpressActivity" />
-        <activity android:name="com.likeit.aqe365.activity.indent.AddOrEditGoodActivity"></activity>
+        <activity android:name=".activity.user.SelectAddress01Activity" />
+        <activity android:name=".activity.user.BindPhoneActivity" />
+        <activity android:name=".activity.indent.IndentSuccessActivity" />
+        <activity android:name=".activity.indent.IndentRecycledActivity" />
+        <activity android:name=".activity.indent.IndentReturnsActivity" />
+        <activity android:name=".activity.indent.LogisticsActivity" />
+        <activity android:name=".activity.SearchLayoutActivity" />
+        <activity android:name=".activity.indent.AfterSaleTypeActivity" />
+        <activity android:name=".activity.indent.Refund01Activity" />
+        <activity android:name=".activity.indent.Refund02Activity" />
+        <activity android:name=".activity.indent.RefundActivity" />
+        <activity android:name=".activity.indent.EditExpressActivity" />
+        <activity android:name=".activity.indent.AddOrEditGoodActivity" />
+        <activity android:name=".activity.find.TopicListActivity" />
+        <activity android:name=".activity.find.UserInfoActivity" />
+        <activity android:name=".activity.find.PostActivity" />
+        <activity android:name=".activity.find.ChooseActivity" />
+        <activity android:name=".activity.find.EditDiaryActivity" />
+        <activity android:name=".activity.find.DiaryTypeActivity" />
+        <activity android:name=".activity.find.EditDiary01Activity" />
+        <activity android:name=".view.city.CityPickerActivity" />
+        <activity android:name=".activity.find.ChooseHospitalActivity" />
+        <activity android:name=".activity.find.ChooseSevreActivity" />
+        <activity android:name=".activity.find.PostDetailsActivity" />
+        <activity android:name=".activity.find.DiaryDetailsActivity" />
+        <activity android:name=".activity.find.MoreDiaryActivity" />
+        <activity android:name=".activity.find.MoreCommentActivity" />
+        <activity android:name=".activity.find.JournalDetailsActivity" />
+        <activity android:name=".activity.find.QuestionDoctorActivity" />
+        <activity android:name=".activity.find.SendMoodActivity" />
+        <activity android:name=".activity.find.MoreTopicActivity" />
+        <activity android:name=".activity.find.RelevantUsersActivity"></activity>
     </application>
 
 </manifest>

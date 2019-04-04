@@ -50,14 +50,16 @@
                 android:textSize="@dimen/txt_12"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:paddingLeft="@dimen/dp_5"
+                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="right"
-            android:layout_weight="1">
+            >
 
             <com.likeit.aqe365.view.IconfontTextView
                 android:layout_width="wrap_content"
@@ -73,6 +75,7 @@
                 android:textSize="@dimen/txt_12"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
     </LinearLayout>

@@ -1,6 +1,9 @@
 package com.likeit.aqe365.base;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -27,6 +30,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import onekeyshare.OnekeyShare;
 
 /**
  * Created by admin on 2018/5/10.
@@ -45,36 +49,99 @@ public abstract class BaseFragment extends Fragment {
     public LoaddingDialog loaddingDialog;
     public String openid;
     public String theme_bg_tex;
+    public String lat,lng;
 
+
+    //是否是第一次开启网络加载
+    public boolean isFirst;
+    //当前Fragment是否处于可见状态标志，防止因ViewPager的缓存机制而导致回调函数的触发
+    private boolean isFragmentVisible;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(setContentView(), container, false);
+       // view = inflater.inflate(setContentView(), container, false);
+
+        if (view == null)
+            view = inflater.inflate(setContentView(), container, false);
         isInit = true;
         /**初始化的时候去加载数据**/
         unbinder = ButterKnife.bind(this, view);
         openid = SharedPreferencesUtils.getString(getActivity(), "openid");
         theme_bg_tex = SharedPreferencesUtils.getString(getActivity(), "theme_bg_tex");
+        lat = SharedPreferencesUtils.getString(getContext(), "lat");
+        lng = SharedPreferencesUtils.getString(getContext(), "lng");
         loaddingDialog = new LoaddingDialog(getActivity());
-        isCanLoadData();
+       // isCanLoadData();
+        lazyLoad();
+        //可见，但是并没有加载过
+        if (isFragmentVisible && !isFirst) {
+            onFragmentVisibleChange(true);
+        }
         return view;
     }
+    /**
+     * 当前fragment可见状态发生变化时会回调该方法
+     * 如果当前fragment是第一次加载，等待onCreateView后才会回调该方法，其它情况回调时机跟 {@link #setUserVisibleHint(boolean)}一致
+     * 在该回调方法中你可以做一些加载数据操作，甚至是控件的操作.
+     *
+     * @param isVisible true  不可见 -> 可见
+     *                  false 可见  -> 不可见
+     */
+    protected void onFragmentVisibleChange(boolean isVisible) {
 
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
         LoaddingDismiss();
         XLog.e("TAG999" + "fragmnet");
     }
+    public void showShare(String url){
+        Resources res = getActivity().getResources();
+        Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
 
-
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle("經理是傻冒");
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        oks.setImageData(bmp);
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网使用
+        oks.setComment("我是测试评论文本");
+        // 启动分享GUI
+        oks.show(getActivity());
+    }
     /**
      * 视图是否已经对用户可见，系统的方法
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        isCanLoadData();
+       // isCanLoadData();
+        if (isVisibleToUser) {
+            isFragmentVisible = true;
+        }
+        if (view == null) {
+            return;
+        }
+        //可见，并且没有加载过
+        if (!isFirst&&isFragmentVisible) {
+            onFragmentVisibleChange(true);
+            return;
+        }
+        //由可见——>不可见 已经加载过
+        if (isFragmentVisible) {
+            onFragmentVisibleChange(false);
+            isFragmentVisible = false;
+        }
     }
 
     /**

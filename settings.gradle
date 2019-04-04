@@ -1,1 +1,1 @@
-include ':app', ':library',':productlibrary',':addresslibrary', ':mylibrary'
+include ':app', ':library',':productlibrary',':addresslibrary', ':mylibrary', ':pulltorefreshlibrary', ':weixinrecorded'

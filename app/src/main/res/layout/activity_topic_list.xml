@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.find.TopicListActivity">
+
+    <include layout="@layout/common_toolbar02"></include>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/indent_TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/black" />
+
+
+    <com.likeit.aqe365.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width50"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.likeit.aqe365.view.BorderRelativeLayout
+            android:id="@+id/rl_attention"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/width20"
+            android:layout_marginRight="@dimen/width20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            app:contentBackColor="#DBDBDB"
+            app:cornerRadius="@dimen/width20"
+            app:strokeColor01="#DBDBDB"
+            app:strokeWidth01="1dp">
+
+            <com.likeit.aqe365.view.IconfontTextView
+                android:id="@+id/tv_attention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/ic_attention"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/txt_20" />
+
+
+        </com.likeit.aqe365.view.BorderRelativeLayout>
+
+        <com.likeit.aqe365.view.IconfontTextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_10"
+            android:text="@string/ic_share"
+            android:textColor="#656565"
+            android:textSize="@dimen/txt_24" />
+    </LinearLayout>
+</LinearLayout>
