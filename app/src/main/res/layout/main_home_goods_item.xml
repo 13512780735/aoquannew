@@ -22,7 +22,7 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:padding="@dimen/dp_4"
-        android:text="xxx"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="@dimen/txt_11" />
 
@@ -48,7 +48,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="xxx"
+                android:text=""
                 android:textSize="@dimen/txt_10" />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="xxx"
+                android:text=""
                 android:textSize="@dimen/txt_10" />
         </LinearLayout>
 
@@ -72,7 +72,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:text="xxx"
+            android:text=""
             android:textSize="@dimen/txt_10" />
 
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:layout_centerVertical="true"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="xxx"
+            android:text=""
             android:textSize="@dimen/txt_10" />
 
         <com.likeit.aqe365.view.BorderTextView

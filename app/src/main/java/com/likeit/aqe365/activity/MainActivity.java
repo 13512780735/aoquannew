@@ -73,8 +73,16 @@ public class MainActivity extends AbstractCommonTabLayout {
         } else if ("2".equals(flag)) {
             setSelectDefaultIndex(1);
         }
+        else if ("3".equals(flag)) {
+            setSelectDefaultIndex(2);
+        }
+        else if ("4".equals(flag)) {
+            setSelectDefaultIndex(3);
+        }  else if ("5".equals(flag)) {
+            setSelectDefaultIndex(4);
+        }
         // setShowDot(3);
-        setUnReadMsg(2, 5, Color.parseColor("#FF0000"));
+        // setUnReadMsg(2, 5, Color.parseColor("#FF0000"));
         //   setDivisionLine(Color.parseColor("#6D8FB0"),0.5F,20);
     }
 
@@ -122,6 +130,8 @@ public class MainActivity extends AbstractCommonTabLayout {
                 mFragments.add(new CategoryFragment());
             } else if ("discover".equals(linkurl)) {
                 mFragments.add(new FindFragment());
+            } else if ("mynotice".equals(linkurl)) {
+                mFragments.add(new NoticeFragment());
             }
         }
         return mFragments;
@@ -142,6 +152,7 @@ public class MainActivity extends AbstractCommonTabLayout {
     protected int getCommonViewPager() {
         return R.id.vp_2;
     }
+
     private void addGeoFence() {
         //初始化定位
         mLocationClient = new AMapLocationClient(getApplicationContext());

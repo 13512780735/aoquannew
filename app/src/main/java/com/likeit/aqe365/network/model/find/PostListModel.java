@@ -50,6 +50,15 @@ public class PostListModel {
         private String avatar;
         private String coordinate;
         private String thumb;
+        private String types;//1:视频帖子 0:图片帖子
+
+        public String getTypes() {
+            return types;
+        }
+
+        public void setTypes(String types) {
+            this.types = types;
+        }
 
         public String getId() {
             return id;

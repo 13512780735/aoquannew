@@ -9,8 +9,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.PostDetailsActivity;
+import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.find.AllFind01Adapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
@@ -74,10 +76,16 @@ public class TopicListFragment extends BaseFragment implements SwipeRefreshLayou
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String types = data.get(position).getTypes();
                 String id = data.get(position).getId();
                 Bundle bundle = new Bundle();
-                bundle.putString("id", id);
-                toActivity(PostDetailsActivity.class, bundle);
+                if ("1".equals(types)) {
+                    bundle.putString("id", id);
+                    toActivity(VideoDetailsActivity.class, bundle);
+                } else {
+                    bundle.putString("id", id);
+                    toActivity(PostDetailsActivity.class, bundle);
+                }
             }
         });
     }
@@ -90,6 +98,11 @@ public class TopicListFragment extends BaseFragment implements SwipeRefreshLayou
         } else {
             type = "";
         }
+        XLog.e("bid" + bid);
+        XLog.e("type" + type);
+        XLog.e("id" + id);
+        XLog.e("lat" + lat);
+        XLog.e("lng" + lng);
         RetrofitUtil.getInstance().Postlist(openid, String.valueOf(pageNum), "", lat, lng, type, bid, "", new Subscriber<BaseResponse<PostListModel>>() {
             @Override
             public void onCompleted() {
@@ -103,6 +116,8 @@ public class TopicListFragment extends BaseFragment implements SwipeRefreshLayou
 
             @Override
             public void onNext(BaseResponse<PostListModel> baseResponse) {
+                XLog.e("size"+baseResponse.getData().getList().size());
+                XLog.e("size"+baseResponse.getData().getTotal());
                 if (baseResponse.code == 200) {
                     postListModel = baseResponse.getData();
                     List<PostListModel.ListBean> list = postListModel.getList();

@@ -82,6 +82,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
     private LinearLayout ll_userInfo;
     private TextView tv_comment_num;
     private View header;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -436,6 +437,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         protected void convert(BaseViewHolder helper, final PostDetailsModel.PostCommentBean item) {
             ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
             final IconfontTextView tv_isgood = helper.getView(R.id.tv_isgood);
+            name=item.getNickname();
             helper.setText(R.id.tv_title, item.getNickname());
             helper.setText(R.id.tv_content, item.getContent());
             helper.setText(R.id.tv_time, item.getCreatetime());
@@ -500,7 +502,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         protected void convert(BaseViewHolder helper, final PostDetailsModel.PostCommentBean.ParentBean item) {
             ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
             final IconfontTextView tv_isgood = helper.getView(R.id.tv_isgood);
-            helper.setText(R.id.tv_title, item.getNickname());
+            helper.setText(R.id.tv_title, item.getNickname()+"  回复  "+name);
             helper.setText(R.id.tv_content, item.getContent());
             helper.setText(R.id.tv_time, item.getCreatetime());
 

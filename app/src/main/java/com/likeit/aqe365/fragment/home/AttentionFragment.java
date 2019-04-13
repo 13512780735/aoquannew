@@ -1,16 +1,60 @@
 package com.likeit.aqe365.fragment.home;
 
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.find.MoodDetailActivity;
+import com.likeit.aqe365.activity.find.MoodVideoDetailsActivity;
+import com.likeit.aqe365.activity.good.GoodListActivity;
+import com.likeit.aqe365.adapter.div_provider.member.CouponListAdapter;
+import com.likeit.aqe365.adapter.find.MoodListAdapter;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.find.MoodListModel;
+import com.likeit.aqe365.network.model.member.CouponListModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.view.searchview.EditText_Clear;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import rx.Subscriber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AttentionFragment extends BaseFragment {
+public class AttentionFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+    @BindView(R.id.et_search)
+    EditText_Clear et_search;
+    @BindView(R.id.RecyclerView)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.SwipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    private MoodListAdapter mAdapter;
 
+    private int pageNum = 1;
+    private static final int PAGE_SIZE = 6;//为什么是6呢？
+    private boolean isErr = true;
+    private boolean mLoadMoreEndGone = false; //是否加载更多完毕
+    private int mCurrentCounter = 0;
+    int TOTAL_COUNTER = 0;
+    private MoodListModel moodListModel;
+    private List<MoodListModel.ListBean> data = new ArrayList<>();
+    private String keyword;
+    private String type;
 
     @Override
     protected int setContentView() {
@@ -19,7 +63,146 @@ public class AttentionFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
+        mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        type = "关注";
+        initAdapter();
+        initUI();
+    }
+
+    private void initUI() {
+        /**
+         * 监听输入键盘更换后的搜索按键
+         * 调用时刻：点击键盘上的搜索键时
+         */
+        et_search.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+                    String inputSearch = et_search.getText().toString().trim();
+                    if (TextUtils.isEmpty(inputSearch)) {
+                        showToast("请输入搜索的商品");
+                        return true;
+                    }
+                    keyword = inputSearch;
+                    initData(1, false);
+                }
+                return false;
+            }
+        });
+    }
+
+    private void initAdapter() {
+
+        mAdapter = new MoodListAdapter(R.layout.moodlist_item, data);
+        mAdapter.setEnableLoadMore(false);
+        mAdapter.setOnLoadMoreListener(this, mRecyclerView);
+        mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.disableLoadMoreIfNotFullPage();
+        initData(pageNum, false);
+        LoaddingShow();
+        mCurrentCounter = mAdapter.getData().size();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                String id = data.get(position).getId();
+                String types = data.get(position).getType();
+                if ("1".equals(types)) {
+                    bundle.putString("id", id);
+                    toActivity(MoodVideoDetailsActivity.class, bundle);
+                } else {
+                    bundle.putString("id", id);
+                    toActivity(MoodDetailActivity.class, bundle);
+                }
+            }
+        });
+    }
+
+    public void initData(int pageNum, final boolean isloadmore) {
+        RetrofitUtil.getInstance().moodlist(openid, type, keyword, String.valueOf(pageNum), new Subscriber<BaseResponse<MoodListModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<MoodListModel> baseResponse) {
+                LoaddingDismiss();
+                if (baseResponse.code == 200) {
+                    moodListModel = baseResponse.getData();
+                    List<MoodListModel.ListBean> list = moodListModel.getList();
+                    TOTAL_COUNTER = Integer.valueOf(moodListModel.getTotal());
+                    if (list != null && list.size() > 0) {
+                        if (!isloadmore) {
+                            data = list;
+                        } else {
+                            data.addAll(list);
+                        }
+                        mAdapter.setNewData(data);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        mAdapter.setEmptyView(R.layout.notdata_view);
+                    }
+
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
+
 
     }
 
+    @Override
+    public void onLoadMoreRequested() {
+
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mCurrentCounter >= TOTAL_COUNTER) {
+                    //数据全部加载完毕
+                    mAdapter.loadMoreEnd();
+                } else {
+                    if (isErr) {
+                        //成功获取更多数据
+                        //  mQuickAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                        pageNum += 1;
+                        initData(pageNum, true);
+                        mCurrentCounter = mAdapter.getData().size();
+                        mAdapter.loadMoreComplete();
+                    } else {
+                        //获取更多数据失败
+                        isErr = true;
+                        mAdapter.loadMoreFail();
+
+                    }
+                }
+            }
+
+        }, 3000);
+    }
+
+    @Override
+    public void onRefresh() {
+        mAdapter.setEnableLoadMore(false);//禁止加载
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // mAdapter.setNewData(data);
+                isErr = false;
+                mCurrentCounter = PAGE_SIZE;
+                pageNum = 1;//页数置为1 才能继续重新加载
+                initData(pageNum, false);
+                mSwipeRefreshLayout.setRefreshing(false);
+                mAdapter.setEnableLoadMore(true);//启用加载
+            }
+        }, 2000);
+    }
 }

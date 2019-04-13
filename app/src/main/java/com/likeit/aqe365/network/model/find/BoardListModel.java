@@ -1,8 +1,9 @@
 package com.likeit.aqe365.network.model.find;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BoardListModel {
+public class BoardListModel implements Serializable{
 
     /**
      * list : [{"id":"2","title":"3333","logo":"http://aoquan.maimaitoo.com/attachment/images/1/2019/03/L22498Zi13698118g41409xC38n00B.jpg","desc":"333333333333","postcount":"4","participant":1},{"id":"1","title":"牙科知识讲堂","logo":"http://aoquan.maimaitoo.com/attachment/images/1/2018/09/xurGAlvgPuSDPfSaJRdjUZ9L9U6vA0.jpg","desc":"","postcount":"5","participant":2}]
@@ -28,7 +29,7 @@ public class BoardListModel {
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable{
         /**
          * id : 2
          * title : 3333

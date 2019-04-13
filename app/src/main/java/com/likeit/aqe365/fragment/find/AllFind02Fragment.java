@@ -31,7 +31,7 @@ import rx.Subscriber;
  */
 public class AllFind02Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 1;//为什么是6呢？
+    private static final int PAGE_SIZE = 6;//为什么是6呢？
     private boolean isErr = true;
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;

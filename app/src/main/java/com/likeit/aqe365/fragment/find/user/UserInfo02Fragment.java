@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.PostDetailsActivity;
+import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.find.AllFind01Adapter;
 import com.likeit.aqe365.adapter.find.AllFind02Adapter;
 import com.likeit.aqe365.base.BaseFragment;
@@ -83,10 +84,16 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String types = data.get(position).getTypes();
                 String id = data.get(position).getId();
                 Bundle bundle = new Bundle();
-                bundle.putString("id", id);
-                toActivity(PostDetailsActivity.class, bundle);
+                if ("1".equals(types)) {
+                    bundle.putString("id", id);
+                    toActivity(VideoDetailsActivity.class, bundle);
+                } else {
+                    bundle.putString("id", id);
+                    toActivity(PostDetailsActivity.class, bundle);
+                }
             }
         });
     }

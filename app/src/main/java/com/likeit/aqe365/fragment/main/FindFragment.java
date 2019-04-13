@@ -23,6 +23,7 @@ import com.likeit.aqe365.fragment.find.AllFind02Fragment;
 import com.likeit.aqe365.fragment.find.AllFind03Fragment;
 import com.likeit.aqe365.fragment.find.AllFind04Fragment;
 import com.likeit.aqe365.fragment.find.AllFind05Fragment;
+import com.likeit.aqe365.fragment.find.AllFind06Fragment;
 import com.likeit.aqe365.fragment.find.AllFindFragment;
 import com.likeit.aqe365.fragment.mycoupon.Coupon01Fragment;
 import com.likeit.aqe365.fragment.mycoupon.Coupon02Fragment;
@@ -53,18 +54,18 @@ public class FindFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        mTitles = new ArrayList<>(Arrays.asList("推荐", "关注", "话题", "附近", "用户"));//, "医院"
+        mTitles = new ArrayList<>(Arrays.asList("推荐", "关注", "话题", "附近", "用户","医院"));//, "医院"
         initUI();
     }
 
     private void initUI() {
         setTitle("发现");
-        setRightImage(R.mipmap.icon_nav_search, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        setRightImage(R.mipmap.icon_nav_search, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 
         mTabLayout = findViewById(R.id.indent_TabLayout);
@@ -111,13 +112,6 @@ public class FindFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            //创建fragment对象并返回
-//            Bundle bundle = new Bundle();
-//            bundle.putString("id", mTitles.get(position));
-//            //实例化Fragment
-//            AllFindFragment allFragment = new AllFindFragment();
-//            allFragment.setArguments(bundle);
-//            return allFragment;
             switch (position) {
                 case 0:
                     AllFindFragment tab1 = new AllFindFragment();
@@ -134,18 +128,14 @@ public class FindFragment extends BaseFragment {
                 case 4:
                     AllFind05Fragment tab5 = new AllFind05Fragment();
                     return tab5;
-//                case 5:
-//                    AllFind03Fragment tab6 = new AllFind03Fragment();
-//                    return tab6;
+                case 5:
+                    AllFind06Fragment tab6 = new AllFind06Fragment();
+                    return tab6;
             }
 
             return null;
         }
 
-//        @Override
-//        public void restoreState(Parcelable state, ClassLoader loader) {
-//          //  super.restoreState(state, loader);
-//        }
     }
 
     @Override

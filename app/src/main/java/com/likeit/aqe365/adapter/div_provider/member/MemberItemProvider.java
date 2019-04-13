@@ -51,6 +51,8 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
         tv_vip = helper.getView(R.id.tv_vip);
         tv_recharge = helper.getView(R.id.tv_recharge);
         tv_exchange = helper.getView(R.id.tv_exchange);
+        tv_recharge.setVisibility(View.GONE);
+        tv_exchange.setVisibility(View.GONE);
         initUI(data);
         if ("default2".equals(data.getParams().getStyle())) {
             ll_header02.setVisibility(View.VISIBLE);
@@ -67,6 +69,8 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
             tv_vip = helper.getView(R.id.tv_vip1);
             tv_recharge = helper.getView(R.id.tv_recharge1);
             tv_exchange = helper.getView(R.id.tv_exchange1);
+            tv_recharge.setVisibility(View.GONE);
+            tv_exchange.setVisibility(View.GONE);
             initUI(data);
         } else if ("default1".equals(data.getParams().getStyle())) {
             ll_header01.setVisibility(View.VISIBLE);
@@ -82,6 +86,8 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
             tv_vip = helper.getView(R.id.tv_vip);
             tv_recharge = helper.getView(R.id.tv_recharge);
             tv_exchange = helper.getView(R.id.tv_exchange);
+            tv_recharge.setVisibility(View.GONE);
+            tv_exchange.setVisibility(View.GONE);
             initUI(data);
         }
 
@@ -95,6 +101,8 @@ public class MemberItemProvider extends BaseItemProvider<MemberItemModel, BaseVi
         tvMessage.setTextSize(16);
         tvMessage.setText(StringUtil.decode("\\u" + "e6df"));
         tvSet.setText(StringUtil.decode("\\u" + "e68a"));
+        tvSet.setTextColor(Color.parseColor("#FFFFFF"));
+        tvSet.setTextSize(24);
         tv_recharge.setStrokeColor01(Color.parseColor(data.getStyle().getTextcolor()));
         tv_exchange.setStrokeColor01(Color.parseColor(data.getStyle().getTextcolor()));
         ImageLoader.getInstance().displayImage(data.getData().getAvatar(), ivAvatar);

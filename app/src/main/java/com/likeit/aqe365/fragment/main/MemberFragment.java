@@ -27,6 +27,7 @@ import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
 import com.likeit.aqe365.network.model.member.MemberIconGroupItemModel;
 import com.likeit.aqe365.network.model.member.MemberItemModel;
 import com.likeit.aqe365.network.model.member.MemberLogoutItemModel;
+import com.likeit.aqe365.network.model.member.MemberMenu3Model;
 import com.likeit.aqe365.utils.HttpUtil;
 import com.loopj.android.http.RequestParams;
 
@@ -115,10 +116,16 @@ public class MemberFragment extends BaseFragment implements SwipeRefreshLayout.O
         mMessages = new ArrayList<>();
         for (int i = 0; i < items.length(); i++) {
             String id = items.optJSONObject(i).optString("id");
+            XLog.e("menu3"+JSON.parseObject(items.optString(i), MemberMenu3Model.class));
             if ("member".equals(id)) {
                 MemberItemModel memberItemModel = JSON.parseObject(items.optString(i).toString(), MemberItemModel.class);
                 mMessages.add(memberItemModel);
-            } else if ("listmenu".equals(id)) {//
+            } else if ("menu3".equals(id)) {//按钮组三
+                MemberMenu3Model memberMenu3Model = JSON.parseObject(items.optString(i), MemberMenu3Model.class);
+                mMessages.add(memberMenu3Model);
+            }
+
+            else if ("listmenu".equals(id)) {//
                 MainHomeListmenuModel mainHomeListmenuModel = JSON.parseObject(items.optString(i).toString(), MainHomeListmenuModel.class);
                 mMessages.add(mainHomeListmenuModel);
             } else if ("logout".equals(id)) {//

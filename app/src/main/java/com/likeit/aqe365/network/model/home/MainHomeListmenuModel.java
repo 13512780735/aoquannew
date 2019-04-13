@@ -110,8 +110,17 @@ public class MainHomeListmenuModel extends HomeMessage{
         private String iconclass;
         private String remark;
         private String dotnum;
+        private String weburl;
         private String iconclasscode;
         private ParamsBean params;
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
 
         public String getText() {
             return text;

@@ -137,7 +137,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                 showShare("");
             }
         });
-        setTitle(title);
+
         //initUI();
         DisplayMetrics dm = mContext.getResources().getDisplayMetrics();
         w_screen = dm.widthPixels;
@@ -177,6 +177,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
     }
 
     private void initUI() {
+        setTitle(diarydetailsModel.getDiary().getBooktitle());
         if ("0".equals(diaryBean.getType())) {
             ll_photos.setVisibility(View.VISIBLE);
         } else {
@@ -203,7 +204,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
         tvCommentNum01.setText(commentData.size() + "条");
         tvCommentNum.setText("查看更多评论");
         tvDirayNum.setVisibility(View.VISIBLE);
-      //  tvDirayNum.setText("查看全部" + diarydetailsModel.getJournaltotal() + "个日记");
+        //  tvDirayNum.setText("查看全部" + diarydetailsModel.getJournaltotal() + "个日记");
         if ((Integer.valueOf(diarydetailsModel.getJournaltotal()) > 5)) {
             tvDirayNum.setVisibility(View.VISIBLE);
             tvDirayNum.setText("查看全部" + diarydetailsModel.getJournaltotal() + "个日记");

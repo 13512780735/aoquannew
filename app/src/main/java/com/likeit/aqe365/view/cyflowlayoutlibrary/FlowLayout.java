@@ -49,10 +49,10 @@ public class FlowLayout extends ViewGroup {
 
         // 循环添加TextView到容器
         int size = flowLayoutAdapter.getCount();
-        for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
 
-            addView(flowLayoutAdapter.getView(this, i));
-        }
+                addView(flowLayoutAdapter.getView(this, i));
+            }
     }
 
     public FlowLayout(Context context) {
@@ -60,7 +60,7 @@ public class FlowLayout extends ViewGroup {
     }
 
     public FlowLayout(Context context, float horizontal_space, float vertical_space) {
-        this(context,null);
+        this(context, null);
         this.horizontal_space = horizontal_space;
         this.vertical_space = vertical_space;
     }

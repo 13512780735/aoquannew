@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.login_register.LoginActivity;
+import com.likeit.aqe365.activity.user.ChangePwdActivity;
 import com.likeit.aqe365.network.model.member.MemberLogoutItemModel;
 import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
@@ -26,7 +27,7 @@ public class MemberLogoutItemProvider extends BaseItemProvider<MemberLogoutItemM
     }
 
     @Override
-    public void convert(BaseViewHolder helper, MemberLogoutItemModel data, int position) {
+    public void convert(BaseViewHolder helper, final MemberLogoutItemModel data, int position) {
         BorderTextView tvChangePwd = helper.getView(R.id.tv_change_pwd);
         BorderTextView tvLogout = helper.getView(R.id.tv_logout);
         tvChangePwd.setContentColorResource01(Color.parseColor(data.getStyle().getPwdbgcolor()));
@@ -39,14 +40,21 @@ public class MemberLogoutItemProvider extends BaseItemProvider<MemberLogoutItemM
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferencesUtils.put(mContext,"openid","");
-                Intent intent=new Intent(mContext, LoginActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putString("linkurl","");
+                SharedPreferencesUtils.put(mContext, "openid", "");
+                Intent intent = new Intent(mContext, LoginActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("linkurl", "");
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
                 AppManager.getAppManager().finishActivity();
             }
         });
+        tvChangePwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, ChangePwdActivity.class));
+            }
+        });
+
     }
 }

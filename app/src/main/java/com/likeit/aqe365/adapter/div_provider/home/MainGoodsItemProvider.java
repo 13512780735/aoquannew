@@ -18,6 +18,7 @@ import com.chaychan.adapter.BaseItemProvider;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.detail.GoodDetailActivity;
 import com.likeit.aqe365.network.model.home.MainHomeGoodModel;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.RatioImageView;
@@ -85,12 +86,12 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         String cid = dataBean1.get(position).getGid();
-                        if(!StringUtil.isBlank(cid)){
-                            Intent intent = new Intent(mContext, GoodDetailActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("id", cid);
-                            intent.putExtras(bundle);
-                            mContext.startActivity(intent);}
+                        String linkUrl = dataBean1.get(position).getLinkurl();
+                        String webUrl = dataBean1.get(position).getWeburl();
+                        if (!StringUtil.isBlank(cid)) {
+                            IntentUtils.intentTo(mContext, linkUrl, cid, webUrl);
+
+                        }
                     }
                 });
             } else if ("block one".equals(liststy)) {
@@ -105,13 +106,14 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
                 mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
                         String cid = dataBean.get(position).getGid();
+                        String linkUrl=dataBean.get(position).getLinkurl();
+                        String webUrl=dataBean.get(position).getWeburl();
                         if(!StringUtil.isBlank(cid)){
-                            Intent intent = new Intent(mContext, GoodDetailActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("id", cid);
-                            intent.putExtras(bundle);
-                            mContext.startActivity(intent);}
+                            IntentUtils.intentTo(mContext,linkUrl,cid,webUrl);
+
+                        }
                     }
                 });
             } else if ("block".equals(liststy)) {
@@ -126,13 +128,14 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
                 mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
                         String cid = dataBean.get(position).getGid();
+                        String linkUrl=dataBean.get(position).getLinkurl();
+                        String webUrl=dataBean.get(position).getWeburl();
                         if(!StringUtil.isBlank(cid)){
-                        Intent intent = new Intent(mContext, GoodDetailActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("id", cid);
-                        intent.putExtras(bundle);
-                        mContext.startActivity(intent);}
+                            IntentUtils.intentTo(mContext,linkUrl,cid,webUrl);
+
+                        }
                     }
                 });
             } else if ("block three".equals(liststy)) {
@@ -148,12 +151,12 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         String cid = dataBean.get(position).getGid();
+                        String linkUrl=dataBean.get(position).getLinkurl();
+                        String webUrl=dataBean.get(position).getWeburl();
                         if(!StringUtil.isBlank(cid)){
-                            Intent intent = new Intent(mContext, GoodDetailActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("id", cid);
-                            intent.putExtras(bundle);
-                            mContext.startActivity(intent);}
+                            IntentUtils.intentTo(mContext,linkUrl,cid,webUrl);
+
+                        }
                     }
                 });
             }
@@ -210,13 +213,14 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
             mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
                     String cid = dataBean.get(position).getGid();
+                    String linkUrl=dataBean.get(position).getLinkurl();
+                    String webUrl=dataBean.get(position).getWeburl();
                     if(!StringUtil.isBlank(cid)){
-                        Intent intent = new Intent(mContext, GoodDetailActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("id", cid);
-                        intent.putExtras(bundle);
-                        mContext.startActivity(intent);}
+                        IntentUtils.intentTo(mContext,linkUrl,cid,webUrl);
+
+                    }
                 }
             });
         }

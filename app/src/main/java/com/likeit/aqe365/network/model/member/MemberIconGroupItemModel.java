@@ -167,7 +167,16 @@ public class MemberIconGroupItemModel extends HomeMessage{
         private String text;
         private String linkurl;
         private String dotnum;
+        private String weburl;
         private ParamsBeanX params;
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
 
         public String getIconclass() {
             return iconclass;

@@ -89,7 +89,6 @@ public class UserInfo01Fragment extends BaseFragment implements SwipeRefreshLayo
                 String title = data.get(position).getTitle();
                 diaryid=data.get(position).getDiaryid();
                 Bundle bundle = new Bundle();
-                bundle.putString("title", title);
                 bundle.putString("diaryid", diaryid);
                 bundle.putString("memberid", memberid);
                 toActivity(DiaryDetailsActivity.class, bundle);

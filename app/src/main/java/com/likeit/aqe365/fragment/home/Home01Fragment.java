@@ -25,10 +25,13 @@ import com.likeit.aqe365.network.ApiService;
 import com.likeit.aqe365.network.model.home.HomeMessage;
 import com.likeit.aqe365.network.model.home.MainHomeBannerModel;
 import com.likeit.aqe365.network.model.home.MainHomeBlankModel;
+import com.likeit.aqe365.network.model.home.MainHomeCategroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeCouponModel;
 import com.likeit.aqe365.network.model.home.MainHomeGoodModel;
 import com.likeit.aqe365.network.model.home.MainHomeListmenuModel;
+import com.likeit.aqe365.network.model.home.MainHomeMarkingModel;
 import com.likeit.aqe365.network.model.home.MainHomeMenuModel;
+import com.likeit.aqe365.network.model.home.MainHomeMerchgroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeNoticeModel;
 import com.likeit.aqe365.network.model.home.MainHomePagerModel;
 import com.likeit.aqe365.network.model.home.MainHomePictureModel;
@@ -186,9 +189,18 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
             } else if ("picture".equals(id)) {//图片
                 MainHomePictureModel mainHomePictureModel = JSON.parseObject(items.optString(i).toString(), MainHomePictureModel.class);
                 mMessages.add(mainHomePictureModel);
-            } else if ("seckillgroup".equals(id)) {//秒杀
+            } else if ("seckillgroup".equals(id)) {//类别组
                 MainHomeSeckillgroupModel mainHomeSeckillgroupModel = JSON.parseObject(items.optString(i).toString(), MainHomeSeckillgroupModel.class);
                 mMessages.add(mainHomeSeckillgroupModel);
+            } else if ("merchgroups".equals(id)) {//店铺组
+                MainHomeMerchgroupsModel mainHomeMerchgroupsModel = JSON.parseObject(items.optString(i).toString(), MainHomeMerchgroupsModel.class);
+                mMessages.add(mainHomeMerchgroupsModel);
+            }else if ("categroups".equals(id)) {//类别组
+                MainHomeCategroupsModel mainHomeCategroupsModel = JSON.parseObject(items.optString(i).toString(), MainHomeCategroupsModel.class);
+                mMessages.add(mainHomeCategroupsModel);
+            }else if ("marketing".equals(id)) {//类别组
+                MainHomeMarkingModel mainHomeMarkingModel = JSON.parseObject(items.optString(i).toString(), MainHomeMarkingModel.class);
+                mMessages.add(mainHomeMarkingModel);
             }
         }
 
@@ -249,6 +261,7 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
         } else {
             tvRight.setVisibility(View.VISIBLE);
         }
+
         tvLeft.setTextColor(Color.parseColor(mainHomeSearchModel.getStyle().getLeftnavcolor()));
         tvRight.setTextColor(Color.parseColor(mainHomeSearchModel.getStyle().getRightnavcolor()));
         tvLeft.setText(StringUtil.decode("\\u" + mainHomeSearchModel.getParams().getLeftnaviconcode()));

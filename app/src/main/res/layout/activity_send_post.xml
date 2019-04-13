@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="@color/white"
+    tools:context=".activity.find.SendMoodActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width45"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/ed_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请在这里输入4-25个字的标题"
+            android:paddingLeft="@dimen/dp_10" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:textColorHint="@color/register_text_color" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/theme_bg_tex"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="@color/white"
+        android:id="@+id/tv_user"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_10">
+
+
+            <EditText
+                android:id="@+id/ed_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="记录这一刻的心情，分享属于你的好运......"
+                android:paddingLeft="@dimen/width20" />
+
+
+            <TextView
+                android:id="@+id/tv_num01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:padding="@dimen/dp_10"
+                android:text=""
+                android:textColorHint="@color/register_text_color" />
+
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/mGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="5dp"
+            android:numColumns="4"
+            android:padding="@dimen/dp_10"
+            android:verticalSpacing="5dp"
+            android:visibility="gone" />
+
+        <com.likeit.aqe365.view.RoundImageView
+            android:id="@+id/video_img"
+            android:layout_width="@dimen/width70"
+            android:layout_height="@dimen/width70"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@color/line"></View>
+
+        <com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView
+            android:id="@+id/flsv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            app:height_space="10dp"
+            app:width_space="10dp"></com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView>
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/line"></View>
+
+        <LinearLayout
+        android:id="@+id/ll_hospital"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width45"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:text="关联医院服务" />
+
+        <TextView
+        android:id="@+id/tv_hospital"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="@null"
+        android:drawableRight="@mipmap/icon_more"
+        android:gravity="center_vertical|right"
+        android:hint="医院服务名称"
+        android:paddingRight="@dimen/dp_10"
+        android:textColorHint="@color/register_text_color" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@color/line"></View>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width60"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.likeit.aqe365.view.IconfontTextView
+            android:id="@+id/iv_up_pic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ic_up_pic"
+            android:textColor="#656565"
+            android:textSize="@dimen/txt_24" />
+
+        <com.likeit.aqe365.view.IconfontTextView
+            android:id="@+id/iv_relevant_users"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ic_relevant_users"
+            android:textColor="#656565"
+            android:textSize="@dimen/txt_24" />
+
+        <com.likeit.aqe365.view.IconfontTextView
+            android:id="@+id/iv_takephoto"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ic_takephoto"
+            android:textColor="#656565"
+            android:textSize="@dimen/txt_24" />
+
+        <com.likeit.aqe365.view.IconfontTextView
+            android:id="@+id/iv_video"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ic_video"
+            android:textColor="#656565"
+            android:textSize="@dimen/txt_24" />
+    </LinearLayout>
+</LinearLayout>

@@ -66,6 +66,7 @@
     <string name="ic_relevant_users">&#xe703; </string> <!--关联用户-->
     <string name="ic_takephoto">&#xe721; </string> <!--拍照-->
     <string name="ic_video">&#xe7ea; </string> <!--录制视频-->
+    <string name="ic_search">&#xe6ac; </string> <!--搜索图标-->
 
 
 </resources>

@@ -91,7 +91,7 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
                 app:tabIndicatorColor="@color/colorAccent"
                 app:tabIndicatorHeight="2dp"
                 app:tabSelectedTextColor="@color/colorAccent"

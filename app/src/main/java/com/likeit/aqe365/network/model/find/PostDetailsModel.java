@@ -71,7 +71,25 @@ public class PostDetailsModel {
         private String city;
         private String replycount;
         private String likenum;
+        private String video;
+        private String videoimage;
         private List<String> images;
+
+        public String getVideoimage() {
+            return videoimage;
+        }
+
+        public void setVideoimage(String videoimage) {
+            this.videoimage = videoimage;
+        }
+
+        public String getVideo() {
+            return video;
+        }
+
+        public void setVideo(String video) {
+            this.video = video;
+        }
 
         public String getIslike() {
             return islike;

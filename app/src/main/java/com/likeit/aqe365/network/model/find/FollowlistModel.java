@@ -52,6 +52,25 @@ public class FollowlistModel {
         private String content;
         private String createtime;
         private String views;
+        private String types;
+        private String huati;
+
+        public String getHuati() {
+            return huati;
+        }
+
+        public void setHuati(String huati) {
+            this.huati = huati;
+        }
+
+        public String getTypes() {
+            return types;
+        }
+
+        public void setTypes(String types) {
+            this.types = types;
+        }
+
         public List<String> images = new ArrayList<>();
 
         public boolean isShowAll = false;

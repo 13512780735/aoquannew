@@ -112,7 +112,7 @@
         <activity
             android:name=".activity.cart.ConfirmOrderActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".adapter.div_provider.Custom.CustomActivity" />
+        <activity android:name=".activity.Custom.CustomActivity" />
         <activity android:name=".activity.login_register.GuideActivity" />
         <activity android:name=".activity.cart.SelectAddressActivity" />
         <activity android:name=".wxapi.PayActivity" />
@@ -162,7 +162,14 @@
         <activity android:name=".activity.find.QuestionDoctorActivity" />
         <activity android:name=".activity.find.SendMoodActivity" />
         <activity android:name=".activity.find.MoreTopicActivity" />
-        <activity android:name=".activity.find.RelevantUsersActivity"></activity>
+        <activity android:name=".activity.find.RelevantUsersActivity" />
+        <activity android:name=".activity.find.MoodDetailActivity" />
+        <activity android:name=".activity.find.MoodVideoDetailsActivity" />
+        <activity android:name=".activity.find.VideoDetailsActivity" />
+        <activity android:name=".activity.find.SendPostActivity" />
+        <activity android:name=".activity.user.ChangePwdActivity" />
+        <activity android:name=".activity.web.jsinterface.JsInterfaceActivity" />
+        <activity android:name=".activity.home.CategoryActivity"></activity>
     </application>
 
 </manifest>

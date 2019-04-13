@@ -115,13 +115,13 @@ public class ChooseSevreActivity extends BaseActivity implements SwipeRefreshLay
                 intent.putExtra("id", data.get(position).getId());
                 intent.putExtra("name", data.get(position).getName());
                 if ("0".equals(flag)) {
-                    setResult(101, intent);
+                    setResult(110, intent);
                     finish();
                 } else if ("1".equals(flag)) {
-                    setResult(101, intent);
+                    setResult(110, intent);
                     finish();
                 } else if ("2".equals(flag)) {
-                    setResult(101, intent);
+                    setResult(110, intent);
                     finish();
                 }
             }

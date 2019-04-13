@@ -27,6 +27,7 @@ import com.likeit.aqe365.utils.LoaddingDialog;
 import com.likeit.aqe365.view.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +79,15 @@ public class RelevantUsersActivity extends BaseActivity {
                 XLog.e("data:" + baseResponse.getData().getList());
                 if (baseResponse.getCode() == 200) {
                     ConcernsListModel concernsListModel = baseResponse.getData();
-                    data = concernsListModel.getList();
+                    List<ConcernsListModel.ListBean> list = concernsListModel.getList();
+                    for (ConcernsListModel.ListBean item : list) {
+                        ConcernsListModel.ListBean listBean = new ConcernsListModel.ListBean();
+                        listBean.setAvatar(item.getAvatar());
+                        listBean.setChecked(false);
+                        listBean.setId(item.getId());
+                        listBean.setNickname(item.getNickname());
+                        data.add(listBean);
+                    }
                     mAdapter = new RelevantUsersAdapter(RelevantUsersActivity.this, lv_data, data);
                     lv_data.setAdapter(mAdapter);
                     mAdapter.notifyDataSetChanged();
@@ -111,13 +120,13 @@ public class RelevantUsersActivity extends BaseActivity {
                     //把deleSelect集合中的数据清空
                     //把全选复选框设置为false
                     //通知适配器更新UI
-                    XLog.e("dataSS"+deleSelect);
-//                    Intent intent = new Intent();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("data", databaseList());
-//                    intent.putExtras(bundle);
-//                    setResult(102, intent);
-//                    finish();
+                    XLog.e("dataSS" + deleSelect);
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) deleSelect);
+                    intent.putExtras(bundle);
+                    setResult(102, intent);
+                    finish();
                 }
             }
         });
@@ -204,13 +213,15 @@ public class RelevantUsersActivity extends BaseActivity {
             final ConcernsListModel.ListBean currItem = data.get(position);
             ImageLoader.getInstance().displayImage(currItem.getAvatar(), viewHodler.ivPicture);
             viewHodler.tvName.setText(currItem.getNickname());
-         //   viewHodler.ch_delete.setChecked(currItem.getChecked());
+            //   viewHodler.ch_delete.setChecked(currItem.getChecked());
+            final ViewHodler finalViewHodler = viewHodler;
             viewHodler.ch_delete.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             //   currItem.setChoosed(((CheckBox) v).isChecked());
-                            currItem.setChecked(((CheckBox) v).isChecked());
+                           // currItem.setChecked(((CheckBox) v).isChecked());
+                            currItem.setChecked(finalViewHodler.ch_delete.isChecked());
                         }
                     }
             );

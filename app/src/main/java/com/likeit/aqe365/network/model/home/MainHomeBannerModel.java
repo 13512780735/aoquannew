@@ -95,7 +95,16 @@ public class MainHomeBannerModel  extends HomeMessage  {
 
         private String imgurl;
         private String linkurl;
+        private String weburl;
         private ParamsBean params;
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
 
         public String getImgurl() {
             return imgurl;

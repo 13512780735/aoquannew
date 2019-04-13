@@ -18,7 +18,7 @@ public class AllFind03Adapter extends BaseQuickAdapter<BoardListModel.ListBean, 
 
     @Override
     protected void convert(BaseViewHolder helper, BoardListModel.ListBean item) {
-        helper.setText(R.id.tv_title,item.getTitle());
+        helper.setText(R.id.tv_title,"#"+item.getTitle());
         helper.setText(R.id.tv_desc,item.getDesc());
         helper.setText(R.id.tv_participant,item.getParticipant()+"人");
         helper.setText(R.id.postcount,item.getPostcount()+"帖子");

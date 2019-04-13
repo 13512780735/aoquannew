@@ -44,6 +44,24 @@ public class CategoryListItemsModel {
         private String marketprice;
         private String productprice;
         private String showsales;
+        private String linkurl;
+        private String weburl;
+
+        public String getLinkurl() {
+            return linkurl;
+        }
+
+        public void setLinkurl(String linkurl) {
+            this.linkurl = linkurl;
+        }
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
 
         public String getId() {
             return id;

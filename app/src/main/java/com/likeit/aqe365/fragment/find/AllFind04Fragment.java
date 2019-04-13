@@ -14,6 +14,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.PostDetailsActivity;
+import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.find.AllFind01Adapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
@@ -33,7 +34,7 @@ import rx.Subscriber;
 public class AllFind04Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 1;//为什么是6呢？
+    private static final int PAGE_SIZE = 6;//为什么是6呢？
     private boolean isErr = true;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
@@ -45,7 +46,7 @@ public class AllFind04Fragment extends BaseFragment implements SwipeRefreshLayou
     private String id;
     private AllFind01Adapter mAdapter;
     /**
-     * 推荐
+     * 附近
      */
     private List<PostListModel.ListBean> data;
     private PostListModel postListModel;
@@ -85,10 +86,16 @@ public class AllFind04Fragment extends BaseFragment implements SwipeRefreshLayou
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String types = data.get(position).getTypes();
                 String id = data.get(position).getId();
                 Bundle bundle = new Bundle();
-                bundle.putString("id", id);
-                toActivity(PostDetailsActivity.class, bundle);
+                if ("1".equals(types)) {
+                    bundle.putString("id", id);
+                    toActivity(VideoDetailsActivity.class, bundle);
+                } else {
+                    bundle.putString("id", id);
+                    toActivity(PostDetailsActivity.class, bundle);
+                }
             }
         });
     }

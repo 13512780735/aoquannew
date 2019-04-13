@@ -294,10 +294,6 @@ public class EditDiary01Activity extends BaseActivity implements ActionSheet.OnA
                 }
             }
         }
-        XLog.e("list1:" + list1);
-        XLog.e("list:" + list);
-        XLog.e("list2:" + list2);
-        XLog.e("list01:" + list01);
         RetrofitUtil.getInstance().submit(requestApiKey, requestApiDiaryid, requestApiLat, requestApiLng, requestApiTitle, requestApiContent, requestApiTime, requestApiType, list1, list2, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {

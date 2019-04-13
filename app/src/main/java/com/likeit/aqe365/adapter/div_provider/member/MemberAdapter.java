@@ -24,6 +24,7 @@ import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
 import com.likeit.aqe365.network.model.member.MemberIconGroupItemModel;
 import com.likeit.aqe365.network.model.member.MemberItemModel;
 import com.likeit.aqe365.network.model.member.MemberLogoutItemModel;
+import com.likeit.aqe365.network.model.member.MemberMenu3Model;
 
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class MemberAdapter extends MultipleItemRvAdapter<HomeMessage, BaseViewHo
     public static final int TYPE_LISTMENU = 5;      //列表菜单
     public static final int TYPE_KITCHENWINDOW = 4;      //橱窗
     public static final int TYPE_MENU = 12; //菜单
+    public static final int TYPE_MENU3 = 23; //按钮组三
+
     public MemberAdapter(@Nullable List<HomeMessage> data) {
         super(data);
         finishInitialize();
@@ -62,12 +65,14 @@ public class MemberAdapter extends MultipleItemRvAdapter<HomeMessage, BaseViewHo
             return TYPE_BLANK;
         } else if (goodMessage instanceof MainHomePicturewModel) {
             return TYPE_PICTUREW;
-        }else if (goodMessage instanceof MainHomePictureModel) {
+        } else if (goodMessage instanceof MainHomePictureModel) {
             return TYPE_PICTURE;
-        }else if (goodMessage instanceof MainHomekitchenwindowModel) {
+        } else if (goodMessage instanceof MainHomekitchenwindowModel) {
             return TYPE_KITCHENWINDOW;
         } else if (goodMessage instanceof MainHomeMenuModel) {
             return TYPE_MENU;
+        } else if (goodMessage instanceof MemberMenu3Model) {
+            return TYPE_MENU3;
         }
         return 0;
     }
@@ -85,5 +90,6 @@ public class MemberAdapter extends MultipleItemRvAdapter<HomeMessage, BaseViewHo
         mProviderDelegate.registerProvider(new MainkitchenwindowItemProvider());
         mProviderDelegate.registerProvider(new MainMenuItemProvider());
         mProviderDelegate.registerProvider(new MainTitleItemProvider());
+        mProviderDelegate.registerProvider(new MemberMenu3Provider());
     }
 }

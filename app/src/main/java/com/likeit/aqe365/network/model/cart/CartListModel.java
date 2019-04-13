@@ -363,6 +363,8 @@ public class CartListModel {
             private String merchid;
             private String totalmaxbuy;
             private String optiontitle;
+            private String linkurl;
+            private String weburl;
             private int position;
 
             public ListBeanX(String id, String title, String total, String goodsid, String stock, String thumb, String marketprice, String optionid, String unit, String merchid, String totalmaxbuy, String optiontitle) {
@@ -380,6 +382,22 @@ public class CartListModel {
                 this.optiontitle = optiontitle;
                 this.totalmaxbuy = totalmaxbuy;
 
+            }
+
+            public String getLinkurl() {
+                return linkurl;
+            }
+
+            public void setLinkurl(String linkurl) {
+                this.linkurl = linkurl;
+            }
+
+            public String getWeburl() {
+                return weburl;
+            }
+
+            public void setWeburl(String weburl) {
+                this.weburl = weburl;
             }
 
             public String getOptiontitle() {

@@ -59,7 +59,8 @@ public class MemberIconGroupItemProvider extends BaseItemProvider<MemberIconGrou
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String linkurl = data.getData().get(position).getLinkurl();
                 String id = data.getData().get(position).getParams().getId();
-                IntentUtils.intentTo(mContext, linkurl, id);
+                String webUrl = data.getData().get(position).getWeburl();
+                IntentUtils.intentTo(mContext, linkurl, id, webUrl);
             }
         });
 

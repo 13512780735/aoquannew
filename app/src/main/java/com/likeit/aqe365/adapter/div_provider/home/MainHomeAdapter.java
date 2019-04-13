@@ -7,10 +7,13 @@ import com.chaychan.adapter.MultipleItemRvAdapter;
 import com.likeit.aqe365.network.model.home.HomeMessage;
 import com.likeit.aqe365.network.model.home.MainHomeBannerModel;
 import com.likeit.aqe365.network.model.home.MainHomeBlankModel;
+import com.likeit.aqe365.network.model.home.MainHomeCategroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeCouponModel;
 import com.likeit.aqe365.network.model.home.MainHomeGoodModel;
 import com.likeit.aqe365.network.model.home.MainHomeListmenuModel;
+import com.likeit.aqe365.network.model.home.MainHomeMarkingModel;
 import com.likeit.aqe365.network.model.home.MainHomeMenuModel;
+import com.likeit.aqe365.network.model.home.MainHomeMerchgroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeNoticeModel;
 import com.likeit.aqe365.network.model.home.MainHomePictureModel;
 import com.likeit.aqe365.network.model.home.MainHomePicturewModel;
@@ -40,6 +43,9 @@ public class MainHomeAdapter extends MultipleItemRvAdapter<HomeMessage, BaseView
     public static final int TYPE_MENU = 12; //菜单
     public static final int TYPE_PICTURE = 13; //图片
     public static final int TYPE_SECKILLGROUP = 14; //秒杀
+    public static final int TYPE_CATEGROUPS = 24; //类别组
+    public static final int TYPE_MERCHGROUPS = 25; //店铺组
+    public static final int TYPE_MARKING = 26; //店铺组
 
 
     public MainHomeAdapter(@Nullable List<HomeMessage> data) {
@@ -80,6 +86,14 @@ public class MainHomeAdapter extends MultipleItemRvAdapter<HomeMessage, BaseView
             return TYPE_PICTURE;
         } else if (homeMessage instanceof MainHomeSeckillgroupModel) {
             return TYPE_SECKILLGROUP;
+        } else if (homeMessage instanceof MainHomeCategroupsModel) {
+            return TYPE_CATEGROUPS;
+        }
+        else if (homeMessage instanceof MainHomeMerchgroupsModel) {
+            return TYPE_MERCHGROUPS;
+        }
+        else if (homeMessage instanceof MainHomeMarkingModel) {
+            return TYPE_MARKING;
         }
         return 0;
     }
@@ -101,5 +115,8 @@ public class MainHomeAdapter extends MultipleItemRvAdapter<HomeMessage, BaseView
         mProviderDelegate.registerProvider(new MainGoodsItemProvider());
         mProviderDelegate.registerProvider(new MainVideoItemProvider());
         mProviderDelegate.registerProvider(new MainSeckillgroupItemProvider());
+        mProviderDelegate.registerProvider(new MainCategroupsItemsProvider());
+        mProviderDelegate.registerProvider(new MainHomeMerchgroupsProvider());
+        mProviderDelegate.registerProvider(new MainMarkingItemProvider());
     }
 }

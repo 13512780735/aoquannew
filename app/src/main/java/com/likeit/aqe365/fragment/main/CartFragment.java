@@ -11,12 +11,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.elvishew.xlog.XLog;
+import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.MainActivity;
 import com.likeit.aqe365.activity.cart.ConfirmOrderActivity;
@@ -25,12 +32,18 @@ import com.likeit.aqe365.adapter.cart.ShopcartExpandableListViewAdapter;
 import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.cart.CartListModel;
+import com.likeit.aqe365.network.model.cart.JsonCartBean;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.ChooseGoodsSales.BigDecimalUtils;
+import com.likeit.aqe365.utils.IntentUtils;
+import com.likeit.aqe365.utils.SharedPreferencesUtil;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.utils.ToastUtils;
+import com.likeit.aqe365.view.ExpandableListview.XExpandableListView;
 import com.likeit.aqe365.view.SuperExpandableListView;
 
 import java.util.ArrayList;
@@ -45,10 +58,11 @@ import rx.Subscriber;
  * A simple {@link Fragment} subclass.
  */
 public class CartFragment extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, View.OnClickListener, ShopcartExpandableListViewAdapter.ModifyCountInterface {
-
+//    @BindView(R.id.mScrollview)
+//    PullToRefreshScrollView mScrollview;
 
     @BindView(R.id.exListView)
-    SuperExpandableListView mExListView;
+    XExpandableListView mExListView;
     @BindView(R.id.all_chekbox)
     CheckBox mAllChekbox;
     @BindView(R.id.tv_total01)
@@ -82,6 +96,7 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
     private TextView mTvGoHome;
     private CartListModel cartListModel;
     private View header;
+    List<CartListModel.ListBeanXX.ListBeanX> products;
 
     public CartFragment() {
         // Required empty public constructor
@@ -92,6 +107,37 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
         context = getActivity();
         mTvDelete.setBackgroundColor(Color.parseColor(theme_bg_tex));
         mTvGoToPay.setBackgroundColor(Color.parseColor(theme_bg_tex));
+        mExListView.setPullRefreshEnable(true);
+        mExListView.setXListViewListener(new XExpandableListView.IXListViewListener() {
+            @Override
+            public void onRefresh() {
+                virtualData();
+                mExListView.stopRefresh();
+                mExListView.stopLoadMore();
+            }
+
+            @Override
+            public void onLoadMore() {
+                mExListView.stopRefresh();
+            }
+        });
+        mExListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                XLog.e("positon" + position);
+            }
+        });
+        mExListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                XLog.e("childPosition" + childPosition);
+                XLog.e("groupPosition" + groupPosition);
+                String linkUrl = products.get(childPosition).getLinkurl();
+                String webUrl = products.get(childPosition).getWeburl();
+                IntentUtils.intentTo(getActivity(), linkUrl, "", webUrl);
+                return true;
+            }
+        });
     }
 
 
@@ -123,13 +169,23 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
             toActivity(LoginActivity.class, bundle);
             getActivity().finish();
         }
+//
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        virtualData();
     }
 
     private void refresh() {
         initEvents();
+
     }
 
     private void initEvents() {
+//        mScrollview.setOnRefreshListener(this);
+//        mScrollview.setBackgroundColor(this.getResources().getColor(R.color.white));
         //mExListView.addFooterView();
         //   View footer = LayoutInflater.from(getActivity()).inflate(R.layout.home_cart_footview, null);
         header = LayoutInflater.from(getActivity()).inflate(R.layout.home_cart_empty_view, null);
@@ -199,7 +255,7 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
                         for (int i = 0; i < cartListModel.getList().size(); i++) {
                             // groups = cartListModel.getList();
                             groups.add(new CartListModel.ListBeanXX(i + "", cartListModel.getList().get(i).getMerchname(), cartListModel.getList().get(i).getMerchid(), cartListModel.getList().get(i).getList()));
-                            List<CartListModel.ListBeanXX.ListBeanX> products = new ArrayList<>();
+                            products = new ArrayList<>();
                             for (int j = 0; j <= i; j++) {
                                 products = groups.get(i).getList();
                             }
@@ -327,17 +383,33 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
                 alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("id", "");
-                        bundle.putString("optionid", optionids);
-                        bundle.putString("total", "");
-                        bundle.putString("cartids", cartIds);
-                        bundle.putString("cartnum", cartNums);
-                        bundle.putString("goodsIds", goodsIds);
-                        bundle.putString("indentFlag", "2");
-                        XLog.e("optionid-->"+optionids+"<--cartIds-->"+cartIds+"<--cartNums-->"+cartNums+"<--goodsIds-->"+goodsIds);
-                        toActivity(ConfirmOrderActivity.class, bundle);
+                        //                                       Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("id", "");
+//                        bundle.putString("optionid", optionids);
+//                        bundle.putString("total", "");
+//                        bundle.putString("cartids", cartIds);
+//                        bundle.putString("cartnum", cartNums);
+//                        bundle.putString("goodsIds", goodsIds);
+//                        bundle.putString("indentFlag", "2");
+                        XLog.e("optionid-->" + optionids + "<--cartIds-->" + cartIds + "<--cartNums-->" + cartNums + "<--goodsIds-->" + goodsIds);
+//                        toActivity(ConfirmOrderActivity.class, bundle);
+                        String url = "http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
+                        String webUrl = url + "&id=" + "" + "&optionid=" + optionids + "&total=" + "" + "&cartids=" + cartIds + "&cartnum=" + cartNums + "&goodsIds=" + goodsIds + "&indentFlag=" + "2";
+                        XLog.e("webUrl:" + webUrl);
+                        JsonCartBean jsonCartBean = new JsonCartBean();
+                        jsonCartBean.setCartids(cartIds);
+                        jsonCartBean.setCartnum(cartNums);
+                        jsonCartBean.setOpenid(openid);
+                        Gson gson = new Gson();
+                        String json = gson.toJson(jsonCartBean);
+                        SharedPreferencesUtils.put(getActivity(), "JsonCartBean", json);
+                        XLog.e("jsonCartBean" + jsonCartBean);
+                        XLog.e("json" + json);
+                        // IntentUtils.intentTo(getActivity(), "", "", webUrl);
+
+                        orderTrue(cartIds, cartNums);
+
                     }
                 });
                 alert.show();
@@ -386,6 +458,32 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
                 }
                 break;
         }
+    }
+
+    private void orderTrue(String cartIds, String cartNums) {
+        RetrofitUtil.getInstance().CreateCartOrder(openid, cartIds, cartNums, "", "", "", new Subscriber<BaseResponse<OrderCreateModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<OrderCreateModel> baseResponse) {
+                XLog.e("code" + baseResponse.getCode());
+                if (baseResponse.getCode() == 200) {
+                    String url = "http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
+                    String webUrl = url + "&openid=" + openid;
+                    IntentUtils.intentTo(getActivity(), "", "", webUrl);
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     /**

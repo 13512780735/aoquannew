@@ -69,13 +69,14 @@ public class MainBannerItemProvider extends BaseItemProvider<MainHomeBannerModel
     @Override
     public void onItemClick(int position) {
         String id = adList.get(position).getParams().getId();
-        String linkUrl=adList.get(position).getLinkurl();
+        String linkUrl = adList.get(position).getLinkurl();
+        String webUrl = adList.get(position).getWeburl();
 //        Intent intent = new Intent(mContext, CustomActivity.class);
 //        Bundle bundle = new Bundle();
 //        bundle.putString("id", id);
 //        intent.putExtras(bundle);
 //        mContext.startActivity(intent);
-        IntentUtils.intentTo(mContext,linkUrl,id);
+        IntentUtils.intentTo(mContext, linkUrl, id, webUrl);
 
 
     }

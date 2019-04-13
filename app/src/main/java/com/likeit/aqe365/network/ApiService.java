@@ -22,9 +22,12 @@ import com.likeit.aqe365.network.model.find.ConcernsListModel;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
+import com.likeit.aqe365.network.model.find.HospitalListModel;
 import com.likeit.aqe365.network.model.find.HospitalandServeModel;
 import com.likeit.aqe365.network.model.find.JournalDetailsModel;
 import com.likeit.aqe365.network.model.find.JournalModel;
+import com.likeit.aqe365.network.model.find.MoodDetailsModel;
+import com.likeit.aqe365.network.model.find.MoodListModel;
 import com.likeit.aqe365.network.model.find.MoreDiaryModel;
 import com.likeit.aqe365.network.model.find.MyDiaryListModel;
 import com.likeit.aqe365.network.model.find.PostDetailsModel;
@@ -39,6 +42,8 @@ import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.model.member.AvatarModel;
 import com.likeit.aqe365.network.model.member.CouponCenterModel;
 import com.likeit.aqe365.network.model.member.CouponListModel;
+import com.likeit.aqe365.network.model.member.MessageListModel;
+import com.likeit.aqe365.network.model.member.NoticeListModel;
 import com.likeit.aqe365.network.model.member.UserInfoModel;
 import com.likeit.aqe365.network.model.pay.BalacePayModel;
 import com.likeit.aqe365.network.model.pay.PayModel;
@@ -105,7 +110,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("nativeapp.shop.get_tabtar")
+    @POST("nativeapp.shop.get_tabbar")
     Observable<BaseResponse<MainNavigationModel>> Mian_Navigation(@Field("ukey") String ukey
 
     );
@@ -787,8 +792,8 @@ public interface ApiService {
                                                      @Field("lat") String lat,
                                                      @Field("lng") String lng,
                                                      @Field("type") String type,
-                                                     @Field("memberid") String memberid,
-                                                     @Field("bid") String bid
+                                                     @Field("bid") String bid,
+                                                     @Field("memberid") String memberid
     );
 
     /**
@@ -1160,5 +1165,177 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("nativeapp.discover.mood.concernslist")
     Observable<BaseResponse<ConcernsListModel>> concernslist(@Field("openid") String openid
-                                                             );
+    );
+
+    /**
+     * 心情列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.mood.moodlist")
+    Observable<BaseResponse<MoodListModel>> moodlist(@Field("openid") String openid,
+                                                     @Field("type") String type,
+                                                     @Field("keyword") String keyword,
+                                                     @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 心情详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.mood.mooddetails")
+    Observable<BaseResponse<MoodDetailsModel>> mooddetails(@Field("openid") String openid,
+                                                           @Field("id") String id,
+                                                           @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 心情收藏
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.mood.collectmood")
+    Observable<BaseResponse<EmptyEntity>> collectmood(@Field("openid") String openid,
+                                                      @Field("id") String id
+    );
+
+    /**
+     * 心情点赞
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.mood.moodlike")
+    Observable<BaseResponse<EmptyEntity>> moodlike(@Field("openid") String openid,
+                                                   @Field("bid") String bid,
+                                                   @Field("pid") String pid
+    );
+
+    /**
+     * 心情回复
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.mood.moodreply")
+    Observable<BaseResponse<EmptyEntity>> moodreply(@Field("openid") String openid,
+                                                    @Field("pid") String pid,
+                                                    @Field("bid") String bid,
+                                                    @Field("rpid") String rpid,
+                                                    @Field("mpid") String mpid,
+                                                    @Field("content") String content
+    );
+
+    /**
+     * 发布心情
+     *
+     * @return
+     */
+    @Multipart
+    @POST("nativeapp.discover.mood.moodsubmit")
+    Observable<BaseResponse<EmptyEntity>> moodsubmit(@Part("openid") RequestBody openid,
+                                                     @Part("lat") RequestBody lat,
+                                                     @Part("lng") RequestBody lng,
+                                                     @Part("bids") RequestBody bids,
+                                                     @Part("content") RequestBody content,
+                                                     @Part List<MultipartBody.Part> images,
+                                                     @Part MultipartBody.Part videos,
+                                                     @Part MultipartBody.Part videoimage,
+                                                     @Part("userid") RequestBody userid
+    );
+
+    /**
+     * 发布帖子
+     *
+     * @return
+     */
+    @Multipart
+    @POST("nativeapp.discover.diary.submit")
+    Observable<BaseResponse<EmptyEntity>> postSumit(@Part("openid") RequestBody openid,
+                                                    @Part("lat") RequestBody lat,
+                                                    @Part("lng") RequestBody lng,
+                                                    @Part("title") RequestBody title,
+                                                    @Part("bids") RequestBody bids,
+                                                    @Part("content") RequestBody content,
+                                                    @Part List<MultipartBody.Part> images,
+                                                    @Part MultipartBody.Part videos,
+                                                    @Part MultipartBody.Part videoimage,
+                                                    @Part("hospitalid") RequestBody hospitalid,
+                                                    @Part("userid") RequestBody userid
+    );
+
+    /**
+     * 医生提问
+     *
+     * @return
+     */
+    @Multipart
+    @POST("nativeapp.discover.ask.quiz")
+    Observable<BaseResponse<EmptyEntity>> quiz(@Part("openid") RequestBody openid,
+                                               @Part("title") RequestBody title,
+                                               @Part("content") RequestBody content,
+                                               @Part List<MultipartBody.Part> images
+    );
+
+    /**
+     * 医院列表
+     *
+     * @param openid
+     * @param keyword
+     * @param pageNum
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.hospital.hospitalList")
+    Observable<BaseResponse<HospitalListModel>> hospitalList(@Field("openid") String openid,
+                                                             @Field("keyword") String keyword,
+                                                             @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 我的消息
+     *
+     * @param openid
+     * @param type
+     * @param pageNum
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.my.lists")
+    Observable<BaseResponse<MessageListModel>> myMessageList(@Field("openid") String openid,
+                                                             @Field("type") String type,
+                                                             @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 公告列表
+     *
+     * @param openid
+     * @param pageNum
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.shop.notice.get_list")
+    Observable<BaseResponse<NoticeListModel>> getNoticelist(@Field("openid") String openid,
+                                                            @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 添加与搜索话题(心情和帖子)
+     *
+     * @param openid
+     * @param pageNum
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.postTopiclist")
+    Observable<BaseResponse<BoardListModel>> postTopiclist(@Field("openid") String openid,
+                                                           @Field("keywords") String keywords,
+                                                           @Field("pageNum") String pageNum
+    );
+
 }

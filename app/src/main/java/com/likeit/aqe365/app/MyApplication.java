@@ -145,8 +145,8 @@ public class MyApplication extends Application {
 
     private void initImageLoad() {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.mipmap.icon_default)
-                .showImageOnFail(R.mipmap.icon_default)
+                .showImageForEmptyUri(R.mipmap.default_pic)
+                .showImageOnFail(R.mipmap.default_pic)
                 .cacheInMemory(true).cacheOnDisc(true).build();
         // 图片加载工具配置
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(

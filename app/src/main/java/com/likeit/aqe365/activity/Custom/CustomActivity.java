@@ -1,4 +1,4 @@
-package com.likeit.aqe365.adapter.div_provider.Custom;
+package com.likeit.aqe365.activity.Custom;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -24,10 +24,12 @@ import com.likeit.aqe365.network.model.CustomPageTitleModel;
 import com.likeit.aqe365.network.model.home.HomeMessage;
 import com.likeit.aqe365.network.model.home.MainHomeBannerModel;
 import com.likeit.aqe365.network.model.home.MainHomeBlankModel;
+import com.likeit.aqe365.network.model.home.MainHomeCategroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeCouponModel;
 import com.likeit.aqe365.network.model.home.MainHomeGoodModel;
 import com.likeit.aqe365.network.model.home.MainHomeListmenuModel;
 import com.likeit.aqe365.network.model.home.MainHomeMenuModel;
+import com.likeit.aqe365.network.model.home.MainHomeMerchgroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeNoticeModel;
 import com.likeit.aqe365.network.model.home.MainHomePictureModel;
 import com.likeit.aqe365.network.model.home.MainHomePicturewModel;
@@ -37,6 +39,7 @@ import com.likeit.aqe365.network.model.home.MainHomeSeckillgroupModel;
 import com.likeit.aqe365.network.model.home.MainHomeTitleModel;
 import com.likeit.aqe365.network.model.home.MainHomeVideoModel;
 import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
+import com.likeit.aqe365.network.model.member.MemberMenu3Model;
 import com.likeit.aqe365.utils.HttpUtil;
 import com.likeit.aqe365.utils.StringUtil;
 import com.loopj.android.http.RequestParams;
@@ -143,9 +146,9 @@ public class CustomActivity extends BaseActivity implements SwipeRefreshLayout.O
             setBackView();
             tvTitle.setVisibility(View.VISIBLE);
             toolbar_left_iv.setVisibility(View.VISIBLE);
-            if("1".equals(pagerModel.getPage_right())){
+            if ("1".equals(pagerModel.getPage_right())) {
                 toolbar_righ_tv01.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 toolbar_righ_tv01.setVisibility(View.GONE);
             }
 
@@ -155,7 +158,11 @@ public class CustomActivity extends BaseActivity implements SwipeRefreshLayout.O
             Typeface iconTypeface = Typeface.createFromAsset(mContext.getAssets(), "iconfont.ttf");
 
             toolbar_righ_tv01.setTypeface(iconTypeface);
-            toolbar_righ_tv01.setTextColor(Color.parseColor(pagerModel.getPage_rightcolor()));
+            if (StringUtil.isBlank(pagerModel.getPage_rightcolor())) {
+                toolbar_righ_tv01.setTextColor(Color.parseColor("#000000"));
+            } else {
+                toolbar_righ_tv01.setTextColor(Color.parseColor(pagerModel.getPage_rightcolor()));
+            }
             toolbar_righ_tv01.setText(StringUtil.decode("\\u" + pagerModel.getPage_righticoncode()));
         } else {
             ll_title.setVisibility(View.GONE);
@@ -211,6 +218,15 @@ public class CustomActivity extends BaseActivity implements SwipeRefreshLayout.O
             } else if ("seckillgroup".equals(id)) {//秒杀
                 MainHomeSeckillgroupModel mainHomeSeckillgroupModel = JSON.parseObject(items.optString(i).toString(), MainHomeSeckillgroupModel.class);
                 mMessages.add(mainHomeSeckillgroupModel);
+            } else if ("menu3".equals(id)) {//按钮组三
+                MemberMenu3Model memberMenu3Model = JSON.parseObject(items.optString(i), MemberMenu3Model.class);
+                mMessages.add(memberMenu3Model);
+            } else if ("categroups".equals(id)) {//类别组
+                MainHomeCategroupsModel mainHomeCategroupsModel = JSON.parseObject(items.optString(i).toString(), MainHomeCategroupsModel.class);
+                mMessages.add(mainHomeCategroupsModel);
+            } else if ("merchgroups".equals(id)) {//店铺组
+                MainHomeMerchgroupsModel mainHomeMerchgroupsModel = JSON.parseObject(items.optString(i).toString(), MainHomeMerchgroupsModel.class);
+                mMessages.add(mainHomeMerchgroupsModel);
             }
         }
 

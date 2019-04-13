@@ -1,6 +1,7 @@
 package com.likeit.aqe365.activity.good;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.SearchLayoutActivity;
 import com.likeit.aqe365.activity.detail.GoodDetailActivity;
 import com.likeit.aqe365.activity.good.filter.view.FilterPopupWindow;
 import com.likeit.aqe365.adapter.sort.adapter.GoodListAdapter;
@@ -26,6 +28,7 @@ import com.likeit.aqe365.listener.OnFilterInforCompleted;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.GoodCategory.CategoryListItemsModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
 
@@ -145,6 +148,15 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         initAdapter();
         //onRefresh();
         //  mAdapter.setEnableLoadMore(true);
+
+        mSearchLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, SearchLayoutActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @OnClick({R.id.iv_back, R.id.message_img, R.id.tv_synthesis_sort, R.id.layout_synthesis_sort, R.id.tv_sales_sort, R.id.layout_sales_sort, R.id.tv_sort_price, R.id.layout_expert_service, R.id.tv_filter_sort, R.id.layout_filter_sort})
@@ -282,9 +294,17 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //LogUtils.d(data.get(position).getId());
-                Bundle bundle = new Bundle();
-                bundle.putString("id", data.get(position).getId());
-                toActivity(GoodDetailActivity.class, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("id", data.get(position).getId());
+//                toActivity(GoodDetailActivity.class, bundle);
+
+                String id =data.get(position).getId();
+                String linkUrl=data.get(position).getLinkurl();
+                String webUrl=data.get(position).getWeburl();
+                if(!StringUtil.isBlank(cid)){
+                    IntentUtils.intentTo(mContext,linkUrl,id,webUrl);
+
+                }
             }
         });
     }

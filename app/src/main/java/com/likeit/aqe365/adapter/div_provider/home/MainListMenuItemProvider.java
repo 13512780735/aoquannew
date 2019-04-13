@@ -70,7 +70,8 @@ public class MainListMenuItemProvider extends BaseItemProvider<MainHomeListmenuM
                 public void onClick(View view) {
                     String linkurl = item.getLinkurl();
                     String id = item.getParams().getId();
-                    IntentUtils.intentTo(mContext, linkurl, id);
+                    String webUrl=item.getWeburl();
+                    IntentUtils.intentTo(mContext, linkurl, id,webUrl);
                 }
             });
 

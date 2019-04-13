@@ -23,6 +23,8 @@ import com.likeit.aqe365.activity.SearchLayoutActivity;
 import com.likeit.aqe365.adapter.div_provider.home.MainHomeAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.fragment.goods.GoodDetailTabAdapter;
+import com.likeit.aqe365.fragment.home.Attention01Fragment;
+import com.likeit.aqe365.fragment.home.Attention02Fragment;
 import com.likeit.aqe365.fragment.home.AttentionFragment;
 import com.likeit.aqe365.fragment.home.Home01Fragment;
 import com.likeit.aqe365.network.ApiService;
@@ -31,10 +33,13 @@ import com.likeit.aqe365.network.model.DiyTabModel;
 import com.likeit.aqe365.network.model.home.HomeMessage;
 import com.likeit.aqe365.network.model.home.MainHomeBannerModel;
 import com.likeit.aqe365.network.model.home.MainHomeBlankModel;
+import com.likeit.aqe365.network.model.home.MainHomeCategroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeCouponModel;
 import com.likeit.aqe365.network.model.home.MainHomeGoodModel;
 import com.likeit.aqe365.network.model.home.MainHomeListmenuModel;
+import com.likeit.aqe365.network.model.home.MainHomeMarkingModel;
 import com.likeit.aqe365.network.model.home.MainHomeMenuModel;
+import com.likeit.aqe365.network.model.home.MainHomeMerchgroupsModel;
 import com.likeit.aqe365.network.model.home.MainHomeNoticeModel;
 import com.likeit.aqe365.network.model.home.MainHomePagerModel;
 import com.likeit.aqe365.network.model.home.MainHomePictureModel;
@@ -47,6 +52,7 @@ import com.likeit.aqe365.network.model.home.MainHomeVideoModel;
 import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.HttpUtil;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.view.NoScrollViewPager;
 import com.loopj.android.http.RequestParams;
@@ -149,7 +155,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             public void onNext(BaseResponse<DiyTabModel> baseResponse) {
                 if (baseResponse.getCode() == 200) {
                     diyTabModel = baseResponse.getData();
-                    if (diyTabModel!= null) {
+                    if (diyTabModel != null) {
                         home02.setVisibility(View.VISIBLE);
                         home01.setVisibility(View.GONE);
                         initUI2();
@@ -184,36 +190,51 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         } else {
             back_view.setVisibility(View.GONE);
         }
-        if(stringArrayList.size()!=0){
+        right_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id="";
+                String linkUrl=diyTabModel.getParams().getTab_righticonurl();
+                IntentUtils.intentTo(getActivity(),linkUrl,id,"");
+            }
+        });
+        back_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id="";
+                String linkUrl=diyTabModel.getParams().getTab_lefticonurl();
+                IntentUtils.intentTo(getActivity(),linkUrl,id,"");
+            }
+        });
+        if (stringArrayList.size() != 0) {
             stringArrayList.clear();
         }
         for (int i = 0; i < diyTabModel.getData().size(); i++) {
             stringArrayList.add(diyTabModel.getData().get(i).getText());
             stringArrayList1.add(diyTabModel.getData().get(i).getLinkurl());
         }
-   //     mTitles = new ArrayList<>(Arrays.asList("首页"));
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mTabLayout.setTabTextColors(Color.parseColor(diyTabModel.getStyle().getColor()),Color.parseColor(diyTabModel.getStyle().getActivecolor()));
+        mTabLayout.setTabTextColors(Color.parseColor(diyTabModel.getStyle().getColor()), Color.parseColor(diyTabModel.getStyle().getActivecolor()));
         mTabLayout.setSelectedTabIndicatorColor(Color.parseColor(diyTabModel.getStyle().getActivecolor()));
         mTabLayout.setupWithViewPager(mViewpager);
         List<Fragment> mfragments = new ArrayList<>();
         Home01Fragment homeFragment = new Home01Fragment();
         AttentionFragment attentionFragment = new AttentionFragment();
-        AttentionFragment attentionFragment01 = new AttentionFragment();
-        AttentionFragment attentionFragment02 = new AttentionFragment();
+        Attention01Fragment attentionFragment01 = new Attention01Fragment();
+        Attention02Fragment attentionFragment02 = new Attention02Fragment();
         //mfragments.add(attentionFragment);
-        for(int i=0;i<stringArrayList1.size();i++){
-            String linkurl=stringArrayList1.get(i);
+        for (int i = 0; i < stringArrayList1.size(); i++) {
+            String linkurl = stringArrayList1.get(i);
             if ("home".equals(linkurl)) {
                 mfragments.add(homeFragment);
-            }else if("isrecommand".equals(linkurl)){
+            } else if ("moodlist.follow".equals(linkurl)) {
                 mfragments.add(attentionFragment);
-            }else if("isdiscount".equals(linkurl)){
+            } else if ("moodlist.recommend".equals(linkurl)) {
                 mfragments.add(attentionFragment01);
-            }else if("isnew".equals(linkurl)){
+            } else if ("moodlist.new".equals(linkurl)) {
                 mfragments.add(attentionFragment02);
-            }else {
-                mfragments.add(attentionFragment01);
+            } else {
+                mfragments.add(attentionFragment02);
             }
         }
         mViewpager.setAdapter(new GoodDetailTabAdapter(getChildFragmentManager(), mfragments, stringArrayList));
@@ -318,6 +339,15 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             } else if ("seckillgroup".equals(id)) {//秒杀
                 MainHomeSeckillgroupModel mainHomeSeckillgroupModel = JSON.parseObject(items.optString(i).toString(), MainHomeSeckillgroupModel.class);
                 mMessages.add(mainHomeSeckillgroupModel);
+            } else if ("categroups".equals(id)) {//类别组
+                MainHomeCategroupsModel mainHomeCategroupsModel = JSON.parseObject(items.optString(i).toString(), MainHomeCategroupsModel.class);
+                mMessages.add(mainHomeCategroupsModel);
+            } else if ("merchgroups".equals(id)) {//店铺组
+                MainHomeMerchgroupsModel mainHomeMerchgroupsModel = JSON.parseObject(items.optString(i).toString(), MainHomeMerchgroupsModel.class);
+                mMessages.add(mainHomeMerchgroupsModel);
+            }else if ("marketing".equals(id)) {//类别组
+                MainHomeMarkingModel mainHomeMarkingModel = JSON.parseObject(items.optString(i).toString(), MainHomeMarkingModel.class);
+                mMessages.add(mainHomeMarkingModel);
             }
         }
 
@@ -357,10 +387,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         } else if ("circle".equals(mainHomeSearchModel.getParams().getSearchstyle())) {
             llSearch.setBackground(getActivity().getResources().getDrawable(R.drawable.shape_search_round_10));
         }
-        if("1".equals(mainHomeSearchModel.getParams().getIslocation())){
+        if ("1".equals(mainHomeSearchModel.getParams().getIslocation())) {
             search_address.setVisibility(View.VISIBLE);
             search_address.setText("中山");
-        }else{
+        } else {
             search_address.setVisibility(View.GONE);
         }
         llSearch.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(mainHomeSearchModel.getStyle().getSearchbackground())));

@@ -43,13 +43,13 @@ public class ConcernsListModel implements Serializable {
         private Boolean checked;
         public boolean isChoosed;
 
-
-        public ListBean(String nickname,String id, String avatar, Boolean checked) {
-            this.nickname = nickname;
-            this.id = id;
-            this.avatar = avatar;
-            this.checked = checked;
-        }
+//
+//        public ListBean(String nickname,String id, String avatar, Boolean checked) {
+//            this.nickname = nickname;
+//            this.id = id;
+//            this.avatar = avatar;
+//            this.checked = checked;
+//        }
 
         public Boolean getChecked() {
             return checked;

@@ -2,8 +2,12 @@ package com.likeit.aqe365.activity.find;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -19,79 +23,156 @@ import android.app.Activity;
 
 import com.bumptech.glide.Glide;
 import com.elvishew.xlog.XLog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.MainActivity;
 import com.likeit.aqe365.base.BaseActivity;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
+import com.likeit.aqe365.network.model.find.BoardListModel;
 import com.likeit.aqe365.network.model.find.ConcernsListModel;
+import com.likeit.aqe365.network.model.main.MainNavigationModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.AppManager;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.utils.photo.PhotoUtils;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutAdapter;
 import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView;
+import com.yixia.camera.MediaRecorderBase;
 import com.zhaoshuang.weixinrecorded.RecordedActivity;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+import rx.Subscriber;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
- * 话题
+ * 发布心情
  */
 public class SendMoodActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+    private static File filePic;
     @BindView(R.id.ed_content)
     EditText edContent;
     @BindView(R.id.tv_num01)
     TextView tvNum01;
+    @BindView(R.id.tv_user)
+    TextView tv_user;
     @BindView(R.id.mGridView)
     GridView mGridView;
+    @BindView(R.id.video_img)
+    RoundImageView video_img;
     @BindView(R.id.iv_up_pic)
     IconfontTextView iv_up_pic;
     @BindView(R.id.iv_takephoto)
     IconfontTextView iv_takephoto;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter01 gridViewAddImgesAdpter;
-    private List<String> list;
-    private FlowLayoutAdapter<String> flowLayoutAdapter;
+    private List<BoardListModel.ListBean> list;
+    private FlowLayoutAdapter<BoardListModel.ListBean> flowLayoutAdapter;
+    private String videoPath = "";
+    private String videoImg = "";
+    private static String savePath;
+    private String userName;
+    private String userid = "";
+    String userids = "";
+
+    private String bids = "";
+    private String bid = "";
+
+
+    /**
+     * 底部导航数据
+     */
+    private String[] mIconSelectIds;//标题
+    private String[] mTitles;//未选中
+
+    private String[] mLinkurl;
+    private String linkurl;
+    private int index;
+
+    ArrayList<String> stringArrayList = new ArrayList<String>();
+    ArrayList<String> stringArrayList1 = new ArrayList<String>();
+    ArrayList<String> stringArrayList2 = new ArrayList<String>();
+    List<BoardListModel.ListBean> dataT = new ArrayList<>();//话题
+    private List<BoardListModel.ListBean> listHuati;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_mood);
         datas = new ArrayList<>();
+        list1 = new ArrayList<>();
         list = new ArrayList<>();
-        list.add("+自定义话题");
-        list.add("#牙科");
-        list.add("#牙科");
-        list.add("#牙科");
-        list.add("#牙科");
-        list.add("#牙科");
+        listHuati = new ArrayList<>();
+        BoardListModel.ListBean listBean = new BoardListModel.ListBean();
+        listBean.setId("");
+        listBean.setDesc("");
+        listBean.setIsattention("");
+        listBean.setLogo("");
+        listBean.setParticipant("");
+        listBean.setPostcount("");
+        listBean.setTitle("+自定义话题");
+        list.add(listBean);
+        initTab();
         initUI();
         PhotoUtils.getInstance().init(this, true, new PhotoUtils.OnSelectListener() {
             @Override
             public void onFinish(File outputFile, Uri outputUri) {
+                mGridView.setVisibility(View.VISIBLE);
+                video_img.setVisibility(View.GONE);
+                videoPath = "";
                 photoPath(outputFile.getAbsolutePath());
             }
         });
     }
 
+    public void initTab() {
+        String navtab = SharedPreferencesUtils.getString(mContext, "navtab");
+        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
+        }.getType();
+        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
+        for (int i = 0; i < items.size(); i++) {
+            stringArrayList.add(items.get(i).getText());
+            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
+            stringArrayList2.add(items.get(i).getLinkurl());
+        }
+        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
+        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
+
+    }
+
+    List<String> list1;
+
     public void photoPath(String path) {
-        //  list.add(path);
+        list1.add(path);
         Map<String, Object> map = new HashMap<>();
         map.put("path", path);
         datas.add(map);
-
-        XLog.e("data.size:" + datas.size());
-
         gridViewAddImgesAdpter.notifyDataSetChanged();
     }
 
@@ -101,7 +182,7 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
         setRightText("发布", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                moodPost();
             }
         });
         tvNum01.setText("0/500字");
@@ -115,42 +196,151 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
         /**
          * 话题数据
          */
-        flowLayoutAdapter = new FlowLayoutAdapter<String>(list) {
+        flowLayoutAdapter = new FlowLayoutAdapter<BoardListModel.ListBean>(list) {
+
             @Override
-            public void bindDataToView(ViewHolder holder, int position, String bean) {
-
-                holder.setText(R.id.tv, bean);
-
-
+            public void bindDataToView(ViewHolder holder, int position, BoardListModel.ListBean bean) {
+                holder.setText(R.id.tv, bean.getTitle());
             }
 
             @Override
-            public void onItemClick(int position, String bean) {
-                XLog.e("size1" + list.size());
+            public void onItemClick(int position, BoardListModel.ListBean bean) {
                 if (position == 0) {
+                    dataT = list;
                     Intent intent = new Intent(mContext, MoreTopicActivity.class);
-                    list.remove(0);
-                    intent.putStringArrayListExtra("list", (ArrayList<String>) list);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) dataT);
+                    intent.putExtras(bundle);
                     startActivityForResult(intent, 101);
-                    //toActivity(MoreTopicActivity.class);
                     return;
                 } else {
-                    //remove(position);
                     list.remove(position);
-                    flowLayoutAdapter.notifyDataSetChanged();
+                    flowLayoutAdapter.remove(position);
                 }
 
             }
 
             @Override
-            public int getItemLayoutID(int position, String bean) {
+            public int getItemLayoutID(int position, BoardListModel.ListBean bean) {
                 if (position == 0) {
                     return R.layout.item_layout2;
                 }
                 return R.layout.item_layout;
             }
+
         };
         ((FlowLayoutScrollView) findViewById(R.id.flsv)).setAdapter(flowLayoutAdapter);
+    }
+
+    private void moodPost() {
+        if (listHuati != null) {
+            for (int i = 0; i < listHuati.size(); i++) {
+                bid += listHuati.get(i).getId() + ",";
+            }
+            bids = bid.substring(0, bid.length() - 1);
+        } else {
+            bids = bid;
+        }
+
+
+        if (StringUtil.isBlank(userids)) {
+            userid = userids;
+        } else {
+            userid = userids.substring(0, userids.length() - 1);
+        }
+        XLog.e("bids" + bids);
+        XLog.e("userid" + userid);
+        String content = edContent.getText().toString();
+        if (StringUtil.isBlank(content)) {
+            showToast("内容不能为空");
+            return;
+        }
+        if (content.length() < 20) {
+            showToast("内容不能少于20字");
+            return;
+        }
+
+        if (datas.size() == 0 && TextUtils.isEmpty(videoPath)) {
+            showToast("请至少上传一张图片或者视频");
+            return;
+        }
+        RequestBody requestApiKey = RequestBody.create(MediaType.parse("multipart/form-data"), openid);
+        RequestBody requestApiLat = RequestBody.create(MediaType.parse("multipart/form-data"), lat);
+        RequestBody requestApiLng = RequestBody.create(MediaType.parse("multipart/form-data"), lng);
+        RequestBody requestApiBids = RequestBody.create(MediaType.parse("multipart/form-data"), bids);
+        RequestBody requestApiContent = RequestBody.create(MediaType.parse("multipart/form-data"), content);
+        RequestBody requestApiUserid = RequestBody.create(MediaType.parse("multipart/form-data"), userid);
+        MultipartBody.Part requestVideo = null;
+        if (!TextUtils.isEmpty(videoPath)) {
+            File file01 = new File(videoPath);//视频文件
+            RequestBody requestFile01 =               // 根据文件格式封装文件
+                    RequestBody.create(MediaType.parse("video/mp4"), file01);
+            requestVideo =
+                    MultipartBody.Part.createFormData("videos", file01.getName(), requestFile01);
+        }
+        MultipartBody.Part requestvideoimage = null;
+        if (!TextUtils.isEmpty(videoPath)) {
+            RequestBody requestFile02 =               // 根据文件格式封装文件
+                    RequestBody.create(MediaType.parse("image/jpg"), filePic);
+            requestvideoimage =
+                    MultipartBody.Part.createFormData("videoimage", filePic.getName(), requestFile02);
+        }
+        List<MultipartBody.Part> list2 = new ArrayList<>();
+/**
+ * 图片
+ */
+        if (list1 != null) {
+            for (String pathItem : list1) {
+                if (!TextUtils.isEmpty(pathItem)) {
+                    File file = new File(pathItem);
+                    RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+                    MultipartBody.Part body = MultipartBody.Part.createFormData("images[]", file.getName(), requestFile);// pictures 是参数名
+                    list2.add(body);
+                }
+            }
+        }
+//        XLog.e("requestApiKey" + requestApiKey);
+//        XLog.e("requestApiLat" + requestApiLat);
+//        XLog.e("requestApiLng" + requestApiLng);
+//        XLog.e("requestApiBids" + requestApiBids);
+//        XLog.e("requestApiContent" + requestApiContent);
+//        XLog.e("list2" + list2);
+//        XLog.e("requestVideo" + requestVideo);
+//        XLog.e("requestvideoimage" + requestvideoimage);
+//        XLog.e("requestApiUserid" + requestApiUserid);
+
+        RetrofitUtil.getInstance().moodsubmit(requestApiKey, requestApiLat, requestApiLng, requestApiBids, requestApiContent, list2, requestVideo, requestvideoimage, requestApiUserid, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                XLog.e("code" + baseResponse.getCode());
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArray("mTitles", mTitles);
+                    bundle.putStringArray("mLinkurl", mLinkurl);
+                    bundle.putStringArray("mIconSelectIds", mIconSelectIds);
+                    bundle.putString("flag", "2");
+                    bundle.putInt("index", 2);
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    AppManager.getAppManager().finishAllActivity();
+                } else {
+                    showToast(baseResponse.getMsg());
+
+                }
+            }
+        });
     }
 
 
@@ -229,40 +419,37 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
         super.onActivityResult(requestCode, resultCode, data);
         PhotoUtils.getInstance().bindForResult(requestCode, resultCode, data);
         if (resultCode == 103) {
-            String imagePath = data.getStringExtra("imagePath");
-            String videoPath = data.getStringExtra("videoPath");
-            XLog.e("videoPath:" + videoPath);
+            videoPath = data.getStringExtra("videoPath");
+
+            MediaMetadataRetriever media = new MediaMetadataRetriever();
+            media.setDataSource(videoPath);
+            Bitmap bitmap = media.getFrameAtTime();
+            XLog.e("videoPath:" + bitmap);
+            saveBitmap(this, bitmap);
             if (!TextUtils.isEmpty(videoPath)) {
-
-//                vv_play.setVideoPath(videoPath);
-//                vv_play.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//                    @Override
-//                    public void onPrepared(MediaPlayer mp) {
-//                        vv_play.setLooping(true);
-//                        vv_play.start();
-//
-//                        float widthF = vv_play.getVideoWidth() * 1f / MediaRecorderBase.VIDEO_HEIGHT;
-//                        float heightF = vv_play.getVideoHeight() * 1f / MediaRecorderBase.VIDEO_WIDTH;
-//                        ViewGroup.LayoutParams layoutParams = vv_play.getLayoutParams();
-//                        layoutParams.width = (int) (rl_show.getWidth() * widthF);
-//                        layoutParams.height = (int) (rl_show.getHeight() * heightF);
-//                        vv_play.setLayoutParams(layoutParams);
-//                    }
-//                });
+                datas.clear();
+                mGridView.setVisibility(View.GONE);
+                video_img.setVisibility(View.VISIBLE);
+                video_img.setImageBitmap(bitmap);
             }
-
         } else if (resultCode == 101) {
             list.clear();
             flowLayoutAdapter.clear();
-            List<String> list1 = data.getStringArrayListExtra("list");
+            List<BoardListModel.ListBean> list1 = (List<BoardListModel.ListBean>) data.getExtras().getSerializable("data");
             list = list1;
-            XLog.e("size2" + list.size());
             flowLayoutAdapter.addAll(list);
             flowLayoutAdapter.notifyDataSetChanged();
+            list.remove(0);
+            listHuati = list;
         } else if (resultCode == 102) {
-
+            userName = "";
             List<ConcernsListModel.ListBean> dataUser = (List<ConcernsListModel.ListBean>) data.getExtras().getSerializable("data");
-            XLog.e("dataUser" + dataUser);
+            for (ConcernsListModel.ListBean item : dataUser) {
+                userName += "@" + item.getNickname();
+                userids += item.getId() + ",";
+            }
+            tv_user.setVisibility(View.VISIBLE);
+            tv_user.setText(userName);
         }
 
     }
@@ -408,16 +595,6 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
                 });
 
             }
-//        else {
-//           // Glide.with(context).load(R.mipmap.add_photo).into(viewHolder.ivimage);
-//            Glide.with(context)
-//                    .load(R.mipmap.icon_people_uploadpicture)
-//                    .priority(Priority.HIGH)
-//                    .centerCrop()
-//                    .into(viewHolder.ivimage);
-//            viewHolder.ivimage.setScaleType(ImageView.ScaleType.FIT_XY);
-//            viewHolder.btdel.setVisibility(View.GONE);
-//        }
 
             return convertView;
 
@@ -436,4 +613,39 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
         }
     }
 
+    private static final String SD_PATH = "/sdcard/dskqxt/pic/";
+    private static final String IN_PATH = "/dskqxt/pic/";
+
+    private static String generateFileName() {
+        return UUID.randomUUID().toString();
+    }
+
+    public static String saveBitmap(Context context, Bitmap mBitmap) {
+
+        if (Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED)) {
+            savePath = SD_PATH;
+        } else {
+            savePath = context.getApplicationContext().getFilesDir()
+                    .getAbsolutePath()
+                    + IN_PATH;
+        }
+        try {
+            filePic = new File(savePath + generateFileName() + ".jpg");
+            if (!filePic.exists()) {
+                filePic.getParentFile().mkdirs();
+                filePic.createNewFile();
+            }
+            FileOutputStream fos = new FileOutputStream(filePic);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+
+        return filePic.getAbsolutePath();
+    }
 }

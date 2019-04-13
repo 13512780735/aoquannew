@@ -2,7 +2,7 @@ package com.likeit.aqe365.network.model.home;
 
 import java.util.List;
 
-public class MainHomeGoodModel extends HomeMessage{
+public class MainHomeGoodModel extends HomeMessage {
 
     /**
      * params : {"showtitle":"1","showprice":"1","goodsdata":"7","cateid":"","catename":"","groupid":"2","groupname":"12.12","goodssort":"0","goodsscroll":"0","goodsnum":"9","showicon":"1","iconposition":"left top","productprice":"1","showproductprice":"0","showsales":"1","productpricetext":"原价","salestext":"销量","productpriceline":"0","saleout":"0"}
@@ -419,6 +419,8 @@ public class MainHomeGoodModel extends HomeMessage{
          */
 
         private String gid;
+        private String linkurl;
+        private String weburl;
         private String title;
         private String subtitle;
         private String price;
@@ -432,6 +434,22 @@ public class MainHomeGoodModel extends HomeMessage{
         private String sales;
         private String video;
         private String bargain;
+
+        public String getLinkurl() {
+            return linkurl;
+        }
+
+        public void setLinkurl(String linkurl) {
+            this.linkurl = linkurl;
+        }
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
 
         public String getGid() {
             return gid;

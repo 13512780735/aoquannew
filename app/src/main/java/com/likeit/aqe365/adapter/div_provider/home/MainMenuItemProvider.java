@@ -16,6 +16,7 @@ import com.likeit.aqe365.R;
 import com.likeit.aqe365.adapter.menu.MyGridViewAdapter;
 import com.likeit.aqe365.adapter.menu.MyViewPagerAdapter;
 import com.likeit.aqe365.network.model.home.MainHomeMenuModel;
+import com.likeit.aqe365.utils.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +134,10 @@ public class MainMenuItemProvider extends BaseItemProvider<MainHomeMenuModel, Ba
                     Object obj = gridView.getItemAtPosition(position);
                     if (obj != null && obj instanceof MainHomeMenuModel.DataBean) {
                         System.out.println(obj);
+                        String id=((MainHomeMenuModel.DataBean) obj).getParams().getId();
+                        String linkUrl=((MainHomeMenuModel.DataBean) obj).getLinkurl();
+                        String webUrl=((MainHomeMenuModel.DataBean) obj).getWeburl();
+                        IntentUtils.intentTo(mContext, linkUrl, id,webUrl);
                         //Toast.makeText(mContext, ((MainHomeMenuModel.DataBean) obj).getName(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -154,6 +159,9 @@ public class MainMenuItemProvider extends BaseItemProvider<MainHomeMenuModel, Ba
         ivPoints=new ImageView[totalPage];
         for (int i = 0; i < totalPage; i++) {
             //循坏加入点点图片组
+            if(totalPage==1){
+                group.setVisibility(View.GONE);
+            }
             ivPoints[i] = new ImageView(mContext);
             if (i == 0) {
                 ivPoints[i].setImageResource(R.drawable.indicator_red);

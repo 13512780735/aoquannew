@@ -28,7 +28,7 @@ public class PostActivity extends BaseActivity {
                 toActivity(SendMoodActivity.class);
                 break;
             case R.id.ll_post_tiezi:
-                toActivity(SendMoodActivity.class);
+                toActivity(SendPostActivity.class);
                 break;
             case R.id.ll_ask:
                 toActivity(QuestionDoctorActivity.class);

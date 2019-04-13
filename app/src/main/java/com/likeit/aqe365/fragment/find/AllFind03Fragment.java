@@ -85,7 +85,7 @@ public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayou
                 bundle.putString("bid", data.get(position).getId());
                 bundle.putString("title", data.get(position).getTitle());
                 bundle.putString("isattention", data.get(position).getIsattention());
-                toActivity(TopicListActivity.class,bundle);
+                toActivity(TopicListActivity.class, bundle);
             }
         });
     }

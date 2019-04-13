@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/width55"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <com.likeit.aqe365.view.BorderRelativeLayout
+        android:id="@+id/rl_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentBackColor="#F5F5F5"
+        app:cornerRadius="20dp"
+        android:layout_marginRight="@dimen/dp_10"
+        app:strokeColor01="#F5F5F5"
+        app:strokeWidth01="0dp"
+        android:layout_margin="@dimen/dp_10">
+
+
+
+        <com.likeit.aqe365.view.searchview.EditText_Clear
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/shape_search_round_hui_5"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="8dp"
+            android:gravity="start|center_vertical"
+            android:hint="请输入关键字进行搜索"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:singleLine="true" />
+
+
+
+    </com.likeit.aqe365.view.BorderRelativeLayout>
+</LinearLayout>

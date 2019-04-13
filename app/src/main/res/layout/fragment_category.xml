@@ -11,9 +11,19 @@
         android:layout_height="70dp"
         android:background="@color/white"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="20dip">
+
+        <ImageView
+            android:id="@+id/iv_back"
+
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/icon_back" />
 
         <LinearLayout
             android:id="@+id/search_layout"
@@ -56,8 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_left_rv"
@@ -80,9 +89,9 @@
         android:id="@+id/rl_nodata"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/white"
-        android:visibility="gone"
-        android:layout_weight="1">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_nodata"

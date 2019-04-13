@@ -126,8 +126,17 @@ public class MainHomeMenuModel extends HomeMessage{
         private String imgurl;
         private String linkurl;
         private String text;
+        private String weburl;
         private String color;
         private ParamsBean params;
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
 
         public String getImgurl() {
             return imgurl;

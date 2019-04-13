@@ -24,9 +24,12 @@ import com.likeit.aqe365.network.model.find.ConcernsListModel;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
+import com.likeit.aqe365.network.model.find.HospitalListModel;
 import com.likeit.aqe365.network.model.find.HospitalandServeModel;
 import com.likeit.aqe365.network.model.find.JournalDetailsModel;
 import com.likeit.aqe365.network.model.find.JournalModel;
+import com.likeit.aqe365.network.model.find.MoodDetailsModel;
+import com.likeit.aqe365.network.model.find.MoodListModel;
 import com.likeit.aqe365.network.model.find.MoreDiaryModel;
 import com.likeit.aqe365.network.model.find.MyDiaryListModel;
 import com.likeit.aqe365.network.model.find.PostDetailsModel;
@@ -41,6 +44,8 @@ import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.model.member.AvatarModel;
 import com.likeit.aqe365.network.model.member.CouponCenterModel;
 import com.likeit.aqe365.network.model.member.CouponListModel;
+import com.likeit.aqe365.network.model.member.MessageListModel;
+import com.likeit.aqe365.network.model.member.NoticeListModel;
 import com.likeit.aqe365.network.model.member.UserInfoModel;
 import com.likeit.aqe365.network.model.pay.BalacePayModel;
 import com.likeit.aqe365.network.model.pay.PayModel;
@@ -1155,7 +1160,7 @@ public class RetrofitUtil {
     }
 
     /**
-     * 上传视频
+     * 发布日记
      *
      * @param subscriber
      */
@@ -1175,6 +1180,182 @@ public class RetrofitUtil {
     public void concernslist(String openid,
                              Subscriber<BaseResponse<ConcernsListModel>> subscriber) {
         mApiService.concernslist(openid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     *  images, videos, videoimage,
+     *   MultipartBody.Part videos, MultipartBody.Part videoimage,
+     */
+
+    /**
+     * 发布帖子
+     *
+     * @param subscriber
+     */
+    public void postSumit(RequestBody openid, RequestBody lat, RequestBody lng, RequestBody title, RequestBody bids, RequestBody content, List<MultipartBody.Part> images, MultipartBody.Part videos, MultipartBody.Part videoimage, RequestBody hospitalid, RequestBody userid, Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.postSumit(openid, lat, lng, title, bids, content, images, videos, videoimage, hospitalid, userid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 发布心情
+     *
+     * @param subscriber
+     */
+    public void moodsubmit(RequestBody openid, RequestBody lat, RequestBody lng, RequestBody bids, RequestBody content, List<MultipartBody.Part> images, MultipartBody.Part videos, MultipartBody.Part videoimage, RequestBody userid, Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.moodsubmit(openid, lat, lng, bids, content, images, videos, videoimage, userid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 心情列表
+     *
+     * @return
+     */
+    public void moodlist(String openid, String type, String keyword, String pageNum,
+                         Subscriber<BaseResponse<MoodListModel>> subscriber) {
+        mApiService.moodlist(openid, type, keyword, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 心情详情
+     *
+     * @return
+     */
+    public void mooddetails(String openid, String id, String pageNum,
+                            Subscriber<BaseResponse<MoodDetailsModel>> subscriber) {
+        mApiService.mooddetails(openid, id, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 心情收藏
+     *
+     * @return
+     */
+    public void collectmood(String openid, String id,
+                            Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.collectmood(openid, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 心情点赞
+     *
+     * @return
+     */
+    public void moodlike(String openid, String bid, String pid,
+                         Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.moodlike(openid, bid, pid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 心情回复
+     *
+     * @return
+     */
+    public void moodreply(String openid, String pid, String bid, String rpid, String mpid, String content,
+                          Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.moodreply(openid, pid, bid, rpid, mpid, content)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 医生提问
+     *
+     * @param subscriber
+     */
+    public void quiz(RequestBody openid, RequestBody title, RequestBody content, List<MultipartBody.Part> images, Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.quiz(openid, title, content, images)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 医院列表
+     *
+     * @return
+     */
+    public void hospitalList(String openid, String keyword, String pageNum,
+                             Subscriber<BaseResponse<HospitalListModel>> subscriber) {
+        mApiService.hospitalList(openid, keyword, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 我的消息
+     *
+     * @param openid
+     * @param type
+     * @param pageNum
+     * @param subscriber
+     */
+    public void myMessageList(String openid, String type, String pageNum,
+                              Subscriber<BaseResponse<MessageListModel>> subscriber) {
+        mApiService.myMessageList(openid, type, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 公告列表
+     *
+     * @param openid
+     * @param pageNum
+     * @param subscriber
+     */
+    public void getNoticelist(String openid, String pageNum,
+                              Subscriber<BaseResponse<NoticeListModel>> subscriber) {
+        mApiService.getNoticelist(openid, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    /**
+     * 添加与搜索话题(心情和帖子)
+     *
+     * @param openid
+     * @param pageNum
+     * @param subscriber
+     */
+    public void postTopiclist(String openid, String keywords, String pageNum,
+                              Subscriber<BaseResponse<BoardListModel>> subscriber) {
+        mApiService.postTopiclist(openid, keywords,pageNum)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

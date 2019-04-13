@@ -174,7 +174,7 @@ public class EditDiaryActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 101) {
+        if (resultCode == 110) {
             if (requestCode == 101) {
                 tvHospital.setText(data.getStringExtra("name"));
                 hospitalId = data.getStringExtra("id");
