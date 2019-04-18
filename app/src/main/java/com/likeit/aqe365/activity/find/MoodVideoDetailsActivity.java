@@ -23,6 +23,7 @@ import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.fragment.find.CommentDialogFragment;
+import com.likeit.aqe365.fragment.find.MoodCommentFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.MoodDetailsModel;
@@ -39,6 +40,7 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.listener.LockClickListener;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,7 @@ import java.util.List;
 import butterknife.BindView;
 import rx.Subscriber;
 
-public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, CommentDialogFragment.MyDialogFragment_Listener {
+public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, MoodCommentFragment.MyDialogFragment_Listener {
     private int pageNum = 1;
     private static final int PAGE_SIZE = 1;//为什么是6呢？
     private boolean isErr = true;
@@ -82,11 +84,12 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
     private String bid;
     private String pid;
     private String iscollect;
-    private CommentDialogFragment dialog;
+    private MoodCommentFragment dialog;
     private LinearLayout ll_userInfo;
     private TextView tv_comment_num;
     private View header;
     private String name;
+    private LinearLayout ll_hospital;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,8 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
         tv_title = header.findViewById(R.id.tv_title);
         tv_content01 = header.findViewById(R.id.tv_content01);
         tv_hospitalName = header.findViewById(R.id.tv_hospitalName);
+        ll_hospital = header.findViewById(R.id.ll_hospital);
+        ll_hospital.setVisibility(View.GONE);
         tv_hospital_title = header.findViewById(R.id.tv_hospital_title);
         tv_hospital_content = header.findViewById(R.id.tv_hospital_content);
         iv_hospital_pic = header.findViewById(R.id.iv_hospital_pic);
@@ -169,12 +174,13 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
                 String bid = moodDetailsModel.getPost().getBid();
                 String rpid = "";
                 String mpid = "";
-                dialog = new CommentDialogFragment();
+                dialog = new MoodCommentFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("bid", bid);
                 bundle.putString("pid", id);
                 bundle.putString("rpid", rpid);
                 bundle.putString("mpid", mpid);
+                bundle.putString("nickName", moodDetailsModel.getPost().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
             }
@@ -288,7 +294,8 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
         tv_name.setText(moodDetailsModel.getPost().getNickname());
         tv_content.setText(moodDetailsModel.getPost().getCity() + " " + moodDetailsModel.getPost().getCreatetime());
         tv_title.setText(moodDetailsModel.getPost().getTitle());
-        tv_content01.setText(moodDetailsModel.getPost().getContent());
+        RichText.from(moodDetailsModel.getPost().getContent()).into(tv_content01);
+      //  tv_content01.setText(moodDetailsModel.getPost().getContent());
         tv_hospitalName.setText("测试医院");
         tv_hospital_title.setText("服务标题");
         tv_hospital_content.setText("¥ " + 65.00);
@@ -516,14 +523,15 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
                     String id = item.getId();
                     String bid = item.getBid();
                     String pid = moodDetailsModel.getPost().getId();
-                    String rpid = "";
+                    String rpid = item.getId();
                     String mpid = "";
-                    dialog = new CommentDialogFragment();
+                    dialog = new MoodCommentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("bid", bid);
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -572,16 +580,17 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
             tv_views.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String bid = item.getId();
-                    String pid = moodDetailsModel.getPost().getId();
+                    String bid = item.getBid();
+                    String pid = item.getPid();
                     String rpid = item.getRpid();
-                    String mpid = item.getMpid();
-                    dialog = new CommentDialogFragment();
+                    String mpid = item.getId();
+                    dialog = new MoodCommentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("bid", bid);
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

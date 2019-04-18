@@ -1,17 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.likeit.aqe365"
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 16
+        versionName "3.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
@@ -24,9 +20,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
     signingConfigs {
         debug {
             v1SigningEnabled true
@@ -37,26 +30,15 @@ android {
             v2SigningEnabled true
         }
     }
-//        // 签名配置
-//        signingConfigs {
-//
-//            release {
-//                storeFile file("keystroe.jks")
-//                storePassword "123456"
-//                keyAlias "key0"
-//                keyPassword "123456"
-//                v2SigningEnabled true
-//
-//            }
-//
-//            debug {
-//                storeFile file("keystroe.jks")
-//                storePassword "123456"
-//                keyAlias "key0"
-//                keyPassword "123456"
-//                v2SigningEnabled true
-//            }
-    //      }
+    productFlavors {
+    }
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        abortOnError false
+        disable 'InconsistentArrays', 'DefaultLocale', 'OldTargetApi', 'GradleOverrides', 'MissingTranslation', 'UnusedResources', 'GoogleAppIndexingWarning'
+    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -74,7 +56,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.7'
+    //  implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.7'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
@@ -163,6 +145,7 @@ dependencies {
     implementation 'com.github.limedroid:ARecyclerView:v1.2.1'
     //权限管理
     implementation 'com.github.Andy-13:ZbPermission:1.0.0'
+    implementation 'in.srain.cube:ultra-ptr:1.0.11'
     //implementation 'com.github.GeniusLiu:QuickItemDecorationDemo:1.0.0'
     // implementation "com.mob.sdk:MobSDK:2018.0319.1724"
 }

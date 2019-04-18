@@ -9,7 +9,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.fragment.main.CartFragment;
+import com.likeit.aqe365.fragment.main.Cart01Fragment;
 import com.likeit.aqe365.fragment.main.CategoryFragment;
 import com.likeit.aqe365.fragment.main.CommissionFragment;
 import com.likeit.aqe365.fragment.main.FindFragment;
@@ -22,13 +22,6 @@ import com.likeit.aqe365.view.tablayout.widget.AbstractCommonTabLayout;
 
 import java.util.ArrayList;
 
-import pub.devrel.easypermissions.EasyPermissions;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.READ_PHONE_STATE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AbstractCommonTabLayout {
     private String[] mIconSelectIds;//标题
@@ -72,13 +65,11 @@ public class MainActivity extends AbstractCommonTabLayout {
             setSelectDefaultIndex(index);
         } else if ("2".equals(flag)) {
             setSelectDefaultIndex(1);
-        }
-        else if ("3".equals(flag)) {
+        } else if ("3".equals(flag)) {
             setSelectDefaultIndex(2);
-        }
-        else if ("4".equals(flag)) {
+        } else if ("4".equals(flag)) {
             setSelectDefaultIndex(3);
-        }  else if ("5".equals(flag)) {
+        } else if ("5".equals(flag)) {
             setSelectDefaultIndex(4);
         }
         // setShowDot(3);
@@ -121,7 +112,7 @@ public class MainActivity extends AbstractCommonTabLayout {
             } else if ("commission".equals(linkurl)) {
                 mFragments.add(new CommissionFragment());
             } else if ("cart".equals(linkurl)) {
-                mFragments.add(new CartFragment());
+                mFragments.add(new Cart01Fragment());
             } else if ("member".equals(linkurl)) {
                 mFragments.add(new MemberFragment());
             } else if ("notice".equals(linkurl)) {

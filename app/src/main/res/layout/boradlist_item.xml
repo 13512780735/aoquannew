@@ -10,6 +10,8 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/dp_10"
+        android:textSize="16sp"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_5" />
 
@@ -65,4 +67,8 @@
         </LinearLayout>
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
 </LinearLayout>

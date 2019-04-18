@@ -63,7 +63,7 @@ public class TopicListActivity extends BaseActivity {
         setRightText02(getResources().getString(R.string.ic_publish), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                toActivity(PostActivity.class);
             }
         });
         mTabLayout = findViewById(R.id.indent_TabLayout);

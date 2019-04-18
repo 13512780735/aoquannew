@@ -8,23 +8,25 @@
     <include layout="@layout/common_toolbar"></include>
 
 
-        <LinearLayout
-            android:id="@+id/ll"
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.likeit.aqe365.view.ExpandableListview.XExpandableListView
+            android:id="@+id/exListView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <com.likeit.aqe365.view.ExpandableListview.XExpandableListView
-                android:id="@+id/exListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_10"
-                android:childIndicator="@null"
-                android:groupIndicator="@null" />
+            android:layout_height="wrap_content"
+            android:childDivider="@color/line"
+            android:dividerHeight="0.5dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:childIndicator="@null"
+            android:groupIndicator="@null" />
 
 
-        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_cart_bottom"
@@ -53,25 +55,53 @@
                 android:gravity="center"
                 android:minHeight="64dp"
                 android:paddingLeft="10dp"
+                android:text="全选"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/tv_total01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="合计:"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_total01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="合计:"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="￥0.00"
+                        android:textColor="@color/text_red"
+                        android:textSize="16sp" />
+                </LinearLayout>
             <TextView
-                android:id="@+id/tv_total_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:text="￥0.00"
-                android:textColor="@color/text_red"
-                android:textSize="16sp" />
+                android:id="@+id/tv_yunfei"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="right"
+                android:paddingRight="@dimen/dp_10"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="不含运费"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <TextView

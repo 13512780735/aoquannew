@@ -39,6 +39,7 @@ import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RatioImageView;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,7 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
     private TextView tv_comment_num;
     private View header;
     private String name;
+    private LinearLayout ll_hospital;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +119,8 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
         tv_content = header.findViewById(R.id.tv_content);
         tv_title = header.findViewById(R.id.tv_title);
         tv_content01 = header.findViewById(R.id.tv_content01);
+        ll_hospital = header.findViewById(R.id.ll_hospital);
+        ll_hospital.setVisibility(View.GONE);
         tv_hospitalName = header.findViewById(R.id.tv_hospitalName);
         tv_hospital_title = header.findViewById(R.id.tv_hospital_title);
         tv_hospital_content = header.findViewById(R.id.tv_hospital_content);
@@ -287,7 +291,8 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
         tv_name.setText(moodDetailsModel.getPost().getNickname());
         tv_content.setText(moodDetailsModel.getPost().getCity() + " " + moodDetailsModel.getPost().getCreatetime());
         tv_title.setText(moodDetailsModel.getPost().getTitle());
-        tv_content01.setText(moodDetailsModel.getPost().getContent());
+        RichText.from(moodDetailsModel.getPost().getContent()).into(tv_content01);
+      //  tv_content01.setText(moodDetailsModel.getPost().getContent());
         tv_hospitalName.setText("测试医院");
         tv_hospital_title.setText("服务标题");
         tv_hospital_content.setText("¥ " + 65.00);
@@ -479,7 +484,7 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
                     String id = item.getId();
                     String bid = item.getBid();
                     String pid = moodDetailsModel.getPost().getId();
-                    String rpid = "";
+                    String rpid = item.getId();
                     String mpid = "";
                     dialog = new MoodCommentFragment();
                     Bundle bundle = new Bundle();
@@ -487,6 +492,8 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName", moodDetailsModel.getPost().getNickname());
+
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -535,16 +542,17 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
             tv_views.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String bid = item.getId();
-                    String pid = moodDetailsModel.getPost().getId();
+                    String bid = item.getBid();
+                    String pid = item.getPid();
                     String rpid = item.getRpid();
-                    String mpid = item.getMpid();
+                    String mpid = item.getId();
                     dialog = new MoodCommentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("bid", bid);
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

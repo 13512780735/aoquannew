@@ -16,12 +16,13 @@ import com.likeit.aqe365.network.model.Indent.IndentDetailModel;
 import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.LoginRegisterModel;
-import com.likeit.aqe365.network.model.cart.CartListModel;
+import com.likeit.aqe365.network.model.cart01.CartListModel;
 import com.likeit.aqe365.network.model.find.BoardListModel;
 import com.likeit.aqe365.network.model.find.ConcernsListModel;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
+import com.likeit.aqe365.network.model.find.FoolowMoodListModel;
 import com.likeit.aqe365.network.model.find.HospitalListModel;
 import com.likeit.aqe365.network.model.find.HospitalandServeModel;
 import com.likeit.aqe365.network.model.find.JournalDetailsModel;
@@ -42,8 +43,11 @@ import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.model.member.AvatarModel;
 import com.likeit.aqe365.network.model.member.CouponCenterModel;
 import com.likeit.aqe365.network.model.member.CouponListModel;
+import com.likeit.aqe365.network.model.member.GetUserInfoModel;
 import com.likeit.aqe365.network.model.member.MessageListModel;
+import com.likeit.aqe365.network.model.member.MyUserModel;
 import com.likeit.aqe365.network.model.member.NoticeListModel;
+import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.model.member.UserInfoModel;
 import com.likeit.aqe365.network.model.pay.BalacePayModel;
 import com.likeit.aqe365.network.model.pay.PayModel;
@@ -805,6 +809,7 @@ public interface ApiService {
     @POST("nativeapp.discover.diary.get_boardlist")
     Observable<BaseResponse<BoardListModel>> GetBoardlist(@Field("openid") String openid,
                                                           @Field("keyword") String keyword,
+                                                          @Field("type") String type,
                                                           @Field("pageNum") String pageNum
     );
 
@@ -1168,6 +1173,15 @@ public interface ApiService {
     );
 
     /**
+     * 关注话题列表(安卓)
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.mood.follow")
+    Observable<BaseResponse<FoolowMoodListModel>> follow(@Field("openid") String openid
+    );
+    /**
      * 心情列表
      *
      * @return
@@ -1336,6 +1350,48 @@ public interface ApiService {
     Observable<BaseResponse<BoardListModel>> postTopiclist(@Field("openid") String openid,
                                                            @Field("keywords") String keywords,
                                                            @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 根据memberid获取个人信息
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.my.getUserInfo")
+    Observable<BaseResponse<GetUserInfoModel>> getUserInfo(@Field("openid") String openid,
+                                                           @Field("memberid") String memberid
+    );
+
+    /**
+     * 用户列表(粉丝)
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.user")
+    Observable<BaseResponse<MyUserModel>> getMyUser(@Field("openid") String openid,
+                                                  @Field("keywords") String keywords,
+                                                  @Field("type") String type,
+                                                  @Field("lat") String lat,
+                                                  @Field("lng") String lng,
+                                                  @Field("pageNum") String pageNum
+    );
+
+    /**
+     * 用户帖子和心情列表
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.diary.postuser")
+    Observable<BaseResponse<PostUserModel>> postuser(@Field("openid") String openid,
+                                                     @Field("memberid") String memberid,
+                                                     @Field("type") String type,
+                                                     @Field("pageNum") String pageNum
     );
 
 }

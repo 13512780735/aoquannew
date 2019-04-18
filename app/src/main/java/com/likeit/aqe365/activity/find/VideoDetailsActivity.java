@@ -40,6 +40,7 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.listener.LockClickListener;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -290,7 +291,8 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
         tv_name.setText(postDetailsModel.getPost().getNickname());
         tv_content.setText(postDetailsModel.getPost().getCity() + " " + postDetailsModel.getPost().getCreatetime());
         tv_title.setText(postDetailsModel.getPost().getTitle());
-        tv_content01.setText(postDetailsModel.getPost().getContent());
+        RichText.from(postDetailsModel.getPost().getContent()).into(tv_content01);
+       // tv_content01.setText(postDetailsModel.getPost().getContent());
         tv_hospitalName.setText("测试医院");
         tv_hospital_title.setText("服务标题");
         tv_hospital_content.setText("¥ " + 65.00);
@@ -515,10 +517,9 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
             tv_views.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String id = item.getId();
                     String bid = item.getBid();
                     String pid = postDetailsModel.getPost().getId();
-                    String rpid = "";
+                    String rpid = item.getId();
                     String mpid = "";
                     dialog = new CommentDialogFragment();
                     Bundle bundle = new Bundle();
@@ -526,6 +527,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -574,16 +576,17 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
             tv_views.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String bid = item.getId();
-                    String pid = postDetailsModel.getPost().getId();
+                    String bid = item.getBid();
+                    String pid = item.getPid();
                     String rpid = item.getRpid();
-                    String mpid = item.getMpid();
+                    String mpid = item.getId();
                     dialog = new CommentDialogFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("bid", bid);
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

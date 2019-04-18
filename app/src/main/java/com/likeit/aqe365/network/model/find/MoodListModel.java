@@ -58,6 +58,34 @@ public class MoodListModel {
         private String videoimage;
         private String huati;
         private String type;
+        private String iscollect;
+        private String likenum;
+        private String islike;
+
+        public String getIscollect() {
+            return iscollect;
+        }
+
+        public void setIscollect(String iscollect) {
+            this.iscollect = iscollect;
+        }
+
+        public String getLikenum() {
+            return likenum;
+        }
+
+        public void setLikenum(String likenum) {
+            this.likenum = likenum;
+        }
+
+        public String getIslike() {
+            return islike;
+        }
+
+        public void setIslike(String islike) {
+            this.islike = islike;
+        }
+
         public List<String> images = new ArrayList<>();
 
         public String getType() {

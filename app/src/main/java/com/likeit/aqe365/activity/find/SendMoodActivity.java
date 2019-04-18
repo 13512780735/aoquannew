@@ -233,7 +233,7 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
     }
 
     private void moodPost() {
-        if (listHuati != null) {
+        if (listHuati.size() > 0) {
             for (int i = 0; i < listHuati.size(); i++) {
                 bid += listHuati.get(i).getId() + ",";
             }

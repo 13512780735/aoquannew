@@ -22,6 +22,7 @@ import com.likeit.aqe365.fragment.find.user.UserInfo01Fragment;
 import com.likeit.aqe365.fragment.find.user.UserInfo02Fragment;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
+import com.likeit.aqe365.network.model.member.GetUserInfoModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtil;
 import com.likeit.aqe365.view.BorderTextView;
@@ -59,18 +60,42 @@ public class UserInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info2);
         memberid = getIntent().getExtras().getString("id");
-        isuser = getIntent().getExtras().getString("isuser");
-        avatar = getIntent().getExtras().getString("avatar");
-        name = getIntent().getExtras().getString("name");
+//        isuser = getIntent().getExtras().getString("isuser");
+//        avatar = getIntent().getExtras().getString("avatar");
+//        name = getIntent().getExtras().getString("name");
         mTitles = new ArrayList<>(Arrays.asList("日记", "帖子"));
+        initUserInfo(memberid);
         initUI();
+    }
+
+    private void initUserInfo(String memberid) {
+        RetrofitUtil.getInstance().getUserInfo(openid, memberid, new Subscriber<BaseResponse<GetUserInfoModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<GetUserInfoModel> baseResponse) {
+                if(baseResponse.getCode()==200){
+                    GetUserInfoModel.ListBean getUserInfoModel=baseResponse.getData().getList();
+                    ImageLoader.getInstance().displayImage(getUserInfoModel.getAvatar(), iv_avatar);
+                    tv_name.setText(getUserInfoModel.getNickname());
+                    isuser=getUserInfoModel.getIsuser();
+                }
+            }
+        });
     }
 
     private void initUI() {
         setBackView();
         setTitle("用户主页");
-        ImageLoader.getInstance().displayImage(avatar, iv_avatar);
-        tv_name.setText(name);
+
         mTabLayout = findViewById(R.id.indent_TabLayout);
         mViewPager = findViewById(R.id.viewpager);
         mTabLayout.setSelectedTabIndicatorColor(Color.parseColor(theme_bg_tex));

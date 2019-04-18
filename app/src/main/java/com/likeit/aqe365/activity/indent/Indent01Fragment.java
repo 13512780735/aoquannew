@@ -73,15 +73,9 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-                    case R.id.rl_indent_details://订单详情
-                        id = data.get(position).getId();
-                        SharedPreferencesUtils.put(getActivity(),"ordId",id);
-                        bundle = new Bundle();
-                        bundle.putInt("status", 1);
-                        bundle.putString("flag", "1");
-                        bundle.putString("id", id);
-                        toActivity(IndentDetailsActivity.class, bundle);
-                        break;
+//                    case R.id.rl_indent_details://订单详情
+//
+//                        break;
                     case R.id.tv_cancel_indent://取消订单
                         id = data.get(position).getId();
                         // cancelIndent(id);
@@ -91,13 +85,13 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
                         break;
                     case R.id.tv_pay://支付订单
                         String IndentId = data.get(position).getOrdersn();
-                       id = data.get(position).getId();
+                        id = data.get(position).getId();
                         String money = data.get(position).getPrice();
                         bundle = new Bundle();
                         bundle.putString("tid", IndentId);
                         bundle.putString("id", id);
                         bundle.putString("money", money);
-                       toActivity(PayActivity.class, bundle);
+                        toActivity(PayActivity.class, bundle);
                         break;
                     case R.id.tv_check_wuLiu://查看物流
 
@@ -108,6 +102,7 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
             }
         });
     }
+
     private void showPopMenu(String id) {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu2, null);
         //处理popWindow 显示内容
@@ -180,6 +175,7 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
             }
         });
     }
+
     private void initAdapter() {
 
         mAdapter = new GoodIndent01Adapter(R.layout.goods_indent_items, data);
@@ -190,12 +186,24 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
         initData(pageNum, false);
         LoaddingShow();
         mCurrentCounter = mAdapter.getData().size();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                id = data.get(position).getId();
+                SharedPreferencesUtils.put(getActivity(), "ordId", id);
+                bundle = new Bundle();
+                bundle.putInt("status", 1);
+                bundle.putString("flag", "1");
+                bundle.putString("id", id);
+                toActivity(IndentDetailsActivity.class, bundle);
+            }
+        });
     }
 
     private List<IndentListModel.ListBean> data = new ArrayList<>();
 
     public void initData(int pageNum, final boolean isloadmore) {
-        RetrofitUtil.getInstance().Orderform(openid,  "5", String.valueOf(pageNum), new Subscriber<BaseResponse<IndentListModel>>() {
+        RetrofitUtil.getInstance().Orderform(openid, "5", String.valueOf(pageNum), new Subscriber<BaseResponse<IndentListModel>>() {
             @Override
             public void onCompleted() {
 

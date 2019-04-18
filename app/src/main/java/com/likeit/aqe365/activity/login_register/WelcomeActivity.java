@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.MainActivity;
@@ -55,7 +56,7 @@ public class WelcomeActivity extends BaseActivity {
         openPermission();
         initData();
         animation = AnimationUtils.loadAnimation(this, R.anim.splash_alpha);
-        isLogin = "1";
+        isLogin = "0";
         SharedPreferencesUtils.put(this, "isLogin", isLogin);
     }
 
@@ -64,7 +65,7 @@ public class WelcomeActivity extends BaseActivity {
     private void openPermission() {
         ZbPermission.with(WelcomeActivity.this)
                 .addRequestCode(REQUEST_CONTACT)
-                .permissions(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
+                .permissions(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .request(new ZbPermission.ZbPermissionCallback() {
 
                     @Override
@@ -136,8 +137,57 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation arg0) {
                 // toActivityFinish(LoginActivity.class);//
-                if ("0".equals(isLogin)) {
-                    if (mainNavigationModel.getAdv() == null) {
+                Boolean isFirst = SharedPreferencesUtils.getBoolean(getApplicationContext(), "isFirst", true);
+                XLog.e("isFirst" + isFirst);
+                XLog.e("isLogin" + isLogin);
+                if (isFirst) {
+                    SharedPreferencesUtils.put(getApplicationContext(), "isFirst", false);
+                    if ("0".equals(isLogin)) {
+                        if (mainNavigationModel.getAdv().getData() == null) {
+                            Bundle bundle = new Bundle();
+                            bundle.putStringArray("mTitles", mTitles);
+                            bundle.putStringArray("mLinkurl", mLinkurl);
+                            bundle.putStringArray("mIconSelectIds", mIconSelectIds);
+                            bundle.putString("flag", "0");
+                            bundle.putInt("index", 0);
+                            toActivity(MainActivity.class, bundle);
+                            finish();
+                        } else {
+                            List<String> items = mainNavigationModel.getAdv().getData();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(items);
+                            Bundle bundle = new Bundle();
+                            bundle.putStringArray("mTitles", mTitles);
+                            bundle.putStringArray("mLinkurl", mLinkurl);
+                            bundle.putStringArray("mIconSelectIds", mIconSelectIds);
+                            bundle.putString("recLen", mainNavigationModel.getAdv().getParams().getAutoclose());
+                            bundle.putString("adList", json);
+                            toActivity(GuideActivity.class, bundle);
+                            finish();
+                        }
+                    } else {
+                        if (mainNavigationModel.getAdv().getData() == null) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("linkurl", "");
+                            toActivity(LoginActivity.class, bundle);
+                            finish();
+                        } else {
+                            List<String> items = mainNavigationModel.getAdv().getData();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(items);
+                            Bundle bundle = new Bundle();
+                            bundle.putStringArray("mTitles", mTitles);
+                            bundle.putStringArray("mLinkurl", mLinkurl);
+                            bundle.putStringArray("mIconSelectIds", mIconSelectIds);
+                            bundle.putString("recLen", mainNavigationModel.getAdv().getParams().getAutoclose());
+                            bundle.putString("adList", json);
+                            toActivity(GuideActivity.class, bundle);
+                            finish();
+                        }
+                    }
+
+                } else {
+                    if ("0".equals(isLogin)) {
                         Bundle bundle = new Bundle();
                         bundle.putStringArray("mTitles", mTitles);
                         bundle.putStringArray("mLinkurl", mLinkurl);
@@ -147,38 +197,13 @@ public class WelcomeActivity extends BaseActivity {
                         toActivity(MainActivity.class, bundle);
                         finish();
                     } else {
-                        List<String> items = mainNavigationModel.getAdv().getData();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(items);
-                        Bundle bundle = new Bundle();
-                        bundle.putStringArray("mTitles", mTitles);
-                        bundle.putStringArray("mLinkurl", mLinkurl);
-                        bundle.putStringArray("mIconSelectIds", mIconSelectIds);
-                        bundle.putString("recLen", mainNavigationModel.getAdv().getParams().getAutoclose());
-                        bundle.putString("adList", json);
-                        toActivity(GuideActivity.class, bundle);
-                        finish();
-                    }
-                } else {
-                    if (mainNavigationModel.getAdv() == null) {
                         Bundle bundle = new Bundle();
                         bundle.putString("linkurl", "");
                         toActivity(LoginActivity.class, bundle);
                         finish();
-                    } else {
-                        List<String> items = mainNavigationModel.getAdv().getData();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(items);
-                        Bundle bundle = new Bundle();
-                        bundle.putStringArray("mTitles", mTitles);
-                        bundle.putStringArray("mLinkurl", mLinkurl);
-                        bundle.putStringArray("mIconSelectIds", mIconSelectIds);
-                        bundle.putString("recLen", mainNavigationModel.getAdv().getParams().getAutoclose());
-                        bundle.putString("adList", json);
-                        toActivity(GuideActivity.class, bundle);
-                        finish();
                     }
                 }
+
 
 //                if ("1".equals(isWeb)) {
 //

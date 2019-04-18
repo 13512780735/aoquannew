@@ -1,15 +1,12 @@
 package com.likeit.aqe365.adapter.find;
 
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.network.model.find.BoardListModel;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.NineGridTestLayout;
-import com.likeit.aqe365.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;

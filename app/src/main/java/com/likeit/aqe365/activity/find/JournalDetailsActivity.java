@@ -176,6 +176,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
                 bundle.putString("cid", cid);
                 bundle.putString("rcid", rcid);
                 bundle.putString("mcid", mcid);
+                bundle.putString("nickName", journalDetailsModel.getJournal().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
             }
@@ -487,6 +488,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
                     bundle.putString("cid", cid);
                     bundle.putString("rcid", rcid);
                     bundle.putString("mcid", mcid);
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -545,6 +547,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
                     bundle.putString("cid", cid);
                     bundle.putString("rcid", rcid);
                     bundle.putString("mcid", mcid);
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

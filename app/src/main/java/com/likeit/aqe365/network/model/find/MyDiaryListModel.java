@@ -6,6 +6,15 @@ public class MyDiaryListModel {
 
     private List<ListBean> list;
     private String total;
+    private String memberid;
+
+    public String getMemberid() {
+        return memberid;
+    }
+
+    public void setMemberid(String memberid) {
+        this.memberid = memberid;
+    }
 
     public String getTotal() {
         return total;

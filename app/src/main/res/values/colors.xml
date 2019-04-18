@@ -25,6 +25,11 @@
     <color name="product_detail_rb_bg_color">#cbcbcb</color>
     <color name="product_bottom_shopcar_bg_color">#d5d5d5</color>
 
+    <color name="menu_item_normal_bg">#FFFFFFFF</color>
+    <color name="menu_item_press_bg">#656565</color>
+    <color name="menu_item_divider_color">#656565</color>
+    <color name="menu_item_text_color">#FFFFFF</color>
+
     <!--APP基本色调-->
     <color name="app_base_color">#4D98FE</color>
     <color name="register_text_color">#969696</color>

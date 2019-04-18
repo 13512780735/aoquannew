@@ -43,7 +43,9 @@ import com.likeit.aqe365.network.model.home.MainHomeTitleModel;
 import com.likeit.aqe365.network.model.home.MainHomeVideoModel;
 import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
 import com.likeit.aqe365.utils.HttpUtil;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
+import com.likeit.aqe365.view.city.CityPickerActivity;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
@@ -59,6 +61,8 @@ import butterknife.BindView;
  * A simple {@link Fragment} subclass.
  */
 public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+    private static final int REQUEST_CODE_PICK_CITY = 233;
+
     @BindView(R.id.ll_search)
     RelativeLayout mLLSearch;
     @BindView(R.id.mRecyclerView)
@@ -81,7 +85,7 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
     TextView tvRight;//右按钮
     @BindView(R.id.search_address)
     TextView search_address;//定位
-
+    private String city;
     private JSONArray items;
     private List<HomeMessage> mMessages;
     private MainHomeAdapter adapter;
@@ -92,13 +96,15 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     protected void lazyLoad() {
+        city = SharedPreferencesUtils.getString(getContext(), "city");
         initData();
     }
     private void initData() {
+
         loaddingDialog.show();
         String url = ApiService.Main_Home;
         RequestParams params = new RequestParams();
-        params.put("openid", openid);
+        params.put("openid", "");
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -273,6 +279,14 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
                 startActivity(intent);
             }
         });
+        search_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CityPickerActivity.class);
+                intent.putExtra("city", city);
+                startActivityForResult(intent, REQUEST_CODE_PICK_CITY);
+            }
+        });
     }
 
     private boolean isErr;
@@ -280,5 +294,16 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
     @Override
     public void onRefresh() {
         initData();
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_CITY) {
+            if (data != null) {
+                city = data.getStringExtra("date");
+                search_address.setText(city);
+                //initData(1, false);
+            }
+        }
     }
 }

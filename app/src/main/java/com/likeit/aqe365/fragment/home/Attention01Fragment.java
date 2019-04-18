@@ -2,6 +2,7 @@ package com.likeit.aqe365.fragment.home;
 
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -9,20 +10,30 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.MoodDetailActivity;
 import com.likeit.aqe365.activity.find.MoodVideoDetailsActivity;
 import com.likeit.aqe365.activity.find.PostDetailsActivity;
+import com.likeit.aqe365.activity.find.TopicListActivity;
 import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.find.MoodListAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.find.FoolowMoodListModel;
 import com.likeit.aqe365.network.model.find.MoodListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.PopupWindowUtil;
+import com.likeit.aqe365.view.IconfontTextView;
+import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayout;
+import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutAdapter;
 import com.likeit.aqe365.view.searchview.EditText_Clear;
 
 import java.util.ArrayList;
@@ -37,6 +48,8 @@ import rx.Subscriber;
 public class Attention01Fragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.et_search)
     EditText_Clear et_search;
+    @BindView(R.id.flsv)
+    FlowLayout flsv;
     @BindView(R.id.RecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
@@ -53,6 +66,9 @@ public class Attention01Fragment extends BaseFragment implements BaseQuickAdapte
     private List<MoodListModel.ListBean> data = new ArrayList<>();
     private String keyword;
     private String type;
+    private FlowLayoutAdapter<FoolowMoodListModel.ListBean> flowLayoutAdapter;
+    private List<FoolowMoodListModel.ListBean> list;
+
 
     @Override
     protected int setContentView() {
@@ -61,11 +77,59 @@ public class Attention01Fragment extends BaseFragment implements BaseQuickAdapte
 
     @Override
     protected void lazyLoad() {
+        initTab();
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         type = "推荐";
         initAdapter();
         initUI();
+    }
+
+    private void initTab() {
+        RetrofitUtil.getInstance().follow(openid, new Subscriber<BaseResponse<FoolowMoodListModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<FoolowMoodListModel> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    list = baseResponse.getData().getList();
+                    initTabUi();
+                }
+            }
+        });
+    }
+
+    private void initTabUi() {
+        flowLayoutAdapter = new FlowLayoutAdapter<FoolowMoodListModel.ListBean>(list) {
+            @Override
+            public void bindDataToView(ViewHolder holder, int position, FoolowMoodListModel.ListBean bean) {
+                holder.setText(R.id.tv, bean.getTitle());
+                holder.getView(R.id.iv).setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onItemClick(int position, FoolowMoodListModel.ListBean bean) {
+                Bundle bundle = new Bundle();
+                bundle.putString("bid", bean.getId());
+                bundle.putString("title", bean.getTitle());
+                bundle.putString("isattention", "1");
+                toActivity(TopicListActivity.class, bundle);
+            }
+
+            @Override
+            public int getItemLayoutID(int position, FoolowMoodListModel.ListBean bean) {
+                return R.layout.item_layout;
+            }
+        };
+        flsv.setAdapter(flowLayoutAdapter);
     }
 
     private void initUI() {
@@ -117,6 +181,7 @@ public class Attention01Fragment extends BaseFragment implements BaseQuickAdapte
             }
         });
     }
+
 
     public void initData(int pageNum, final boolean isloadmore) {
         RetrofitUtil.getInstance().moodlist(openid, type, keyword, String.valueOf(pageNum), new Subscriber<BaseResponse<MoodListModel>>() {

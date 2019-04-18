@@ -31,6 +31,7 @@ public class MoodCommentFragment extends DialogFragment {
     private TextView tv_post;
     private String id, bid, rpid, mpid, pid;
     private String content;
+    private String nickName;
 
     public MoodCommentFragment() {
         // Required empty public constructor
@@ -41,7 +42,7 @@ public class MoodCommentFragment extends DialogFragment {
         super.onAttach(activity);
 
         try {
-            myDialogFragment_Listener = (CommentDialogFragment.MyDialogFragment_Listener) activity;
+            myDialogFragment_Listener = (MyDialogFragment_Listener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implementon MyDialogFragment_Listener");
         }
@@ -53,7 +54,7 @@ public class MoodCommentFragment extends DialogFragment {
         getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
-    private CommentDialogFragment.MyDialogFragment_Listener myDialogFragment_Listener;
+    private MyDialogFragment_Listener myDialogFragment_Listener;
 
     // 回调接口，用于传递数据给Activity -------
     public interface MyDialogFragment_Listener {
@@ -75,6 +76,7 @@ public class MoodCommentFragment extends DialogFragment {
         rpid = bundle.getString("rpid");
         mpid = bundle.getString("mpid");
         pid = bundle.getString("pid");
+        nickName = bundle.getString("nickName");
         initUI(view);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return view;
@@ -83,6 +85,10 @@ public class MoodCommentFragment extends DialogFragment {
     private void initUI(View view) {
         edContent = view.findViewById(R.id.ed_content);
         iv_colse = view.findViewById(R.id.iv_colse);
+//        if(StringUtil.isBlank(nickName)){
+//
+//        }
+        edContent.setHint("回复："+nickName);
         tv_post = view.findViewById(R.id.tv_post);
         iv_colse.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -148,4 +148,13 @@
         <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
     </style>
+
+
+    <style name="menu_item_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/width45</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/menu_item_text_color</item>
+        <item name="android:background">@drawable/menu_item_selector</item>
+    </style>
 </resources>

@@ -37,6 +37,7 @@ import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RatioImageView;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,6 +173,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                 bundle.putString("pid", id);
                 bundle.putString("rpid", rpid);
                 bundle.putString("mpid", mpid);
+                bundle.putString("nickName",postDetailsModel.getPost().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
             }
@@ -285,7 +287,8 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         tv_name.setText(postDetailsModel.getPost().getNickname());
         tv_content.setText(postDetailsModel.getPost().getCity() + " " + postDetailsModel.getPost().getCreatetime());
         tv_title.setText(postDetailsModel.getPost().getTitle());
-        tv_content01.setText(postDetailsModel.getPost().getContent());
+        RichText.from(postDetailsModel.getPost().getContent()).into(tv_content01);
+       // tv_content01.setText(postDetailsModel.getPost().getContent());
         tv_hospitalName.setText("测试医院");
         tv_hospital_title.setText("服务标题");
         tv_hospital_content.setText("¥ " + 65.00);
@@ -477,7 +480,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                     String id = item.getId();
                     String bid = item.getBid();
                     String pid = postDetailsModel.getPost().getId();
-                    String rpid = "";
+                    String rpid = item.getId();
                     String mpid = "";
                     dialog = new CommentDialogFragment();
                     Bundle bundle = new Bundle();
@@ -485,6 +488,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -533,16 +537,17 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
             tv_views.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String bid = item.getId();
-                    String pid = postDetailsModel.getPost().getId();
+                    String bid = item.getBid();
+                    String pid = item.getPid();
                     String rpid = item.getRpid();
-                    String mpid = item.getMpid();
+                    String mpid = item.getId();
                     dialog = new CommentDialogFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("bid", bid);
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

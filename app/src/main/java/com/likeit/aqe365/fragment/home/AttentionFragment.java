@@ -11,20 +11,20 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.MoodDetailActivity;
 import com.likeit.aqe365.activity.find.MoodVideoDetailsActivity;
-import com.likeit.aqe365.activity.good.GoodListActivity;
-import com.likeit.aqe365.adapter.div_provider.member.CouponListAdapter;
+import com.likeit.aqe365.activity.find.TopicListActivity;
 import com.likeit.aqe365.adapter.find.MoodListAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.find.FoolowMoodListModel;
 import com.likeit.aqe365.network.model.find.MoodListModel;
-import com.likeit.aqe365.network.model.member.CouponListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayout;
+import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutAdapter;
 import com.likeit.aqe365.view.searchview.EditText_Clear;
 
 import java.util.ArrayList;
@@ -39,6 +39,8 @@ import rx.Subscriber;
 public class AttentionFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.et_search)
     EditText_Clear et_search;
+    @BindView(R.id.flsv)
+    FlowLayout flsv;
     @BindView(R.id.RecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
@@ -55,6 +57,8 @@ public class AttentionFragment extends BaseFragment implements BaseQuickAdapter.
     private List<MoodListModel.ListBean> data = new ArrayList<>();
     private String keyword;
     private String type;
+    private FlowLayoutAdapter<FoolowMoodListModel.ListBean> flowLayoutAdapter;
+    private List<FoolowMoodListModel.ListBean> list;
 
     @Override
     protected int setContentView() {
@@ -63,13 +67,61 @@ public class AttentionFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void lazyLoad() {
+        initTab();
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         type = "关注";
         initAdapter();
         initUI();
     }
+    private void initTab() {
+        RetrofitUtil.getInstance().follow(openid, new Subscriber<BaseResponse<FoolowMoodListModel>>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<FoolowMoodListModel> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    list = baseResponse.getData().getList();
+                    initTabUi();
+                }
+            }
+        });
+    }
+
+    private void initTabUi() {
+        flowLayoutAdapter = new FlowLayoutAdapter<FoolowMoodListModel.ListBean>(list) {
+            @Override
+            public void bindDataToView(ViewHolder holder, int position, FoolowMoodListModel.ListBean bean) {
+                holder.setText(R.id.tv, bean.getTitle());
+                holder.getView(R.id.iv).setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onItemClick(int position, FoolowMoodListModel.ListBean bean) {
+
+                //showToast("点击" + position);
+                Bundle bundle = new Bundle();
+                bundle.putString("bid", bean.getId());
+                bundle.putString("title", bean.getTitle());
+                bundle.putString("isattention", "1");
+                toActivity(TopicListActivity.class, bundle);
+            }
+
+            @Override
+            public int getItemLayoutID(int position, FoolowMoodListModel.ListBean bean) {
+                return R.layout.item_layout;
+            }
+        };
+        flsv.setAdapter(flowLayoutAdapter);
+    }
     private void initUI() {
         /**
          * 监听输入键盘更换后的搜索按键

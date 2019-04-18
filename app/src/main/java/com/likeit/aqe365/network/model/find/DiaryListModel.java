@@ -11,7 +11,16 @@ public class DiaryListModel {
      */
 
     private String total;
+    private String isuser;
     private List<ListBean> list;
+
+    public String getIsuser() {
+        return isuser;
+    }
+
+    public void setIsuser(String isuser) {
+        this.isuser = isuser;
+    }
 
     public String getTotal() {
         return total;
@@ -40,11 +49,38 @@ public class DiaryListModel {
          */
 
         private String id;
+        private String memberid;
+        private String avatar;
+        private String nickname;
         private String title;
         private String edittime;
         private String content;
         private String diaryid;
         private String views;
+
+        public String getMemberid() {
+            return memberid;
+        }
+
+        public void setMemberid(String memberid) {
+            this.memberid = memberid;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
 
         public String getDiaryid() {
             return diaryid;

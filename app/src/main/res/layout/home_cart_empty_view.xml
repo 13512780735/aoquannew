@@ -35,6 +35,5 @@
         android:paddingBottom="@dimen/dp_5"
         android:paddingRight="@dimen/width20"
         android:paddingLeft="@dimen/width20"
-        android:layout_marginBottom="@dimen/dp_40"
         android:background="@drawable/shape_button_red_border_bg_15" />
 </RelativeLayout>

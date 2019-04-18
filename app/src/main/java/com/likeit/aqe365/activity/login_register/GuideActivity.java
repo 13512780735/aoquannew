@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.R;
@@ -60,6 +61,7 @@ public class GuideActivity extends BaseActivity {
         isLogin = SharedPreferencesUtils.getString(mContext, "isLogin");
         //recLen = 20;
         adList = getIntent().getStringExtra("adList");
+        XLog.e("adList"+adList);
         initView();
         setListener();
         processLogic();

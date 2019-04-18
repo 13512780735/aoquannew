@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.elvishew.xlog.XLog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.adapter.find.DiaryDetailsAdapter;
 import com.likeit.aqe365.base.BaseActivity;
+import com.likeit.aqe365.fragment.find.CommentDialogFragment;
 import com.likeit.aqe365.fragment.find.DiaryCommentFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
@@ -40,7 +42,7 @@ import rx.Subscriber;
 /**
  * 日记本详情
  */
-public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener<ScrollView> {
+public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener<ScrollView> , DiaryCommentFragment.MyDialogFragment_Listener{
 
     private String title, diaryid, memberid;
     private int w_screen;
@@ -121,6 +123,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
     private Bundle bundle;
     private String commentid;
     private DiaryCommentFragment dialog;
+    private DiarydetailsModel.Hospital hospitalData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +151,9 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
 
     private void initData() {
         //  LoaddingShow();
+        XLog.e("openid" + openid);
+        XLog.e("memberid" + memberid);
+        XLog.e("diaryid" + diaryid);
         RetrofitUtil.getInstance().diarydetails(openid, memberid, diaryid, "1", new Subscriber<BaseResponse<DiarydetailsModel>>() {
             @Override
             public void onCompleted() {
@@ -167,6 +173,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                     diaryBean = diarydetailsModel.getDiary();
                     diaryData = diarydetailsModel.getJournal();
                     commentData = diarydetailsModel.getComment();
+                    hospitalData = diarydetailsModel.getHospital();
 
                     initUI();
                 } else {
@@ -189,9 +196,10 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
         ImageLoader.getInstance().displayImage(diaryBean.getAvatar(), ivAvatar);
         tvName.setText(diaryBean.getNickname());
         tvContent.setText(diaryBean.getCity() + diaryBean.getAddtime());
-        tvHospitalName.setText("测试医院");
-        tvHospital_title.setText("服务标题");
-        tvHospital_content.setText("¥ " + 65.00);
+        tvHospitalName.setText(hospitalData.getName());
+        tvHospital_title.setText(hospitalData.getTitle());
+        ImageLoader.getInstance().displayImage(hospitalData.getLogo(), ivHospitalPic);
+        tvHospital_content.setText("¥ " + hospitalData.getMarketprice());
         iscollect = diaryBean.getIscollect();
         isuser = diaryBean.getIsuser();
         isLike = diaryBean.getIslike();
@@ -199,9 +207,39 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
         ImageLoader.getInstance().displayImage(diaryBean.getImage_text(), ivShuhou);
         tvShuqian.setText(diaryBean.getRecovery_num() + "");
         tvShuhou.setText(diaryBean.getImage_text_num() + "");
-        tv_views.setText(getResources().getString(R.string.ic_comment) + " " + commentData.size());
+        tv_views.setText(getResources().getString(R.string.ic_comment) + " " + diarydetailsModel.getCommentnum());
         tv_views.setTextColor(Color.parseColor("#656565"));
-        tvCommentNum01.setText(commentData.size() + "条");
+
+        if ("1".equals(iscollect)) {
+            tv_iscollect.setText(getResources().getString(R.string.ic_collect));
+            tv_iscollect.setTextColor(Color.parseColor("#FFCC00"));
+        } else if ("0".equals(iscollect)) {
+            tv_iscollect.setText(getResources().getString(R.string.ic_iscollect));
+            tv_iscollect.setTextColor(Color.parseColor("#656565"));
+        }
+
+        if ("0".equals(isuser)) {
+            tvAttention.setContentColorResource01(Color.parseColor(theme_bg_tex));
+            tvAttention.setStrokeColor01(Color.parseColor(theme_bg_tex));
+            tvAttention.setTextColor(Color.parseColor("#ffffff"));
+            tvAttention.setText("+ 关注");
+        } else {
+            tvAttention.setContentColorResource01(Color.parseColor("#FFFFFF"));
+            tvAttention.setStrokeColor01(Color.parseColor("#DBDBDB"));
+            tvAttention.setTextColor(Color.parseColor("#DBDBDB"));
+            tvAttention.setText("已关注");
+        }
+
+        if ("1".equals(diaryBean.getIslike())) {
+            tv_isgood.setText(getResources().getString(R.string.ic_good) + " " + diaryBean.getLikenum());
+            tv_isgood.setTextColor(Color.parseColor("#ff424d"));
+            tv_isgood.setClickable(false);
+        } else {
+            tv_isgood.setText(getResources().getString(R.string.ic_isgood) + " " + diaryBean.getLikenum());
+            tv_isgood.setTextColor(Color.parseColor("#656565"));
+            tv_isgood.setClickable(true);
+        }
+        tvCommentNum01.setText(diarydetailsModel.getCommentnum() + "条");
         tvCommentNum.setText("查看更多评论");
         tvDirayNum.setVisibility(View.VISIBLE);
         //  tvDirayNum.setText("查看全部" + diarydetailsModel.getJournaltotal() + "个日记");
@@ -232,35 +270,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
         mRecyclerViewDiray.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerViewDiray.setAdapter(mAdapter01);
         mAdapter01.notifyDataSetChanged();
-        if ("1".equals(iscollect)) {
-            tv_iscollect.setText(getResources().getString(R.string.ic_collect));
-            tv_iscollect.setTextColor(Color.parseColor("#FFCC00"));
-        } else if ("0".equals(iscollect)) {
-            tv_iscollect.setText(getResources().getString(R.string.ic_iscollect));
-            tv_iscollect.setTextColor(Color.parseColor("#656565"));
-        }
 
-        if ("0".equals(isuser)) {
-            tvAttention.setContentColorResource01(Color.parseColor(theme_bg_tex));
-            tvAttention.setStrokeColor01(Color.parseColor(theme_bg_tex));
-            tvAttention.setTextColor(Color.parseColor("#ffffff"));
-            tvAttention.setText("+ 关注");
-        } else {
-            tvAttention.setContentColorResource01(Color.parseColor("#FFFFFF"));
-            tvAttention.setStrokeColor01(Color.parseColor("#DBDBDB"));
-            tvAttention.setTextColor(Color.parseColor("#DBDBDB"));
-            tvAttention.setText("已关注");
-        }
-
-        if ("1".equals(diaryBean.getIslike())) {
-            tv_isgood.setText(getResources().getString(R.string.ic_good) + " " + diaryBean.getLikenum());
-            tv_isgood.setTextColor(Color.parseColor("#ff424d"));
-            tv_isgood.setClickable(false);
-        } else {
-            tv_isgood.setText(getResources().getString(R.string.ic_isgood) + " " + diaryBean.getLikenum());
-            tv_isgood.setTextColor(Color.parseColor("#656565"));
-            tv_isgood.setClickable(true);
-        }
         mAdapter01.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -325,6 +335,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                 bundle.putString("diaryid", diaryid);
                 bundle.putString("rdid", rdid);
                 bundle.putString("mdid", mdid);
+                bundle.putString("nickName", diarydetailsModel.getDiary().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
 
@@ -361,6 +372,12 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
 
     @Override
     public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+        initData();
+        mScrollview.onRefreshComplete();
+    }
+
+    @Override
+    public void getDataFrom_DialogFragment(String Data01) {
         initData();
         mScrollview.onRefreshComplete();
     }
@@ -418,6 +435,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                     bundle.putString("diaryid", diaryid);
                     bundle.putString("rdid", rdid);
                     bundle.putString("mdid", mdid);
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "");
                 }
@@ -473,6 +491,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                     bundle.putString("diaryid", diaryid);
                     bundle.putString("rdid", rdid);
                     bundle.putString("mdid", mdid);
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

@@ -2,6 +2,7 @@ package com.likeit.aqe365.adapter.indent;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,7 +25,7 @@ public class GoodIndent04Adapter extends BaseQuickAdapter<IndentListModel.ListBe
     }
 
     @Override
-    protected void convert(BaseViewHolder baseViewHolder, IndentListModel.ListBean item) {
+    protected void convert(final BaseViewHolder baseViewHolder, IndentListModel.ListBean item) {
         datas = item.getGoods();
         baseViewHolder.setText(R.id.tv_indent_number, "订单号：" + item.getOrdersn());
         baseViewHolder.setText(R.id.tv_indent_name, item.getMerchname());
@@ -45,10 +46,30 @@ public class GoodIndent04Adapter extends BaseQuickAdapter<IndentListModel.ListBe
         baseViewHolder.addOnClickListener(R.id.tv_appraise_indent);
         baseViewHolder.addOnClickListener(R.id.tv_del_indent);
         baseViewHolder.addOnClickListener(R.id.tv_check_wuLiu);
-        baseViewHolder.addOnClickListener(R.id.rl_indent_details);
+        //baseViewHolder.addOnClickListener(R.id.rl_indent_details);
         mAdapter = new IndentShopListAdapter(R.layout.layout_indent_shop_listitems, datas);
         RecyclerView mRecyclerView = baseViewHolder.getView(R.id.RecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
+        baseViewHolder.getView(R.id.rl_indent_details).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //模拟父控件的点击
+                    baseViewHolder.getConvertView().performClick();
+                }
+                return false;
+            }
+        });
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //模拟父控件的点击
+                    baseViewHolder.getConvertView().performClick();
+                }
+                return false;
+            }
+        });
     }
 }

@@ -91,7 +91,7 @@ public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayou
     }
 
     private void initData(int pageNum, final boolean isloadmore) {
-        RetrofitUtil.getInstance().GetBoardlist(openid, "", String.valueOf(pageNum), new Subscriber<BaseResponse<BoardListModel>>() {
+        RetrofitUtil.getInstance().GetBoardlist(openid, "", "", String.valueOf(pageNum), new Subscriber<BaseResponse<BoardListModel>>() {
             @Override
             public void onCompleted() {
 

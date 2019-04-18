@@ -169,7 +169,13 @@
         <activity android:name=".activity.find.SendPostActivity" />
         <activity android:name=".activity.user.ChangePwdActivity" />
         <activity android:name=".activity.web.jsinterface.JsInterfaceActivity" />
-        <activity android:name=".activity.home.CategoryActivity"></activity>
+        <activity android:name=".activity.home.CategoryActivity" />
+        <activity android:name=".activity.user.MyDirayActivity" />
+        <activity android:name=".activity.user.MyPostMoodActivity" />
+        <activity android:name=".activity.user.MyHuaTiActivity" />
+        <activity android:name=".activity.user.MyFensiActivity" />
+        <activity android:name=".activity.find.ChoicenessDiaryActivity" />
+        <activity android:name=".activity.find.DiscussTopicActivity"></activity>
     </application>
 
 </manifest>

@@ -53,8 +53,10 @@ import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.HttpUtil;
 import com.likeit.aqe365.utils.IntentUtils;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.view.NoScrollViewPager;
+import com.likeit.aqe365.view.city.CityPickerActivity;
 import com.loopj.android.http.RequestParams;
 
 
@@ -73,6 +75,8 @@ import rx.Subscriber;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+    private static final int REQUEST_CODE_PICK_CITY = 233;
+
     @BindView(R.id.ll_search)
     RelativeLayout mLLSearch;
     @BindView(R.id.mRecyclerView)
@@ -118,7 +122,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private Typeface iconTypeface;
     private DiyTabModel diyTabModel;
     private ArrayList<String> mTitles;
-
+    private String city;
 
     @Override
     protected int setContentView() {
@@ -128,6 +132,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     protected void lazyLoad() {
         iconTypeface = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
+        city = SharedPreferencesUtils.getString(getContext(), "city");
         initTab();
 
 
@@ -245,7 +250,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         loaddingDialog.show();
         String url = ApiService.Main_Home;
         RequestParams params = new RequestParams();
-        params.put("openid", openid);
+        params.put("openid", "");
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
@@ -389,7 +394,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }
         if ("1".equals(mainHomeSearchModel.getParams().getIslocation())) {
             search_address.setVisibility(View.VISIBLE);
-            search_address.setText("中山");
+            search_address.setText(city);
         } else {
             search_address.setVisibility(View.GONE);
         }
@@ -419,6 +424,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 startActivity(intent);
             }
         });
+        search_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CityPickerActivity.class);
+                intent.putExtra("city", city);
+                startActivityForResult(intent, REQUEST_CODE_PICK_CITY);
+            }
+        });
     }
 
     private boolean isErr;
@@ -426,5 +439,17 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         initTab();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_CITY) {
+            if (data != null) {
+                city = data.getStringExtra("date");
+                search_address.setText(city);
+                //initData(1, false);
+            }
+        }
     }
 }

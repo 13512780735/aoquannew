@@ -34,6 +34,7 @@ public class CommentDialogFragment extends DialogFragment {
     private TextView tv_post;
     private String id, bid, rpid, mpid, pid;
     private String content;
+    private String nickName;
 
     public CommentDialogFragment() {
         // Required empty public constructor
@@ -78,6 +79,7 @@ public class CommentDialogFragment extends DialogFragment {
         rpid = bundle.getString("rpid");
         mpid = bundle.getString("mpid");
         pid = bundle.getString("pid");
+        nickName = bundle.getString("nickName");
         initUI(view);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return view;
@@ -85,6 +87,7 @@ public class CommentDialogFragment extends DialogFragment {
 
     private void initUI(View view) {
         edContent = view.findViewById(R.id.ed_content);
+        edContent.setHint("回复："+nickName);
         iv_colse = view.findViewById(R.id.iv_colse);
         tv_post = view.findViewById(R.id.tv_post);
         iv_colse.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +99,7 @@ public class CommentDialogFragment extends DialogFragment {
         tv_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                content = edContent.getText().toString().trim();
+                content = edContent.getText().toString();
                 post();
                 dismiss();
             }
@@ -111,6 +114,7 @@ public class CommentDialogFragment extends DialogFragment {
         XLog.e("bid:" + bid);
         XLog.e("rpid:" + rpid);
         XLog.e("mpid:" + mpid);
+        XLog.e("nickName:" + nickName);
         if (StringUtil.isBlank(content)) {
             ToastUtils.showToast(getActivity(), "内容不能为空");
             return;

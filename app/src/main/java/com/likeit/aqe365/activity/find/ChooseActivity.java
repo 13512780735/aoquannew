@@ -13,15 +13,12 @@ import android.widget.LinearLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.adapter.find.AllFind02Adapter;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.network.model.BaseResponse;
-import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.network.model.find.MyDiaryListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -105,7 +102,7 @@ public class ChooseActivity extends BaseActivity {
         ll_new_riji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferencesUtils.put(mContext,"postFlag","0");
+                SharedPreferencesUtils.put(mContext, "postFlag", "0");
                 toActivity(EditDiaryActivity.class);
             }
         });
@@ -115,10 +112,19 @@ public class ChooseActivity extends BaseActivity {
                 String type = data.get(position).getType();
                 String diaryid = data.get(position).getId();
                 Bundle bundle = new Bundle();
-                SharedPreferencesUtils.put(mContext,"postFlag","1");
-                bundle.putString("type", type);
-                bundle.putString("diaryid", diaryid);
-                toActivity(EditDiary01Activity.class, bundle);
+                if("0".equals(data.get(position).getNum())){
+                    SharedPreferencesUtils.put(mContext, "postFlag", "0");
+                    bundle.putString("type", type);
+                    bundle.putString("diaryid", diaryid);
+                    toActivity(EditDiary01Activity.class, bundle);
+                }else {
+                    SharedPreferencesUtils.put(mContext, "postFlag", "1");
+                    bundle.putString("type", type);
+                    bundle.putString("diaryid", diaryid);
+                    toActivity(EditDiary01Activity.class, bundle);
+                }
+
+
             }
         });
     }
@@ -224,7 +230,7 @@ public class ChooseActivity extends BaseActivity {
         @Override
         protected void convert(BaseViewHolder helper, MyDiaryListModel.ListBean item) {
             helper.setText(R.id.tv_title, item.getBooktitle());
-            helper.setText(R.id.tv_num, item.getNum() + "篇");
+            helper.setText(R.id.tv_num, item.getNum() + "篇日记");
         }
     }
 

@@ -3,6 +3,7 @@ package com.likeit.aqe365.adapter.indent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ public class IndentReturnsAdapter extends BaseQuickAdapter<IndentListModel.ListB
     }
 
     @Override
-    protected void convert(BaseViewHolder baseViewHolder, IndentListModel.ListBean item) {
+    protected void convert(final BaseViewHolder baseViewHolder, IndentListModel.ListBean item) {
         datas = item.getGoods();
         mAdapter = new IndentShopListAdapter(R.layout.layout_indent_shop_listitems, datas);
         baseViewHolder.setText(R.id.tv_indent_number, "订单号：" + item.getOrdersn());
@@ -47,9 +48,30 @@ public class IndentReturnsAdapter extends BaseQuickAdapter<IndentListModel.ListB
 
         baseViewHolder.addOnClickListener(R.id.tv_recover_goods);
         baseViewHolder.addOnClickListener(R.id.tv_del_indent);
-        baseViewHolder.addOnClickListener(R.id.rl_indent_details);
+       // baseViewHolder.addOnClickListener(R.id.rl_indent_details);
         RecyclerView mRecyclerView = baseViewHolder.getView(R.id.RecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
+        baseViewHolder.getView(R.id.rl_indent_details).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //模拟父控件的点击
+                    baseViewHolder.getConvertView().performClick();
+                }
+                return false;
+            }
+        });
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //模拟父控件的点击
+                    baseViewHolder.getConvertView().performClick();
+                }
+                return false;
+            }
+        });
+
     }
 }

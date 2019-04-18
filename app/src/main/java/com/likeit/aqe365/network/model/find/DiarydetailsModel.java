@@ -19,6 +19,15 @@ public class DiarydetailsModel {
     private String journaltotal;
     private List<JournalBean> journal;
     private List<CommentBean> comment;
+    private Hospital hospital;
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
 
     public String getJournaltotal() {
         return journaltotal;
@@ -66,6 +75,53 @@ public class DiarydetailsModel {
 
     public void setComment(List<CommentBean> comment) {
         this.comment = comment;
+    }
+    public static class Hospital{
+        private String id;
+        private String name;
+        private String logo;
+        private String title;
+        private String marketprice;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getMarketprice() {
+            return marketprice;
+        }
+
+        public void setMarketprice(String marketprice) {
+            this.marketprice = marketprice;
+        }
     }
 
     public static class DiaryBean {

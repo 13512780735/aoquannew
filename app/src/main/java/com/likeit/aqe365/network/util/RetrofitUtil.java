@@ -18,12 +18,13 @@ import com.likeit.aqe365.network.model.Indent.IndentDetailModel;
 import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.LoginRegisterModel;
-import com.likeit.aqe365.network.model.cart.CartListModel;
+import com.likeit.aqe365.network.model.cart01.CartListModel;
 import com.likeit.aqe365.network.model.find.BoardListModel;
 import com.likeit.aqe365.network.model.find.ConcernsListModel;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
+import com.likeit.aqe365.network.model.find.FoolowMoodListModel;
 import com.likeit.aqe365.network.model.find.HospitalListModel;
 import com.likeit.aqe365.network.model.find.HospitalandServeModel;
 import com.likeit.aqe365.network.model.find.JournalDetailsModel;
@@ -44,8 +45,11 @@ import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.model.member.AvatarModel;
 import com.likeit.aqe365.network.model.member.CouponCenterModel;
 import com.likeit.aqe365.network.model.member.CouponListModel;
+import com.likeit.aqe365.network.model.member.GetUserInfoModel;
 import com.likeit.aqe365.network.model.member.MessageListModel;
+import com.likeit.aqe365.network.model.member.MyUserModel;
 import com.likeit.aqe365.network.model.member.NoticeListModel;
+import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.model.member.UserInfoModel;
 import com.likeit.aqe365.network.model.pay.BalacePayModel;
 import com.likeit.aqe365.network.model.pay.PayModel;
@@ -800,9 +804,9 @@ public class RetrofitUtil {
      *
      * @return
      */
-    public void GetBoardlist(String openid, String keyword, String pageNum,
+    public void GetBoardlist(String openid, String keyword, String type, String pageNum,
                              Subscriber<BaseResponse<BoardListModel>> subscriber) {
-        mApiService.GetBoardlist(openid, keyword, pageNum)
+        mApiService.GetBoardlist(openid, keyword, type, pageNum)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -992,7 +996,7 @@ public class RetrofitUtil {
     }
 
     /**
-     * 帖子点赞
+     * 帖子回复
      *
      * @return
      */
@@ -1222,6 +1226,20 @@ public class RetrofitUtil {
      *
      * @return
      */
+    public void follow(String openid,
+                       Subscriber<BaseResponse<FoolowMoodListModel>> subscriber) {
+        mApiService.follow(openid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 心情列表
+     *
+     * @return
+     */
     public void moodlist(String openid, String type, String keyword, String pageNum,
                          Subscriber<BaseResponse<MoodListModel>> subscriber) {
         mApiService.moodlist(openid, type, keyword, pageNum)
@@ -1346,6 +1364,7 @@ public class RetrofitUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     /**
      * 添加与搜索话题(心情和帖子)
      *
@@ -1355,7 +1374,52 @@ public class RetrofitUtil {
      */
     public void postTopiclist(String openid, String keywords, String pageNum,
                               Subscriber<BaseResponse<BoardListModel>> subscriber) {
-        mApiService.postTopiclist(openid, keywords,pageNum)
+        mApiService.postTopiclist(openid, keywords, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 根据memberid获取个人信息
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void getUserInfo(String openid, String memberid,
+                            Subscriber<BaseResponse<GetUserInfoModel>> subscriber) {
+        mApiService.getUserInfo(openid, memberid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 用户列表(粉丝)
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void getMyUser(String openid, String keywords, String type, String lat, String lng, String pageNum,
+                          Subscriber<BaseResponse<MyUserModel>> subscriber) {
+        mApiService.getMyUser(openid, keywords, type, lat, lng, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 用户帖子和心情列表
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void postuser(String openid, String memberid, String type, String pageNum,
+                         Subscriber<BaseResponse<PostUserModel>> subscriber) {
+        mApiService.postuser(openid, memberid, type, pageNum)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -65,15 +65,9 @@ public class Indent03Fragment extends BaseFragment implements BaseQuickAdapter.R
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-                    case R.id.rl_indent_details://订单详情
-                        id = data.get(position).getId();
-                        SharedPreferencesUtils.put(getActivity(),"ordId",id);
-                        bundle = new Bundle();
-                        bundle.putInt("status", 3);
-                        bundle.putString("id", id);
-                        bundle.putString("flag", "1");
-                        toActivity(IndentDetailsActivity.class, bundle);
-                        break;
+//                    case R.id.rl_indent_details://订单详情
+//
+//                        break;
                     case R.id.tv_confirm_goods://确认收货
                        // toActivity(IndentAppraiseActivity.class);
                         id = data.get(position).getId();
@@ -129,6 +123,18 @@ public class Indent03Fragment extends BaseFragment implements BaseQuickAdapter.R
         initData(pageNum, false);
         LoaddingShow();
         mCurrentCounter = mAdapter.getData().size();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                id = data.get(position).getId();
+                SharedPreferencesUtils.put(getActivity(),"ordId",id);
+                bundle = new Bundle();
+                bundle.putInt("status", 3);
+                bundle.putString("id", id);
+                bundle.putString("flag", "1");
+                toActivity(IndentDetailsActivity.class, bundle);
+            }
+        });
     }
 
     private List<IndentListModel.ListBean> data = new ArrayList<>();

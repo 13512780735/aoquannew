@@ -66,15 +66,9 @@ public class IndentReturnsActivity extends BaseActivity implements SwipeRefreshL
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-                    case R.id.rl_indent_details://订单详情
-                        id = data.get(position).getId();
-                        SharedPreferencesUtils.put(mContext,"ordId",id);
-                        bundle = new Bundle();
-                        bundle.putInt("status", 9999);
-                        bundle.putString("flag", "1");
-                        bundle.putString("id", id);
-                        toActivity(IndentDetailsActivity.class, bundle);
-                        break;
+//                    case R.id.rl_indent_details://订单详情
+//
+//                        break;
                     case R.id.tv_del_indent://删除订单
                         id = data.get(position).getId();
                         userdeleted = "1";
@@ -128,6 +122,18 @@ public class IndentReturnsActivity extends BaseActivity implements SwipeRefreshL
         initData(pageNum, false);
         LoaddingShow();
         mCurrentCounter = mAdapter.getData().size();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                id = data.get(position).getId();
+                SharedPreferencesUtils.put(mContext,"ordId",id);
+                bundle = new Bundle();
+                bundle.putInt("status", 9999);
+                bundle.putString("flag", "1");
+                bundle.putString("id", id);
+                toActivity(IndentDetailsActivity.class, bundle);
+            }
+        });
     }
 
     private List<IndentListModel.ListBean> data = new ArrayList<>();

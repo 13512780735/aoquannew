@@ -41,8 +41,9 @@
         <EditText
             android:id="@+id/ed_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@null"
+            android:gravity="top"
             android:hint="评论:"
             android:padding="@dimen/dp_10" />
 

@@ -37,6 +37,7 @@ public class DiaryCommentFragment extends DialogFragment {
     private TextView tv_post;
     private String diaryid, rdid, mdid;
     private String content;
+    private String nickName;
 
     @Override
     public void onStart() {
@@ -75,12 +76,14 @@ public class DiaryCommentFragment extends DialogFragment {
         diaryid = getArguments().getString("diaryid");
         rdid = getArguments().getString("rdid");
         mdid = getArguments().getString("mdid");
+        nickName = getArguments().getString("nickName");
         initUI(view);
         return view;
     }
 
     private void initUI(View view) {
         edContent = view.findViewById(R.id.ed_content);
+        edContent.setHint("回复："+nickName);
         iv_colse = view.findViewById(R.id.iv_colse);
         tv_post = view.findViewById(R.id.tv_post);
         iv_colse.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +120,7 @@ public class DiaryCommentFragment extends DialogFragment {
         XLog.e("diaryid:" + diaryid);
         XLog.e("rdid:" + rdid);
         XLog.e("mdid:" + mdid);
+        XLog.e("nickName:" + nickName);
         if (StringUtil.isBlank(this.content)) {
             ToastUtils.showToast(getActivity(), "内容不能为空");
             return;

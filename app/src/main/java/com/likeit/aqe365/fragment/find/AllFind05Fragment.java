@@ -33,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import rx.Subscriber;
 
-/**
+/** 用户
  * A simple {@link Fragment} subclass.
  */
 public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
@@ -85,12 +85,12 @@ public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayou
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", data.get(position).getId());
-                bundle.putString("isuser", data.get(position).getIsuser());
-                bundle.putString("avatar", data.get(position).getAvatar());
-                bundle.putString("name", data.get(position).getNickname());
-
-                SharedPreferencesUtils.put(getActivity(), "avatar", data.get(position).getAvatar());
-                SharedPreferencesUtils.put(getActivity(), "name", data.get(position).getNickname());
+//                bundle.putString("isuser", data.get(position).getIsuser());
+//                bundle.putString("avatar", data.get(position).getAvatar());
+//                bundle.putString("name", data.get(position).getNickname());
+//
+//                SharedPreferencesUtils.put(getActivity(), "avatar", data.get(position).getAvatar());
+//                SharedPreferencesUtils.put(getActivity(), "name", data.get(position).getNickname());
                 toActivity(UserInfoActivity.class, bundle);
             }
         });

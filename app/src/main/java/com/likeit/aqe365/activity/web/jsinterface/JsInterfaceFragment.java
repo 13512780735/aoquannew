@@ -36,9 +36,11 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.login_register.LoginActivity;
 import com.likeit.aqe365.activity.web.base.BaseFragment;
 import com.likeit.aqe365.activity.web.model.JsInterfaceLogic;
 import com.likeit.aqe365.event.PayEventMessage;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.CustomDialog;
 import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.LoaddingDialog;
@@ -300,6 +302,14 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         });
     }
 
+    @Override
+    public void showNativeMessage(String message) {
+        super.showNativeMessage(message);
+        mWebView.clearCache(true);
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
+    }
 
     @Override
     public void showWeChatPay(String str) {
@@ -429,9 +439,16 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
             String linkurl = object.optString("linkurl");
             String id = object.optJSONObject("params").optString("id");
             String weburl = object.optString("weburl");
+            String type = object.optString("weburl");
+            String member = object.optString("weburl");
             XLog.e("linkurl" + linkurl);
             XLog.e("id" + id);
             XLog.e("weburl" + weburl);
+            if (!TextUtils.isEmpty(type)) {
+                IntentUtils.intentTos(getActivity(), linkurl, id, weburl, type);
+            } else if (!TextUtils.isEmpty(member)) {
+                IntentUtils.intentTos02(getActivity(), linkurl, id, weburl, member);
+            }
             IntentUtils.intentTo(getActivity(), linkurl, id, weburl);
         } catch (JSONException e) {
             e.printStackTrace();

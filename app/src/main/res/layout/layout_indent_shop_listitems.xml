@@ -4,6 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:layout_marginBottom="1dp"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
     android:padding="@dimen/dp_10"
     android:orientation="horizontal">
 

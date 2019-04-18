@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:layout_width="@dimen/width120"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_round_grey_bg_5"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/menu_item1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width45"
+            android:gravity="center"
+            android:text="举报"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -67,9 +67,7 @@ public class BaseFragment<T extends BasePresenterInterface> extends Fragment {
 
     public void showNativeMessage(String message) {
         // LogUtils.d("已经登录");
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity(intent);
-        AppManager.getAppManager().finishAllActivity();
+
     }
 
     public void showWeChatPay(String str) {

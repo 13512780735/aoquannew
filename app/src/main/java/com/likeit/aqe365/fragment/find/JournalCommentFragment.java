@@ -33,6 +33,7 @@ public class JournalCommentFragment extends DialogFragment {
     private String content;
 
     private MyDialogFragment_Listener myDialogFragment_Listener;
+    private String nickName;
 
     @Override
     public void onAttach(Activity activity) {
@@ -71,6 +72,7 @@ public class JournalCommentFragment extends DialogFragment {
         cid = bundle.getString("rpid");
         rcid = bundle.getString("mpid");
         mcid = bundle.getString("pid");
+        nickName = getArguments().getString("nickName");
         initUI(view);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return view;
@@ -80,6 +82,7 @@ public class JournalCommentFragment extends DialogFragment {
         edContent = view.findViewById(R.id.ed_content);
         iv_colse = view.findViewById(R.id.iv_colse);
         tv_post = view.findViewById(R.id.tv_post);
+        edContent.setHint("回复："+nickName);
         iv_colse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

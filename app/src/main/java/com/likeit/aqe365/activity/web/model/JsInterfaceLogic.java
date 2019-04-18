@@ -24,6 +24,7 @@ public class JsInterfaceLogic {
 
     @JavascriptInterface
     public void logout() {
+
         mFragment.showNativeMessage("");
     }
 
