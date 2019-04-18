@@ -1,6 +1,9 @@
 package com.likeit.aqe365.network.model.cart01;
 
 
+import com.ocnyang.cartlayout.bean.ChildItemBean;
+import com.ocnyang.cartlayout.bean.GroupItemBean;
+
 import java.util.List;
 
 public class CartListModel {
@@ -337,7 +340,7 @@ public class CartListModel {
         }
     }
 
-    public static class ListBeanXX extends BaseInfo{
+    public static class ListBeanXX extends GroupItemBean {
         /**
          * merchname : 中山市芯澳医疗产品有限公司
          * merchid : 118
@@ -347,41 +350,7 @@ public class CartListModel {
         private String merchname;
         private String merchid;
         private List<ListBeanX> list;
-        private boolean isEditor; //自己对该组的编辑状态
-        private boolean ActionBarEditor;// 全局对该组的编辑状态
-        private int flag;
 
-        public ListBeanXX(String id,String merchname, String merchid, List<ListBeanX> list) {
-            // TODO Auto-generated constructor stub
-            super(id,merchname);
-            this.merchid = merchid;
-            this.list = list;
-        }
-
-
-        public boolean isEditor() {
-            return isEditor;
-        }
-
-        public void setEditor(boolean editor) {
-            isEditor = editor;
-        }
-
-        public boolean isActionBarEditor() {
-            return ActionBarEditor;
-        }
-
-        public void setActionBarEditor(boolean actionBarEditor) {
-            ActionBarEditor = actionBarEditor;
-        }
-
-        public int getFlag() {
-            return flag;
-        }
-
-        public void setFlag(int flag) {
-            this.flag = flag;
-        }
 
         public String getMerchname() {
             return merchname;
@@ -407,7 +376,7 @@ public class CartListModel {
             this.list = list;
         }
 
-        public static class ListBeanX extends BaseInfo{
+        public static class ListBeanX extends ChildItemBean {
             /**
              * id : 7203
              * total : 1
@@ -443,23 +412,6 @@ public class CartListModel {
             private String linkurl;
             private ParamsBeanX params;
             private String weburl;
-            public ListBeanX(String id, String total, String goodsid, String stock, String title,
-                             String thumb, int marketprice, String optiontitle, String optionid, String minbuy, String unit, String merchid, String linkurl, String weburl) {
-                this.id = id;
-                this.total = total;
-                this.goodsid = goodsid;
-                this.stock = stock;
-                this.title = title;
-                this.thumb = thumb;
-                this.marketprice = marketprice;
-                this.optiontitle = optiontitle;
-                this.optionid = optionid;
-                this.minbuy = minbuy;
-                this.unit = unit;
-                this.merchid = merchid;
-                this.linkurl = linkurl;
-                this.weburl = weburl;
-            }
 
             public String getId() {
                 return id;

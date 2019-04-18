@@ -148,4 +148,6 @@ dependencies {
     implementation 'in.srain.cube:ultra-ptr:1.0.11'
     //implementation 'com.github.GeniusLiu:QuickItemDecorationDemo:1.0.0'
     // implementation "com.mob.sdk:MobSDK:2018.0319.1724"
+    // implementation 'com.github.OCNYang:CartLayout:v1.0.1'
+    implementation project(':cartlayout')
 }
