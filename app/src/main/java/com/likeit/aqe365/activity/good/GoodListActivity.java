@@ -139,7 +139,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         popupWindow = new FilterPopupWindow(GoodListActivity.this);
-      //  popupWindow.setClippingEnabled(false);
+        //  popupWindow.setClippingEnabled(false);
         popupWindow.setOnFilterInforCompleted(this);
         //popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         // popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
@@ -298,13 +298,10 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 //                bundle.putString("id", data.get(position).getId());
 //                toActivity(GoodDetailActivity.class, bundle);
 
-                String id =data.get(position).getId();
-                String linkUrl=data.get(position).getLinkurl();
-                String webUrl=data.get(position).getWeburl();
-                if(!StringUtil.isBlank(cid)){
-                    IntentUtils.intentTo(mContext,linkUrl,id,webUrl);
-
-                }
+                String id = data.get(position).getId();
+                String linkUrl = data.get(position).getLinkurl();
+                String webUrl = data.get(position).getWeburl();
+                IntentUtils.intentTo(mContext, linkUrl, id, webUrl);
             }
         });
     }
@@ -321,7 +318,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         XLog.e("pricemin-->", pricemin);
         XLog.e("pricemax-->", pricemax);
         XLog.e("cid-->", cid);
-        String str1="openid-"+openid+"keyword-"+keyword+"pricemin-"+pricemin+"pricemax-"+pricemax+"attribute-"+attribute+"merchid-"+merchid+"cid-"+cid+"order-"+order+"by-"+by;
+        String str1 = "openid-" + openid + "keyword-" + keyword + "pricemin-" + pricemin + "pricemax-" + pricemax + "attribute-" + attribute + "merchid-" + merchid + "cid-" + cid + "order-" + order + "by-" + by;
         //Toast.makeText(mContext,str1, Toast.LENGTH_LONG).show();
 
         RetrofitUtil.getInstance().CategoryList(openid, keyword, attribute, merchid, order, by, pricemin, pricemax, String.valueOf(pageNum), cid, new Subscriber<BaseResponse<CategoryListItemsModel>>() {
@@ -439,12 +436,12 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     public void inputFilterInforCompleted(String pricemin1, String pricemax1, String attribute1, String merchid1, String cid1) {
 
         //Toast.makeText(FilterPopupWindow.this.context, pricemin, Toast.LENGTH_SHORT).show();
-        pricemin=pricemin1;
-        pricemax=pricemax1;
-        attribute=attribute1;
-        merchid=merchid1;
-        cid=cid1;
-      //  ToastUtils.showToast(mContext,"attribute"+attribute);
+        pricemin = pricemin1;
+        pricemax = pricemax1;
+        attribute = attribute1;
+        merchid = merchid1;
+        cid = cid1;
+        //  ToastUtils.showToast(mContext,"attribute"+attribute);
         initAdapter();
     }
 }

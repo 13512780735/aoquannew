@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FollowlistModel {
+
     /**
-     * 关注话题
-     */
-    /**
-     * list : [{"id":"23","bid":"1","avatar":"http://thirdwx.qlogo.cn/mmopen/jZajuIr8ccOw23ER57f0cDuT8iaHjjRT2Q1cLI1aVaTZUN4aqqDPMNNVMPVc3KAc9Mb1ialiaCh7yhsFVYyQV4ZjeTgKZBPy4Y1/132","nickname":"AQ_邹定谔","title":"固特 牙科诊所超声波清洗机","content":"阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/03/qhHu53s6AsZWzWUu335huhH5uwG8Nu.png","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/S95RbjHJjh8E699avu9z8U49wZLQ8R.png"],"createtime":"2019-03-11","views":"6"},{"id":"22","bid":"1","avatar":"http://wx.aqe365.com/attachment/images/1/2019/01/cthuo4Rtx5BH5z4G3TYhrGFhtBU4Xr.png","nickname":"136xxxx0576","title":"这是一个测试4","content":"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好","images":["http://aoquan.maimaitoo.com/attachment/images/1/2018/08/kRHnNq77YoPpPXYfYpkKyrrppyrza7.png","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/pPge7l373tNi7iwPie08Mw8NzWTL0I.gif"],"createtime":"2019-03-11","views":"4"},{"id":"21","bid":"1","avatar":"http://wx.aqe365.com/attachment/images/1/2019/01/cthuo4Rtx5BH5z4G3TYhrGFhtBU4Xr.png","nickname":"136xxxx0576","title":"这是一个测试3","content":"噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦噢噢噢噢哦哦哦哦哦哦","images":["http://aoquan.maimaitoo.com/attachment/images/1/2018/08/kRHnNq77YoPpPXYfYpkKyrrppyrza7.png","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/pPge7l373tNi7iwPie08Mw8NzWTL0I.gif","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/pPge7l373tNi7iwPie08Mw8NzWTL0I.gif","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/pPge7l373tNi7iwPie08Mw8NzWTL0I.gif"],"createtime":"2019-03-11","views":"4"},{"id":"19","bid":"1","avatar":"http://wx.aqe365.com/attachment/images/1/2019/01/cthuo4Rtx5BH5z4G3TYhrGFhtBU4Xr.png","nickname":"136xxxx0576","title":"这是一个测试","content":"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈","images":["http://aoquan.maimaitoo.com/attachment/images/1/2018/08/kRHnNq77YoPpPXYfYpkKyrrppyrza7.png","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/pPge7l373tNi7iwPie08Mw8NzWTL0I.gif","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/pPge7l373tNi7iwPie08Mw8NzWTL0I.gif"],"createtime":"2019-03-11","views":"6"},{"id":"6","bid":"1","avatar":"http://thirdwx.qlogo.cn/mmopen/jZajuIr8ccOw23ER57f0cDuT8iaHjjRT2Q1cLI1aVaTZUN4aqqDPMNNVMPVc3KAc9Mb1ialiaCh7yhsFVYyQV4ZjeTgKZBPy4Y1/132","nickname":"AQ_邹定谔","title":"什么是奶瓶龋？又如何预防呢","content":"奶瓶龋最初在上颌乳切牙的唇面龈缘处出现白垩色斑点或带状脱矿，而后逐渐向下向旁边蔓延，侵蚀邻近的牙面形成环状龋，呈棕褐色，并最终发生牙冠折断，仅留下残根。\n 需要说明的是孩子牙齿脱矿，就需要使用护牙素，护牙素能够帮助重建牙釉质缺损失，降低牙本质敏感，为高龋齿风险和有特殊需要的人群提供专业牙齿保护，吞咽安全。\n 奶瓶龋的发生不仅使乳牙的切割功能大大降低，而且随着病变加重，会引起牙髓及牙根尖病变，这时孩子会感到剧烈疼痛或牙龈肿胀、流脓，严重的还会影响恒牙的发育。\n 让孩子抱着奶瓶，就去上床睡觉，几周，几个月下来就会这样，妈咪再不重视也不去医院治疗。。。\n 一旦因龋蚀严重无法治疗，而将乳牙过早拔除，就会引起恒牙萌出秩序错乱甚至恒牙不齐，给孩子的牙齿发育带来不良影响。因此，一旦发现孩子有奶瓶龋的迹象，应及早带孩子去医院诊治。\n 为预防龋齿，从宝宝1岁开始，就要逐渐减少使用奶瓶的次数，最晚不超过1岁半。戒断奶瓶时可改用鸭嘴杯代，之后再过渡到水杯。","images":[],"createtime":"2019-03-04","views":"231"},{"id":"20","bid":"2","avatar":"http://wx.aqe365.com/attachment/images/1/2019/01/cthuo4Rtx5BH5z4G3TYhrGFhtBU4Xr.png","nickname":"136xxxx0576","title":"这是一个测试2","content":"呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/03/pPge7l373tNi7iwPie08Mw8NzWTL0I.gif"],"createtime":"2019-03-11","views":"6"},{"id":"13","bid":"2","avatar":"http://wx.aqe365.com/attachment/images/1/2019/01/cthuo4Rtx5BH5z4G3TYhrGFhtBU4Xr.png","nickname":"136xxxx0576","title":"1111111","content":"1111111","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/03/WGS96sFWZS2IRWCGsSQqFg9Ww2W0IP.gif"],"createtime":"2019-03-06","views":"28"},{"id":"11","bid":"2","avatar":"http://wx.aqe365.com/attachment/images/1/2019/01/cthuo4Rtx5BH5z4G3TYhrGFhtBU4Xr.png","nickname":"136xxxx0576","title":"","content":"111111","images":[],"createtime":"2019-03-06","views":"2"},{"id":"10","bid":"2","avatar":"http://wx.aqe365.com/attachment/images/1/2019/01/cthuo4Rtx5BH5z4G3TYhrGFhtBU4Xr.png","nickname":"136xxxx0576","title":"牙科吸管","content":"1111111111[EM33][EM36]","images":[],"createtime":"2019-03-06","views":"0"}]
-     * total : 9
+     * list : [{"id":"258","bid":"0","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","nickname":"永恒","title":"测试视频帖子iOS","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","images":null,"createtime":"16小时前","views":"53","bids":"18","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/erZgR02SAr0pfPfpRPnRH4H4s4f9Ag.jpg","type":"1","huati":"#牙科 ","likenum":"2","islike":"1","iscollect":"1"},{"id":"257","bid":"0","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","nickname":"永恒","title":"测试视频帖子iOS","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","images":null,"createtime":"16小时前","views":"27","bids":"18","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/vOghyuHR8X775gshR38jjG11Sy13y5.jpg","type":"1","huati":"#牙科 ","likenum":"1","islike":"0","iscollect":"0"},{"id":"249","bid":"0","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","nickname":"永恒","title":"测试帖子","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/oyh519A8AvUfU9yDAdye7aAihE2oa9.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/w49Nes0H9RKhrnlEEJN54p5lNkJ505.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/LKxlkgGkMM2KMD4MnxdRuikvjrcK4i.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/r1KK2LIoPWgPIk0kKLSKBKLp0gfWPB.jpg"],"createtime":"17小时前","views":"104","bids":"18","videoimage":"","type":"0","huati":"#牙科 ","likenum":"2","islike":"1","iscollect":"1"},{"id":"244","bid":"0","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","nickname":"永恒","title":"第一次托槽矫正","content":"第一次带托槽矫正，内心还是比较激动的。带上去没有想象中的疼痛或者特别紧绷的感觉，由于个人原因没有选择\u201c铁齿钢牙\u201d款的。毕竟不是学生时代了，带出去不好看，一不小心得了钢牙哥的绰号怎么办，所以选择了隐形款的，带上去不仔细观察的话不太看得出来，第一天暂时还啥变化，后面我会陆续进行记录供你们参考。","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Ufxx4OxwFj4YjXuxwow6fLb9VWZhtF.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/uHO8uR55t5j05Jc8TWO4C4w4lTC0h8.jpg"],"createtime":"19小时前","views":"96","bids":"18,19","videoimage":"","type":"0","huati":"#牙科 #托槽矫正 ","likenum":"2","islike":"1","iscollect":"1"},{"id":"255","bid":"0","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/03/qe1iBYrpW6vJmmGE5bPyAkPmADzAdaOF.jpg","nickname":"健","title":"回到解放军风景家附近","content":"ufjfjf","images":null,"createtime":"17小时前","views":"26","bids":"17","videoimage":"","type":"1","huati":"#测试话题 ","likenum":"1","islike":"0","iscollect":"0"},{"id":"254","bid":"0","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/03/qe1iBYrpW6vJmmGE5bPyAkPmADzAdaOF.jpg","nickname":"健","title":"就方法聚聚分","content":"减肥超级借古讽今","images":null,"createtime":"17小时前","views":"10","bids":"17","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Bw0FZ0tQ1SqQQnL099E7nsTw6FwOVq.jpg","type":"1","huati":"#测试话题 ","likenum":"1","islike":"0","iscollect":"0"},{"id":"253","bid":"0","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/03/qe1iBYrpW6vJmmGE5bPyAkPmADzAdaOF.jpg","nickname":"健","title":"ufufjfj","content":"回到家附近的家","images":null,"createtime":"17小时前","views":"12","bids":"17","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/A7vg7n979984O4zgFO09Nfq0VEkEVk.jpg","type":"1","huati":"#测试话题 ","likenum":"1","islike":"0","iscollect":"0"}]
+     * total : 7
      */
 
     private String total;
@@ -33,15 +31,22 @@ public class FollowlistModel {
 
     public static class ListBean {
         /**
-         * id : 23
-         * bid : 1
-         * avatar : http://thirdwx.qlogo.cn/mmopen/jZajuIr8ccOw23ER57f0cDuT8iaHjjRT2Q1cLI1aVaTZUN4aqqDPMNNVMPVc3KAc9Mb1ialiaCh7yhsFVYyQV4ZjeTgKZBPy4Y1/132
-         * nickname : AQ_邹定谔
-         * title : 固特 牙科诊所超声波清洗机
-         * content : 阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多阿斯达四大所大所多
-         * images : ["http://aoquan.maimaitoo.com/attachment/images/1/2019/03/qhHu53s6AsZWzWUu335huhH5uwG8Nu.png","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/S95RbjHJjh8E699avu9z8U49wZLQ8R.png"]
-         * createtime : 2019-03-11
-         * views : 6
+         * id : 258
+         * bid : 0
+         * avatar : http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132
+         * nickname : 永恒
+         * title : 测试视频帖子iOS
+         * content : 开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。
+         * images : null
+         * createtime : 16小时前
+         * views : 53
+         * bids : 18
+         * videoimage : http://aoquan.maimaitoo.com/attachment/images/1/2019/04/erZgR02SAr0pfPfpRPnRH4H4s4f9Ag.jpg
+         * type : 1
+         * huati : #牙科
+         * likenum : 2
+         * islike : 1
+         * iscollect : 1
          */
 
         private String id;
@@ -50,30 +55,27 @@ public class FollowlistModel {
         private String nickname;
         private String title;
         private String content;
+
         private String createtime;
         private String views;
-        private String types;
+        private String bids;
+        private String videoimage;
+        private String type;
         private String huati;
-
-        public String getHuati() {
-            return huati;
-        }
-
-        public void setHuati(String huati) {
-            this.huati = huati;
-        }
-
-        public String getTypes() {
-            return types;
-        }
-
-        public void setTypes(String types) {
-            this.types = types;
-        }
-
+        private String likenum;
+        private String islike;
+        private String iscollect;
+        public boolean isShowAll = false;
         public List<String> images = new ArrayList<>();
 
-        public boolean isShowAll = false;
+        public List<String> getImages() {
+            return images;
+        }
+
+        public void setImages(List<String> images) {
+            this.images = images;
+        }
+
         public String getId() {
             return id;
         }
@@ -138,12 +140,60 @@ public class FollowlistModel {
             this.views = views;
         }
 
-        public List<String> getImages() {
-            return images;
+        public String getBids() {
+            return bids;
         }
 
-        public void setImages(List<String> images) {
-            this.images = images;
+        public void setBids(String bids) {
+            this.bids = bids;
+        }
+
+        public String getVideoimage() {
+            return videoimage;
+        }
+
+        public void setVideoimage(String videoimage) {
+            this.videoimage = videoimage;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getHuati() {
+            return huati;
+        }
+
+        public void setHuati(String huati) {
+            this.huati = huati;
+        }
+
+        public String getLikenum() {
+            return likenum;
+        }
+
+        public void setLikenum(String likenum) {
+            this.likenum = likenum;
+        }
+
+        public String getIslike() {
+            return islike;
+        }
+
+        public void setIslike(String islike) {
+            this.islike = islike;
+        }
+
+        public String getIscollect() {
+            return iscollect;
+        }
+
+        public void setIscollect(String iscollect) {
+            this.iscollect = iscollect;
         }
     }
 }

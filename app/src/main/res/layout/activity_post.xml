@@ -59,7 +59,7 @@
         <com.likeit.aqe365.view.CircleImageView
             android:layout_width="@dimen/width60"
             android:layout_height="@dimen/width60"
-            android:src="@mipmap/default_pic"
+            android:src="@mipmap/icon_diary"
             android:layout_margin="@dimen/dp_10" />
 
         <LinearLayout
@@ -99,7 +99,7 @@
         <com.likeit.aqe365.view.CircleImageView
             android:layout_width="@dimen/width60"
             android:layout_height="@dimen/width60"
-            android:src="@mipmap/default_pic"
+            android:src="@mipmap/icon_mood"
             android:layout_margin="@dimen/dp_10" />
 
         <LinearLayout
@@ -139,7 +139,7 @@
         <com.likeit.aqe365.view.CircleImageView
             android:layout_width="@dimen/width60"
             android:layout_height="@dimen/width60"
-            android:src="@mipmap/default_pic"
+            android:src="@mipmap/icon_post"
             android:layout_margin="@dimen/dp_10" />
 
         <LinearLayout
@@ -179,7 +179,7 @@
         <com.likeit.aqe365.view.CircleImageView
             android:layout_width="@dimen/width60"
             android:layout_height="@dimen/width60"
-            android:src="@mipmap/default_pic"
+            android:src="@mipmap/icon_doctor"
             android:layout_margin="@dimen/dp_10" />
 
         <LinearLayout

@@ -20,10 +20,13 @@ import com.likeit.aqe365.activity.find.PostDetailsActivity;
 import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.find.AllFind01Adapter;
 import com.likeit.aqe365.adapter.find.AllFind02Adapter;
+import com.likeit.aqe365.adapter.member.PostMoodAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.network.model.find.PostListModel;
+import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 
@@ -48,9 +51,9 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    private List<FollowlistModel.ListBean> data;
-    private AllFind02Adapter mAdapter;
-    private FollowlistModel followlistModel;
+    private List<PostUserModel.ListBean> data;
+    private PostMoodAdapter mAdapter;
+    private PostUserModel postUserModel;
     private String memberid,id;
 
 
@@ -75,7 +78,7 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
     }
 
     private void initAdapter() {
-        mAdapter = new AllFind02Adapter(R.layout.followlist_item, data);
+        mAdapter = new PostMoodAdapter(R.layout.moodlist_item, data);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.disableLoadMoreIfNotFullPage();
@@ -84,7 +87,7 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String types = data.get(position).getTypes();
+                String types = data.get(position).getType();
                 String id = data.get(position).getId();
                 Bundle bundle = new Bundle();
                 if ("1".equals(types)) {
@@ -96,10 +99,17 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
                 }
             }
         });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String id = data.get(position).getId();
+                collectpost(id);
+            }
+        });
     }
 
     private void initData(int pageNum, final boolean isloadmore) {
-        RetrofitUtil.getInstance().PostserList(openid, memberid, String.valueOf(pageNum), new Subscriber<BaseResponse<FollowlistModel>>() {
+        RetrofitUtil.getInstance().postuser(openid, memberid,"", String.valueOf(pageNum), new Subscriber<BaseResponse<PostUserModel>>() {
             @Override
             public void onCompleted() {
 
@@ -111,10 +121,10 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
             }
 
             @Override
-            public void onNext(BaseResponse<FollowlistModel> baseResponse) {
+            public void onNext(BaseResponse<PostUserModel> baseResponse) {
                 if (baseResponse.code == 200) {
-                    followlistModel = baseResponse.getData();
-                    List<FollowlistModel.ListBean> list = followlistModel.getList();
+                    postUserModel = baseResponse.getData();
+                    List<PostUserModel.ListBean> list = postUserModel.getList();
                     if (list != null && list.size() > 0) {
                         if (!isloadmore) {
                             data = list;
@@ -153,7 +163,7 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
 
     @Override
     public void onLoadMoreRequested() {
-        TOTAL_COUNTER = Integer.valueOf(followlistModel.getTotal());
+        TOTAL_COUNTER = Integer.valueOf(postUserModel.getTotal());
         mRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -180,5 +190,32 @@ public class UserInfo02Fragment extends BaseFragment implements SwipeRefreshLayo
         }, 3000);
     }
 
+    /**
+     * 收藏
+     *
+     * @param id
+     */
+    private void collectpost(String id) {
+        RetrofitUtil.getInstance().collectpost(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
+    }
 }

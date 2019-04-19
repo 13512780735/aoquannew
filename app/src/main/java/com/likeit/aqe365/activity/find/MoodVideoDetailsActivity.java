@@ -295,7 +295,7 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
         tv_content.setText(moodDetailsModel.getPost().getCity() + " " + moodDetailsModel.getPost().getCreatetime());
         tv_title.setText(moodDetailsModel.getPost().getTitle());
         RichText.from(moodDetailsModel.getPost().getContent()).into(tv_content01);
-      //  tv_content01.setText(moodDetailsModel.getPost().getContent());
+        //  tv_content01.setText(moodDetailsModel.getPost().getContent());
         tv_hospitalName.setText("测试医院");
         tv_hospital_title.setText("服务标题");
         tv_hospital_content.setText("¥ " + 65.00);
@@ -531,7 +531,7 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
-                    bundle.putString("nickName",item.getNickname());
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -590,7 +590,7 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
-                    bundle.putString("nickName",item.getNickname());
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -655,7 +655,8 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
      * 收藏
      */
     private void collectpost() {
-        RetrofitUtil.getInstance().collectpost(openid, moodDetailsModel.getPost().getId(), new Subscriber<BaseResponse<EmptyEntity>>() {
+        XLog.e("id" + moodDetailsModel.getPost().getId());
+        RetrofitUtil.getInstance().collectmood(openid, moodDetailsModel.getPost().getId(), new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
 

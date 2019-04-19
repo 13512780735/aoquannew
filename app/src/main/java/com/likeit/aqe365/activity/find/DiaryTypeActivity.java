@@ -3,10 +3,12 @@ package com.likeit.aqe365.activity.find;
 import android.os.Bundle;
 import android.view.View;
 
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.model.CaseIdEntity;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 
 import butterknife.OnClick;
@@ -50,7 +52,13 @@ public class DiaryTypeActivity extends BaseActivity {
     }
 
     private void nextTo() {
-        RetrofitUtil.getInstance().Createbook(openid, title, hospital, category, service, addtime, type,lat,lng, new Subscriber<BaseResponse<CaseEntity>>() {
+        XLog.e("title"+title);
+        XLog.e("hospital"+hospital);
+        XLog.e("category"+category);
+        XLog.e("service"+service);
+        XLog.e("addtime"+addtime);
+        XLog.e("type"+type);
+        RetrofitUtil.getInstance().Createbook(openid, title, hospital, category, service, addtime, type, new Subscriber<BaseResponse<CaseIdEntity>>() {
             @Override
             public void onCompleted() {
 
@@ -62,9 +70,10 @@ public class DiaryTypeActivity extends BaseActivity {
             }
 
             @Override
-            public void onNext(BaseResponse<CaseEntity> baseResponse) {
+            public void onNext(BaseResponse<CaseIdEntity> baseResponse) {
                 if (baseResponse.getCode() == 200) {
-                    String diaryid = baseResponse.getData().getUrl();
+                    String diaryid = baseResponse.getData().getId();
+                    XLog.e("diaryid"+diaryid);
                     bundle = new Bundle();
                     bundle.putString("type", type);
                     bundle.putString("diaryid", diaryid);

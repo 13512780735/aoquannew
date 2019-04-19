@@ -6,12 +6,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
@@ -21,7 +23,9 @@ import com.likeit.aqe365.utils.PopupWindowUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.CircleImageView;
+import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.NineGridTestLayout;
+import com.likeit.aqe365.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -33,6 +37,9 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
     private String huati;
     private String id;
     private String iscollect;
+    private FrameLayout fr_video;
+    private RoundImageView iv_video_img;
+    private IconfontTextView tvIsCollect;
 
 
     public MoodListAdapter(int layoutResId, List<MoodListModel.ListBean> data) {
@@ -44,11 +51,13 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
         ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_title, item.getNickname());
         helper.setText(R.id.tv_content, item.getContent());
+        helper.setText(R.id.tv_time, item.getCreatetime());
         helper.setText(R.id.tv_huati, item.getHuati());
+        tvIsCollect=helper.getView(R.id.tv_iscollect);
         iscollect = item.getIscollect();
         if ("0".equals(iscollect)) {
             helper.setText(R.id.tv_iscollect, mContext.getResources().getString(R.string.ic_iscollect));
-            helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#dbdbdb"));
+            helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#656565"));
         } else {
             helper.setText(R.id.tv_iscollect, mContext.getResources().getString(R.string.ic_collect));
             helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#FFCC00"));
@@ -56,36 +65,31 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
 
         if ("0".equals(item.getIslike())) {
             helper.setText(R.id.tv_likes, mContext.getResources().getString(R.string.ic_isgood) + item.getLikenum());
-            helper.setTextColor(R.id.tv_likes, Color.parseColor("#dbdbdb"));
+            helper.setTextColor(R.id.tv_likes, Color.parseColor("#656565"));
             helper.getView(R.id.tv_likes).setClickable(true);
         } else {
             helper.setText(R.id.tv_likes, mContext.getResources().getString(R.string.ic_good) + item.getLikenum());
             helper.setTextColor(R.id.tv_likes, Color.parseColor("#ff424d"));
             helper.getView(R.id.tv_likes).setClickable(false);
         }
-
+        helper.addOnClickListener(R.id.tv_iscollect);
         helper.setText(R.id.tv_views, mContext.getResources().getString(R.string.ic_eyes) + item.getViews());
-        helper.setTextColor(R.id.tv_views, Color.parseColor("#dbdbdb"));
+        helper.setTextColor(R.id.tv_views, Color.parseColor("#656565"));
         layout = (NineGridTestLayout) helper.getView(R.id.layout_nine_grid);
-        layout.setIsShowAll(item.isShowAll);
-        layout.setUrlList(item.images);
-        id = item.getId();
+        fr_video = (FrameLayout) helper.getView(R.id.fr_video);
+        iv_video_img = (RoundImageView) helper.getView(R.id.iv_video_img);
+        if ("0".equals(item.getType())) {
+            layout.setVisibility(View.VISIBLE);
+            fr_video.setVisibility(View.GONE);
 
-        helper.getView(R.id.tv_iscollect).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("0".equals(iscollect)) {
-                    helper.setText(R.id.tv_iscollect, mContext.getResources().getString(R.string.ic_collect));
-                    helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#FFCC00"));
-                    iscollect = "1";
-                } else {
-                    helper.setText(R.id.tv_iscollect, mContext.getResources().getString(R.string.ic_iscollect));
-                    helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#dbdbdb"));
-                    iscollect = "0";
-                }
-                collectpost(id);
-            }
-        });
+            layout.setIsShowAll(item.isShowAll);
+            layout.setUrlList(item.images);
+        } else {
+            layout.setVisibility(View.GONE);
+            fr_video.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(item.getVideoimage(), iv_video_img);
+        }
+
         helper.getView(R.id.tv_likes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +100,6 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
                 toLike(pid, bid);
             }
         });
-        // helper.addOnClickListener(R.id.tv_report);
         helper.getView(R.id.tv_report).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,6 +152,8 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
      * @param bid
      */
     private void toLike(String pid, String bid) {
+        XLog.e("bid" + bid);
+        XLog.e("pid" + pid);
         String openid = SharedPreferencesUtils.getString(mContext, "openid");
         RetrofitUtil.getInstance().moodlike(openid, bid, pid, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
@@ -170,32 +175,5 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
         });
     }
 
-    /**
-     * 收藏
-     *
-     * @param id
-     */
-    private void collectpost(String id) {
-        String openid = SharedPreferencesUtils.getString(mContext, "openid");
-        RetrofitUtil.getInstance().collectmood(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
-            @Override
-            public void onCompleted() {
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
-                if (baseResponse.getCode() == 200) {
-                    ToastUtils.showToast(mContext, baseResponse.getMsg());
-                } else {
-                    ToastUtils.showToast(mContext, baseResponse.getMsg());
-                }
-            }
-        });
-    }
 }

@@ -84,6 +84,7 @@
     <string name="ic_video">&#xe7ea; </string> <!--录制视频-->
     <string name="ic_search">&#xe6ac; </string> <!--搜索图标-->
     <string name="ic_report">&#xe845; </string> <!--举报-->
+    <string name="ic_video_img">&#xe80a; </string> <!--播放-->
 
 
 </resources>

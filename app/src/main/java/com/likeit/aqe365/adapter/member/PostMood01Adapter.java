@@ -1,5 +1,4 @@
-package com.likeit.aqe365.adapter.find;
-
+package com.likeit.aqe365.adapter.member;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
-import com.likeit.aqe365.network.model.find.FollowlistModel;
+import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.PopupWindowUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
@@ -29,33 +28,34 @@ import java.util.List;
 
 import rx.Subscriber;
 
-public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean, BaseViewHolder> {
+public class PostMood01Adapter extends BaseQuickAdapter<PostUserModel.ListBean, BaseViewHolder> {
     private NineGridTestLayout layout;
-    private String iscollect;
+    private String huati;
     private String id;
+    private String iscollect;
     private FrameLayout fr_video;
     private RoundImageView iv_video_img;
 
-    public AllFind02Adapter(int layoutResId, List<FollowlistModel.ListBean> data) {
+
+    public PostMood01Adapter(int layoutResId, List<PostUserModel.ListBean> data) {
         super(R.layout.moodlist_item, data);
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final FollowlistModel.ListBean item) {
+    protected void convert(final BaseViewHolder helper, final PostUserModel.ListBean item) {
         ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_title, item.getNickname());
         helper.setText(R.id.tv_content, item.getContent());
         helper.setText(R.id.tv_time, item.getCreatetime());
         helper.setText(R.id.tv_huati, item.getHuati());
         iscollect = item.getIscollect();
-        if ("1".equals(iscollect)) {
+        if ("0".equals(iscollect)) {
+            helper.setText(R.id.tv_iscollect, mContext.getResources().getString(R.string.ic_iscollect));
+            helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#dbdbdb"));
+        } else {
             helper.setText(R.id.tv_iscollect, mContext.getResources().getString(R.string.ic_collect));
             helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#FFCC00"));
-        } else if ("0".equals(iscollect)) {
-            helper.setText(R.id.tv_iscollect, mContext.getResources().getString(R.string.ic_iscollect));
-            helper.setTextColor(R.id.tv_iscollect, Color.parseColor("#656565"));
         }
-
 
         if ("0".equals(item.getIslike())) {
             helper.setText(R.id.tv_likes, mContext.getResources().getString(R.string.ic_isgood) + item.getLikenum());
@@ -70,6 +70,7 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
         helper.setText(R.id.tv_views, mContext.getResources().getString(R.string.ic_eyes) + item.getViews());
         helper.setTextColor(R.id.tv_views, Color.parseColor("#dbdbdb"));
         layout = (NineGridTestLayout) helper.getView(R.id.layout_nine_grid);
+
         fr_video = (FrameLayout) helper.getView(R.id.fr_video);
         iv_video_img = (RoundImageView) helper.getView(R.id.iv_video_img);
         if ("0".equals(item.getType())) {
@@ -83,8 +84,8 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
             fr_video.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().displayImage(item.getVideoimage(), iv_video_img);
         }
+        id = item.getId();
         helper.addOnClickListener(R.id.tv_iscollect);
-
         helper.getView(R.id.tv_likes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +150,7 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
      */
     private void toLike(String pid, String bid) {
         String openid = SharedPreferencesUtils.getString(mContext, "openid");
-        RetrofitUtil.getInstance().postlike(openid, bid, pid, new Subscriber<BaseResponse<EmptyEntity>>() {
+        RetrofitUtil.getInstance().moodlike(openid, bid, pid, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
 

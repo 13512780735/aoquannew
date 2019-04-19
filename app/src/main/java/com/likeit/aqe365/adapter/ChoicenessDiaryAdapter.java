@@ -15,6 +15,7 @@ import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.NineGridTestLayout;
+import com.likeit.aqe365.view.RatioImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -22,10 +23,11 @@ import java.util.List;
 import rx.Subscriber;
 
 public class ChoicenessDiaryAdapter extends BaseQuickAdapter<DiaryListModel.ListBean, BaseViewHolder> {
-    private NineGridTestLayout layout;
     private String isuser;
     private String theme_bg_tex;
     private String memberid;
+    private RatioImageView iv01;
+    private RatioImageView iv02;
 
     public ChoicenessDiaryAdapter(int layoutResId, List<DiaryListModel.ListBean> data) {
         super(R.layout.diary_list_item, data);
@@ -33,18 +35,16 @@ public class ChoicenessDiaryAdapter extends BaseQuickAdapter<DiaryListModel.List
 
     @Override
     protected void convert(BaseViewHolder helper, DiaryListModel.ListBean item) {
-        layout = (NineGridTestLayout) helper.getView(R.id.layout_nine_grid);
-        memberid = item.getMemberid();
-        layout.setIsShowAll(item.isShowAll);
-        layout.setUrlList(item.images);
-        ImageLoader.getInstance().displayImage(SharedPreferencesUtils.getString(mContext, "avatar"), (CircleImageView) helper.getView(R.id.iv_avatar));
-        helper.setText(R.id.tv_name, SharedPreferencesUtils.getString(mContext, "name"));
+        iv01 = helper.getView(R.id.iv01);
+        iv02 = helper.getView(R.id.iv02);
+        ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
+        helper.setText(R.id.tv_name, item.getNickname());
         helper.setText(R.id.tv_time, item.getEdittime());
         helper.setText(R.id.tv_content, item.getContent());
         helper.setText(R.id.tv_title, "浏览：" + item.getViews());
         final BorderTextView tvAttention = helper.getView(R.id.tv_attention);
         tvAttention.setVisibility(View.VISIBLE);
-        isuser = SharedPreferencesUtils.getString(mContext, "isuser");
+        isuser = item.getIsuser();
         theme_bg_tex = SharedPreferencesUtils.getString(mContext, "theme_bg_tex");
         if ("0".equals(isuser)) {
             tvAttention.setContentColorResource01(Color.parseColor(theme_bg_tex));
@@ -57,51 +57,21 @@ public class ChoicenessDiaryAdapter extends BaseQuickAdapter<DiaryListModel.List
             tvAttention.setTextColor(Color.parseColor("#DBDBDB"));
             tvAttention.setText("已关注");
         }
-        tvAttention.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("0".equals(isuser)) {
-                    isuser = "1";
-                    tvAttention.setContentColorResource01(Color.parseColor("#FFFFFF"));
-                    tvAttention.setStrokeColor01(Color.parseColor("#DBDBDB"));
-                    tvAttention.setTextColor(Color.parseColor("#DBDBDB"));
-                    tvAttention.setText("已关注");
-                } else {
-                    isuser = "0";
-                    tvAttention.setContentColorResource01(Color.parseColor(theme_bg_tex));
-                    tvAttention.setStrokeColor01(Color.parseColor(theme_bg_tex));
-                    tvAttention.setTextColor(Color.parseColor("#ffffff"));
-                    tvAttention.setText("+ 关注");
-                }
-                attention();
+        helper.addOnClickListener(R.id.tv_attention);
+        if (item.getImages() == null) {
+            iv01.setVisibility(View.GONE);
+            iv02.setVisibility(View.GONE);
+        } else {
+            if (item.getImages().size() == 1) {
+                iv01.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(item.getImages().get(0), iv01);
+                iv02.setVisibility(View.INVISIBLE);
+            } else {
+                iv01.setVisibility(View.VISIBLE);
+                iv02.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(item.getImages().get(0), iv01);
+                ImageLoader.getInstance().displayImage(item.getImages().get(1), iv02);
             }
-        });
-    }
-
-    /**
-     * 关注
-     */
-    private void attention() {
-        String openid = SharedPreferencesUtils.getString(mContext, "openid");
-        RetrofitUtil.getInstance().Followmember(openid, memberid, new Subscriber<BaseResponse<EmptyEntity>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
-                if (baseResponse.getCode() == 200) {
-                    ToastUtils.showToast(mContext, baseResponse.getMsg());
-                } else {
-                    ToastUtils.showToast(mContext, baseResponse.getMsg());
-                }
-            }
-        });
+        }
     }
 }

@@ -4,6 +4,7 @@ package com.likeit.aqe365.network.util;
 import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.network.ApiService;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.model.CaseIdEntity;
 import com.likeit.aqe365.network.model.DiyTabModel;
 import com.likeit.aqe365.network.model.GoodCategory.CategoryListItemsModel;
 import com.likeit.aqe365.network.model.GoodCommentmodel;
@@ -903,7 +904,7 @@ public class RetrofitUtil {
      * @return
      */
     public void PostserList(String openid, String memberid, String pageNum,
-                            Subscriber<BaseResponse<FollowlistModel>> subscriber) {
+                            Subscriber<BaseResponse<PostUserModel>> subscriber) {
         mApiService.PostserList(openid, memberid, pageNum)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -930,9 +931,9 @@ public class RetrofitUtil {
      *
      * @return
      */
-    public void Createbook(String openid, String title, String hospital, String category, String service, String addtime, String type, String lat, String lng,
-                           Subscriber<BaseResponse<CaseEntity>> subscriber) {
-        mApiService.Createbook(openid, title, hospital, category, service, addtime, type, lat, lng)
+    public void Createbook(String openid, String title, String hospital, String category, String service, String addtime, String type,
+                           Subscriber<BaseResponse<CaseIdEntity>> subscriber) {
+        mApiService.Createbook(openid, title, hospital, category, service, addtime, type)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -16,9 +16,11 @@ import com.likeit.aqe365.activity.find.PostDetailsActivity;
 import com.likeit.aqe365.adapter.find.AllFind02Adapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,7 @@ public class AllFind02Fragment extends BaseFragment implements SwipeRefreshLayou
 
     /**
      * 关注
+     *
      * @return
      */
     @Override
@@ -55,6 +58,12 @@ public class AllFind02Fragment extends BaseFragment implements SwipeRefreshLayou
     @Override
     protected void lazyLoad() {
         initUI();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onRefresh();
     }
 
     private void initUI() {
@@ -79,6 +88,13 @@ public class AllFind02Fragment extends BaseFragment implements SwipeRefreshLayou
                 Bundle bundle = new Bundle();
                 bundle.putString("id", id);
                 toActivity(PostDetailsActivity.class, bundle);
+            }
+        });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String id = data.get(position).getId();
+                collectpost(id);
             }
         });
     }
@@ -166,4 +182,32 @@ public class AllFind02Fragment extends BaseFragment implements SwipeRefreshLayou
         }, 3000);
     }
 
+    /**
+     * 收藏
+     *
+     * @param id
+     */
+    private void collectpost(String id) {
+        RetrofitUtil.getInstance().collectpost(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
+    }
 }

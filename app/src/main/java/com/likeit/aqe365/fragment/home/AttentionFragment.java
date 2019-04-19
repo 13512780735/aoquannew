@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.MoodDetailActivity;
 import com.likeit.aqe365.activity.find.MoodVideoDetailsActivity;
@@ -20,6 +21,7 @@ import com.likeit.aqe365.activity.find.TopicListActivity;
 import com.likeit.aqe365.adapter.find.MoodListAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.FoolowMoodListModel;
 import com.likeit.aqe365.network.model.find.MoodListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
@@ -170,6 +172,13 @@ public class AttentionFragment extends BaseFragment implements BaseQuickAdapter.
                 }
             }
         });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String id = data.get(position).getId();
+                collectpost(id);
+            }
+        });
     }
 
     public void initData(int pageNum, final boolean isloadmore) {
@@ -256,5 +265,35 @@ public class AttentionFragment extends BaseFragment implements BaseQuickAdapter.
                 mAdapter.setEnableLoadMore(true);//启用加载
             }
         }, 2000);
+    }
+    /**
+     * 收藏
+     *
+     * @param id
+     */
+    private void collectpost(String id) {
+        XLog.e("id" + id);
+        // String openid = SharedPreferencesUtils.getString(mContext, "openid");
+        RetrofitUtil.getInstance().collectmood(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
     }
 }

@@ -194,7 +194,7 @@ public class SendPostActivity extends BaseActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SendPostActivity.this, ChooseSevreActivity.class);
-                intent.putExtra("flag", "0");
+                intent.putExtra("flag", "3");
                 startActivityForResult(intent, 101);
             }
         });

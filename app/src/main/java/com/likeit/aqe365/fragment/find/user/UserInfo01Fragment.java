@@ -21,6 +21,7 @@ import com.likeit.aqe365.adapter.find.AllFind01Adapter;
 import com.likeit.aqe365.adapter.find.DiaryListAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
 import com.likeit.aqe365.network.model.find.PostListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
@@ -92,6 +93,13 @@ public class UserInfo01Fragment extends BaseFragment implements SwipeRefreshLayo
                 bundle.putString("diaryid", diaryid);
                 bundle.putString("memberid", memberid);
                 toActivity(DiaryDetailsActivity.class, bundle);
+            }
+        });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String memberid=data.get(position).getMemberid();
+                attention(memberid);
             }
         });
     }
@@ -181,5 +189,31 @@ public class UserInfo01Fragment extends BaseFragment implements SwipeRefreshLayo
 
         }, 3000);
     }
+    /**
+     * 关注
+     * @param memberid
+     */
+    private void attention(String memberid) {
+        RetrofitUtil.getInstance().Followmember(openid, memberid, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast( baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
+    }
 }

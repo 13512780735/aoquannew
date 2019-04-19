@@ -4,6 +4,7 @@ import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.network.consts.Consts;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.model.CaseIdEntity;
 import com.likeit.aqe365.network.model.DiyTabModel;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.GoodCategory.CategoryListItemsModel;
@@ -894,9 +895,9 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("nativeapp.discover.diary.postuser")
-    Observable<BaseResponse<FollowlistModel>> PostserList(@Field("openid") String openid,
-                                                          @Field("memberid") String memberid,
-                                                          @Field("pageNum") String pageNum
+    Observable<BaseResponse<PostUserModel>> PostserList(@Field("openid") String openid,
+                                                        @Field("memberid") String memberid,
+                                                        @Field("pageNum") String pageNum
     );
 
     /**
@@ -917,15 +918,13 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("nativeapp.discover.journal.createbook")
-    Observable<BaseResponse<CaseEntity>> Createbook(@Field("openid") String openid,
-                                                    @Field("title") String title,
-                                                    @Field("hospital") String hospital,
-                                                    @Field("category") String category,
-                                                    @Field("service") String service,
-                                                    @Field("lat") String lat,
-                                                    @Field("lng") String lng,
-                                                    @Field("addtime") String addtime,
-                                                    @Field("type") String type
+    Observable<BaseResponse<CaseIdEntity>> Createbook(@Field("openid") String openid,
+                                                      @Field("title") String title,
+                                                      @Field("hospital") String hospital,
+                                                      @Field("category") String category,
+                                                      @Field("service") String service,
+                                                      @Field("addtime") String addtime,
+                                                      @Field("type") String type
     );
 
     /**
@@ -1181,6 +1180,7 @@ public interface ApiService {
     @POST("nativeapp.discover.mood.follow")
     Observable<BaseResponse<FoolowMoodListModel>> follow(@Field("openid") String openid
     );
+
     /**
      * 心情列表
      *
@@ -1373,11 +1373,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("nativeapp.discover.diary.user")
     Observable<BaseResponse<MyUserModel>> getMyUser(@Field("openid") String openid,
-                                                  @Field("keywords") String keywords,
-                                                  @Field("type") String type,
-                                                  @Field("lat") String lat,
-                                                  @Field("lng") String lng,
-                                                  @Field("pageNum") String pageNum
+                                                    @Field("keywords") String keywords,
+                                                    @Field("type") String type,
+                                                    @Field("lat") String lat,
+                                                    @Field("lng") String lng,
+                                                    @Field("pageNum") String pageNum
     );
 
     /**

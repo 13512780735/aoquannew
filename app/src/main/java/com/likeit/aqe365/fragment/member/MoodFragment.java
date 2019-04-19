@@ -12,11 +12,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.MoodDetailActivity;
 import com.likeit.aqe365.activity.find.MoodVideoDetailsActivity;
+import com.likeit.aqe365.adapter.member.PostMood01Adapter;
 import com.likeit.aqe365.adapter.member.PostMoodAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +42,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
-    private PostMoodAdapter mAdapter;
+    private PostMood01Adapter mAdapter;
     private String type;
     private PostUserModel postUserModel;
 
@@ -56,7 +60,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
     }
 
     private void initAdapter() {
-        mAdapter = new PostMoodAdapter(R.layout.moodlist_item01, data);
+        mAdapter = new PostMood01Adapter(R.layout.moodlist_item, data);
         mAdapter.setEnableLoadMore(false);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
@@ -78,6 +82,13 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     bundle.putString("id", id);
                     toActivity(MoodDetailActivity.class, bundle);
                 }
+            }
+        });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String id = data.get(position).getId();
+                collectpost(id);
             }
         });
     }
@@ -166,5 +177,33 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 mAdapter.setEnableLoadMore(true);//启用加载
             }
         }, 2000);
+    }
+    /**
+     * 收藏
+     *
+     * @param id
+     */
+    private void collectpost(String id) {
+        RetrofitUtil.getInstance().collectmood(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast( baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                  showToast( baseResponse.getMsg());
+                }
+            }
+        });
     }
 }

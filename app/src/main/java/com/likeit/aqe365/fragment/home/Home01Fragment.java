@@ -155,7 +155,7 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
             if ("fixedsearch".equals(id)) {//搜索
                 mainHomeSearchModel = JSON.parseObject(items.optString(i), MainHomeSearchModel.class);
                 initSearch();
-                //  mMessages.add(mainHomeSearchModel);
+                // mMessages.add(mainHomeSearchModel);
             } else if ("banner".equals(id)) {//轮播
                 MainHomeBannerModel mainHomeBannerModel = JSON.parseObject(items.optString(i), MainHomeBannerModel.class);
                 mMessages.add(mainHomeBannerModel);

@@ -46,26 +46,62 @@
             android:textSize="14sp" />
 
 
-
     </RelativeLayout>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
         android:background="@color/defualt_window_background"></View>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/mSwipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <!--如果不使用长按出现选项菜单的功能，这里可以直接使用原生 RecyclerView-->
-        <com.ocnyang.cartlayout.RecyclerViewWithContextMenu
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-    </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/mSwipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/layout_empty_shopcart"
+                        layout="@layout/empty_shopcart"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <!--如果不使用长按出现选项菜单的功能，这里可以直接使用原生 RecyclerView-->
+                    <com.ocnyang.cartlayout.RecyclerViewWithContextMenu
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <include
+                        android:id="@+id/ll_recoms"
+                        layout="@layout/home_cart_footview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></include>
+                </LinearLayout>
+
+
+            </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@android:color/white"
@@ -78,8 +114,8 @@
         <CheckBox
             android:id="@+id/checkbox_all"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:button="@drawable/check_box_bg"
             android:text="@string/all_select" />
 

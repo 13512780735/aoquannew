@@ -86,8 +86,6 @@ public class MoodListModel {
             this.islike = islike;
         }
 
-        public List<String> images = new ArrayList<>();
-
         public String getType() {
             return type;
         }
@@ -96,7 +94,9 @@ public class MoodListModel {
             this.type = type;
         }
 
+
         public boolean isShowAll = false;
+        public List<String> images = new ArrayList<>();
 
         public List<String> getImages() {
             return images;

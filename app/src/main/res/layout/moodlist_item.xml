@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:roundiv="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/dp_10"
@@ -13,7 +14,7 @@
         android:id="@+id/iv_img"
         android:layout_width="@dimen/width60"
         android:layout_height="@dimen/width60"
-        android:padding="@dimen/dp_5" />
+        android:layout_margin="@dimen/dp_10" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -23,7 +24,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/width40"
+            android:layout_height="@dimen/width30"
             android:orientation="horizontal">
 
             <TextView
@@ -32,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="xx"
+                android:text=""
                 android:textColor="#444444" />
 
             <com.likeit.aqe365.view.IconfontTextView
@@ -47,27 +48,73 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:text=""
+            android:textColor="@color/text_color" />
+
+        <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="5"
-            android:text="xx"
+            android:text=""
             android:textColor="#656565" />
 
         <TextView
             android:id="@+id/tv_huati"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="xxx"
+            android:text=""
             android:textColor="@color/theme_bg_tex" />
 
         <com.likeit.aqe365.view.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/layout_nine_grid"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:sapcing="5dp" />
+
+        <FrameLayout
+            android:id="@+id/fr_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <com.likeit.aqe365.view.RoundImageView
+                android:id="@+id/iv_video_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:src="@mipmap/default_pic"
+                roundiv:left_bottom_radius="8dp"
+                roundiv:left_top_radius="8dp"
+                roundiv:right_bottom_radius="8dp"
+                roundiv:right_top_radius="8dp" />
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:src="@mipmap/iv_video_img"
+                    />
+
+            </RelativeLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

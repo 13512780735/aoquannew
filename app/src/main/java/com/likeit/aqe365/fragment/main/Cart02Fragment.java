@@ -1,10 +1,14 @@
 package com.likeit.aqe365.fragment.main;
 
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,7 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
+import com.likeit.aqe365.activity.detail.GoodDetailActivity;
+import com.likeit.aqe365.adapter.cart.CartRecomAdapter;
 import com.likeit.aqe365.adapter.cart01.CartShopAdapter;
 import com.likeit.aqe365.adapter.cart01.bean.NormalBean;
 import com.likeit.aqe365.base.BaseFragment;
@@ -32,7 +39,7 @@ import rx.Subscriber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Cart02Fragment extends BaseFragment implements View.OnClickListener {
+public class Cart02Fragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView recyclerView;
     private TextView mTvTitle;
@@ -48,10 +55,16 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
     private int totalCheckedCount;//勾选的商品总数量，店铺条目不计算在内
     private double totalPrice;//勾选的商品总价格
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ArrayList<CartItemBean> cartItemBeans=  new ArrayList<>();
+    private ArrayList<CartItemBean> cartItemBeans = new ArrayList<>();
     private LinearLayout order_info;
     private CartListModel cartListModel;
     private List<CartListModel.ListBeanXX> ShopData;
+    private LinearLayout layout_empty_shopcart;
+    private LinearLayout ll_bottom;
+    private LinearLayout ll_cart;
+    private RecyclerView mRecyclerView;
+    private List<CartListModel.RecomsBean.ListBean> recomsBean;
+    private CartRecomAdapter mAdapter01;
 
     @Override
     protected int setContentView() {
@@ -60,13 +73,18 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
 
     @Override
     protected void lazyLoad() {
-        initData();
-        initUI();
+//        initData();
+//        initUI();
 
     }
 
     private void initUI() {
+        //View footer = LayoutInflater.from(getActivity()).inflate(R.layout.home_cart_footview, null);
+        mRecyclerView = findViewById(R.id.RecyclerView);
         recyclerView = ((RecyclerView) findViewById(R.id.recycler));
+        ll_cart = ((LinearLayout) findViewById(R.id.ll_cart));//购物车布局
+        layout_empty_shopcart = ((LinearLayout) findViewById(R.id.layout_empty_shopcart));//空布局
+        ll_bottom = ((LinearLayout) findViewById(R.id.ll_bottom));//底部
         mSwipeRefreshLayout = ((SwipeRefreshLayout) findViewById(R.id.mSwipeRefreshLayout));
         mTvTitle = ((TextView) findViewById(R.id.tv_title));
         mTvEdit = ((TextView) findViewById(R.id.tv_edit));
@@ -92,28 +110,57 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
             }
         });
         recyclerView.setAdapter(mAdapter);
-
+      //  initRecom();
+//        recyclerView.addView(footer);
+//        mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         // 给列表注册 ContextMenu 事件。
         // 同时如果想让ItemView响应长按弹出菜单，需要在item xml布局中设置 android:longClickable="true"
         registerForContextMenu(recyclerView);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+    }
+
+    private void initRecom() {
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        mAdapter01 = new CartRecomAdapter(R.layout.cart_recom_items, recomsBean);
+        mAdapter01.setNewData(recomsBean);
+        mRecyclerView.setAdapter(mAdapter01);
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter01.notifyDataSetChanged();
+        mAdapter01.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onRefresh() {
-                cartItemBeans.clear();
-                initData();
-                mAdapter.notifyDataSetChanged();
-                mSwipeRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
-                            mSwipeRefreshLayout.setRefreshing(false);
-                        }
-                    }
-                }, 1000);
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String cid = recomsBean.get(position).getId();
+                Intent intent = new Intent(getActivity(), GoodDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", cid);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+        initUI();
+    }
+
+    @Override
+    public void onRefresh() {
+        cartItemBeans.clear();
+        recomsBean.clear();
+        initData();
+        mAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        }, 1000);
+    }
 //    /**
 //     * 添加选项菜单
 //     * @param menu
@@ -199,10 +246,10 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
                 isEditing = !isEditing;
                 mTvEdit.setText(getString(isEditing ? R.string.edit_done : R.string.edit));
                 mBtnSubmit.setText(getString(isEditing ? R.string.delete_X : R.string.go_settle_X, totalCheckedCount));
-                if(isEditing){
-                    order_info.setVisibility(View.INVISIBLE);
-                }
-              else  order_info.setVisibility(View.VISIBLE);
+                order_info.setVisibility(isEditing ? View.INVISIBLE : View.VISIBLE);
+//                if (isEditing) {
+//                    order_info.setVisibility(View.INVISIBLE);
+//                } else order_info.setVisibility(View.VISIBLE);
                 break;
             //提交订单 & 删除选中（编辑状态）
             case R.id.btn_go_to_pay:
@@ -241,11 +288,12 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
      * 1. childItem 数据全部在 GroupItem 数据的下方，数据顺序严格按照对应关系；
      * 2. GroupItem 下的 ChildItem 数据不能为空；
      * 3. 初始化时如果不需要，所有类型的条目都可以不设置ID，GroupItem也不用设置setChilds()；
-     *
+     * <p>
      * 列表操作时数据动态的变化设置：
      * 1. 通过 CartAdapter 的 addData、setNewData；
      * 2. 单个添加各个条目可以通过对应的 add 方法；
      * 3. 单独添加一个 GroupItem ,可以把它的 ChildItem 数据放到 setChilds 中。
+     *
      * @return
      */
     private void initData() {
@@ -262,48 +310,58 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
 
             @Override
             public void onNext(BaseResponse<CartListModel> baseResponse) {
-                XLog.e("size999"+baseResponse.getData().getList());
-                if(baseResponse.getCode()==200){
-                    cartListModel=baseResponse.getData();
-//                    NormalBean normalBean = new NormalBean();
-//                    normalBean.setMarkdownNumber(0);
-//                    cartItemBeans.add(normalBean);
-                    ShopData=cartListModel.getList();
-                    XLog.e("size8888"+ShopData.size());
-                    for(int i=0;i<ShopData.size();i++){
-                        CartListModel.ListBeanXX shopBean=new CartListModel.ListBeanXX();
-                        shopBean.setMerchid(ShopData.get(i).getMerchid());
-                        shopBean.setMerchname(ShopData.get(i).getMerchname());
-                        shopBean.setList(ShopData.get(i).getList());
-                        shopBean.setItemType(CartItemBean.TYPE_GROUP);
-                        cartItemBeans.add(shopBean);
-                        for (int j = 0; j <=ShopData.get(i).getList().size() ; j++) {
-                            CartListModel.ListBeanXX.ListBeanX goodBean=new CartListModel.ListBeanXX.ListBeanX();
-                            goodBean.setItemType(CartItemBean.TYPE_CHILD);
-                            goodBean.setId(ShopData.get(i).getList().get(j).getId());
-                            goodBean.setGoodsid(ShopData.get(i).getList().get(j).getGoodsid());
-                            goodBean.setLinkurl(ShopData.get(i).getList().get(j).getLinkurl());
-                            goodBean.setMarketprice(ShopData.get(i).getList().get(j).getMarketprice());
-                            goodBean.setMerchid(ShopData.get(i).getList().get(j).getMerchid());
-                            goodBean.setMinbuy(ShopData.get(i).getList().get(j).getMinbuy());
-                            goodBean.setOptionid(ShopData.get(i).getList().get(j).getOptionid());
-                            goodBean.setOptiontitle(ShopData.get(i).getList().get(j).getOptiontitle());
-                            goodBean.setParams(ShopData.get(i).getList().get(j).getParams());
-                            goodBean.setStock(ShopData.get(i).getList().get(j).getStock());
-                            goodBean.setThumb(ShopData.get(i).getList().get(j).getThumb());
-                            goodBean.setTitle(ShopData.get(i).getList().get(j).getTitle());
-                            goodBean.setTotal(ShopData.get(i).getList().get(j).getTotal());
-                            goodBean.setTotalmaxbuy(ShopData.get(i).getList().get(j).getTotalmaxbuy());
-                            goodBean.setUnit(ShopData.get(i).getList().get(j).getUnit());
-                            goodBean.setWeburl(ShopData.get(i).getList().get(j).getWeburl());
-                            goodBean.setGroupId(i);
-                            cartItemBeans.add(goodBean);
+                XLog.e("size999" + baseResponse.getData().getRecoms());
+                if (baseResponse.getCode() == 200) {
+                    cartListModel = baseResponse.getData();
+                    recomsBean = cartListModel.getRecoms().getList();
+                    initRecom();
+                    ShopData = cartListModel.getList();
+                    if (ShopData == null) {
+                        layout_empty_shopcart.setVisibility(View.VISIBLE);
+                        ll_bottom.setVisibility(View.GONE);
+                        mTvEdit.setVisibility(View.GONE);
+                    } else {
+                        layout_empty_shopcart.setVisibility(View.GONE);
+                        ll_bottom.setVisibility(View.VISIBLE);
+                        mTvEdit.setVisibility(View.VISIBLE);
+                       // mAdapter.notifyDataSetChanged();
+                        for (int i = 0; i < ShopData.size(); i++) {
+                            CartListModel.ListBeanXX shopBean = new CartListModel.ListBeanXX();
+                            shopBean.setMerchid(ShopData.get(i).getMerchid());
+                            shopBean.setMerchname(ShopData.get(i).getMerchname());
+                            shopBean.setList(ShopData.get(i).getList());
+                            shopBean.setItemType(CartItemBean.TYPE_GROUP);
+                            cartItemBeans.add(shopBean);
+                            for (int j = 0; j <= ShopData.get(i).getList().size(); j++) {
+                                CartListModel.ListBeanXX.ListBeanX goodBean = new CartListModel.ListBeanXX.ListBeanX();
+                                goodBean.setItemType(CartItemBean.TYPE_CHILD);
+                                goodBean.setId(ShopData.get(i).getList().get(j).getId());
+                                goodBean.setGoodsid(ShopData.get(i).getList().get(j).getGoodsid());
+                                goodBean.setLinkurl(ShopData.get(i).getList().get(j).getLinkurl());
+                                goodBean.setMarketprice(ShopData.get(i).getList().get(j).getMarketprice());
+                                goodBean.setMerchid(ShopData.get(i).getList().get(j).getMerchid());
+                                goodBean.setMinbuy(ShopData.get(i).getList().get(j).getMinbuy());
+                                goodBean.setOptionid(ShopData.get(i).getList().get(j).getOptionid());
+                                goodBean.setOptiontitle(ShopData.get(i).getList().get(j).getOptiontitle());
+                                goodBean.setParams(ShopData.get(i).getList().get(j).getParams());
+                                goodBean.setStock(ShopData.get(i).getList().get(j).getStock());
+                                goodBean.setThumb(ShopData.get(i).getList().get(j).getThumb());
+                                goodBean.setTitle(ShopData.get(i).getList().get(j).getTitle());
+                                goodBean.setTotal(ShopData.get(i).getList().get(j).getTotal());
+                                goodBean.setTotalmaxbuy(ShopData.get(i).getList().get(j).getTotalmaxbuy());
+                                goodBean.setUnit(ShopData.get(i).getList().get(j).getUnit());
+                                goodBean.setWeburl(ShopData.get(i).getList().get(j).getWeburl());
+                                goodBean.setGroupId(i);
+                                cartItemBeans.add(goodBean);
+                            }
                         }
                     }
                 }
             }
         });
     }
+
+
 //
 //    private void initData() {
 //        NormalBean normalBean = new NormalBean();

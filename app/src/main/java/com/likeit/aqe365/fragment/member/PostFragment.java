@@ -17,8 +17,11 @@ import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.member.PostMoodAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +61,7 @@ public class PostFragment extends BaseFragment implements BaseQuickAdapter.Reque
     }
 
     private void initAdapter() {
-        mAdapter = new PostMoodAdapter(R.layout.moodlist_item01, data);
+        mAdapter = new PostMoodAdapter(R.layout.moodlist_item, data);
         mAdapter.setEnableLoadMore(false);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
@@ -80,6 +83,13 @@ public class PostFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     bundle.putString("id", id);
                     toActivity(PostDetailsActivity.class, bundle);
                 }
+            }
+        });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String id = data.get(position).getId();
+                collectpost(id);
             }
         });
     }
@@ -168,5 +178,34 @@ public class PostFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 mAdapter.setEnableLoadMore(true);//启用加载
             }
         }, 2000);
+    }
+
+    /**
+     * 收藏
+     *
+     * @param id
+     */
+    private void collectpost(String id) {
+        RetrofitUtil.getInstance().collectpost(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    showToast(baseResponse.getMsg());
+                    onRefresh();
+                } else {
+                    showToast(baseResponse.getMsg());
+                }
+            }
+        });
     }
 }

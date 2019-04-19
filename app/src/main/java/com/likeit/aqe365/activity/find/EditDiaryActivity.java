@@ -41,9 +41,6 @@ public class EditDiaryActivity extends BaseActivity {
 
 
     String title;
-    String hospital;
-    String subject;
-    String serve;
     String time;
     private String hospitalId, categoryId, serviceId;
 
@@ -133,9 +130,9 @@ public class EditDiaryActivity extends BaseActivity {
                 }
                 Bundle bundle = new Bundle();
                 bundle.putString("title", title);
-                bundle.putString("hospital", hospital);
-                bundle.putString("service", serve);
-                bundle.putString("category", subject);
+                bundle.putString("hospital", hospitalId);
+                bundle.putString("service", serviceId);
+                bundle.putString("category", categoryId);
                 bundle.putString("addtime", time);
                 toActivity(DiaryTypeActivity.class, bundle);
                 break;

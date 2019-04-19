@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.network.model.cart.CartListModel;
+import com.likeit.aqe365.network.model.cart01.CartListModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;

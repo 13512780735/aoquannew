@@ -1,26 +1,19 @@
 package com.likeit.aqe365.network.model.find;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiaryListModel {
 
+
     /**
-     * list : [{"id":"20","title":"11111","edittime":"2019-03-06","content":"asdasdasdasdasddas","views":"38","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/03/qhHu53s6AsZWzWUu335huhH5uwG8Nu.png","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/S95RbjHJjh8E699avu9z8U49wZLQ8R.png"]},{"id":"1","title":"哈哈","edittime":"2019-03-06","content":"奶瓶龋最初在上颌乳切牙的唇面龈缘处出现白垩色斑点或带状脱矿，而后逐渐向下向旁边蔓延，侵蚀邻近的牙面形成环状龋，呈棕褐色，并最终发生牙冠折断，仅留下残根。\n 需要说明的是孩子牙齿脱矿，就需要使用护牙素，护牙素能够帮助重建牙釉质缺损失，降低牙本质敏感，为高龋齿风险和有特殊需要的人群提供专业牙齿保护，吞咽安全。\n 奶瓶龋的发生不仅使乳牙的切割功能大大降低，而且随着病变加重，会引起牙髓及牙根尖病变，这时孩子会感到剧烈疼痛或牙龈肿胀、流脓，严重的还会影响恒牙的发育。\n 让孩子抱着奶瓶，就去上床睡觉，几周，几个月下来就会这样，妈咪再不重视也不去医院治疗。。。\n 一旦因龋蚀严重无法治疗，而将乳牙过早拔除，就会引起恒牙萌出秩序错乱甚至恒牙不齐，给孩子的牙齿发育带来不良影响。因此，一旦发现孩子有奶瓶龋的迹象，应及早带孩子去医院诊治。\n 为预防龋齿，从宝宝1岁开始，就要逐渐减少使用奶瓶的次数，最晚不超过1岁半。戒断奶瓶时可改用鸭嘴杯代，之后再过渡到水杯。[EM13]","views":"0","images":null}]
+     * list : [{"id":"187","diaryid":"113","edittime":"1天前","title":"测试康复期日记","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"22","type":"0","openid":"oX6xmwqVTeONWdcMDQJOwNJmyNJk","surgery_image":"a:2:{i:0;s:51:\"images/1/2019/04/ktyzg49I9auy1U02iYYjyo4qJGtjU0.jpg\";i:1;s:51:\"images/1/2019/04/feB6YY1C3bfsn635B7c4f8161dmf5Z.jpg\";}","memberid":"2239","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","nickname":"永恒","isuser":"1","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/KhiaBwrC2HY2zcstQToBb4A8wT4tTZ.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/SxQYgWwquMztM4gbMuy7oX9uBz3U1M.jpg"]},{"id":"189","diaryid":"114","edittime":"1天前","title":"测试图文日记","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"11","type":"1","openid":"oX6xmwqVTeONWdcMDQJOwNJmyNJk","surgery_image":"a:3:{i:0;s:51:\"images/1/2019/04/VmLVqgXH1avqKQ1GGAsQ1kNHG3SgLq.jpg\";i:1;s:51:\"images/1/2019/04/xGM9m0I1iJ60gMX69gEjmmXOy9jY9L.jpg\";i:2;s:51:\"images/1/2019/04/jUNN4usZnU242uVU42VM425UOOd4ON.jpg\";}","memberid":"2239","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","nickname":"永恒","isuser":"1","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/VmLVqgXH1avqKQ1GGAsQ1kNHG3SgLq.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/xGM9m0I1iJ60gMX69gEjmmXOy9jY9L.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/jUNN4usZnU242uVU42VM425UOOd4ON.jpg"]}]
      * total : 2
+     * isuser : 0
      */
 
     private String total;
     private String isuser;
     private List<ListBean> list;
-
-    public String getIsuser() {
-        return isuser;
-    }
-
-    public void setIsuser(String isuser) {
-        this.isuser = isuser;
-    }
 
     public String getTotal() {
         return total;
@@ -28,6 +21,14 @@ public class DiaryListModel {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getIsuser() {
+        return isuser;
+    }
+
+    public void setIsuser(String isuser) {
+        this.isuser = isuser;
     }
 
     public List<ListBean> getList() {
@@ -40,23 +41,108 @@ public class DiaryListModel {
 
     public static class ListBean {
         /**
-         * id : 20
-         * title : 11111
-         * edittime : 2019-03-06
-         * content : asdasdasdasdasddas
-         * views : 38
-         * images : ["http://aoquan.maimaitoo.com/attachment/images/1/2019/03/qhHu53s6AsZWzWUu335huhH5uwG8Nu.png","http://aoquan.maimaitoo.com/attachment/images/1/2019/03/S95RbjHJjh8E699avu9z8U49wZLQ8R.png"]
+         * id : 187
+         * diaryid : 113
+         * edittime : 1天前
+         * title : 测试康复期日记
+         * content : 开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。
+         * views : 22
+         * type : 0
+         * openid : oX6xmwqVTeONWdcMDQJOwNJmyNJk
+         * surgery_image : a:2:{i:0;s:51:"images/1/2019/04/ktyzg49I9auy1U02iYYjyo4qJGtjU0.jpg";i:1;s:51:"images/1/2019/04/feB6YY1C3bfsn635B7c4f8161dmf5Z.jpg";}
+         * memberid : 2239
+         * avatar : http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132
+         * nickname : 永恒
+         * isuser : 1
+         * images : ["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/KhiaBwrC2HY2zcstQToBb4A8wT4tTZ.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/SxQYgWwquMztM4gbMuy7oX9uBz3U1M.jpg"]
          */
 
         private String id;
+        private String diaryid;
+        private String edittime;
+        private String title;
+        private String content;
+        private String views;
+        private String type;
+        private String openid;
+        private String surgery_image;
         private String memberid;
         private String avatar;
         private String nickname;
-        private String title;
-        private String edittime;
-        private String content;
-        private String diaryid;
-        private String views;
+        private String isuser;
+        private List<String> images;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getDiaryid() {
+            return diaryid;
+        }
+
+        public void setDiaryid(String diaryid) {
+            this.diaryid = diaryid;
+        }
+
+        public String getEdittime() {
+            return edittime;
+        }
+
+        public void setEdittime(String edittime) {
+            this.edittime = edittime;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getViews() {
+            return views;
+        }
+
+        public void setViews(String views) {
+            this.views = views;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getOpenid() {
+            return openid;
+        }
+
+        public void setOpenid(String openid) {
+            this.openid = openid;
+        }
+
+        public String getSurgery_image() {
+            return surgery_image;
+        }
+
+        public void setSurgery_image(String surgery_image) {
+            this.surgery_image = surgery_image;
+        }
 
         public String getMemberid() {
             return memberid;
@@ -82,55 +168,12 @@ public class DiaryListModel {
             this.nickname = nickname;
         }
 
-        public String getDiaryid() {
-            return diaryid;
+        public String getIsuser() {
+            return isuser;
         }
 
-        public void setDiaryid(String diaryid) {
-            this.diaryid = diaryid;
-        }
-
-        public List<String> images = new ArrayList<>();
-        public boolean isShowAll = false;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getEdittime() {
-            return edittime;
-        }
-
-        public void setEdittime(String edittime) {
-            this.edittime = edittime;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getViews() {
-            return views;
-        }
-
-        public void setViews(String views) {
-            this.views = views;
+        public void setIsuser(String isuser) {
+            this.isuser = isuser;
         }
 
         public List<String> getImages() {

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.adapter.cart01.bean.NormalBean;
 import com.likeit.aqe365.adapter.cart01.viewholder.ChildViewHolder;
 import com.likeit.aqe365.adapter.cart01.viewholder.GroupViewHolder;
+import com.likeit.aqe365.adapter.cart01.viewholder.NormalViewHolder;
 import com.likeit.aqe365.network.model.cart01.CartListModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ocnyang.cartlayout.CartAdapter;
@@ -21,10 +23,10 @@ public class CartShopAdapter extends CartAdapter<CartViewHolder> {
         super(context, datas);
     }
 
-//    @Override
-//    protected CartViewHolder getNormalViewHolder(View itemView) {
-//        return new NormalViewHolder(itemView, -1);
-//    }
+    @Override
+    protected CartViewHolder getNormalViewHolder(View itemView) {
+        return new NormalViewHolder(itemView, -1);
+    }
 
     @Override
     protected CartViewHolder getGroupViewHolder(View itemView) {
@@ -53,10 +55,10 @@ public class CartShopAdapter extends CartAdapter<CartViewHolder> {
         return R.layout.item_shopcart_group;
     }
 
-//    @Override
-//    protected int getNormalItemLayout() {
-//        return R.layout.activity_main_item_normal;
-//    }
+    @Override
+    protected int getNormalItemLayout() {
+        return R.layout.empty_shopcart;
+    }
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, final int position) {
@@ -65,15 +67,21 @@ public class CartShopAdapter extends CartAdapter<CartViewHolder> {
             ChildViewHolder childViewHolder = (ChildViewHolder) holder;
             childViewHolder.tv_intro.setText(((CartListModel.ListBeanXX.ListBeanX) mDatas.get(position)).getTitle());
             childViewHolder.tv_type_size.setText(((CartListModel.ListBeanXX.ListBeanX) mDatas.get(position)).getOptiontitle());
-            childViewHolder.textViewPrice.setText("￥"+((CartListModel.ListBeanXX.ListBeanX) mDatas.get(position)).getMarketprice());
+            childViewHolder.textViewPrice.setText("￥" + ((CartListModel.ListBeanXX.ListBeanX) mDatas.get(position)).getMarketprice());
             childViewHolder.textViewNum.setText(String.valueOf(((CartListModel.ListBeanXX.ListBeanX) mDatas.get(position)).getTotal()));
-            ImageLoader.getInstance().displayImage(((CartListModel.ListBeanXX.ListBeanX) mDatas.get(position)).getThumb(),childViewHolder.ivAvatar);
+            ImageLoader.getInstance().displayImage(((CartListModel.ListBeanXX.ListBeanX) mDatas.get(position)).getThumb(), childViewHolder.ivAvatar);
         } else if (holder instanceof GroupViewHolder) {
             GroupViewHolder groupViewHolder = (GroupViewHolder) holder;
             groupViewHolder.textView.setText(((CartListModel.ListBeanXX) mDatas.get(position)).getMerchname());
         }
-//        else if (holder instanceof NormalViewHolder) {
-//            NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
+        else if (holder instanceof NormalViewHolder) {
+            NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
+            normalViewHolder.ll_empty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    XLog.e("點擊了");
+                }
+            });
 //            normalViewHolder.imgViewClose.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -84,6 +92,6 @@ public class CartShopAdapter extends CartAdapter<CartViewHolder> {
 //            });
 //            normalViewHolder.textView.setText(mContext.getString(R.string.normal_tip_X,
 //                    ((NormalBean) mDatas.get(position)).getMarkdownNumber()));
-//        }
+        }
     }
 }

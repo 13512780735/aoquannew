@@ -46,7 +46,7 @@ public class MainBannerItemProvider extends BaseItemProvider<MainHomeBannerModel
 
         mBanner = helper.getView(R.id.banner);
         mBanner.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, h_screen / 4));
+                ViewGroup.LayoutParams.MATCH_PARENT, h_screen / 6*2));
         mBanner.startTurning(4000);
         adList = data.getData();
         if (adList != null && adList.size() > 0) {
@@ -87,7 +87,7 @@ public class MainBannerItemProvider extends BaseItemProvider<MainHomeBannerModel
         @Override
         public View createView(Context context) {
             imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             return imageView;
         }
 

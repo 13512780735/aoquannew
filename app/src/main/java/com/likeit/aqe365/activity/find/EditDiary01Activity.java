@@ -72,6 +72,8 @@ public class EditDiary01Activity extends BaseActivity implements ActionSheet.OnA
     TextView tvNum01;
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.ll_time)
+    LinearLayout ll_time;
     @BindView(R.id.mGridView)//术前
             GridView mGridView;
     @BindView(R.id.mGridView01)//术后
@@ -180,6 +182,7 @@ public class EditDiary01Activity extends BaseActivity implements ActionSheet.OnA
             setTitle("康复期日记");
         } else {
             setTitle("图文日记");
+            ll_time.setVisibility(View.GONE);
 
         }
         if ("0".equals(postFlag)) {
@@ -214,9 +217,13 @@ public class EditDiary01Activity extends BaseActivity implements ActionSheet.OnA
                     showToast("内容不能少于20字");
                     return;
                 }
-                if (StringUtil.isBlank(time)) {
-                    showToast("时间不能为空");
-                    return;
+                if ("0".equals(type)) {
+                    if (StringUtil.isBlank(time)) {
+                        showToast("时间不能为空");
+                        return;
+                    }
+                } else {
+                    time = "";
                 }
                 post();
             }
