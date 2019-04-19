@@ -3,12 +3,14 @@ package com.likeit.aqe365.adapter.div_provider.home;
 import android.util.DisplayMetrics;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
-import com.likeit.aqe365.utils.image.GImageLoader;
+import com.likeit.aqe365.view.RatioImageView;
 
 public class MainkitchenwindowItemProvider extends BaseItemProvider<MainHomekitchenwindowModel, BaseViewHolder> {
     @Override
@@ -29,10 +31,29 @@ public class MainkitchenwindowItemProvider extends BaseItemProvider<MainHomekitc
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ivLeft.getLayoutParams();
         linearParams.height = w_screen / 2;
         ivLeft.setLayoutParams(linearParams);
-        GImageLoader.displayUrl(mContext, (SimpleDraweeView) helper.getView(R.id.iv_left), data.getData().get(0).getImgurl());
-        GImageLoader.displayUrl(mContext, (SimpleDraweeView) helper.getView(R.id.iv_right_top), data.getData().get(1).getImgurl());
-        GImageLoader.displayUrl(mContext, (SimpleDraweeView) helper.getView(R.id.iv_right_bottom_left), data.getData().get(2).getImgurl());
-        GImageLoader.displayUrl(mContext, (SimpleDraweeView) helper.getView(R.id.iv_right_bottom_right), data.getData().get(3).getImgurl());
-
+        Glide.with(mContext).load(data.getData().get(0).getImgurl())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.mipmap.default_pic)
+                .error(R.mipmap.default_pic)
+                .centerCrop().override(1090, 1090*3/4)
+                .crossFade().into((SimpleDraweeView) helper.getView(R.id.iv_left));
+        Glide.with(mContext).load(data.getData().get(1).getImgurl())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.mipmap.default_pic)
+                .error(R.mipmap.default_pic)
+                .centerCrop().override(1090, 1090*3/4)
+                .crossFade().into((SimpleDraweeView) helper.getView(R.id.iv_right_top));
+        Glide.with(mContext).load(data.getData().get(2).getImgurl())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.mipmap.default_pic)
+                .error(R.mipmap.default_pic)
+                .centerCrop().override(1090, 1090*3/4)
+                .crossFade().into((SimpleDraweeView) helper.getView(R.id.iv_right_bottom_left));
+        Glide.with(mContext).load(data.getData().get(3).getImgurl())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.mipmap.default_pic)
+                .error(R.mipmap.default_pic)
+                .centerCrop().override(1090, 1090*3/4)
+                .crossFade().into((SimpleDraweeView) helper.getView(R.id.iv_right_bottom_right));
     }
 }

@@ -19,7 +19,7 @@ public class CartListModel {
      */
 
     private int total;
-    private int totalprice;
+    private String totalprice;
     private String linkurl;
     private ParamsBean params;
     private String weburl;
@@ -34,11 +34,11 @@ public class CartListModel {
         this.total = total;
     }
 
-    public int getTotalprice() {
+    public String getTotalprice() {
         return totalprice;
     }
 
-    public void setTotalprice(int totalprice) {
+    public void setTotalprice(String totalprice) {
         this.totalprice = totalprice;
     }
 
@@ -402,7 +402,7 @@ public class CartListModel {
             private String stock;
             private String title;
             private String thumb;
-            private int marketprice;
+            private double marketprice;
             private String optiontitle;
             private String optionid;
             private String minbuy;
@@ -461,11 +461,11 @@ public class CartListModel {
                 this.thumb = thumb;
             }
 
-            public int getMarketprice() {
+            public double getMarketprice() {
                 return marketprice;
             }
 
-            public void setMarketprice(int marketprice) {
+            public void setMarketprice(double marketprice) {
                 this.marketprice = marketprice;
             }
 

@@ -51,10 +51,10 @@ public abstract class CartAdapter<VH extends CartViewHolder> extends RecyclerVie
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         VH viewHolder = null;
         switch (viewType) {
-            case ICartItem.TYPE_NORMAL:
-                View normalView = layoutInflater.inflate(getNormalItemLayout(), parent, false);
-                viewHolder = getNormalViewHolder(normalView);
-                break;
+//            case ICartItem.TYPE_NORMAL:
+//                View normalView = layoutInflater.inflate(getNormalItemLayout(), parent, false);
+//                viewHolder = getNormalViewHolder(normalView);
+ //               break;
             case ICartItem.TYPE_GROUP:
                 View groupView = layoutInflater.inflate(getGroupItemLayout(), parent, false);
                 viewHolder = getGroupViewHolder(groupView);
@@ -345,7 +345,7 @@ public abstract class CartAdapter<VH extends CartViewHolder> extends RecyclerVie
      * @param itemView
      * @return
      */
-  protected abstract VH getNormalViewHolder(View itemView);
+ // protected abstract VH getNormalViewHolder(View itemView);
 
     protected abstract VH getGroupViewHolder(View itemView);
 
@@ -362,8 +362,8 @@ public abstract class CartAdapter<VH extends CartViewHolder> extends RecyclerVie
     protected abstract @LayoutRes
     int getGroupItemLayout();
 
-    protected abstract @LayoutRes
-    int getNormalItemLayout();
+//    protected abstract @LayoutRes
+//    int getNormalItemLayout();
 
 
     @Override

@@ -5,11 +5,12 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.home.MainHomeVideoModel;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.listener.LockClickListener;
@@ -40,7 +41,12 @@ public class MainVideoItemProvider extends BaseItemProvider<MainHomeVideoModel, 
         String url = data.getParams().getVideourl();
         ImageView imageView = new ImageView(mContext);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        ImageLoader.getInstance().displayImage(data.getParams().getPoster(),imageView);
+        Glide.with(mContext).load(data.getParams().getPoster())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.mipmap.default_pic)
+                .error(R.mipmap.default_pic)
+                .centerCrop().override(1090, 1090*3/4)
+                .crossFade().into(imageView);
         detailPlayer.getTitleTextView().setVisibility(View.GONE);
         detailPlayer.getBackButton().setVisibility(View.GONE);
 

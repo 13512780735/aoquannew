@@ -5,13 +5,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.home.MainHomePictureModel;
 import com.likeit.aqe365.view.RatioImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -63,7 +64,12 @@ public class MainPictureItemProvider extends BaseItemProvider<MainHomePictureMod
         protected void convert(BaseViewHolder helper, MainHomePictureModel.DataBean item) {
             RatioImageView ivPicture = helper.getView(R.id.iv_picture);
             //GImageLoader.displayUrl(mContext, ivPicture, item.getImgurl());
-            ImageLoader.getInstance().displayImage(item.getImgurl(),ivPicture);
+            Glide.with(mContext).load(item.getImgurl())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .placeholder(R.mipmap.default_pic)
+                    .error(R.mipmap.default_pic)
+                    .centerCrop().override(1090, 1090*3/4)
+                    .crossFade().into(ivPicture);
         }
     }
 }

@@ -5,6 +5,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
@@ -68,7 +70,13 @@ public class MainCouponItemProvider extends BaseItemProvider<MainHomeCouponModel
             lp.setMargins(styleBean.getMarginleft(), styleBean.getMarginleft(), styleBean.getMarginleft(), styleBean.getMarginleft());
             ivPicture.setLayoutParams(lp);
             //GImageLoader.displayUrl(mContext, ivPicture, item.getImgurl());
-            ImageLoader.getInstance().displayImage(item.getImgurl(), ivPicture);
+            //ImageLoader.getInstance().displayImage(item.getImgurl(), ivPicture);
+            Glide.with(mContext).load(item.getImgurl())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .placeholder(R.mipmap.default_pic)
+                    .error(R.mipmap.default_pic)
+                    .centerCrop().override(1090, 1090*3/4)
+                    .crossFade().into(ivPicture);
         }
     }
 }

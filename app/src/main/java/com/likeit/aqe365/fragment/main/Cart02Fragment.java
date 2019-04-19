@@ -63,7 +63,7 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
     private LinearLayout ll_bottom;
     private LinearLayout ll_cart;
     private RecyclerView mRecyclerView;
-    private List<CartListModel.RecomsBean.ListBean> recomsBean;
+    private List<CartListModel.RecomsBean.ListBean> recomsBean=new ArrayList<>();
     private CartRecomAdapter mAdapter01;
 
     @Override
@@ -73,8 +73,7 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
 
     @Override
     protected void lazyLoad() {
-//        initData();
-//        initUI();
+        initUI();
 
     }
 
@@ -97,10 +96,23 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
         mCheckBoxAll.setOnClickListener(this);
         mBtnSubmit.setOnClickListener(this);
 
-        mTvTitle.setText(getString(R.string.cart, 0));
+        mTvTitle.setText(getString(R.string.cart));
         mBtnSubmit.setText(getString(R.string.go_settle_X, 0));
         mTvTotal.setText(getString(R.string.rmb_X, 0.00));
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        initRecom();
 
+      //  initRecom();
+//        recyclerView.addView(footer);
+       // mSwipeRefreshLayout.setRefreshing(true);
+
+        // 给列表注册 ContextMenu 事件。
+        // 同时如果想让ItemView响应长按弹出菜单，需要在item xml布局中设置 android:longClickable="true"
+
+    }
+
+    private void initCart() {
+        XLog.e("cartItemBeans"+cartItemBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CartShopAdapter(getActivity(), cartItemBeans);
         mAdapter.setOnCheckChangeListener(new CartOnCheckChangeListener(recyclerView, mAdapter) {
@@ -110,19 +122,14 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
             }
         });
         recyclerView.setAdapter(mAdapter);
-      //  initRecom();
-//        recyclerView.addView(footer);
-//        mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        // 给列表注册 ContextMenu 事件。
-        // 同时如果想让ItemView响应长按弹出菜单，需要在item xml布局中设置 android:longClickable="true"
         registerForContextMenu(recyclerView);
     }
 
     private void initRecom() {
+        XLog.e("recomsBean"+recomsBean);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         mAdapter01 = new CartRecomAdapter(R.layout.cart_recom_items, recomsBean);
-        mAdapter01.setNewData(recomsBean);
+       // mAdapter01.setNewData(recomsBean);
         mRecyclerView.setAdapter(mAdapter01);
         mRecyclerView.setHasFixedSize(true);
         mAdapter01.notifyDataSetChanged();
@@ -142,16 +149,16 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-        initData();
-        initUI();
+        onRefresh();
+
     }
 
     @Override
     public void onRefresh() {
         cartItemBeans.clear();
-        recomsBean.clear();
+       // recomsBean.clear();
         initData();
-        mAdapter.notifyDataSetChanged();
+       // mAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -227,7 +234,7 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
             }
         }
 
-        mTvTitle.setText(getString(R.string.cart, totalCount));
+        mTvTitle.setText(getString(R.string.cart));
         mBtnSubmit.setText(getString(isEditing ? R.string.delete_X : R.string.go_settle_X, totalCheckedCount));
         mTvTotal.setText(getString(R.string.rmb_X, totalPrice));
         if (mCheckBoxAll.isChecked() && (totalCheckedCount == 0 || (totalCheckedCount + notChildTotalCount) != mAdapter.getData().size())) {
@@ -269,6 +276,7 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
                 Toast.makeText(getActivity(), "请勾选你要删除的商品", Toast.LENGTH_SHORT).show();
             } else {
                 mAdapter.removeChecked();
+               // onRefresh();
             }
 
         } else {
@@ -314,13 +322,15 @@ public class Cart02Fragment extends BaseFragment implements View.OnClickListener
                 if (baseResponse.getCode() == 200) {
                     cartListModel = baseResponse.getData();
                     recomsBean = cartListModel.getRecoms().getList();
-                    initRecom();
+                    mAdapter01.setNewData(recomsBean);
+                    mAdapter01.notifyDataSetChanged();
                     ShopData = cartListModel.getList();
                     if (ShopData == null) {
                         layout_empty_shopcart.setVisibility(View.VISIBLE);
                         ll_bottom.setVisibility(View.GONE);
                         mTvEdit.setVisibility(View.GONE);
                     } else {
+                        initCart();
                         layout_empty_shopcart.setVisibility(View.GONE);
                         ll_bottom.setVisibility(View.VISIBLE);
                         mTvEdit.setVisibility(View.VISIBLE);

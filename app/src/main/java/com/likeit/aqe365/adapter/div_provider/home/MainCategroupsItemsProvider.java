@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
@@ -68,10 +70,25 @@ public class MainCategroupsItemsProvider extends BaseItemProvider<MainHomeCategr
             tvName.setTextColor(Color.parseColor(styleBean.getColor()));
             tvName.setText(item.getTitle());
             if (item.getData().size() == 1) {
-                ImageLoader.getInstance().displayImage(item.getData().get(0), (RatioImageView) helper.getView(R.id.iv01));
+                Glide.with(mContext).load(item.getData().get(0))
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .placeholder(R.mipmap.default_pic)
+                        .error(R.mipmap.default_pic)
+                        .centerCrop().override(1090, 1090*3/4)
+                        .crossFade().into( (RatioImageView) helper.getView(R.id.iv01));
             } else if (item.getData().size() == 2) {
-                ImageLoader.getInstance().displayImage(item.getData().get(0), (RatioImageView) helper.getView(R.id.iv01));
-                ImageLoader.getInstance().displayImage(item.getData().get(1), (RatioImageView) helper.getView(R.id.iv02));
+                Glide.with(mContext).load(item.getData().get(0))
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .placeholder(R.mipmap.default_pic)
+                        .error(R.mipmap.default_pic)
+                        .centerCrop().override(1090, 1090*3/4)
+                        .crossFade().into( (RatioImageView) helper.getView(R.id.iv01));
+                Glide.with(mContext).load(item.getData().get(1))
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .placeholder(R.mipmap.default_pic)
+                        .error(R.mipmap.default_pic)
+                        .centerCrop().override(1090, 1090*3/4)
+                        .crossFade().into( (RatioImageView) helper.getView(R.id.iv02));
             } else {
                 helper.getView(R.id.iv01).setVisibility(View.GONE);
                 helper.getView(R.id.iv02).setVisibility(View.GONE);

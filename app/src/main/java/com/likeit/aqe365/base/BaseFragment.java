@@ -71,7 +71,7 @@ public abstract class BaseFragment extends Fragment {
         lat = SharedPreferencesUtils.getString(getContext(), "lat");
         lng = SharedPreferencesUtils.getString(getContext(), "lng");
         loaddingDialog = new LoaddingDialog(getActivity());
-       // isCanLoadData();
+        //isCanLoadData();
         lazyLoad();
         //可见，但是并没有加载过
         if (isFragmentVisible && !isFirst) {

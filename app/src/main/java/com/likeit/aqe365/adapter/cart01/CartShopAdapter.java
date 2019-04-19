@@ -23,10 +23,10 @@ public class CartShopAdapter extends CartAdapter<CartViewHolder> {
         super(context, datas);
     }
 
-    @Override
-    protected CartViewHolder getNormalViewHolder(View itemView) {
-        return new NormalViewHolder(itemView, -1);
-    }
+//    @Override
+//    protected CartViewHolder getNormalViewHolder(View itemView) {
+//        return new NormalViewHolder(itemView, -1);
+//    }
 
     @Override
     protected CartViewHolder getGroupViewHolder(View itemView) {
@@ -55,10 +55,10 @@ public class CartShopAdapter extends CartAdapter<CartViewHolder> {
         return R.layout.item_shopcart_group;
     }
 
-    @Override
-    protected int getNormalItemLayout() {
-        return R.layout.empty_shopcart;
-    }
+//    @Override
+//    protected int getNormalItemLayout() {
+//        return R.layout.empty_shopcart;
+//    }
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, final int position) {
@@ -74,24 +74,24 @@ public class CartShopAdapter extends CartAdapter<CartViewHolder> {
             GroupViewHolder groupViewHolder = (GroupViewHolder) holder;
             groupViewHolder.textView.setText(((CartListModel.ListBeanXX) mDatas.get(position)).getMerchname());
         }
-        else if (holder instanceof NormalViewHolder) {
-            NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
-            normalViewHolder.ll_empty.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    XLog.e("點擊了");
-                }
-            });
-//            normalViewHolder.imgViewClose.setOnClickListener(new View.OnClickListener() {
+//        else if (holder instanceof NormalViewHolder) {
+//            NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
+//            normalViewHolder.ll_empty.setOnClickListener(new View.OnClickListener() {
 //                @Override
-//                public void onClick(View v) {
-//                    mDatas.remove(position);
-//                    notifyItemRemoved(position);
-//                    notifyItemRangeChanged(position, mDatas.size());
+//                public void onClick(View view) {
+//                    XLog.e("點擊了");
 //                }
 //            });
-//            normalViewHolder.textView.setText(mContext.getString(R.string.normal_tip_X,
-//                    ((NormalBean) mDatas.get(position)).getMarkdownNumber()));
-        }
+////            normalViewHolder.imgViewClose.setOnClickListener(new View.OnClickListener() {
+////                @Override
+////                public void onClick(View v) {
+////                    mDatas.remove(position);
+////                    notifyItemRemoved(position);
+////                    notifyItemRangeChanged(position, mDatas.size());
+////                }
+////            });
+////            normalViewHolder.textView.setText(mContext.getString(R.string.normal_tip_X,
+////                    ((NormalBean) mDatas.get(position)).getMarkdownNumber()));
+//        }
     }
 }
