@@ -35,6 +35,7 @@ import com.likeit.aqe365.view.custom.GridViewAddImgesAdpter;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -101,6 +102,7 @@ public class EditDiary01Activity extends BaseActivity implements ActionSheet.OnA
     ArrayList<String> stringArrayList = new ArrayList<String>();
     ArrayList<String> stringArrayList1 = new ArrayList<String>();
     ArrayList<String> stringArrayList2 = new ArrayList<String>();
+    private String time1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -433,9 +435,24 @@ public class EditDiary01Activity extends BaseActivity implements ActionSheet.OnA
         dialog.setOnSureLisener(new OnSureLisener() {
             @Override
             public void onSure(Date date) {
-                tvTime.setText(StringUtil.getDate(date, "yyyy-MM-dd"));
-                time = String.valueOf((StringUtil.getStringToDate(StringUtil.getDate(date, "yyyy-MM-dd"), "yyyy-MM-dd")) / 1000);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date curDate = new Date(System.currentTimeMillis());
+                String str = formatter.format(curDate);
+                time1 = String.valueOf((StringUtil.getStringToDate(StringUtil.getDate(date, "yyyy-MM-dd"), "yyyy-MM-dd")) / 1000);
+
+                String nowtime = String.valueOf((StringUtil.getStringToDate(StringUtil.getDate(curDate, "yyyy-MM-dd"), "yyyy-MM-dd")) / 1000);
+                if (Long.valueOf(time1) - Long.valueOf(nowtime) < 0) {
+                    tvTime.setText(str);
+                    time = nowtime;
+                } else {
+                    tvTime.setText(StringUtil.getDate(date, "yyyy-MM-dd"));
+                    time = time1;
+                }
                 XLog.e("time-->" + time);
+                XLog.e("nowtime-->" + nowtime);
+                XLog.e("str-->" + str);
+                XLog.e("curDate-->" + curDate);
+                XLog.e("date-->" + date);
             }
         });
         dialog.show();

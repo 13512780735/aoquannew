@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    xmlns:roundiv="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/banner"
@@ -155,6 +155,7 @@
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
         android:background="@color/white"
+        android:visibility="gone"
         android:orientation="vertical"
         android:padding="@dimen/dp_10">
 
@@ -162,7 +163,9 @@
             android:id="@+id/tv_hospitalName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_5"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/txt_14"
+            android:textColor="@color/black"
             android:text="" />
 
         <LinearLayout
@@ -170,10 +173,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.likeit.aqe365.view.RatioImageView
+            <com.likeit.aqe365.view.RoundImageView
                 android:id="@+id/iv_hospital_pic"
                 android:layout_width="@dimen/width50"
                 android:layout_height="@dimen/width50"
+                android:layout_margin="@dimen/dp_5"
+                roundiv:left_bottom_radius="5dp"
+                roundiv:right_bottom_radius="5dp"
+                roundiv:left_top_radius="5dp"
+                roundiv:right_top_radius="5dp"
                 android:src="@mipmap/default_pic" />
 
             <LinearLayout
@@ -187,6 +195,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:padding="@dimen/dp_5"
                     android:textColor="@color/black" />
 
@@ -196,7 +206,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/dp_5"
-                    android:textColor="@color/colorAccent" />
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/text_red" />
             </LinearLayout>
         </LinearLayout>
 

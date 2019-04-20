@@ -24,6 +24,7 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.BorderTextView;
@@ -42,7 +43,7 @@ import rx.Subscriber;
 /**
  * 日记本详情
  */
-public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener<ScrollView> , DiaryCommentFragment.MyDialogFragment_Listener{
+public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener<ScrollView>, DiaryCommentFragment.MyDialogFragment_Listener, View.OnClickListener {
 
     private String title, diaryid, memberid;
     private int w_screen;
@@ -73,12 +74,14 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
     TextView tvShuhou;
     @BindView(R.id.tv_hospitalName)
     TextView tvHospitalName;
+    @BindView(R.id.ll_hospital)
+    LinearLayout ll_hospital;
     @BindView(R.id.tv_hospital_title)
     TextView tvHospital_title;
     @BindView(R.id.tv_hospital_content)
     TextView tvHospital_content;
     @BindView(R.id.iv_hospital_pic)
-    RatioImageView ivHospitalPic;
+    RoundImageView ivHospitalPic;
 
     /**
      * 日记列表
@@ -151,9 +154,6 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
 
     private void initData() {
         //  LoaddingShow();
-        XLog.e("openid" + openid);
-        XLog.e("memberid" + memberid);
-        XLog.e("diaryid" + diaryid);
         RetrofitUtil.getInstance().diarydetails(openid, memberid, diaryid, "1", new Subscriber<BaseResponse<DiarydetailsModel>>() {
             @Override
             public void onCompleted() {
@@ -196,15 +196,30 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
         ImageLoader.getInstance().displayImage(diaryBean.getAvatar(), ivAvatar);
         tvName.setText(diaryBean.getNickname());
         tvContent.setText(diaryBean.getCity() + diaryBean.getAddtime());
-        tvHospitalName.setText(hospitalData.getName());
-        tvHospital_title.setText(hospitalData.getTitle());
-        ImageLoader.getInstance().displayImage(hospitalData.getLogo(), ivHospitalPic);
-        tvHospital_content.setText("¥ " + hospitalData.getMarketprice());
+        if (hospitalData == null) {
+            ll_hospital.setVisibility(View.GONE);
+        } else {
+            ll_hospital.setVisibility(View.VISIBLE);
+            tvHospitalName.setText(hospitalData.getName());
+            tvHospital_title.setText(hospitalData.getTitle());
+            ImageLoader.getInstance().displayImage(hospitalData.getLogo(), ivHospitalPic);
+            tvHospital_content.setText("¥ " + hospitalData.getMarketprice());
+            ll_hospital.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String webUrl = hospitalData.getWeburl();
+                    IntentUtils.intentTo(mContext, "", "", webUrl);
+                }
+            });
+        }
+
         iscollect = diaryBean.getIscollect();
         isuser = diaryBean.getIsuser();
         isLike = diaryBean.getIslike();
         ImageLoader.getInstance().displayImage(diaryBean.getRecovery_image(), ivShuqian);
         ImageLoader.getInstance().displayImage(diaryBean.getImage_text(), ivShuhou);
+
+
         tvShuqian.setText(diaryBean.getRecovery_num() + "");
         tvShuhou.setText(diaryBean.getImage_text_num() + "");
         tv_views.setText(getResources().getString(R.string.ic_comment) + " " + diarydetailsModel.getCommentnum());
@@ -290,7 +305,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
         });
     }
 
-    @OnClick({R.id.tv_iscollect, R.id.tv_comment_num, R.id.tv_isgood, R.id.tv_views, R.id.tv_attention, R.id.tv_diray_num, R.id.ll_userInfo})
+    @OnClick({R.id.tv_iscollect, R.id.tv_comment_num, R.id.tv_isgood, R.id.tv_views, R.id.tv_attention, R.id.tv_diray_num, R.id.ll_userInfo, R.id.iv_shuqian, R.id.iv_shuhou})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_iscollect://收藏
@@ -367,6 +382,12 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                 SharedPreferencesUtils.put(mContext, "name", diaryBean.getNickname());
                 toActivity(UserInfoActivity.class, bundle);
                 break;
+            case R.id.iv_shuqian:
+            case R.id.iv_shuhou:
+                bundle = new Bundle();
+                bundle.putString("diaryid", diaryid);
+                toActivity(DirayPhotoActivity.class, bundle);
+                break;
         }
     }
 
@@ -381,6 +402,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
         initData();
         mScrollview.onRefreshComplete();
     }
+
 
     public class PostDeatilAdapter extends BaseQuickAdapter<DiarydetailsModel.CommentBean, BaseViewHolder> {
 
@@ -498,6 +520,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
             });
         }
     }
+
 
     /**
      * 收藏

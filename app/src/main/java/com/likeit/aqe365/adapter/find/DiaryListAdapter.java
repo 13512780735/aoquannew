@@ -32,8 +32,8 @@ public class DiaryListAdapter extends BaseQuickAdapter<DiaryListModel.ListBean, 
     protected void convert(BaseViewHolder helper, DiaryListModel.ListBean item) {
         iv01 = helper.getView(R.id.iv01);
         iv02 = helper.getView(R.id.iv02);
-        ImageLoader.getInstance().displayImage(SharedPreferencesUtils.getString(mContext, "avatar"), (CircleImageView) helper.getView(R.id.iv_avatar));
-        helper.setText(R.id.tv_name, SharedPreferencesUtils.getString(mContext, "name"));
+        ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
+        helper.setText(R.id.tv_name, item.getNickname());
         helper.setText(R.id.tv_time, item.getEdittime());
         helper.setText(R.id.tv_content, item.getContent());
         helper.setText(R.id.tv_title, "浏览：" + item.getViews());

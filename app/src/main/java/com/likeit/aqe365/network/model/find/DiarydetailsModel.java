@@ -81,7 +81,25 @@ public class DiarydetailsModel {
         private String name;
         private String logo;
         private String title;
+        private String linkurl;
+        private String weburl;
         private String marketprice;
+
+        public String getLinkurl() {
+            return linkurl;
+        }
+
+        public void setLinkurl(String linkurl) {
+            this.linkurl = linkurl;
+        }
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
 
         public String getId() {
             return id;

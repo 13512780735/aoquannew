@@ -61,7 +61,8 @@ public class MoodListModel {
         private String iscollect;
         private String likenum;
         private String islike;
-
+        public boolean isShowAll = false;
+        public List<String> images = new ArrayList<>();
         public String getIscollect() {
             return iscollect;
         }
@@ -95,8 +96,8 @@ public class MoodListModel {
         }
 
 
-        public boolean isShowAll = false;
-        public List<String> images = new ArrayList<>();
+
+
 
         public List<String> getImages() {
             return images;

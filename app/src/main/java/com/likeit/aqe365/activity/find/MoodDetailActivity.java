@@ -37,6 +37,7 @@ import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RatioImageView;
+import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zzhoujay.richtext.RichText;
@@ -53,7 +54,6 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
     private boolean isErr = true;
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
-
     @BindView(R.id.RecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
@@ -76,7 +76,7 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
     private CircleImageView iv_avatar;
     private TextView tv_name, tv_content, tv_title, tv_content01, tv_hospitalName, tv_hospital_title, tv_hospital_content;
     private BorderTextView tv_attention;
-    private RatioImageView iv_hospital_pic;
+    private RoundImageView iv_hospital_pic;
     private String isuser;
     private String bid;
     private String pid;

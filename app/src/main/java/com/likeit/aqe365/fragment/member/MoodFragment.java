@@ -9,18 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.MoodDetailActivity;
 import com.likeit.aqe365.activity.find.MoodVideoDetailsActivity;
-import com.likeit.aqe365.adapter.member.PostMood01Adapter;
-import com.likeit.aqe365.adapter.member.PostMoodAdapter;
+import com.likeit.aqe365.adapter.member.MyMoodAdapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
-import com.likeit.aqe365.utils.SharedPreferencesUtils;
-import com.likeit.aqe365.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +40,10 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
-    private PostMood01Adapter mAdapter;
+    private MyMoodAdapter mAdapter;
     private String type;
     private PostUserModel postUserModel;
+    private String id;
 
     @Override
     protected int setContentView() {
@@ -53,14 +52,19 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @Override
     protected void lazyLoad() {
+        id = getArguments().getString("id");
+        if ("帖子".equals(id)) {
+            type = "";
+        } else {
+            type = "mood";
+        }
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        type = "mood";
         initAdapter();
     }
 
     private void initAdapter() {
-        mAdapter = new PostMood01Adapter(R.layout.moodlist_item, data);
+        mAdapter = new MyMoodAdapter(R.layout.moodlist_item, data);
         mAdapter.setEnableLoadMore(false);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
@@ -102,7 +106,6 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
             @Override
             public void onError(Throwable e) {
-                LoaddingDismiss();
             }
 
             @Override
@@ -111,6 +114,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 if (baseResponse.code == 200) {
                     postUserModel = baseResponse.getData();
                     List<PostUserModel.ListBean> list = postUserModel.getList();
+                    XLog.e("name:" + list.get(0).getNickname());
                     TOTAL_COUNTER = Integer.valueOf(postUserModel.getTotal());
                     if (list != null && list.size() > 0) {
                         if (!isloadmore) {
@@ -178,6 +182,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
             }
         }, 2000);
     }
+
     /**
      * 收藏
      *
@@ -198,10 +203,10 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
             @Override
             public void onNext(BaseResponse<EmptyEntity> baseResponse) {
                 if (baseResponse.getCode() == 200) {
-                    showToast( baseResponse.getMsg());
+                    showToast(baseResponse.getMsg());
                     onRefresh();
                 } else {
-                  showToast( baseResponse.getMsg());
+                    showToast(baseResponse.getMsg());
                 }
             }
         });

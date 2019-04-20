@@ -3,7 +3,6 @@ package com.likeit.aqe365.network.util;
 
 import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.network.ApiService;
-import com.likeit.aqe365.network.model.CaseEntity;
 import com.likeit.aqe365.network.model.CaseIdEntity;
 import com.likeit.aqe365.network.model.DiyTabModel;
 import com.likeit.aqe365.network.model.GoodCategory.CategoryListItemsModel;
@@ -20,10 +19,12 @@ import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.LoginRegisterModel;
 import com.likeit.aqe365.network.model.cart01.CartListModel;
+import com.likeit.aqe365.network.model.cart.CartListModel01;
 import com.likeit.aqe365.network.model.find.BoardListModel;
 import com.likeit.aqe365.network.model.find.ConcernsListModel;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
+import com.likeit.aqe365.network.model.find.DiaryphotoModel;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.network.model.find.FoolowMoodListModel;
 import com.likeit.aqe365.network.model.find.HospitalListModel;
@@ -561,6 +562,21 @@ public class RetrofitUtil {
     }
 
     /**
+     * 购物车列表01
+     *
+     * @param openid
+     * @param subscriber
+     */
+    public void getCartList01(String openid,
+                              Subscriber<BaseResponse<CartListModel01>> subscriber) {
+        mApiService.getCartList01(openid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
      * 删除购物车
      *
      * @param openid
@@ -920,6 +936,19 @@ public class RetrofitUtil {
     public void MyDiary(String openid, String pageNum,
                         Subscriber<BaseResponse<MyDiaryListModel>> subscriber) {
         mApiService.MyDiary(openid, pageNum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    /**
+     * 我的日记本
+     *
+     * @return
+     */
+    public void diaryphoto(String openid,String diaryid, String pageNum,
+                        Subscriber<BaseResponse<DiaryphotoModel>> subscriber) {
+        mApiService.diaryphoto(openid, diaryid,pageNum)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -170,7 +170,7 @@ public class GoodDetailInfoItemProvider extends BaseItemProvider<GoodDetailInfoI
         oks.disableSSOWhenAuthorize();
 
         // title标题，微信、QQ和QQ空间等平台使用
-        oks.setTitle("經理是傻冒");
+        oks.setTitle("测试分享");
         // titleUrl QQ和QQ空间跳转链接
         oks.setTitleUrl("http://sharesdk.cn");
         // text是分享文本，所有平台都需要这个字段

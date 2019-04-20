@@ -11,6 +11,15 @@ public class JournalDetailsModel {
 
     private JournalBean journal;
     private List<JournalCommentBean> journalComment;
+    private Hospital hospital;
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
 
     public JournalBean getJournal() {
         return journal;
@@ -482,6 +491,72 @@ public class JournalDetailsModel {
             public void setIsgood(String isgood) {
                 this.isgood = isgood;
             }
+        }
+    }
+
+    public static class Hospital {
+        private String id;
+        private String name;
+        private String logo;
+        private String title;
+        private String linkurl;
+        private String weburl;
+        private String marketprice;
+
+        public String getLinkurl() {
+            return linkurl;
+        }
+
+        public void setLinkurl(String linkurl) {
+            this.linkurl = linkurl;
+        }
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getMarketprice() {
+            return marketprice;
+        }
+
+        public void setMarketprice(String marketprice) {
+            this.marketprice = marketprice;
         }
     }
 }

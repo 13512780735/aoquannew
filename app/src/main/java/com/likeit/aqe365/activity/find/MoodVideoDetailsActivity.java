@@ -34,6 +34,7 @@ import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RatioImageView;
+import com.likeit.aqe365.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
@@ -79,7 +80,7 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
     private CircleImageView iv_avatar;
     private TextView tv_name, tv_content, tv_title, tv_content01, tv_hospitalName, tv_hospital_title, tv_hospital_content;
     private BorderTextView tv_attention;
-    private RatioImageView iv_hospital_pic;
+    private RoundImageView iv_hospital_pic;
     private String isuser;
     private String bid;
     private String pid;

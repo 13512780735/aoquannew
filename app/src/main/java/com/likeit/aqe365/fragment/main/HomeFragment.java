@@ -254,7 +254,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
             public void success(String response) {
-                XLog.json(response);
+                //XLog.json(response);
                 try {
                     JSONObject object = new JSONObject(response);
                     int code = object.optInt("code");

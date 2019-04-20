@@ -28,12 +28,14 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.PostDetailsModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderRelativeLayout;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RatioImageView;
+import com.likeit.aqe365.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
@@ -54,7 +56,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
     private boolean isErr = true;
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
-
+    LinearLayout ll_hospital;
     @BindView(R.id.RecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
@@ -79,7 +81,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
     private CircleImageView iv_avatar;
     private TextView tv_name, tv_content, tv_title, tv_content01, tv_hospitalName, tv_hospital_title, tv_hospital_content;
     private BorderTextView tv_attention;
-    private RatioImageView iv_hospital_pic;
+    private RoundImageView iv_hospital_pic;
     private String isuser;
     private String bid;
     private String pid;
@@ -89,7 +91,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
     private TextView tv_comment_num;
     private View header;
     private String name;
-
+    private PostDetailsModel.HospitalBean hospitalBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
         tv_content = header.findViewById(R.id.tv_content);
         tv_title = header.findViewById(R.id.tv_title);
         tv_content01 = header.findViewById(R.id.tv_content01);
+        ll_hospital = header.findViewById(R.id.ll_hospital);
         tv_hospitalName = header.findViewById(R.id.tv_hospitalName);
         tv_hospital_title = header.findViewById(R.id.tv_hospital_title);
         tv_hospital_content = header.findViewById(R.id.tv_hospital_content);
@@ -219,6 +222,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
                 XLog.e("getLikenum" + (Integer.valueOf(baseResponse.getData().getPost().getLikenum()) + 1));
                 if (baseResponse.code == 200) {
                     postDetailsModel = baseResponse.getData();
+                    hospitalBean = postDetailsModel.getHospitalBean();
                     initHeader();
                     if ("1".equals(postDetailsModel.getPost().getIslike())) {
                         tv_isgood.setText(getResources().getString(R.string.ic_good) + " " + postDetailsModel.getPost().getLikenum());
@@ -292,10 +296,25 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
         tv_content.setText(postDetailsModel.getPost().getCity() + " " + postDetailsModel.getPost().getCreatetime());
         tv_title.setText(postDetailsModel.getPost().getTitle());
         RichText.from(postDetailsModel.getPost().getContent()).into(tv_content01);
-       // tv_content01.setText(postDetailsModel.getPost().getContent());
-        tv_hospitalName.setText("测试医院");
-        tv_hospital_title.setText("服务标题");
-        tv_hospital_content.setText("¥ " + 65.00);
+        // tv_content01.setText(postDetailsModel.getPost().getContent());
+
+        if (hospitalBean == null) {
+            ll_hospital.setVisibility(View.GONE);
+        } else {
+            ll_hospital.setVisibility(View.VISIBLE);
+            tv_hospitalName.setText(hospitalBean.getName());
+            tv_hospital_title.setText(hospitalBean.getTitle());
+            tv_hospital_content.setText("¥ " + hospitalBean.getMarketprice());
+            ImageLoader.getInstance().displayImage(hospitalBean.getLogo(), iv_hospital_pic);
+            ll_hospital.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String webUrl = hospitalBean.getWeburl();
+                    IntentUtils.intentTo(mContext, "", "", webUrl);
+                }
+            });
+        }
+
         // ImageLoader.getInstance().displayImage(iv_hospital_pic,getResources().getDrawable(R.mipmap.icon_default_picture));
         isuser = postDetailsModel.getPost().getIsuser();
 
@@ -527,7 +546,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
-                    bundle.putString("nickName",item.getNickname());
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -586,7 +605,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
-                    bundle.putString("nickName",item.getNickname());
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

@@ -11,6 +11,7 @@ import android.widget.PopupWindow;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
@@ -30,9 +31,7 @@ import rx.Subscriber;
 
 public class PostMoodAdapter extends BaseQuickAdapter<PostUserModel.ListBean, BaseViewHolder> {
     private NineGridTestLayout layout;
-    private String huati;
     private String iscollect;
-    private String id;
     private FrameLayout fr_video;
     private RoundImageView iv_video_img;
 
@@ -42,8 +41,10 @@ public class PostMoodAdapter extends BaseQuickAdapter<PostUserModel.ListBean, Ba
 
     @Override
     protected void convert(final BaseViewHolder helper, final PostUserModel.ListBean item) {
-        ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
+        XLog.e("item.getNickname()"+item.getNickname());
+        XLog.e("item.getAvatar()"+item.getAvatar());
         helper.setText(R.id.tv_title, item.getNickname());
+        ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_content, item.getContent());
         helper.setText(R.id.tv_time, item.getCreatetime());
         helper.setText(R.id.tv_huati, item.getHuati());
@@ -82,7 +83,6 @@ public class PostMoodAdapter extends BaseQuickAdapter<PostUserModel.ListBean, Ba
             fr_video.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().displayImage(item.getVideoimage(), iv_video_img);
         }
-        id = item.getId();
         helper.addOnClickListener(R.id.tv_iscollect);
         helper.getView(R.id.tv_likes).setOnClickListener(new View.OnClickListener() {
             @Override

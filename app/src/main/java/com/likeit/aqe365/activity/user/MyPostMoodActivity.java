@@ -18,6 +18,7 @@ import com.likeit.aqe365.fragment.find.AllFind04Fragment;
 import com.likeit.aqe365.fragment.find.AllFind05Fragment;
 import com.likeit.aqe365.fragment.find.AllFind06Fragment;
 import com.likeit.aqe365.fragment.find.AllFindFragment;
+import com.likeit.aqe365.fragment.find.TopicListFragment;
 import com.likeit.aqe365.fragment.main.FindFragment;
 import com.likeit.aqe365.fragment.member.MoodFragment;
 import com.likeit.aqe365.fragment.member.PostFragment;
@@ -41,7 +42,7 @@ public class MyPostMoodActivity extends BaseActivity {
     }
 
     private void initUI() {
-        back_view=findView(R.id.back_view);
+        back_view = findView(R.id.back_view);
         back_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,16 +86,25 @@ public class MyPostMoodActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    PostFragment tab1 = new PostFragment();
-                    return tab1;
-                case 1:
-                    MoodFragment tab2 = new MoodFragment();
-                    return tab2;
-            }
+//            switch (position) {
+//                case 0:
+//                    PostFragment tab1 = new PostFragment();
+//                    return tab1;
+//                case 1:
+//                    MoodFragment tab2 = new MoodFragment();
+//                    return tab2;
+//
+//
+//            }
+//            return null;
+            Bundle bundle = new Bundle();
+            bundle.putString("id", mTitles.get(position));
+            //实例化Fragment
+            MoodFragment moodFragment = new MoodFragment();
+            moodFragment.setArguments(bundle);
+            return moodFragment;
 
-            return null;
+
         }
 
     }

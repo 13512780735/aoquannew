@@ -1,16 +1,19 @@
 package com.likeit.aqe365.adapter.cart;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.network.model.cart.CartListModel;
+import com.likeit.aqe365.network.model.cart.CartListModel01;
 import com.likeit.aqe365.view.SlideView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -19,8 +22,8 @@ import java.util.Map;
 
 
 public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter {
-    private List<CartListModel.ListBeanXX> groups;
-    private Map<String, List<CartListModel.ListBeanXX.ListBeanX>> children;
+    private List<CartListModel01.ListBeanXX> groups;
+    private Map<String, List<CartListModel01.ListBeanXX.ListBeanX>> children;
     private Context context;
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
@@ -32,7 +35,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
      * @param children 子元素列表
      * @param context
      */
-    public ShopcartExpandableListViewAdapter(List<CartListModel.ListBeanXX> groups, Map<String, List<CartListModel.ListBeanXX.ListBeanX>> children, Context context) {
+    public ShopcartExpandableListViewAdapter(List<CartListModel01.ListBeanXX> groups, Map<String, List<CartListModel01.ListBeanXX.ListBeanX>> children, Context context) {
         super();
         this.groups = groups;
         this.children = children;
@@ -65,7 +68,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(groups.get(groupPosition).getId());
+        List<CartListModel01.ListBeanXX.ListBeanX> childs = children.get(groups.get(groupPosition).getId());
 
         return childs.get(childPosition);
     }
@@ -99,7 +102,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             // convertView = groupMap.get(groupPosition);
             gholder = (GroupHolder) convertView.getTag();
         }
-        final CartListModel.ListBeanXX group = (CartListModel.ListBeanXX) getGroup(groupPosition);
+        final CartListModel01.ListBeanXX group = (CartListModel01.ListBeanXX) getGroup(groupPosition);
         if (group != null) {
             gholder.tv_group_name.setText(group.getName());
             gholder.cb_check.setOnClickListener(new OnClickListener() {
@@ -141,7 +144,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             // convertView = childrenMap.get(groupPosition);
             cholder = (ChildHolder) convertView.getTag();
         }
-        final CartListModel.ListBeanXX.ListBeanX product = (CartListModel.ListBeanXX.ListBeanX) getChild(groupPosition, childPosition);
+        final CartListModel01.ListBeanXX.ListBeanX product = (CartListModel01.ListBeanXX.ListBeanX) getChild(groupPosition, childPosition);
 
         if (product != null) {
             ImageLoader.getInstance().displayImage(product.getThumb(), cholder.iv_url);
@@ -175,7 +178,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 
             @Override
             public void onClick(View v) {
-                List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(groups.get(groupPosition).getId());
+                List<CartListModel01.ListBeanXX.ListBeanX> childs = children.get(groups.get(groupPosition).getId());
                 childs.remove(childPosition);
                 if (childs.size() == 0) {//child没有了，group也就没有了
                     groups.remove(groupPosition);
@@ -263,4 +266,19 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
         public void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked);
     }
 
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            notifyDataSetChanged();//更新数据
+            super.handleMessage(msg);
+        }
+    };
+
+    /*供外界更新数据的方法*/
+    public void refresh(ExpandableListView expandableListView, int groupPosition) {
+        handler.sendMessage(new Message());
+        //必须重新伸缩之后才能更新数据
+        expandableListView.collapseGroup(groupPosition);
+        expandableListView.expandGroup(groupPosition);
+    }
 }

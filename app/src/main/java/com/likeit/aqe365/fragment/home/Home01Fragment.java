@@ -118,8 +118,8 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
                         JSONObject object2 = object1.optJSONObject("page");//page数据
                         items = object1.optJSONArray("items"); //items数据
                         MainHomePagerModel pagerModel = JSON.parseObject(object2.toString(), MainHomePagerModel.class);
-                        XLog.e(pagerModel);
-                        XLog.e(items);
+                      //  XLog.e(pagerModel);
+                        //XLog.e(items);
                         initUI();
                     }
 
@@ -210,7 +210,7 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
             }
         }
 
-        XLog.e("TAG888" + mMessages);
+        //XLog.e("TAG888" + mMessages);
         mSwipeRefreshLayout.setRefreshing(true);
         new Handler().postDelayed(new Runnable() {
             @Override

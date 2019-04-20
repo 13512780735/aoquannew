@@ -10,7 +10,27 @@ public class PostDetailsModel {
      */
 
     private PostBean post;
+    private HospitalBean hospitalBean;
     private List<PostCommentBean> postComment;
+    /**
+     * id : 92
+     * name : 上海余天成医疗美容门诊部
+     * title : 【下颌角整形】【V-LINE瓜子脸手术】李志海院长·V脸专利技术 改脸型写日记领千元返现
+     * marketprice : 35981.00
+     * logo : http://aoquan.maimaitoo.com/attachment/images/1/2019/04/YKz902cvi400M3Vm9Jc00UV400B9m0.png
+     * linkurl :
+     * params : {"id":"92"}
+     * weburl : http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=hospital.service&id=92
+     */
+
+    private String id;
+    private String name;
+    private String title;
+    private String marketprice;
+    private String logo;
+    private String linkurl;
+    private PostBean params;
+    private String weburl;
 
     public PostBean getPost() {
         return post;
@@ -26,6 +46,78 @@ public class PostDetailsModel {
 
     public void setPostComment(List<PostCommentBean> postComment) {
         this.postComment = postComment;
+    }
+
+    public HospitalBean getHospitalBean() {
+        return hospitalBean;
+    }
+
+    public void setHospitalBean(HospitalBean hospitalBean) {
+        this.hospitalBean = hospitalBean;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMarketprice() {
+        return marketprice;
+    }
+
+    public void setMarketprice(String marketprice) {
+        this.marketprice = marketprice;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getLinkurl() {
+        return linkurl;
+    }
+
+    public void setLinkurl(String linkurl) {
+        this.linkurl = linkurl;
+    }
+
+    public PostBean getParams() {
+        return params;
+    }
+
+    public void setParams(PostBean params) {
+        this.params = params;
+    }
+
+    public String getWeburl() {
+        return weburl;
+    }
+
+    public void setWeburl(String weburl) {
+        this.weburl = weburl;
     }
 
     public static class PostBean {
@@ -502,4 +594,107 @@ public class PostDetailsModel {
             }
         }
     }
+
+    public static class HospitalBean {
+        /**
+         * id : 92
+         * name : 上海余天成医疗美容门诊部
+         * title : 【下颌角整形】【V-LINE瓜子脸手术】李志海院长·V脸专利技术 改脸型写日记领千元返现
+         * marketprice : 35981.00
+         * logo : http://aoquan.maimaitoo.com/attachment/images/1/2019/04/YKz902cvi400M3Vm9Jc00UV400B9m0.png
+         * linkurl :
+         * params : {"id":"92"}
+         * weburl : http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=hospital.service&id=92
+         */
+
+        private String id;
+        private String name;
+        private String title;
+        private String marketprice;
+        private String logo;
+        private String linkurl;
+        private String weburl;
+        private ParamsBean params;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getMarketprice() {
+            return marketprice;
+        }
+
+        public void setMarketprice(String marketprice) {
+            this.marketprice = marketprice;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
+
+        public String getLinkurl() {
+            return linkurl;
+        }
+
+        public void setLinkurl(String linkurl) {
+            this.linkurl = linkurl;
+        }
+
+        public ParamsBean getParams() {
+            return params;
+        }
+
+        public void setParams(ParamsBean params) {
+            this.params = params;
+        }
+
+        public String getWeburl() {
+            return weburl;
+        }
+
+        public void setWeburl(String weburl) {
+            this.weburl = weburl;
+        }
+
+        public static class ParamsBean {
+            /**
+             * id : 92
+             */
+
+            private String id;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+        }
+    }
+
 }

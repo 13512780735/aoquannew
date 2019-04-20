@@ -13,6 +13,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.find.PostDetailsActivity;
+import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.find.AllFind02Adapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
@@ -84,10 +85,17 @@ public class AllFind02Fragment extends BaseFragment implements SwipeRefreshLayou
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String types = data.get(position).getType();
                 String id = data.get(position).getId();
                 Bundle bundle = new Bundle();
-                bundle.putString("id", id);
-                toActivity(PostDetailsActivity.class, bundle);
+                if ("1".equals(types)) {
+                    bundle.putString("id", id);
+                    toActivity(VideoDetailsActivity.class, bundle);
+                } else {
+                    bundle.putString("id", id);
+                    toActivity(PostDetailsActivity.class, bundle);
+                }
+
             }
         });
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

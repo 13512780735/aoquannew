@@ -1,4 +1,5 @@
-package com.likeit.aqe365.adapter.find;
+package com.likeit.aqe365.adapter.member;
+
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +16,7 @@ import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
-import com.likeit.aqe365.network.model.find.MoodListModel;
+import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.PopupWindowUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
@@ -30,7 +31,7 @@ import java.util.List;
 
 import rx.Subscriber;
 
-public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, BaseViewHolder> {
+public class MyMoodAdapter extends BaseQuickAdapter<PostUserModel.ListBean, BaseViewHolder> {
     private NineGridTestLayout layout;
     private String huati;
     private String id;
@@ -39,13 +40,12 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
     private RoundImageView iv_video_img;
     private IconfontTextView tvIsCollect;
 
-
-    public MoodListAdapter(int layoutResId, List<MoodListModel.ListBean> data) {
+    public MyMoodAdapter(int layoutResId, List<PostUserModel.ListBean> data) {
         super(R.layout.moodlist_item, data);
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final MoodListModel.ListBean item) {
+    protected void convert(final BaseViewHolder helper, final PostUserModel.ListBean item) {
         XLog.e("item.getNickname()"+item.getNickname());
         XLog.e("item.getAvatar()"+item.getAvatar());
         ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
@@ -174,6 +174,4 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
             }
         });
     }
-
-
 }

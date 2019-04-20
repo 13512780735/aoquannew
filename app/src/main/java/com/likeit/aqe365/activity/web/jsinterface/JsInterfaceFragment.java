@@ -71,6 +71,7 @@ import onekeyshare.OnekeyShare;
  */
 public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presenter> implements JsInterfaceContract.View {
 
+    private static final boolean IS_NEED_CLAER = true;
     @BindView(R.id.tv_toolbar_title)
     TextView mTvToolbarTitle;
     @BindView(R.id.img_toolbar_back)
@@ -306,6 +307,14 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
     public void showNativeMessage(String message) {
         super.showNativeMessage(message);
         mWebView.clearCache(true);
+        mWebView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (IS_NEED_CLAER) {
+                    mWebView.clearHistory();
+                }
+            }
+        }, 1000);
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
         AppManager.getAppManager().finishAllActivity();

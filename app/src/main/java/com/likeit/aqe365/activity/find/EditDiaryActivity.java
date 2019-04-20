@@ -102,11 +102,19 @@ public class EditDiaryActivity extends BaseActivity {
                 startActivityForResult(intent, 101);
                 break;
             case R.id.ll_subject:
+                if(StringUtil.isBlank(hospitalId)){
+                    showProgress("请选择医院");
+                    return;
+                }
                 Intent intent1 = new Intent(EditDiaryActivity.this, ChooseSevreActivity.class);
                 intent1.putExtra("flag", "1");
                 startActivityForResult(intent1, 102);
                 break;
             case R.id.ll_serve:
+                if(StringUtil.isBlank(hospitalId)||StringUtil.isBlank(categoryId)){
+                    showProgress("请选择医院和科目");
+                    return;
+                }
                 Intent intent2 = new Intent(EditDiaryActivity.this, ChooseSevreActivity.class);
                 intent2.putExtra("flag", "2");
                 startActivityForResult(intent2, 103);
@@ -117,15 +125,15 @@ public class EditDiaryActivity extends BaseActivity {
             case R.id.tv_next:
                 title = edTitle.getText().toString().trim();
                 if (StringUtil.isBlank(title)) {
-                    showToast("标题不能为空");
+                    showProgress("标题不能为空");
                     return;
                 }
                 if (title.length() < 4) {
-                    showToast("标题不能少于4位");
+                    showProgress("标题不能少于4位");
                     return;
                 }
                 if (StringUtil.isBlank(time)) {
-                    showToast("标题不能为空");
+                    showProgress("标题不能为空");
                     return;
                 }
                 Bundle bundle = new Bundle();

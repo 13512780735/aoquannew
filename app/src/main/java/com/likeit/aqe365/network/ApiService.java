@@ -17,11 +17,13 @@ import com.likeit.aqe365.network.model.Indent.IndentDetailModel;
 import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.LoginRegisterModel;
+import com.likeit.aqe365.network.model.cart.CartListModel01;
 import com.likeit.aqe365.network.model.cart01.CartListModel;
 import com.likeit.aqe365.network.model.find.BoardListModel;
 import com.likeit.aqe365.network.model.find.ConcernsListModel;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
+import com.likeit.aqe365.network.model.find.DiaryphotoModel;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.network.model.find.FoolowMoodListModel;
 import com.likeit.aqe365.network.model.find.HospitalListModel;
@@ -520,6 +522,18 @@ public interface ApiService {
     );
 
     /**
+     * 购物车列表
+     *
+     * @param openid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.member.cart.get_cart")
+    Observable<BaseResponse<CartListModel01>> getCartList01(@Field("openid") String openid
+
+    );
+
+    /**
      * 删除购物车
      *
      * @param openid
@@ -925,6 +939,17 @@ public interface ApiService {
                                                       @Field("service") String service,
                                                       @Field("addtime") String addtime,
                                                       @Field("type") String type
+    );
+    /**
+     * 日记本相册
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.discover.journal.diaryphoto")
+    Observable<BaseResponse<DiaryphotoModel>> diaryphoto(@Field("openid") String openid,
+                                                         @Field("diaryid") String diaryid,
+                                                         @Field("pageNum") String pageNum
     );
 
     /**

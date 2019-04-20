@@ -87,6 +87,17 @@ public class UserInfoActivity extends BaseActivity {
                     ImageLoader.getInstance().displayImage(getUserInfoModel.getAvatar(), iv_avatar);
                     tv_name.setText(getUserInfoModel.getNickname());
                     isuser=getUserInfoModel.getIsuser();
+                    if ("0".equals(isuser)) {
+                        tv_attention.setContentColorResource01(Color.parseColor(theme_bg_tex));
+                        tv_attention.setStrokeColor01(Color.parseColor(theme_bg_tex));
+                        tv_attention.setTextColor(Color.parseColor("#ffffff"));
+                        tv_attention.setText("+ 关注");
+                    } else {
+                        tv_attention.setContentColorResource01(Color.parseColor("#FFFFFF"));
+                        tv_attention.setStrokeColor01(Color.parseColor("#DBDBDB"));
+                        tv_attention.setTextColor(Color.parseColor("#DBDBDB"));
+                        tv_attention.setText("已关注");
+                    }
                 }
             }
         });
@@ -102,17 +113,7 @@ public class UserInfoActivity extends BaseActivity {
         mTabLayout.setTabTextColors(Color.parseColor("#000000"), Color.parseColor(theme_bg_tex));
         mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
-        if ("0".equals(isuser)) {
-            tv_attention.setContentColorResource01(Color.parseColor(theme_bg_tex));
-            tv_attention.setStrokeColor01(Color.parseColor(theme_bg_tex));
-            tv_attention.setTextColor(Color.parseColor("#ffffff"));
-            tv_attention.setText("+ 关注");
-        } else {
-            tv_attention.setContentColorResource01(Color.parseColor("#FFFFFF"));
-            tv_attention.setStrokeColor01(Color.parseColor("#DBDBDB"));
-            tv_attention.setTextColor(Color.parseColor("#DBDBDB"));
-            tv_attention.setText("已关注");
-        }
+
         tv_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

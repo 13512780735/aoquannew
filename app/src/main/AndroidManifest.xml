@@ -175,7 +175,8 @@
         <activity android:name=".activity.user.MyHuaTiActivity" />
         <activity android:name=".activity.user.MyFensiActivity" />
         <activity android:name=".activity.find.ChoicenessDiaryActivity" />
-        <activity android:name=".activity.find.DiscussTopicActivity"></activity>
+        <activity android:name=".activity.find.DiscussTopicActivity" />
+        <activity android:name=".activity.find.DirayPhotoActivity"></activity>
     </application>
 
 </manifest>

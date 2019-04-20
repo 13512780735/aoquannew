@@ -9,6 +9,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.fragment.main.Cart02Fragment;
+import com.likeit.aqe365.fragment.main.CartFragment;
 import com.likeit.aqe365.fragment.main.CategoryFragment;
 import com.likeit.aqe365.fragment.main.CommissionFragment;
 import com.likeit.aqe365.fragment.main.FindFragment;
@@ -111,7 +112,7 @@ public class MainActivity extends AbstractCommonTabLayout {
             } else if ("commission".equals(linkurl)) {
                 mFragments.add(new CommissionFragment());
             } else if ("cart".equals(linkurl)) {
-                mFragments.add(new Cart02Fragment());
+                mFragments.add(new CartFragment());
             } else if ("member".equals(linkurl)) {
                 mFragments.add(new MemberFragment());
             } else if ("notice".equals(linkurl)) {

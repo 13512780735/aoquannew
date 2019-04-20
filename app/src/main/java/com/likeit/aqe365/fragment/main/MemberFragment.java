@@ -110,13 +110,13 @@ public class MemberFragment extends BaseFragment implements SwipeRefreshLayout.O
     private void initUI() {
         //  String name = page.optString("title");
         // setTitle(name);
-        XLog.e(items);
+       // XLog.e(items);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mMessages = new ArrayList<>();
         for (int i = 0; i < items.length(); i++) {
             String id = items.optJSONObject(i).optString("id");
-            XLog.e("menu3"+JSON.parseObject(items.optString(i), MemberMenu3Model.class));
+        //    XLog.e("menu3"+JSON.parseObject(items.optString(i), MemberMenu3Model.class));
             if ("member".equals(id)) {
                 MemberItemModel memberItemModel = JSON.parseObject(items.optString(i).toString(), MemberItemModel.class);
                 mMessages.add(memberItemModel);

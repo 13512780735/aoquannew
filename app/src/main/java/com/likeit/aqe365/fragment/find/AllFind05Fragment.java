@@ -1,6 +1,7 @@
 package com.likeit.aqe365.fragment.find;
 
 
+import android.animation.Animator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
@@ -33,7 +35,8 @@ import java.util.List;
 import butterknife.BindView;
 import rx.Subscriber;
 
-/** 用户
+/**
+ * 用户
  * A simple {@link Fragment} subclass.
  */
 public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
@@ -54,6 +57,7 @@ public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayou
     private List<UserListModel.ListBean> data;
     private AllFind05Adapter mAdapter;
     private UserListModel userListModel;
+    private boolean isGetData = false;
 
     @Override
     protected int setContentView() {
@@ -65,6 +69,25 @@ public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayou
         initUI();
     }
 
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter && !isGetData) {
+            isGetData = true;
+            //   这里可以做网络请求或者需要的数据刷新操作
+//            GetData();
+            initData(pageNum, false);
+        } else {
+            isGetData = false;
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isGetData = false;
+    }
+
     private void initUI() {
         // data = new ArrayList<>();
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -72,6 +95,12 @@ public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayou
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         initAdapter();
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        onRefresh();
+//    }
 
     private void initAdapter() {
         mAdapter = new AllFind05Adapter(R.layout.find_user_listitem, data);
@@ -97,8 +126,8 @@ public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayou
     }
 
     private void initData(int pageNum, final boolean isloadmore) {
-        XLog.e("lat:"+lat);
-        XLog.e("lng:"+lng);
+        XLog.e("lat:" + lat);
+        XLog.e("lng:" + lng);
         RetrofitUtil.getInstance().GetUser(openid, "", lat, lng, String.valueOf(pageNum), new Subscriber<BaseResponse<UserListModel>>() {
             @Override
             public void onCompleted() {

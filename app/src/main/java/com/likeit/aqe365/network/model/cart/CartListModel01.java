@@ -3,7 +3,7 @@ package com.likeit.aqe365.network.model.cart;
 
 import java.util.List;
 
-public class CartListModel {
+public class CartListModel01 {
 
     /**
      * total : 4
@@ -120,6 +120,24 @@ public class CartListModel {
             private String ispresell;
             private String virtual;
             private String hasoption;
+            private String linkurl;
+            private String weburl;
+
+            public String getLinkurl() {
+                return linkurl;
+            }
+
+            public void setLinkurl(String linkurl) {
+                this.linkurl = linkurl;
+            }
+
+            public String getWeburl() {
+                return weburl;
+            }
+
+            public void setWeburl(String weburl) {
+                this.weburl = weburl;
+            }
 
             public String getId() {
                 return id;
@@ -356,7 +374,7 @@ public class CartListModel {
             private String stock;
             private String title;
             private String thumb;
-            private String marketprice;
+            private double marketprice;
             private String optionid;
             private String minbuy;
             private String unit;
@@ -367,7 +385,7 @@ public class CartListModel {
             private String weburl;
             private int position;
 
-            public ListBeanX(String id, String title, String total, String goodsid, String stock, String thumb, String marketprice, String optionid, String unit, String merchid, String totalmaxbuy, String optiontitle) {
+            public ListBeanX(String id, String title, String total, String goodsid, String stock, String thumb, double marketprice, String optionid, String unit, String merchid, String totalmaxbuy, String optiontitle) {
 
                 super.Id = id;
                 super.name = title;
@@ -464,11 +482,11 @@ public class CartListModel {
                 this.thumb = thumb;
             }
 
-            public String getMarketprice() {
+            public double getMarketprice() {
                 return marketprice;
             }
 
-            public void setMarketprice(String marketprice) {
+            public void setMarketprice(double marketprice) {
                 this.marketprice = marketprice;
             }
 

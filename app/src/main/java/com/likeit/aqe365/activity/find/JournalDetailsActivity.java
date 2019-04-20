@@ -32,12 +32,14 @@ import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.JournalDetailsModel;
 import com.likeit.aqe365.network.model.find.PostDetailsModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderRelativeLayout;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RatioImageView;
+import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -76,7 +78,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
     private CircleImageView iv_avatar;
     private TextView tv_name, tv_content, tv_title, tv_content01, tv_hospitalName, tv_hospital_title, tv_hospital_content;
     private BorderTextView tv_attention;
-    private RatioImageView iv_hospital_pic;
+    private RoundImageView iv_hospital_pic;
     private String isuser;
     private String bid;
     private String pid;
@@ -86,6 +88,8 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
     private TextView tv_comment_num;
     private View header;
     private String name;
+    private LinearLayout ll_hospital;
+    private JournalDetailsModel.Hospital hospitalData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +122,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
         tv_content = header.findViewById(R.id.tv_content);
         tv_title = header.findViewById(R.id.tv_title);
         tv_content01 = header.findViewById(R.id.tv_content01);
+        ll_hospital = header.findViewById(R.id.ll_hospital);
         tv_hospitalName = header.findViewById(R.id.tv_hospitalName);
         tv_hospital_title = header.findViewById(R.id.tv_hospital_title);
         tv_hospital_content = header.findViewById(R.id.tv_hospital_content);
@@ -216,6 +221,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
             public void onNext(BaseResponse<JournalDetailsModel> baseResponse) {
                 if (baseResponse.code == 200) {
                     journalDetailsModel = baseResponse.getData();
+                    hospitalData = journalDetailsModel.getHospital();
                     initHeader();
                     if ("1".equals(journalDetailsModel.getJournal().getIslike())) {
                         tv_isgood.setText(getResources().getString(R.string.ic_good) + " " + journalDetailsModel.getJournal().getLikenum());
@@ -289,10 +295,24 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
         tv_content.setText(journalDetailsModel.getJournal().getCity() + " " + journalDetailsModel.getJournal().getEdittime());
         tv_title.setText(journalDetailsModel.getJournal().getTitle());
         tv_content01.setText(journalDetailsModel.getJournal().getContent());
-        tv_hospitalName.setText("测试医院");
-        tv_hospital_title.setText("服务标题");
-        tv_hospital_content.setText("¥ " + 65.00);
-        // ImageLoader.getInstance().displayImage(iv_hospital_pic,getResources().getDrawable(R.mipmap.icon_default_picture));
+        if (hospitalData == null) {
+            ll_hospital.setVisibility(View.GONE);
+        } else {
+            ll_hospital.setVisibility(View.VISIBLE);
+            tv_hospitalName.setText(hospitalData.getName());
+            tv_hospital_title.setText(hospitalData.getTitle());
+            tv_hospital_content.setText("¥ " + hospitalData.getMarketprice());
+            ImageLoader.getInstance().displayImage(hospitalData.getLogo(), iv_hospital_pic);
+            ll_hospital.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String webUrl = hospitalData.getWeburl();
+                    IntentUtils.intentTo(mContext, "", "", webUrl);
+                }
+            });
+        }
+
+
         isuser = journalDetailsModel.getJournal().getIsuser();
 
         if ("0".equals(isuser)) {
@@ -440,7 +460,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
         protected void convert(BaseViewHolder helper, final JournalDetailsModel.JournalCommentBean item) {
             ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
             final IconfontTextView tv_isgood = helper.getView(R.id.tv_isgood);
-            name=item.getNickname();
+            name = item.getNickname();
             helper.setText(R.id.tv_title, item.getNickname());
             helper.setText(R.id.tv_content, item.getReplycontent());
             helper.setText(R.id.tv_time, item.getReplytime());
@@ -506,7 +526,7 @@ public class JournalDetailsActivity extends BaseActivity implements SwipeRefresh
         protected void convert(BaseViewHolder helper, final JournalDetailsModel.JournalCommentBean.ParentBean item) {
             ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
             final IconfontTextView tv_isgood = helper.getView(R.id.tv_isgood);
-            helper.setText(R.id.tv_title, item.getNickname()+"  回复  "+name);
+            helper.setText(R.id.tv_title, item.getNickname() + "  回复  " + name);
             helper.setText(R.id.tv_content, item.getReplycontent());
             helper.setText(R.id.tv_time, item.getReplytime());
 

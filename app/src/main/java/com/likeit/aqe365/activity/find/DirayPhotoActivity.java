@@ -1,28 +1,23 @@
-package com.likeit.aqe365.fragment.find;
-
+package com.likeit.aqe365.activity.find;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.find.TopicListActivity;
-import com.likeit.aqe365.adapter.find.AllFind01Adapter;
-import com.likeit.aqe365.adapter.find.AllFind03Adapter;
-import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.adapter.find.DiaryListAdapter;
+import com.likeit.aqe365.adapter.find.DiaryPhotoAdapter;
+import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.network.model.BaseResponse;
-import com.likeit.aqe365.network.model.find.BoardListModel;
-import com.likeit.aqe365.network.model.find.PostListModel;
+import com.likeit.aqe365.network.model.find.DiaryListModel;
+import com.likeit.aqe365.network.model.find.DiaryphotoModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
-import com.likeit.aqe365.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import rx.Subscriber;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
-
+public class DirayPhotoActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     private int pageNum = 1;
     private static final int PAGE_SIZE = 6;//为什么是6呢？
     private boolean isErr = true;
@@ -46,39 +37,31 @@ public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayou
     @BindView(R.id.SwipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     private String id;
-    private AllFind03Adapter mAdapter;
-    /**
-     * 话题
-     */
-    private List<BoardListModel.ListBean> data;
-    private BoardListModel boardListModel;
+    private DiaryPhotoAdapter mAdapter;
+    private String diaryid;
+    private List<DiaryphotoModel.ListBean> data;
+    private DiaryphotoModel diaryphotoModel;
 
     @Override
-    protected int setContentView() {
-        return R.layout.fragment_all_find03;
-    }
-
-    @Override
-    protected void lazyLoad() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_diray_photo);
+        diaryid = getIntent().getExtras().getString("diaryid");
         initUI();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        onRefresh();
-    }
-
     private void initUI() {
-        //data = new ArrayList<>();
+        setBackView();
+        setTitle("相册");
+        data = new ArrayList<>();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         initAdapter();
     }
 
     private void initAdapter() {
-        mAdapter = new AllFind03Adapter(R.layout.boradlist_item, data);
+        mAdapter = new DiaryPhotoAdapter(R.layout.diary_photo_items, data);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.disableLoadMoreIfNotFullPage();
@@ -87,17 +70,20 @@ public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayou
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putString("bid", data.get(position).getId());
-                bundle.putString("title", data.get(position).getTitle());
-                bundle.putString("isattention", data.get(position).getIsattention());
-                toActivity(TopicListActivity.class, bundle);
+//                String title = data.get(position).getTitle();
+//                diaryid = data.get(position).getDiaryid();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("diaryid", diaryid);
+//                bundle.putString("memberid", memberid);
+//                toActivity(DiaryDetailsActivity.class, bundle);
             }
         });
     }
 
+    String type;
+
     private void initData(int pageNum, final boolean isloadmore) {
-        RetrofitUtil.getInstance().GetBoardlist(openid, "", "", String.valueOf(pageNum), new Subscriber<BaseResponse<BoardListModel>>() {
+        RetrofitUtil.getInstance().diaryphoto(openid, diaryid, String.valueOf(pageNum), new Subscriber<BaseResponse<DiaryphotoModel>>() {
             @Override
             public void onCompleted() {
 
@@ -109,11 +95,11 @@ public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayou
             }
 
             @Override
-            public void onNext(BaseResponse<BoardListModel> baseResponse) {
+            public void onNext(BaseResponse<DiaryphotoModel> baseResponse) {
                 if (baseResponse.code == 200) {
-                    boardListModel = baseResponse.getData();
-                    List<BoardListModel.ListBean> list = boardListModel.getList();
-                    TOTAL_COUNTER = Integer.valueOf(boardListModel.getTotal());
+                    diaryphotoModel = baseResponse.getData();
+                    List<DiaryphotoModel.ListBean> list = diaryphotoModel.getList();
+                    TOTAL_COUNTER = Integer.valueOf(list.size());
                     if (list != null && list.size() > 0) {
                         if (!isloadmore) {
                             data = list;
@@ -178,6 +164,4 @@ public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayou
 
         }, 3000);
     }
-
-
 }

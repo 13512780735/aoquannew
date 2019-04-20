@@ -5,9 +5,10 @@ import java.util.List;
 
 public class PostUserModel {
 
+
     /**
-     * list : [{"id":"259","bids":"22","title":"发布帖子视频iOS","createtime":"17小时前","images":null,"nickname":"永恒","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"65","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/DN4gg66Nn26qG7Z3fWq6Z94646zvGZ.jpg","type":"1","video":"videos/1/2019/04/NuoAX61ncnnd8KksKK36ccsDRksuUF.mp4","memberid":null,"huati":"#敖犬 ","likenum":"1","islike":"0","iscollect":"0"},{"id":"258","bids":"18","title":"测试视频帖子iOS","createtime":"17小时前","images":null,"nickname":"永恒","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"53","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/erZgR02SAr0pfPfpRPnRH4H4s4f9Ag.jpg","type":"1","video":"videos/1/2019/04/qG3xfjjt09II2X9XxhJqz97339zHZF.mp4","memberid":null,"huati":"#牙科 ","likenum":"2","islike":"1","iscollect":"1"},{"id":"257","bids":"18","title":"测试视频帖子iOS","createtime":"17小时前","images":null,"nickname":"永恒","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"27","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/vOghyuHR8X775gshR38jjG11Sy13y5.jpg","type":"1","video":"videos/1/2019/04/lYDm7hf5HhXbTRaFvo4V75ppmFo8O4.mp4","memberid":null,"huati":"#牙科 ","likenum":"1","islike":"0","iscollect":"0"},{"id":"252","bids":"20,20","title":"发布帖子测试2","createtime":"17小时前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/glgT93w4KOkaKyLo9T0YmakzOtyG8Y.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/i32cJ9M1o33Ozm99866cgzvJ7jo4J4.jpg"],"nickname":"永恒","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\n今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"18","videoimage":"","type":"0","video":"","memberid":null,"huati":"#澳泉 ","likenum":"1","islike":"0","iscollect":"0"},{"id":"251","bids":"20","title":"发布帖子测试2","createtime":"17小时前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/TVbP5FOkB5KPj4SQOAZOQ4O5Qfo84a.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/t3p9kjD9j9DZ44dh33jUPAPZ4pd4Dh.jpg"],"nickname":"永恒","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\n今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"36","videoimage":"","type":"0","video":"","memberid":null,"huati":"#澳泉 ","likenum":"1","islike":"0","iscollect":"0"},{"id":"249","bids":"18","title":"测试帖子","createtime":"18小时前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/oyh519A8AvUfU9yDAdye7aAihE2oa9.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/w49Nes0H9RKhrnlEEJN54p5lNkJ505.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/LKxlkgGkMM2KMD4MnxdRuikvjrcK4i.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/r1KK2LIoPWgPIk0kKLSKBKLp0gfWPB.jpg"],"nickname":"永恒","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","content":"开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"104","videoimage":"","type":"0","video":"","memberid":null,"huati":"#牙科 ","likenum":"2","islike":"1","iscollect":"1"},{"id":"244","bids":"18,19","title":"第一次托槽矫正","createtime":"19小时前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Ufxx4OxwFj4YjXuxwow6fLb9VWZhtF.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/uHO8uR55t5j05Jc8TWO4C4w4lTC0h8.jpg"],"nickname":"永恒","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132","content":"第一次带托槽矫正，内心还是比较激动的。带上去没有想象中的疼痛或者特别紧绷的感觉，由于个人原因没有选择\u201c铁齿钢牙\u201d款的。毕竟不是学生时代了，带出去不好看，一不小心得了钢牙哥的绰号怎么办，所以选择了隐形款的，带上去不仔细观察的话不太看得出来，第一天暂时还啥变化，后面我会陆续进行记录供你们参考。","views":"96","videoimage":"","type":"0","video":"","memberid":null,"huati":"#牙科 #托槽矫正 ","likenum":"2","islike":"1","iscollect":"1"}]
-     * total : 7
+     * list : [{"id":"152","bids":"18","title":"","createtime":"4小时前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/pa6ZS6RBiUsR7wsukkzBys7L6I7yS6.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Kt11ZxTtmSE8vEx0X1lLlEQSC9Q1mx.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/D7ooz7AAwE0vKQmAGmd7z0B0eue6qV.jpg"],"nickname":"小灰爸爸","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/1ndreSJp1O95PfCpgxkTCDQOfoSG6NFi.jpg","content":"20190420测试话题开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\r今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"5","videoimage":"","type":"0","video":"","memberid":"5184","huati":"#牙科 ","likenum":"0","islike":"0","iscollect":"0"},{"id":"147","bids":"","title":"","createtime":"4小时前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/pa6ZS6RBiUsR7wsukkzBys7L6I7yS6.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Kt11ZxTtmSE8vEx0X1lLlEQSC9Q1mx.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/D7ooz7AAwE0vKQmAGmd7z0B0eue6qV.jpg"],"nickname":"小灰爸爸","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/1ndreSJp1O95PfCpgxkTCDQOfoSG6NFi.jpg","content":"测试安卓发布视频开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈\n今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。","views":"12","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/A883Qi48Q24QZ8M3D98n28qN82nqbP.jpg","type":"1","video":"videos/1/2019/04/iM4ImCVYlygXE6iZL5IxzvgQmzxlmV.mp4","memberid":"5184","huati":"","likenum":"0","islike":"0","iscollect":"0"},{"id":"146","bids":"32","title":"","createtime":"4小时前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/pa6ZS6RBiUsR7wsukkzBys7L6I7yS6.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Kt11ZxTtmSE8vEx0X1lLlEQSC9Q1mx.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/D7ooz7AAwE0vKQmAGmd7z0B0eue6qV.jpg"],"nickname":"小灰爸爸","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/1ndreSJp1O95PfCpgxkTCDQOfoSG6NFi.jpg","content":"测试数据12345678966554126","views":"5","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/GsfUOdXVV81n2s6Ztjdn28NV132QRv.jpg","type":"1","video":"videos/1/2019/04/mQ93rA2v8e2nA9DVGYEPnd2pYYy2V8.mp4","memberid":"5184","huati":"#1 ","likenum":"0","islike":"0","iscollect":"0"},{"id":"134","bids":"25,26,25,26","title":"","createtime":"1天前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/pa6ZS6RBiUsR7wsukkzBys7L6I7yS6.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Kt11ZxTtmSE8vEx0X1lLlEQSC9Q1mx.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/D7ooz7AAwE0vKQmAGmd7z0B0eue6qV.jpg"],"nickname":"小灰爸爸","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/1ndreSJp1O95PfCpgxkTCDQOfoSG6NFi.jpg","content":"20190419发布视频心情（安卓）测试","views":"81","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/yyTkLlfEieTVC22T2fzeYYT5Mozfoz.jpg","type":"1","video":"videos/1/2019/04/gJoj9ggP1s707qbObOAIApoGWo7SG0.mp4","memberid":"5184","huati":"#发布 #视频 ","likenum":"1","islike":"1","iscollect":"1"},{"id":"132","bids":"23,24","title":"","createtime":"1天前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/U0hgAlTvwlACvQTga0l00011V0vhV7.jpg"],"nickname":"小灰爸爸","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/1ndreSJp1O95PfCpgxkTCDQOfoSG6NFi.jpg","content":"早上好\n与你分享：\n永远不要去抱怨别人，一切经历都是让自己成长，一次经历足以让你百练人生！\n钻石可以经受住千锤百炼的考验；\n宽容别人，就是原谅自己！十年后再回头，一切都是最好的安排。","views":"51","videoimage":"","type":"0","video":"","memberid":"5184","huati":"#今天 #心情 ","likenum":"0","islike":"0","iscollect":"0"},{"id":"124","bids":"","title":"","createtime":"2天前","images":["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/U0hgAlTvwlACvQTga0l00011V0vhV7.jpg"],"nickname":"小灰爸爸","avatar":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/1ndreSJp1O95PfCpgxkTCDQOfoSG6NFi.jpg","content":"安达市大所多","views":"10","videoimage":"http://aoquan.maimaitoo.com/attachment/images/1/2019/04/fmjFdsOvhTdIsXAk7Purf7r7GEoLAgOM.jpg","type":"1","video":"videos/1/2019/04/Uyp30BuByIswxN09Nbd30zsZWQ4xo0.mp4","memberid":"5184","huati":"","likenum":"0","islike":"0","iscollect":"0"}]
+     * total : 6
      */
 
     private String total;
@@ -31,21 +32,21 @@ public class PostUserModel {
 
     public static class ListBean {
         /**
-         * id : 259
-         * bids : 22
-         * title : 发布帖子视频iOS
-         * createtime : 17小时前
-         * images : null
-         * nickname : 永恒
-         * avatar : http://thirdwx.qlogo.cn/mmopen/vi_32/r2qkcpIpK5pSmR03f6rV6bOeARJCvAKIrxhvVhEjtCMs6ygSlLUSx8SIThsGmg8Wg9fpOMzyOm4WzxdgHVKibeg/132
-         * content : 开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。
-         * views : 65
-         * videoimage : http://aoquan.maimaitoo.com/attachment/images/1/2019/04/DN4gg66Nn26qG7Z3fWq6Z94646zvGZ.jpg
-         * type : 1
-         * video : videos/1/2019/04/NuoAX61ncnnd8KksKK36ccsDRksuUF.mp4
-         * memberid : null
-         * huati : #敖犬
-         * likenum : 1
+         * id : 152
+         * bids : 18
+         * title :
+         * createtime : 4小时前
+         * images : ["http://aoquan.maimaitoo.com/attachment/images/1/2019/04/pa6ZS6RBiUsR7wsukkzBys7L6I7yS6.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/Kt11ZxTtmSE8vEx0X1lLlEQSC9Q1mx.jpg","http://aoquan.maimaitoo.com/attachment/images/1/2019/04/D7ooz7AAwE0vKQmAGmd7z0B0eue6qV.jpg"]
+         * nickname : 小灰爸爸
+         * avatar : http://aoquan.maimaitoo.com/attachment/images/1/2019/04/1ndreSJp1O95PfCpgxkTCDQOfoSG6NFi.jpg
+         * content : 20190420测试话题开车出门嗨皮去了，很多人问我为什么拍照那么好看，我人好看呀，哈哈今天出门去玩下，感觉最近不怎么出门，一出门就是各种的激动。
+         * views : 5
+         * videoimage :
+         * type : 0
+         * video :
+         * memberid : 5184
+         * huati : #牙科
+         * likenum : 0
          * islike : 0
          * iscollect : 0
          */
@@ -66,17 +67,8 @@ public class PostUserModel {
         private String likenum;
         private String islike;
         private String iscollect;
+        public List<String> images=new ArrayList<>();
         public boolean isShowAll = false;
-        public List<String> images = new ArrayList<>();
-
-        public List<String> getImages() {
-            return images;
-        }
-
-        public void setImages(List<String> images) {
-            this.images = images;
-        }
-
 
         public String getId() {
             return id;
@@ -109,7 +101,6 @@ public class PostUserModel {
         public void setCreatetime(String createtime) {
             this.createtime = createtime;
         }
-
 
         public String getNickname() {
             return nickname;
@@ -205,6 +196,14 @@ public class PostUserModel {
 
         public void setIscollect(String iscollect) {
             this.iscollect = iscollect;
+        }
+
+        public List<String> getImages() {
+            return images;
+        }
+
+        public void setImages(List<String> images) {
+            this.images = images;
         }
     }
 }

@@ -8,10 +8,10 @@
     <LinearLayout
         android:id="@+id/ll_empty"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/width40"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/width40"
+        android:paddingTop="@dimen/width40"
         android:gravity="center"
-        android:layout_marginBottom="@dimen/width40"
         android:orientation="vertical">
 
         <ImageView
@@ -26,9 +26,19 @@
             android:text="购物车还没有商品" />
 
         <TextView
+            android:id="@+id/tv_go_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="快去首页逛逛吧" />
+            android:layout_below="@+id/tv_01"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/shape_button_red_border_bg_15"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingLeft="@dimen/width20"
+            android:paddingRight="@dimen/width20"
+            android:paddingTop="@dimen/dp_5"
+            android:text="去首页逛逛吧"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 </LinearLayout>

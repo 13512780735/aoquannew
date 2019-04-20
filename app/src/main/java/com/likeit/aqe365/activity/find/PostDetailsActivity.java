@@ -29,12 +29,14 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.PostDetailsModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderRelativeLayout;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RatioImageView;
+import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zzhoujay.richtext.RichText;
@@ -52,6 +54,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
 
+    LinearLayout ll_hospital;
     @BindView(R.id.RecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.SwipeRefreshLayout)
@@ -74,7 +77,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
     private CircleImageView iv_avatar;
     private TextView tv_name, tv_content, tv_title, tv_content01, tv_hospitalName, tv_hospital_title, tv_hospital_content;
     private BorderTextView tv_attention;
-    private RatioImageView iv_hospital_pic;
+    private RoundImageView iv_hospital_pic;
     private String isuser;
     private String bid;
     private String pid;
@@ -84,6 +87,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
     private TextView tv_comment_num;
     private View header;
     private String name;
+    private PostDetailsModel.HospitalBean hospitalBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +117,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         iv_avatar = header.findViewById(R.id.iv_avatar);
         ll_userInfo = header.findViewById(R.id.ll_userInfo);
         tv_name = header.findViewById(R.id.tv_name);
+        ll_hospital = header.findViewById(R.id.ll_hospital);
         tv_content = header.findViewById(R.id.tv_content);
         tv_title = header.findViewById(R.id.tv_title);
         tv_content01 = header.findViewById(R.id.tv_content01);
@@ -130,6 +135,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.disableLoadMoreIfNotFullPage();
         initData(pageNum, false);
+
         mCurrentCounter = mAdapter.getData().size();
         tv_isgood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +179,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                 bundle.putString("pid", id);
                 bundle.putString("rpid", rpid);
                 bundle.putString("mpid", mpid);
-                bundle.putString("nickName",postDetailsModel.getPost().getNickname());
+                bundle.putString("nickName", postDetailsModel.getPost().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
             }
@@ -215,7 +221,9 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                 XLog.e("getLikenum" + (Integer.valueOf(baseResponse.getData().getPost().getLikenum()) + 1));
                 if (baseResponse.code == 200) {
                     postDetailsModel = baseResponse.getData();
+                    hospitalBean = postDetailsModel.getHospitalBean();
                     initHeader();
+
                     if ("1".equals(postDetailsModel.getPost().getIslike())) {
                         tv_isgood.setText(getResources().getString(R.string.ic_good) + " " + postDetailsModel.getPost().getLikenum());
                         tv_isgood.setTextColor(Color.parseColor("#ff424d"));
@@ -288,11 +296,27 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         tv_content.setText(postDetailsModel.getPost().getCity() + " " + postDetailsModel.getPost().getCreatetime());
         tv_title.setText(postDetailsModel.getPost().getTitle());
         RichText.from(postDetailsModel.getPost().getContent()).into(tv_content01);
-       // tv_content01.setText(postDetailsModel.getPost().getContent());
-        tv_hospitalName.setText("测试医院");
-        tv_hospital_title.setText("服务标题");
-        tv_hospital_content.setText("¥ " + 65.00);
-        // ImageLoader.getInstance().displayImage(iv_hospital_pic,getResources().getDrawable(R.mipmap.icon_default_picture));
+        // tv_content01.setText(postDetailsModel.getPost().getContent());
+
+        if (hospitalBean == null) {
+            ll_hospital.setVisibility(View.GONE);
+        } else {
+            ll_hospital.setVisibility(View.VISIBLE);
+            tv_hospitalName.setText(hospitalBean.getName());
+            tv_hospital_title.setText(hospitalBean.getTitle());
+            tv_hospital_content.setText("¥ " + hospitalBean.getMarketprice());
+            ImageLoader.getInstance().displayImage(hospitalBean.getLogo(), iv_hospital_pic);
+            ll_hospital.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String webUrl = hospitalBean.getWeburl();
+                    IntentUtils.intentTo(mContext, "", "", webUrl);
+                }
+            });
+        }
+
+
+        //
         isuser = postDetailsModel.getPost().getIsuser();
 
         if ("0".equals(isuser)) {
@@ -440,7 +464,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         protected void convert(BaseViewHolder helper, final PostDetailsModel.PostCommentBean item) {
             ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
             final IconfontTextView tv_isgood = helper.getView(R.id.tv_isgood);
-            name=item.getNickname();
+            name = item.getNickname();
             helper.setText(R.id.tv_title, item.getNickname());
             helper.setText(R.id.tv_content, item.getContent());
             helper.setText(R.id.tv_time, item.getCreatetime());
@@ -488,7 +512,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
-                    bundle.putString("nickName",item.getNickname());
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }
@@ -506,7 +530,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
         protected void convert(BaseViewHolder helper, final PostDetailsModel.PostCommentBean.ParentBean item) {
             ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
             final IconfontTextView tv_isgood = helper.getView(R.id.tv_isgood);
-            helper.setText(R.id.tv_title, item.getNickname()+"  回复  "+name);
+            helper.setText(R.id.tv_title, item.getNickname() + "  回复  " + name);
             helper.setText(R.id.tv_content, item.getContent());
             helper.setText(R.id.tv_time, item.getCreatetime());
 
@@ -547,7 +571,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
-                    bundle.putString("nickName",item.getNickname());
+                    bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
                 }

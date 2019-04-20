@@ -37,7 +37,7 @@ import rx.Subscriber;
  */
 public class UserInfo01Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 1;//为什么是6呢？
+    private static final int PAGE_SIZE = 6;//为什么是6呢？
     private boolean isErr = true;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
