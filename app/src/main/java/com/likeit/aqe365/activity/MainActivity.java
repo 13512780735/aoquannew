@@ -1,13 +1,18 @@
 package com.likeit.aqe365.activity;
 
+import android.Manifest;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.login_register.WelcomeActivity;
 import com.likeit.aqe365.fragment.main.Cart02Fragment;
 import com.likeit.aqe365.fragment.main.CartFragment;
 import com.likeit.aqe365.fragment.main.CategoryFragment;
@@ -18,12 +23,26 @@ import com.likeit.aqe365.fragment.main.HomeFragment;
 import com.likeit.aqe365.fragment.main.MemberFragment;
 import com.likeit.aqe365.fragment.main.NoticeFragment;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.photo.PhotoUtils;
 import com.likeit.aqe365.view.tablayout.widget.AbstractCommonTabLayout;
+import com.unistrong.yang.zb_permission.ZbPermission;
+import com.zhaoshuang.weixinrecorded.RecordedActivity;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
-public class MainActivity extends AbstractCommonTabLayout {
+public class MainActivity extends AbstractCommonTabLayout implements EasyPermissions.PermissionCallbacks  {
     private String[] mIconSelectIds;//标题
 
     private String[] mTitles;//未选中
@@ -37,6 +56,7 @@ public class MainActivity extends AbstractCommonTabLayout {
 
     private AMapLocationClient mLocationClient;
     private AMapLocationClientOption mLocationOption;
+    private boolean isSuccess;
 
     /**
      * 设置布局文件
@@ -46,9 +66,10 @@ public class MainActivity extends AbstractCommonTabLayout {
         setContentView(R.layout.activity_main);
         // initData1();//获取导航数据
 
+
     }
 
-
+    String[] takeLocation= {ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION};
     /**
      * 初始化数据
      */
@@ -56,7 +77,12 @@ public class MainActivity extends AbstractCommonTabLayout {
     protected void initData() {
         super.initData();
         //setSelectDefaultIndex(0);//设置默认的选项
-        addGeoFence();//获取高德定位坐标
+        /**
+         * 获取权限问题
+         */
+        checkPermission(takeLocation, 1);
+
+
         flag = getIntent().getExtras().getString("flag");
         index = getIntent().getExtras().getInt("index");
         if ("0".equals(flag)) {
@@ -77,6 +103,44 @@ public class MainActivity extends AbstractCommonTabLayout {
         //   setDivisionLine(Color.parseColor("#6D8FB0"),0.5F,20);
     }
 
+    private void checkPermission(String[] perms, int requestCode) {
+        if (EasyPermissions.hasPermissions(this, perms)) {//已经有权限了
+            switch (requestCode) {
+                case 1:
+                    addGeoFence();//获取高德定位坐标
+                    break;
+            }
+        } else {//没有权限去请求
+            EasyPermissions.requestPermissions(this, "权限", requestCode, perms);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        switch (requestCode) {
+            case 1:
+                addGeoFence();//获取高德定位坐标
+                break;
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this)
+                    .setTitle("权限设置")
+                    .setPositiveButton("设置")
+                    .setRationale("当前应用缺少必要权限,可能会造成部分功能受影响！请点击\"设置\"-\"权限\"-打开所需权限。最后点击两次后退按钮，即可返回")
+                    .build()
+                    .show();
+        }
+    }
 
     /**
      * 标题数组

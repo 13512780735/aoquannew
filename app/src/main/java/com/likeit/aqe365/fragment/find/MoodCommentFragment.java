@@ -32,6 +32,7 @@ public class MoodCommentFragment extends DialogFragment {
     private String id, bid, rpid, mpid, pid;
     private String content;
     private String nickName;
+    private String flag;
 
     public MoodCommentFragment() {
         // Required empty public constructor
@@ -76,6 +77,7 @@ public class MoodCommentFragment extends DialogFragment {
         rpid = bundle.getString("rpid");
         mpid = bundle.getString("mpid");
         pid = bundle.getString("pid");
+        flag = bundle.getString("flag"); //0是最外层评论 1是里面的回复
         nickName = bundle.getString("nickName");
         initUI(view);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -88,7 +90,11 @@ public class MoodCommentFragment extends DialogFragment {
 //        if(StringUtil.isBlank(nickName)){
 //
 //        }
-        edContent.setHint("回复："+nickName);
+        if ("0".equals(flag)) {
+            edContent.setHint("评论：");
+        } else {
+            edContent.setHint("回复：" + nickName);
+        }
         tv_post = view.findViewById(R.id.tv_post);
         iv_colse.setOnClickListener(new View.OnClickListener() {
             @Override

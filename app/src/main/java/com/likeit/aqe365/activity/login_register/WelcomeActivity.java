@@ -43,6 +43,7 @@ public class WelcomeActivity extends BaseActivity {
     ArrayList<String> stringArrayList2 = new ArrayList<String>();
     List<MainNavigationModel.AdvBean> adList;
     private String isLogin;
+    private boolean isSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +51,19 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
         view = View.inflate(this, R.layout.activity_welcome, null);
         setContentView(view);
-        /**
-         * 获取权限问题
-         */
-        openPermission();
+        isSuccess=SharedPreferencesUtils.getBoolean(mContext,"isSuccess");
+        if (isSuccess) {
+            openPermission();
+        }
         initData();
         animation = AnimationUtils.loadAnimation(this, R.anim.splash_alpha);
         isLogin = "0";
         SharedPreferencesUtils.put(this, "isLogin", isLogin);
     }
-
     private final int REQUEST_CONTACT = 50;
 
     private void openPermission() {
+        XLog.e("");
         ZbPermission.with(WelcomeActivity.this)
                 .addRequestCode(REQUEST_CONTACT)
                 .permissions(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -72,6 +73,8 @@ public class WelcomeActivity extends BaseActivity {
                     public void permissionSuccess(int requestCode) {
 
                         Toast.makeText(WelcomeActivity.this, "授予權限成功: " + requestCode, Toast.LENGTH_SHORT).show();
+                        isSuccess = true;
+                        SharedPreferencesUtils.put(mContext,"isSuccess",true);
 
                     }
 

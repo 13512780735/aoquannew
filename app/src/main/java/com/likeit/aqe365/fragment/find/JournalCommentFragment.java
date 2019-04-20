@@ -34,6 +34,7 @@ public class JournalCommentFragment extends DialogFragment {
 
     private MyDialogFragment_Listener myDialogFragment_Listener;
     private String nickName;
+    private String flag;
 
     @Override
     public void onAttach(Activity activity) {
@@ -72,6 +73,7 @@ public class JournalCommentFragment extends DialogFragment {
         cid = bundle.getString("rpid");
         rcid = bundle.getString("mpid");
         mcid = bundle.getString("pid");
+        flag = bundle.getString("flag"); //0是最外层评论 1是里面的回复
         nickName = getArguments().getString("nickName");
         initUI(view);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -82,7 +84,11 @@ public class JournalCommentFragment extends DialogFragment {
         edContent = view.findViewById(R.id.ed_content);
         iv_colse = view.findViewById(R.id.iv_colse);
         tv_post = view.findViewById(R.id.tv_post);
-        edContent.setHint("回复："+nickName);
+        if ("0".equals(flag)) {
+            edContent.setHint("评论：");
+        } else {
+            edContent.setHint("回复：" + nickName);
+        }
         iv_colse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -181,6 +181,7 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
                 bundle.putString("pid", id);
                 bundle.putString("rpid", rpid);
                 bundle.putString("mpid", mpid);
+                bundle.putString("flag", "0");
                 bundle.putString("nickName", moodDetailsModel.getPost().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
@@ -532,6 +533,7 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
@@ -591,6 +593,7 @@ public class MoodVideoDetailsActivity extends BaseActivity implements SwipeRefre
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");

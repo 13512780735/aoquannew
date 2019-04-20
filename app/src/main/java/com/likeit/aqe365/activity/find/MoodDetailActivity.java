@@ -178,6 +178,7 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
                 bundle.putString("pid", id);
                 bundle.putString("rpid", rpid);
                 bundle.putString("mpid", mpid);
+                bundle.putString("flag", "0");
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
             }
@@ -492,6 +493,7 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", moodDetailsModel.getPost().getNickname());
 
                     dialog.setArguments(bundle);
@@ -552,6 +554,7 @@ public class MoodDetailActivity extends BaseActivity implements SwipeRefreshLayo
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName",item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");

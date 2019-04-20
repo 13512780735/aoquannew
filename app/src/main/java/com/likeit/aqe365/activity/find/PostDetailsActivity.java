@@ -179,6 +179,8 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                 bundle.putString("pid", id);
                 bundle.putString("rpid", rpid);
                 bundle.putString("mpid", mpid);
+                bundle.putString("flag", "0");
+
                 bundle.putString("nickName", postDetailsModel.getPost().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
@@ -512,6 +514,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
@@ -571,6 +574,7 @@ public class PostDetailsActivity extends BaseActivity implements SwipeRefreshLay
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");

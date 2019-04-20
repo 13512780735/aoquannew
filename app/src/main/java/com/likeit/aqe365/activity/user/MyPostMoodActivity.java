@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.adapter.indent.GoodsIndentTabAdapter;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.fragment.find.AllFind02Fragment;
 import com.likeit.aqe365.fragment.find.AllFind03Fragment;
@@ -26,6 +27,7 @@ import com.likeit.aqe365.view.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MyPostMoodActivity extends BaseActivity {
     private ArrayList<String> mTitles;
@@ -58,8 +60,13 @@ public class MyPostMoodActivity extends BaseActivity {
 //        } else {
 //            mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 //        }
-        mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+       // mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
+        List<Fragment> mfragments = new ArrayList<Fragment>();
+        mfragments.add(new PostFragment());
+        mfragments.add(new MoodFragment());
+        mViewPager.setAdapter(new GoodsIndentTabAdapter(getSupportFragmentManager(), mfragments, mTitles));
+        mViewPager.setCurrentItem(0);
     }
 
     class MyAdapter extends FragmentStatePagerAdapter {

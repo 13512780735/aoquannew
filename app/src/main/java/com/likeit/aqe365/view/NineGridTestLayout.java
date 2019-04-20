@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Toast;
 
 import com.likeit.aqe365.utils.ImageLoaderUtil;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
@@ -13,7 +12,6 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NineGridTestLayout extends NineGridLayout {
 

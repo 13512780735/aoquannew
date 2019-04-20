@@ -38,6 +38,7 @@ public class DiaryCommentFragment extends DialogFragment {
     private String diaryid, rdid, mdid;
     private String content;
     private String nickName;
+    private String flag;
 
     @Override
     public void onStart() {
@@ -77,13 +78,18 @@ public class DiaryCommentFragment extends DialogFragment {
         rdid = getArguments().getString("rdid");
         mdid = getArguments().getString("mdid");
         nickName = getArguments().getString("nickName");
+        flag = getArguments().getString("flag"); //0是最外层评论 1是里面的回复
         initUI(view);
         return view;
     }
 
     private void initUI(View view) {
         edContent = view.findViewById(R.id.ed_content);
-        edContent.setHint("回复："+nickName);
+        if ("0".equals(flag)) {
+            edContent.setHint("评论：");
+        } else {
+            edContent.setHint("回复：" + nickName);
+        }
         iv_colse = view.findViewById(R.id.iv_colse);
         tv_post = view.findViewById(R.id.tv_post);
         iv_colse.setOnClickListener(new View.OnClickListener() {

@@ -350,6 +350,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                 bundle.putString("diaryid", diaryid);
                 bundle.putString("rdid", rdid);
                 bundle.putString("mdid", mdid);
+                bundle.putString("flag", "0");
                 bundle.putString("nickName", diarydetailsModel.getDiary().getNickname());
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
@@ -457,6 +458,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                     bundle.putString("diaryid", diaryid);
                     bundle.putString("rdid", rdid);
                     bundle.putString("mdid", mdid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "");
@@ -513,6 +515,7 @@ public class DiaryDetailsActivity extends BaseActivity implements PullToRefreshB
                     bundle.putString("diaryid", diaryid);
                     bundle.putString("rdid", rdid);
                     bundle.putString("mdid", mdid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");

@@ -66,6 +66,7 @@ import rx.Subscriber;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class SendPostActivity extends BaseActivity
@@ -363,7 +364,7 @@ public class SendPostActivity extends BaseActivity
     }
 
 
-    String[] takePhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA};
+    String[] takePhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA,RECORD_AUDIO};
     String[] selectPhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
 
     @OnClick({R.id.iv_up_pic, R.id.iv_relevant_users, R.id.iv_takephoto, R.id.iv_video})

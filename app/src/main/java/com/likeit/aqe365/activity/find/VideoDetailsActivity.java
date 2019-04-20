@@ -181,6 +181,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
                 bundle.putString("pid", id);
                 bundle.putString("rpid", rpid);
                 bundle.putString("mpid", mpid);
+                bundle.putString("flag", "0");
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "tag");
             }
@@ -546,6 +547,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
@@ -554,6 +556,10 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     public class PostDetailCommentAdapter extends BaseQuickAdapter<PostDetailsModel.PostCommentBean.ParentBean, BaseViewHolder> {
         public PostDetailCommentAdapter(int layoutResId, List<PostDetailsModel.PostCommentBean.ParentBean> data) {
@@ -605,6 +611,7 @@ public class VideoDetailsActivity extends BaseActivity implements SwipeRefreshLa
                     bundle.putString("pid", pid);
                     bundle.putString("rpid", rpid);
                     bundle.putString("mpid", mpid);
+                    bundle.putString("flag", "1");
                     bundle.putString("nickName", item.getNickname());
                     dialog.setArguments(bundle);
                     dialog.show(getSupportFragmentManager(), "tag");
