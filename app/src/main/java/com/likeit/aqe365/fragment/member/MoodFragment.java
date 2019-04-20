@@ -43,7 +43,6 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private MyMoodAdapter mAdapter;
     private String type;
     private PostUserModel postUserModel;
-    private String id;
 
     @Override
     protected int setContentView() {
@@ -52,12 +51,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @Override
     protected void lazyLoad() {
-        id = getArguments().getString("id");
-        if ("帖子".equals(id)) {
-            type = "";
-        } else {
-            type = "mood";
-        }
+        type = "mood";
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         initAdapter();
@@ -98,7 +92,8 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
     }
 
     public void initData(int pageNum, final boolean isloadmore) {
-        RetrofitUtil.getInstance().postuser(openid, "", type, String.valueOf(pageNum), new Subscriber<BaseResponse<PostUserModel>>() {
+        XLog.e("openid"+openid);
+        RetrofitUtil.getInstance().postuser(openid, "5184", type, String.valueOf(pageNum), new Subscriber<BaseResponse<PostUserModel>>() {
             @Override
             public void onCompleted() {
 
@@ -115,6 +110,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     postUserModel = baseResponse.getData();
                     List<PostUserModel.ListBean> list = postUserModel.getList();
                     XLog.e("name:" + list.get(0).getNickname());
+                    XLog.e("name:" + list.get(0).getCreatetime());
                     TOTAL_COUNTER = Integer.valueOf(postUserModel.getTotal());
                     if (list != null && list.size() > 0) {
                         if (!isloadmore) {
@@ -189,6 +185,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
      * @param id
      */
     private void collectpost(String id) {
+        XLog.e("openid"+openid);
         RetrofitUtil.getInstance().collectmood(openid, id, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {

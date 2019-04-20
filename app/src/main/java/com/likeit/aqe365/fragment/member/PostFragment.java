@@ -9,9 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.find.MoodDetailActivity;
-import com.likeit.aqe365.activity.find.MoodVideoDetailsActivity;
 import com.likeit.aqe365.activity.find.PostDetailsActivity;
 import com.likeit.aqe365.activity.find.VideoDetailsActivity;
 import com.likeit.aqe365.adapter.member.PostMoodAdapter;
@@ -20,8 +19,6 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.member.PostUserModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
-import com.likeit.aqe365.utils.SharedPreferencesUtils;
-import com.likeit.aqe365.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +92,8 @@ public class PostFragment extends BaseFragment implements BaseQuickAdapter.Reque
     }
 
     public void initData(int pageNum, final boolean isloadmore) {
-        RetrofitUtil.getInstance().postuser(openid, "", type, String.valueOf(pageNum), new Subscriber<BaseResponse<PostUserModel>>() {
+        XLog.e("openid"+openid);
+        RetrofitUtil.getInstance().postuser(openid, "5184", type, String.valueOf(pageNum), new Subscriber<BaseResponse<PostUserModel>>() {
             @Override
             public void onCompleted() {
 
@@ -136,7 +134,7 @@ public class PostFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @Override
     public void onLoadMoreRequested() {
-
+        XLog.e("openid"+openid);
         mRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {

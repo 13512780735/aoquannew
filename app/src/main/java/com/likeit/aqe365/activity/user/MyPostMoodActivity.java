@@ -86,23 +86,23 @@ public class MyPostMoodActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-//            switch (position) {
-//                case 0:
-//                    PostFragment tab1 = new PostFragment();
-//                    return tab1;
-//                case 1:
-//                    MoodFragment tab2 = new MoodFragment();
-//                    return tab2;
-//
-//
-//            }
-//            return null;
-            Bundle bundle = new Bundle();
-            bundle.putString("id", mTitles.get(position));
-            //实例化Fragment
-            MoodFragment moodFragment = new MoodFragment();
-            moodFragment.setArguments(bundle);
-            return moodFragment;
+            switch (position) {
+                case 0:
+                    PostFragment tab1 = new PostFragment();
+                    return tab1;
+                case 1:
+                    MoodFragment tab2 = new MoodFragment();
+                    return tab2;
+
+
+            }
+            return null;
+//            Bundle bundle = new Bundle();
+//            bundle.putString("id", mTitles.get(position));
+//            //实例化Fragment
+//            MoodFragment moodFragment = new MoodFragment();
+//            moodFragment.setArguments(bundle);
+//            return moodFragment;
 
 
         }
