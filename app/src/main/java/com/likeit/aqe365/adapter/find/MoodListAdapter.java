@@ -17,6 +17,7 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.MoodListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.PopupWindowUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.ToastUtils;
@@ -24,7 +25,6 @@ import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.NineGridTestLayout;
 import com.likeit.aqe365.view.RoundImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -46,9 +46,10 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
 
     @Override
     protected void convert(final BaseViewHolder helper, final MoodListModel.ListBean item) {
+        ImageLoaderUtils mImageLoader = ImageLoaderUtils.getInstance(mContext);
         XLog.e("item.getNickname()"+item.getNickname());
         XLog.e("item.getAvatar()"+item.getAvatar());
-        ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
+        mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_title, item.getNickname());
         helper.setText(R.id.tv_content, item.getContent());
         helper.setText(R.id.tv_time, item.getCreatetime());
@@ -87,7 +88,7 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
         } else {
             layout.setVisibility(View.GONE);
             fr_video.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(item.getVideoimage(), iv_video_img);
+            mImageLoader.displayImage(item.getVideoimage(), iv_video_img);
         }
 
         helper.getView(R.id.tv_likes).setOnClickListener(new View.OnClickListener() {

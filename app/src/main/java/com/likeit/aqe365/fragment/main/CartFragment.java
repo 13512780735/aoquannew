@@ -366,48 +366,49 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
                     Toast.makeText(context, "请选择要支付的商品", Toast.LENGTH_LONG).show();
                     return;
                 }
-                alert = new AlertDialog.Builder(context).create();
-                alert.setTitle("操作提示");
-                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
-                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //                                       Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("id", "");
-//                        bundle.putString("optionid", optionids);
-//                        bundle.putString("total", "");
-//                        bundle.putString("cartids", cartIds);
-//                        bundle.putString("cartnum", cartNums);
-//                        bundle.putString("goodsIds", goodsIds);
-//                        bundle.putString("indentFlag", "2");
-                        XLog.e("optionid-->" + optionids + "<--cartIds-->" + cartIds + "<--cartNums-->" + cartNums + "<--goodsIds-->" + goodsIds);
-//                        toActivity(ConfirmOrderActivity.class, bundle);
-                        String url = "http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
-                        String webUrl = url + "&id=" + "" + "&optionid=" + optionids + "&total=" + "" + "&cartids=" + cartIds + "&cartnum=" + cartNums + "&goodsIds=" + goodsIds + "&indentFlag=" + "2";
-                        XLog.e("webUrl:" + webUrl);
-                        JsonCartBean jsonCartBean = new JsonCartBean();
-                        jsonCartBean.setCartids(cartIds);
-                        jsonCartBean.setCartnum(cartNums);
-                        jsonCartBean.setOpenid(openid);
-                        Gson gson = new Gson();
-                        String json = gson.toJson(jsonCartBean);
-                        SharedPreferencesUtils.put(getActivity(), "JsonCartBean", json);
-                        XLog.e("jsonCartBean" + jsonCartBean);
-                        XLog.e("json" + json);
-                        // IntentUtils.intentTo(getActivity(), "", "", webUrl);
-
-                        orderTrue(cartIds, cartNums);
-
-                    }
-                });
-                alert.show();
+                orderTrue(cartIds, cartNums);
+//                alert = new AlertDialog.Builder(context).create();
+//                alert.setTitle("操作提示");
+//                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
+//                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        return;
+//                    }
+//                });
+//                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        //                                       Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+////                        Bundle bundle = new Bundle();
+////                        bundle.putString("id", "");
+////                        bundle.putString("optionid", optionids);
+////                        bundle.putString("total", "");
+////                        bundle.putString("cartids", cartIds);
+////                        bundle.putString("cartnum", cartNums);
+////                        bundle.putString("goodsIds", goodsIds);
+////                        bundle.putString("indentFlag", "2");
+//                        XLog.e("optionid-->" + optionids + "<--cartIds-->" + cartIds + "<--cartNums-->" + cartNums + "<--goodsIds-->" + goodsIds);
+////                        toActivity(ConfirmOrderActivity.class, bundle);
+//                        String url = "http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
+//                        String webUrl = url + "&id=" + "" + "&optionid=" + optionids + "&total=" + "" + "&cartids=" + cartIds + "&cartnum=" + cartNums + "&goodsIds=" + goodsIds + "&indentFlag=" + "2";
+//                        XLog.e("webUrl:" + webUrl);
+//                        JsonCartBean jsonCartBean = new JsonCartBean();
+//                        jsonCartBean.setCartids(cartIds);
+//                        jsonCartBean.setCartnum(cartNums);
+//                        jsonCartBean.setOpenid(openid);
+//                        Gson gson = new Gson();
+//                        String json = gson.toJson(jsonCartBean);
+//                        SharedPreferencesUtils.put(getActivity(), "JsonCartBean", json);
+//                        XLog.e("jsonCartBean" + jsonCartBean);
+//                        XLog.e("json" + json);
+//                        // IntentUtils.intentTo(getActivity(), "", "", webUrl);
+//
+//                        orderTrue(cartIds, cartNums);
+//
+//                    }
+//                });
+//                alert.show();
                 break;
             case R.id.tv_delete:
                 if (totalCount == 0) {

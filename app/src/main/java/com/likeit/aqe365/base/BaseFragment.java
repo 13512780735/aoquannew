@@ -56,14 +56,25 @@ public abstract class BaseFragment extends Fragment {
     public boolean isFirst;
     //当前Fragment是否处于可见状态标志，防止因ViewPager的缓存机制而导致回调函数的触发
     private boolean isFragmentVisible;
+    protected boolean isViewInitiated;
+    protected boolean isVisibleToUser;
+    protected boolean isDataInitiated;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        isViewInitiated = true;
+        prepareFetchData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        // view = inflater.inflate(setContentView(), container, false);
-
-        if (view == null)
-            view = inflater.inflate(setContentView(), container, false);
-        isInit = true;
+        view = inflater.inflate(setContentView(), container, false);
+//        if (view == null)
+//            view = inflater.inflate(setContentView(), container, false);
+//        isInit = true;
         /**初始化的时候去加载数据**/
         unbinder = ButterKnife.bind(this, view);
         openid = SharedPreferencesUtils.getString(getActivity(), "openid");
@@ -72,13 +83,37 @@ public abstract class BaseFragment extends Fragment {
         lng = SharedPreferencesUtils.getString(getContext(), "lng");
         loaddingDialog = new LoaddingDialog(getActivity());
         //isCanLoadData();
-        lazyLoad();
+       // lazyLoad();
         //可见，但是并没有加载过
-        if (isFragmentVisible && !isFirst) {
-            onFragmentVisibleChange(true);
-        }
+//        if (isFragmentVisible && !isFirst) {
+//            onFragmentVisibleChange(true);
+//        }
         return view;
     }
+
+//    //查看这个fragment的可见状态
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        this.isVisibleToUser = isVisibleToUser;
+//        prepareFetchData();
+//    }
+    //在这个方法中写网络请求
+    //public abstract void fetchData();
+
+    public boolean prepareFetchData() {
+        return prepareFetchData(false);
+    }
+
+    public boolean prepareFetchData(boolean forceUpdate) {
+        if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
+            lazyLoad();
+            isDataInitiated = true;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 当前fragment可见状态发生变化时会回调该方法
      * 如果当前fragment是第一次加载，等待onCreateView后才会回调该方法，其它情况回调时机跟 {@link #setUserVisibleHint(boolean)}一致
@@ -126,22 +161,24 @@ public abstract class BaseFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
        // isCanLoadData();
-        if (isVisibleToUser) {
-            isFragmentVisible = true;
-        }
-        if (view == null) {
-            return;
-        }
-        //可见，并且没有加载过
-        if (!isFirst&&isFragmentVisible) {
-            onFragmentVisibleChange(true);
-            return;
-        }
-        //由可见——>不可见 已经加载过
-        if (isFragmentVisible) {
-            onFragmentVisibleChange(false);
-            isFragmentVisible = false;
-        }
+//        if (isVisibleToUser) {
+////            isFragmentVisible = true;
+////        }
+////        if (view == null) {
+////            return;
+////        }
+////        //可见，并且没有加载过
+////        if (!isFirst&&isFragmentVisible) {
+////            onFragmentVisibleChange(true);
+////            return;
+////        }
+////        //由可见——>不可见 已经加载过
+////        if (isFragmentVisible) {
+////            onFragmentVisibleChange(false);
+////            isFragmentVisible = false;
+////        }
+        this.isVisibleToUser = isVisibleToUser;
+        prepareFetchData();
     }
 
     /**

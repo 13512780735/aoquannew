@@ -67,7 +67,6 @@ public class AllFind03Fragment extends BaseFragment implements SwipeRefreshLayou
     @Override
     public void onResume() {
         super.onResume();
-        onRefresh();
     }
 
     private void initUI() {

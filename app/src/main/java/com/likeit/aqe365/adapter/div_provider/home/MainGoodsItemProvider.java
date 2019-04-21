@@ -10,19 +10,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.home.MainHomeGoodModel;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.RatioImageView;
 import com.likeit.aqe365.view.custom_scrollview.HorizontalPageLayoutManager;
 import com.likeit.aqe365.view.custom_scrollview.PagingScrollHelper;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -42,6 +41,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
     private MainGoodsAdapter2 mAdapter2;
     private int w_screen;
     private List<MainHomeGoodModel.DataBean> dataBean1;
+    private ImageLoaderUtils mImageLoader;
 
     @Override
     public int viewType() {
@@ -234,7 +234,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
 
         @Override
         protected void convert(BaseViewHolder helper, MainHomeGoodModel.DataBean item) {
-
+          mImageLoader = ImageLoaderUtils.getInstance(mContext);
             RatioImageView ivPicture = helper.getView(R.id.iv_goods);//图片
             LinearLayout ll_ordprice = helper.getView(R.id.ll_ordprice);
             LinearLayout ll_ordPrice = helper.getView(R.id.ll_ordPrice);
@@ -282,7 +282,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
 //                    .centerCrop().override(1090, 1090*3/4)
 //                    .crossFade().into(ivPicture);
 
-            ImageLoader.getInstance().displayImage(item.getThumb(),ivPicture);
+            mImageLoader.displayImage(item.getThumb(),ivPicture);
             tvTitle.setText(item.getTitle());
             tv_price01.setText(paramsBean.getProductpricetext() + ":");
             tv_price02.setText(item.getProductprice());
@@ -364,7 +364,7 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090*3/4)
 //                    .crossFade().into(ivPicture);
-            ImageLoader.getInstance().displayImage(item.getThumb(),ivPicture);
+            mImageLoader.displayImage(item.getThumb(),ivPicture);
             tvTitle.setText(item.getTitle());
             tv_price01.setText(paramsBean.getProductpricetext() + ":");
             tv_price02.setText(item.getProductprice());

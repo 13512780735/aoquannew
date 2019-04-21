@@ -83,7 +83,6 @@ public class Attention02Fragment extends BaseFragment implements BaseQuickAdapte
     @Override
     public void onResume() {
         super.onResume();
-        onRefresh();
     }
 
     private void initTab() {

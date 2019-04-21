@@ -1,23 +1,17 @@
 package com.likeit.aqe365.adapter.find;
 
 import android.graphics.Color;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.network.model.BaseResponse;
-import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.DiarydetailsModel;
-import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
-import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.NineGridTestLayout;
 
 import java.util.List;
 
-import rx.Subscriber;
 
 public class DiaryDetailsAdapter extends BaseQuickAdapter<DiarydetailsModel.JournalBean, BaseViewHolder> {
     private NineGridTestLayout layout;

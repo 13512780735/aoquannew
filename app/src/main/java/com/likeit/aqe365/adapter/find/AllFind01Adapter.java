@@ -10,9 +10,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.find.PostListModel;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.RatioImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -24,9 +24,10 @@ public class AllFind01Adapter extends BaseQuickAdapter<PostListModel.ListBean, B
     public AllFind01Adapter(int layoutResId, List<PostListModel.ListBean> data) {
         super(R.layout.layout_recomment_items, data);
     }
-
+    ImageLoaderUtils mImageLoader;
     @Override
     protected void convert(BaseViewHolder helper, PostListModel.ListBean item) {
+        mImageLoader= ImageLoaderUtils.getInstance(mContext);
         RatioImageView ivPicture = helper.getView(R.id.iv_img);//图片
         RatioImageView iv_video_img = helper.getView(R.id.iv_video_img);//視頻圖片
         FrameLayout fr_video = helper.getView(R.id.fr_video);//图片
@@ -47,15 +48,15 @@ public class AllFind01Adapter extends BaseQuickAdapter<PostListModel.ListBean, B
         helper.setText(R.id.tv_detail, item.getTitle());
         helper.setText(R.id.tv_name, item.getNickname());
         helper.setText(R.id.tv_dis, item.getCoordinate());
-        ImageLoader.getInstance().displayImage(item.getAvatar(), ivAvatar);
+        mImageLoader.displayImage(item.getAvatar(), ivAvatar);
         if ("0".equals(item.getTypes())) {
             ivPicture.setVisibility(View.VISIBLE);
             fr_video.setVisibility(View.GONE);
-            ImageLoader.getInstance().displayImage(item.getThumb(), ivPicture);
+            mImageLoader.displayImage(item.getThumb(), ivPicture);
         } else {
             ivPicture.setVisibility(View.GONE);
             fr_video.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(item.getThumb(), iv_video_img);
+            mImageLoader.displayImage(item.getThumb(), iv_video_img);
         }
 
     }

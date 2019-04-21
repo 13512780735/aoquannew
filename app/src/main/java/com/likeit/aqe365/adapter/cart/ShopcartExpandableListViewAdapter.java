@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.cart.CartListModel01;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.view.SlideView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 import java.util.Map;
@@ -119,8 +119,11 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
         return convertView;
     }
 
+    public ImageLoaderUtils mImageLoader;
+
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        mImageLoader=ImageLoaderUtils.getInstance(context);
         SlideView slideView = null;
         final ChildHolder cholder;
         if (convertView == null) {
@@ -147,7 +150,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
         final CartListModel01.ListBeanXX.ListBeanX product = (CartListModel01.ListBeanXX.ListBeanX) getChild(groupPosition, childPosition);
 
         if (product != null) {
-            ImageLoader.getInstance().displayImage(product.getThumb(), cholder.iv_url);
+            mImageLoader.displayImage(product.getThumb(), cholder.iv_url);
             cholder.tv_product_desc.setText(product.getTitle());
             cholder.tv_price.setText("￥" + product.getMarketprice() + "");
             cholder.tv_count.setText(product.getTotal() + "");

@@ -8,12 +8,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
-import com.likeit.aqe365.view.NineGridTestLayout;
 import com.likeit.aqe365.view.RatioImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -30,9 +29,10 @@ public class DiaryListAdapter extends BaseQuickAdapter<DiaryListModel.ListBean, 
 
     @Override
     protected void convert(BaseViewHolder helper, DiaryListModel.ListBean item) {
+        ImageLoaderUtils mImageLoader = ImageLoaderUtils.getInstance(mContext);
         iv01 = helper.getView(R.id.iv01);
         iv02 = helper.getView(R.id.iv02);
-        ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
+        mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
         helper.setText(R.id.tv_name, item.getNickname());
         helper.setText(R.id.tv_time, item.getEdittime());
         helper.setText(R.id.tv_content, item.getContent());
@@ -59,13 +59,13 @@ public class DiaryListAdapter extends BaseQuickAdapter<DiaryListModel.ListBean, 
         } else {
             if (item.getImages().size() == 1) {
                 iv01.setVisibility(View.VISIBLE);
-                ImageLoader.getInstance().displayImage(item.getImages().get(0), iv01);
+                mImageLoader.displayImage(item.getImages().get(0), iv01);
                 iv02.setVisibility(View.INVISIBLE);
             } else {
                 iv01.setVisibility(View.VISIBLE);
                 iv02.setVisibility(View.VISIBLE);
-                ImageLoader.getInstance().displayImage(item.getImages().get(0), iv01);
-                ImageLoader.getInstance().displayImage(item.getImages().get(1), iv02);
+                mImageLoader.displayImage(item.getImages().get(0), iv01);
+                mImageLoader.displayImage(item.getImages().get(1), iv02);
             }
         }
 

@@ -49,5 +49,5 @@
         android:textColor="@color/white"
         android:textSize="16sp"
 
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 </RelativeLayout>

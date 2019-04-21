@@ -3,21 +3,17 @@ package com.likeit.aqe365.adapter.find;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.find.DiaryphotoModel;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,19 +49,22 @@ public class DiaryPhotoAdapter extends BaseQuickAdapter<DiaryphotoModel.ListBean
     }
 
     public class DiaryPhotoItemAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+
         public DiaryPhotoItemAdapter(int layoutResId, @Nullable List<String> data) {
             super(R.layout.diary_photo_items_img, data);
         }
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
+            ImageLoaderUtils mImageLoader = ImageLoaderUtils.getInstance(mContext);
+
             RoundImageView iv_Img = helper.getView(R.id.iv_img);
 //            linearParams = (RelativeLayout.LayoutParams) iv_Img.getLayoutParams();
 //            DisplayMetrics dm = mContext.getResources().getDisplayMetrics();
 //            w_screen = (dm.widthPixels - 60) / 4;
 //            h_screen = w_screen;
 //            iv_Img.setLayoutParams(linearParams);
-            ImageLoader.getInstance().displayImage(item, iv_Img);
+            mImageLoader.displayImage(item, iv_Img);
         }
     }
 }

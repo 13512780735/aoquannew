@@ -17,13 +17,13 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.PopupWindowUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.NineGridTestLayout;
 import com.likeit.aqe365.view.RoundImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -35,6 +35,7 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
     private String id;
     private FrameLayout fr_video;
     private RoundImageView iv_video_img;
+    private ImageLoaderUtils mImageLoader;
 
     public AllFind02Adapter(int layoutResId, List<FollowlistModel.ListBean> data) {
         super(R.layout.moodlist_item, data);
@@ -42,7 +43,8 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
 
     @Override
     protected void convert(final BaseViewHolder helper, final FollowlistModel.ListBean item) {
-        ImageLoader.getInstance().displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
+        mImageLoader= ImageLoaderUtils.getInstance(mContext);
+        mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_title, item.getNickname());
         helper.setText(R.id.tv_content, item.getContent());
         helper.setText(R.id.tv_time, item.getCreatetime());
@@ -81,7 +83,7 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
         } else {
             layout.setVisibility(View.GONE);
             fr_video.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(item.getVideoimage(), iv_video_img);
+            mImageLoader.displayImage(item.getVideoimage(), iv_video_img);
         }
         helper.addOnClickListener(R.id.tv_iscollect);
 

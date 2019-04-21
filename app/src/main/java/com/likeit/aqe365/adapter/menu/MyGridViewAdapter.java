@@ -9,7 +9,8 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.home.MainHomeMenuModel;
-import com.likeit.aqe365.utils.image.GImageLoader;
+import com.likeit.aqe365.utils.ImageLoaderUtil;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class MyGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ImageLoaderUtils mImageLoader = ImageLoaderUtils.getInstance(context);
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
@@ -69,7 +71,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         final int pos = position + mIndex * mPagerSize;//假设mPageSiez
         //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
         holder.tv_name.setText(lists.get(pos).getText() + "");
-        GImageLoader.displayUrl(context, holder.iv_nul, lists.get(pos).getImgurl());
+        ImageLoaderUtil.getImageLoader(context).displayImage(lists.get(pos).getImgurl(), holder.iv_nul, ImageLoaderUtil.getPhotoImageOption());
         return convertView;
     }
 

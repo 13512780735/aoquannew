@@ -20,6 +20,7 @@ import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.image.GImageLoader;
 import com.mob.MobSDK;
@@ -42,6 +43,7 @@ public class MyApplication extends Application {
     private AMapLocationClient mLocationClient;
     private AMapLocationClientOption mLocationOption;
 
+
     public static MyApplication getInstance() {
         if (mContext == null) {
             return new MyApplication();
@@ -57,7 +59,7 @@ public class MyApplication extends Application {
         initImageLoad();
         instance = this;
         applicationContext = this;
-       initBugly();
+        initBugly();
         GImageLoader.init(this, new OkHttpClient.Builder().build());  //图片加载初始化
         initLogger();//日志打印初始化
         initData1();
@@ -69,7 +71,6 @@ public class MyApplication extends Application {
         //
         //                                             initX5WebView();
     }
-
 
 
     private void initData1() {
