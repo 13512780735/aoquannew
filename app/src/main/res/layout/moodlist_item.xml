@@ -11,8 +11,8 @@
 
     <com.likeit.aqe365.view.CircleImageView
         android:id="@+id/iv_img"
-        android:layout_width="@dimen/width60"
-        android:layout_height="@dimen/width60"
+        android:layout_width="@dimen/width40"
+        android:layout_height="@dimen/width40"
         android:layout_margin="@dimen/dp_10" />
 
     <LinearLayout
@@ -32,8 +32,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text=""
-                android:textColor="#444444" />
+                android:text="xx"
+                android:textColor="@color/theme_bg_tex" />
 
             <com.likeit.aqe365.view.IconfontTextView
                 android:id="@+id/tv_report"
@@ -84,13 +84,13 @@
             android:id="@+id/fr_video"
             android:layout_width="120dp"
             android:layout_height="240dp"
-            android:visibility="gone"
-           >
+            android:visibility="gone">
 
             <com.likeit.aqe365.view.RoundImageView
                 android:id="@+id/iv_video_img"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:maxHeight="240dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/default_pic"
                 roundiv:left_bottom_radius="8dp"
@@ -109,8 +109,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/iv_video_img"
-                    />
+                    android:src="@mipmap/iv_video_img" />
 
             </RelativeLayout>
         </FrameLayout>

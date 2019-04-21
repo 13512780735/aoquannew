@@ -99,6 +99,7 @@ public class EditDiaryActivity extends BaseActivity {
             case R.id.ll_hospital:
                 Intent intent = new Intent(EditDiaryActivity.this, ChooseSevreActivity.class);
                 intent.putExtra("flag", "0");
+                intent.putExtra("id", "");
                 startActivityForResult(intent, 101);
                 break;
             case R.id.ll_subject:
@@ -108,6 +109,7 @@ public class EditDiaryActivity extends BaseActivity {
                 }
                 Intent intent1 = new Intent(EditDiaryActivity.this, ChooseSevreActivity.class);
                 intent1.putExtra("flag", "1");
+                intent1.putExtra("id", hospitalId);
                 startActivityForResult(intent1, 102);
                 break;
             case R.id.ll_serve:
@@ -117,6 +119,7 @@ public class EditDiaryActivity extends BaseActivity {
                 }
                 Intent intent2 = new Intent(EditDiaryActivity.this, ChooseSevreActivity.class);
                 intent2.putExtra("flag", "2");
+                intent2.putExtra("id", hospitalId);
                 startActivityForResult(intent2, 103);
                 break;
             case R.id.ll_time:

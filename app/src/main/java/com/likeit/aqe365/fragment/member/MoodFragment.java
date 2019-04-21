@@ -93,7 +93,7 @@ public class MoodFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     public void initData(int pageNum, final boolean isloadmore) {
         XLog.e("openid"+openid);
-        RetrofitUtil.getInstance().postuser(openid, "5184", type, String.valueOf(pageNum), new Subscriber<BaseResponse<PostUserModel>>() {
+        RetrofitUtil.getInstance().postuser(openid, "", type, String.valueOf(pageNum), new Subscriber<BaseResponse<PostUserModel>>() {
             @Override
             public void onCompleted() {
 

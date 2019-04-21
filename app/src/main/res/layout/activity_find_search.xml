@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.find.FindSearchActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <LinearLayout
+        android:id="@+id/ll_search_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width55"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <com.likeit.aqe365.view.BorderRelativeLayout
+            android:id="@+id/search_layout"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/text_red"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:contentBackColor="#F5F5F5"
+            app:cornerRadius="20dp"
+            app:strokeColor01="#F5F5F5"
+            app:strokeWidth01="20dp">
+
+
+            <EditText
+                android:id="@+id/search_content_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="搜索您感兴趣的内容"
+                android:imeOptions="actionSearch"
+                android:paddingLeft="10dip"
+                android:singleLine="true"
+                android:textColor="#737373"
+                android:textSize="12sp" />
+
+        </com.likeit.aqe365.view.BorderRelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dip"
+            android:paddingRight="@dimen/dp_10"
+            android:text="搜索"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/defualt_window_background">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/defualt_window_background"></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

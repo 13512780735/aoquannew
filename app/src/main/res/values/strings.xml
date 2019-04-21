@@ -84,7 +84,21 @@
     <string name="ic_video">&#xe7ea; </string> <!--录制视频-->
     <string name="ic_search">&#xe6ac; </string> <!--搜索图标-->
     <string name="ic_report">&#xe845; </string> <!--举报-->
-    <string name="ic_video_img">&#xe80a; </string> <!--播放-->
+    <string name="ic_video_img">&#xe80a; </string>
+    <string name="title_activity_find_search">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string> <!--播放-->
 
 
 </resources>

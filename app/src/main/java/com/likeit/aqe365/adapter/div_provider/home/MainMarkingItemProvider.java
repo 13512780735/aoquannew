@@ -5,15 +5,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.home.MainHomeMarkingModel;
 import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.view.RatioImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import cn.iwgang.countdownview.CountdownView;
 import cn.iwgang.countdownview.DynamicConfig;
@@ -31,6 +29,12 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 
     @Override
     public void convert(BaseViewHolder helper, MainHomeMarkingModel data, int position) {
+
+//        int ScreenWidth = ScreenUtil.getScreenWidth();
+//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ((RatioImageView) helper.getView(R.id.iv_01)).getLayoutParams();
+//        layoutParams.width = (ScreenWidth - 30) / 4;
+//        layoutParams.height = (ScreenWidth - 30) / 4;
+//        ((RatioImageView) helper.getView(R.id.iv_01)).setLayoutParams(layoutParams);
         MainHomeMarkingModel.StyleBean styleBean = data.getStyle();
         LinearLayout ll_marking_bg = helper.getView(R.id.ll_marking_bg);
         LinearLayout ll_06 = helper.getView(R.id.ll_06);
@@ -65,18 +69,20 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 
 
         if (seckillBean.getData().size() == 2) {
-            Glide.with(mContext).load(seckillBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4)
-                    .crossFade().into((RatioImageView) helper.getView(R.id.iv_01));
-            Glide.with(mContext).load(seckillBean.getData().get(1).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4)
-                    .crossFade().into((RatioImageView) helper.getView(R.id.iv_02));
+//            Glide.with(mContext).load(seckillBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4)
+//                    .crossFade().into((RatioImageView) helper.getView(R.id.iv_01));
+//            Glide.with(mContext).load(seckillBean.getData().get(1).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4)
+//                    .crossFade().into((RatioImageView) helper.getView(R.id.iv_02));
+            ImageLoader.getInstance().displayImage(seckillBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_01));
+            ImageLoader.getInstance().displayImage(seckillBean.getData().get(1).getThumb(),(RatioImageView) helper.getView(R.id.iv_02));
             helper.setOnClickListener(R.id.iv_01, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,11 +102,12 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
                 }
             });
         } else if (seckillBean.getData().size() == 1) {
-            Glide.with(mContext).load(seckillBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_01));
+//            Glide.with(mContext).load(seckillBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_01));
+            ImageLoader.getInstance().displayImage(seckillBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_01));
             helper.setOnClickListener(R.id.iv_01, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -123,16 +130,18 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
         tv_title02.setTextColor(Color.parseColor(styleBean.getColor()));
         tv_title02.setText(renqibangBean.getTitle());
         if (renqibangBean.getData().size() == 2) {
-            Glide.with(mContext).load(renqibangBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_03));
-            Glide.with(mContext).load(renqibangBean.getData().get(1).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_04));
+//            Glide.with(mContext).load(renqibangBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_03));
+//            Glide.with(mContext).load(renqibangBean.getData().get(1).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_04));
+            ImageLoader.getInstance().displayImage(renqibangBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_03));
+            ImageLoader.getInstance().displayImage(renqibangBean.getData().get(1).getThumb(),(RatioImageView) helper.getView(R.id.iv_04));
             helper.setOnClickListener(R.id.iv_03, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -152,11 +161,12 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
                 }
             });
         } else if (renqibangBean.getData().size() == 1) {
-            Glide.with(mContext).load(renqibangBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_03));
+//            Glide.with(mContext).load(renqibangBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_03));
+            ImageLoader.getInstance().displayImage(renqibangBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_03));
             helper.setOnClickListener(R.id.iv_03, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -170,6 +180,12 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
             helper.getView(R.id.iv_03).setVisibility(View.GONE);
             helper.getView(R.id.iv_04).setVisibility(View.GONE);
         }
+
+//        LinearLayout.LayoutParams layoutParams05 = (LinearLayout.LayoutParams) ((ImageView) helper.getView(R.id.iv_05)).getLayoutParams();
+//        layoutParams05.width = (ScreenWidth/2 - 30) / 2;
+//        layoutParams05.height =(ScreenWidth/2 - 30) / 2;
+//        ((ImageView) helper.getView(R.id.iv_05)).setLayoutParams(layoutParams05);
+
         //每日必拼
         LinearLayout ll03 = helper.getView(R.id.ll_03);
         ll03.setBackgroundColor(Color.parseColor(styleBean.getBg()));
@@ -178,16 +194,21 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
         tv_title03.setTextColor(Color.parseColor(styleBean.getColor()));
         tv_title03.setText(groupbuyBean.getTitle());
         if (groupbuyBean.getData().size() == 2) {
-            Glide.with(mContext).load(groupbuyBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_05));
-            Glide.with(mContext).load(groupbuyBean.getData().get(1).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_06));
+            //   ((RatioImageView01) helper.getView(R.id.iv_05)).setOriginalSize(50,50);
+//            Glide.with(mContext).load(groupbuyBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((ImageView) helper.getView(R.id.iv_05));
+            // ((RatioImageView01) helper.getView(R.id.iv_06)).setOriginalSize(50,50);
+
+//            Glide.with(mContext).load(groupbuyBean.getData().get(1).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_06));
+            ImageLoader.getInstance().displayImage(groupbuyBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_05));
+            ImageLoader.getInstance().displayImage(groupbuyBean.getData().get(1).getThumb(),(RatioImageView) helper.getView(R.id.iv_06));
             helper.setOnClickListener(R.id.iv_05, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -207,11 +228,12 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
                 }
             });
         } else if (groupbuyBean.getData().size() == 1) {
-            Glide.with(mContext).load(groupbuyBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_05));
+//            Glide.with(mContext).load(groupbuyBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_05));
+            ImageLoader.getInstance().displayImage(groupbuyBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_05));
             helper.setOnClickListener(R.id.iv_05, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -233,11 +255,12 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
         tv_title04.setTextColor(Color.parseColor(styleBean.getColor()));
         tv_title04.setText(haohuoBean.getTitle());
         if (haohuoBean.getData().size() == 1) {
-            Glide.with(mContext).load(haohuoBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_07));
+//            Glide.with(mContext).load(haohuoBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_07));
+            ImageLoader.getInstance().displayImage(haohuoBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_07));
             helper.setOnClickListener(R.id.iv_07, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -258,11 +281,12 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
         tv_title05.setTextColor(Color.parseColor(styleBean.getColor()));
         tv_title05.setText(xinpinBean.getTitle());
         if (xinpinBean.getData().size() == 1) {
-            Glide.with(mContext).load(xinpinBean.getData().get(0).getThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_08));
+//            Glide.with(mContext).load(xinpinBean.getData().get(0).getThumb())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_08));
+            ImageLoader.getInstance().displayImage(xinpinBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_08));
             helper.setOnClickListener(R.id.iv_08, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

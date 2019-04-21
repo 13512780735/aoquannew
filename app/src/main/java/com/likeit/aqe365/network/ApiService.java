@@ -149,6 +149,27 @@ public interface ApiService {
     );
 
     /**
+     * 判断是否关联帐号
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.account.snslogin")
+    Observable<BaseResponse<LoginRegisterModel>> ThirdLogin(@Field("openid") String openid,
+                                                            @Field("type") String type
+
+    );
+
+    /**
+     * 关联帐号
+     */
+    @FormUrlEncoded
+    @POST("nativeapp.account.snsbind")
+    Observable<BaseResponse<LoginRegisterModel>> snsBind(@Field("openid") String openid,
+                                                         @Field("type") String type,
+                                                         @Field("mobile") String mobile,
+                                                         @Field("pwd") String pwd
+
+    );
+    /**
      * 用户注册接口
      *
      * @param mobile
@@ -807,7 +828,7 @@ public interface ApiService {
     @POST("nativeapp.discover.diary.postlist")
     Observable<BaseResponse<PostListModel>> Postlist(@Field("openid") String openid,
                                                      @Field("pageNum") String pageNum,
-                                                     @Field("keyword") String keyword,
+                                                     @Field("keywords") String keyword,
                                                      @Field("lat") String lat,
                                                      @Field("lng") String lng,
                                                      @Field("type") String type,
@@ -823,7 +844,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("nativeapp.discover.diary.get_boardlist")
     Observable<BaseResponse<BoardListModel>> GetBoardlist(@Field("openid") String openid,
-                                                          @Field("keyword") String keyword,
+                                                          @Field("keywords") String keyword,
                                                           @Field("type") String type,
                                                           @Field("pageNum") String pageNum
     );
@@ -836,7 +857,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("nativeapp.discover.diary.followlist")
     Observable<BaseResponse<FollowlistModel>> GetFollowlist(@Field("openid") String openid,
-                                                            @Field("keyword") String keyword,
+                                                            @Field("keywords") String keyword,
                                                             @Field("pageNum") String pageNum
     );
 
@@ -859,7 +880,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("nativeapp.discover.diary.user")
     Observable<BaseResponse<UserListModel>> GetUser(@Field("openid") String openid,
-                                                    @Field("keyword") String keyword,
+                                                    @Field("keywords") String keyword,
                                                     @Field("lat") String lat,
                                                     @Field("lng") String lng,
                                                     @Field("pageNum") String pageNum
@@ -963,6 +984,7 @@ public interface ApiService {
                                                               @Field("type") String type,
                                                               @Field("keyword") String keyword,
                                                               @Field("city") String city,
+                                                              @Field("id") String id,
                                                               @Field("pageNum") String pageNum
     );
 
@@ -1331,7 +1353,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("nativeapp.discover.hospital.hospitalList")
     Observable<BaseResponse<HospitalListModel>> hospitalList(@Field("openid") String openid,
-                                                             @Field("keyword") String keyword,
+                                                             @Field("keywords") String keyword,
                                                              @Field("pageNum") String pageNum
     );
 

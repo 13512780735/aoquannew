@@ -66,6 +66,7 @@ public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     protected void lazyLoad() {
+        SharedPreferencesUtils.put(getActivity(),"findFlag","5");
         initUI();
     }
 
@@ -114,12 +115,6 @@ public class AllFind05Fragment extends BaseFragment implements SwipeRefreshLayou
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", data.get(position).getId());
-//                bundle.putString("isuser", data.get(position).getIsuser());
-//                bundle.putString("avatar", data.get(position).getAvatar());
-//                bundle.putString("name", data.get(position).getNickname());
-//
-//                SharedPreferencesUtils.put(getActivity(), "avatar", data.get(position).getAvatar());
-//                SharedPreferencesUtils.put(getActivity(), "name", data.get(position).getNickname());
                 toActivity(UserInfoActivity.class, bundle);
             }
         });

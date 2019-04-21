@@ -61,13 +61,16 @@ public class ChooseSevreActivity extends BaseActivity implements SwipeRefreshLay
     private static final int REQUEST_CODE_PICK_CITY = 233;
     private String city;
     private String keyword;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_serve);
         flag = getIntent().getStringExtra("flag");
+        id = getIntent().getStringExtra("id");
         XLog.e("type:" + type);
+        XLog.e("id:" + id);
         city = SharedPreferencesUtils.getString(mContext, "city");
         setBackView();
         initUI();
@@ -154,7 +157,7 @@ public class ChooseSevreActivity extends BaseActivity implements SwipeRefreshLay
     private void initData(int pageNum, final boolean isloadmore) {
         XLog.e("city:" + city);
         XLog.e("keyword:" + keyword);
-        RetrofitUtil.getInstance().Editdiary(openid, type, keyword, city, String.valueOf(pageNum), new Subscriber<BaseResponse<HospitalandServeModel>>() {
+        RetrofitUtil.getInstance().Editdiary(openid, type, keyword, city,id, String.valueOf(pageNum), new Subscriber<BaseResponse<HospitalandServeModel>>() {
             @Override
             public void onCompleted() {
 

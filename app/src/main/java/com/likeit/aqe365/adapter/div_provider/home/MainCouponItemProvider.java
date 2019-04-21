@@ -71,12 +71,13 @@ public class MainCouponItemProvider extends BaseItemProvider<MainHomeCouponModel
             ivPicture.setLayoutParams(lp);
             //GImageLoader.displayUrl(mContext, ivPicture, item.getImgurl());
             //ImageLoader.getInstance().displayImage(item.getImgurl(), ivPicture);
-            Glide.with(mContext).load(item.getImgurl())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090*3/4)
-                    .crossFade().into(ivPicture);
+//            Glide.with(mContext).load(item.getImgurl())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090*3/4)
+//                    .crossFade().into(ivPicture);
+            ImageLoader.getInstance().displayImage(item.getImgurl(),ivPicture);
         }
     }
 }

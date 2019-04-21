@@ -26,6 +26,7 @@ import com.mob.MobSDK;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
@@ -56,7 +57,7 @@ public class MyApplication extends Application {
         initImageLoad();
         instance = this;
         applicationContext = this;
-        // initBugly();
+       initBugly();
         GImageLoader.init(this, new OkHttpClient.Builder().build());  //图片加载初始化
         initLogger();//日志打印初始化
         initData1();
@@ -147,13 +148,13 @@ public class MyApplication extends Application {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.mipmap.default_pic)
                 .showImageOnFail(R.mipmap.default_pic)
-                .cacheInMemory(false).cacheOnDisc(false).build();
+                .cacheInMemory(true).cacheOnDisc(false).build();
         // 图片加载工具配置
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions)
-                .discCacheSize(50 * 1024 * 1024)//
-                .discCacheFileCount(100)// 缓存一百张图片
+                .discCacheSize(500 * 1024 * 1024)//
+                .discCacheFileCount(300)// 缓存一百张图片
                 .writeDebugLogs().build();
         ImageLoader.getInstance().init(config);
     }

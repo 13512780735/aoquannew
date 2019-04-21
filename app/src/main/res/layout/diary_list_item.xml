@@ -14,8 +14,8 @@
 
         <com.likeit.aqe365.view.CircleImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="@dimen/width30"
-            android:layout_height="@dimen/width30"
+            android:layout_width="@dimen/width40"
+            android:layout_height="@dimen/width40"
             android:layout_gravity="center_vertical" />
 
         <LinearLayout
@@ -34,6 +34,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp_5"
+                android:textColor="@color/theme_bg_tex"
                 android:text=""
                 android:textSize="@dimen/txt_12" />
 

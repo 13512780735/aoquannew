@@ -473,7 +473,7 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
             public void onNext(BaseResponse<OrderCreateModel> baseResponse) {
                 XLog.e("code" + baseResponse.getCode());
                 if (baseResponse.getCode() == 200) {
-                    String url = "http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
+                    String url = "https://wx.aqe365.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
                     String webUrl = url + "&openid=" + openid;
                     IntentUtils.intentTo(getActivity(), "", "", webUrl);
                 } else {

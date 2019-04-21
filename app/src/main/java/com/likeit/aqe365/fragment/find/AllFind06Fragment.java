@@ -1,23 +1,24 @@
 package com.likeit.aqe365.fragment.find;
 
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.amap.api.maps.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.find.UserInfoActivity;
-import com.likeit.aqe365.adapter.find.AllFind05Adapter;
 import com.likeit.aqe365.adapter.find.AllFind06Adapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.find.HospitalListModel;
-import com.likeit.aqe365.network.model.find.UserListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
@@ -53,6 +54,7 @@ public class AllFind06Fragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     protected void lazyLoad() {
+        SharedPreferencesUtils.put(getActivity(), "findFlag", "6");
         initUI();
     }
 
@@ -80,7 +82,83 @@ public class AllFind06Fragment extends BaseFragment implements SwipeRefreshLayou
                 IntentUtils.intentTo(getActivity(), linkUrl, id, weburl);
             }
         });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                double mLat = data.get(position).getLat();
+                double mLng = data.get(position).getLon();
+                String mAddressStr = data.get(position).getAddress();
+                goToGaodeMap(mLat, mLng, mAddressStr);
+            }
+        });
     }
+
+    /**
+     * 跳转高德地图
+     */
+    private void goToGaodeMap(double mLat, double mLng, String mAddressStr) {
+        if (!isInstalled("com.autonavi.minimap")) {
+            showProgress("请先安装高德地图客户端");
+            return;
+        }
+        LatLng endPoint = BD2GCJ(new LatLng(mLat, mLng));//坐标转换
+        StringBuffer stringBuffer = new StringBuffer("androidamap://route?sourceApplication=").append("amap");
+        stringBuffer.append("&dlat=").append(endPoint.latitude)
+                .append("&dlon=").append(endPoint.longitude)
+                .append("&dev=").append(0)
+               // .append("&type=").append("drive")
+                .append("&dname=" + mAddressStr)
+         .append("&t=").append(0);
+        //  .append("&style=").append(2);
+        Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(stringBuffer.toString()));
+        intent.setPackage("com.autonavi.minimap");
+         startActivity(intent);
+    }
+
+    /**
+     * 检测程序是否安装
+     *
+     * @param packageName
+     * @return
+     */
+    private boolean isInstalled(String packageName) {
+        PackageManager manager = getActivity().getPackageManager();
+        //获取所有已安装程序的包信息
+        List<PackageInfo> installedPackages = manager.getInstalledPackages(0);
+        if (installedPackages != null) {
+            for (PackageInfo info : installedPackages) {
+                if (info.packageName.equals(packageName))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * BD-09 坐标转换成 GCJ-02 坐标
+     */
+    public static LatLng BD2GCJ(LatLng bd) {
+        double x = bd.longitude - 0.0065, y = bd.latitude - 0.006;
+        double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * Math.PI);
+        double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * Math.PI);
+
+        double lng = z * Math.cos(theta);//lng
+        double lat = z * Math.sin(theta);//lat
+        return new LatLng(lat, lng);
+    }
+
+    /**
+     * GCJ-02 坐标转换成 BD-09 坐标
+     */
+    public static LatLng GCJ2BD(LatLng bd) {
+        double x = bd.longitude, y = bd.latitude;
+        double z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * Math.PI);
+        double theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * Math.PI);
+        double tempLon = z * Math.cos(theta) + 0.0065;
+        double tempLat = z * Math.sin(theta) + 0.006;
+        return new LatLng(tempLat, tempLon);
+    }
+
 
     private void initData(int pageNum, final boolean isloadmore) {
         RetrofitUtil.getInstance().hospitalList(openid, "", String.valueOf(pageNum), new Subscriber<BaseResponse<HospitalListModel>>() {

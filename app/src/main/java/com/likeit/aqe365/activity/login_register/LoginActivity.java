@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Selection;
 import android.text.Spannable;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ToggleButton;
 
+import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.R;
@@ -32,22 +34,36 @@ import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
 import com.likeit.aqe365.utils.LoaddingDialog;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StatusBarUtil;
+import com.likeit.aqe365.utils.StrUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.BorderTextView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.mob.tools.utils.UIHandler;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
+import cz.msebera.android.httpclient.Header;
 import rx.Subscriber;
 
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, PlatformActionListener, Handler.Callback {
 
     ToggleButton tb_password;
     EditText et_password;
@@ -75,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private int index;
     private String theme_bg_tex;
     private FrameLayout ll_frameLayout;
-
+    private Platform qzone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,20 +213,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // startFrameActivity(Constants.FRAGMENT_Third_LOGIN);
                 third_type = "qq";
                 mDialog.show();
-//                qzone = ShareSDK.getPlatform(QQ.NAME);
-//                // getQQUnionid(qzone);
-//                authorize(qzone);
+                qzone = ShareSDK.getPlatform(QQ.NAME);
+                // getQQUnionid(qzone);
+                authorize(qzone);
                 break;
             case R.id.login_wechat:
                 // startFrameActivity(Constants.FRAGMENT_Third_LOGIN);
                 third_type = "wx";
                 mDialog.show();
-//                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
-//                authorize(wechat);
+                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+                authorize(wechat);
                 break;
         }
     }
+    private void getQQUnionid(Platform plat, final String type) {
+        String url = "https://graph.QQ.com/oauth2.0/me?access_token=" + plat.getDb().getToken() + "&unionid=1";
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
+                byte[] data = responseBody;
+                String s = new String(data);
+
+                String[] split = s.split(":");
+                s = split[split.length - 1];
+                split = s.split("\"");
+                s = split[1];
+                openid = s;
+                XLog.d("uuid-->" + s);
+                ThirdLogin(openid, type);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+
+
+        });
+    }
     private void startMainActivity() {
         for (int i = 0; i < mLinkurl.length; i++) {
             if (linkurl.equals(mLinkurl[i])) {
@@ -284,6 +326,141 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
+
+    /**
+     * 第三方登录
+     *
+     * @return
+     */
+    // 执行授权,获取用户信息
+    private void authorize(Platform plat) {
+
+        plat.setPlatformActionListener(this);
+        // 关闭SSO授权
+        //plat.SSOSetting(true);
+        plat.SSOSetting(false);
+        // plat.authorize();
+        plat.showUser(null);
+    }
+
+    private static final int MSG_AUTH_CANCEL = 3;
+    private static final int MSG_AUTH_ERROR = 2;
+    private static final int MSG_AUTH_COMPLETE = 1;
+
+    @Override
+    public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
+        Log.d("数据：", platform.getDb().getUserId() + "");
+        Message msg = new Message();
+        msg.what = MSG_AUTH_COMPLETE;
+        msg.obj = res;
+        //  msg.obj = new Object[]{platform.getName(), platform};
+        UIHandler.sendMessage(msg, LoginActivity.this);
+    }
+
+    @Override
+    public void onError(Platform platform, int action, Throwable throwable) {
+        Message msg = new Message();
+        msg.what = MSG_AUTH_ERROR;
+        msg.arg2 = action;
+        msg.obj = throwable;
+        UIHandler.sendMessage(msg, LoginActivity.this);
+    }
+
+    @Override
+    public void onCancel(Platform platform, int action) {
+
+        Message msg = new Message();
+        msg.what = MSG_AUTH_CANCEL;
+        msg.arg2 = action;
+        msg.obj = platform;
+        UIHandler.sendMessage(msg, LoginActivity.this);
+    }
+
+    public boolean handleMessage(Message msg) {
+        switch (msg.what) {
+            case MSG_AUTH_CANCEL: {
+                mDialog.dismiss();
+                // 取消授权
+                ToastUtils.showToast(LoginActivity.this, "取消授权");
+                Log.d("TAG", msg.toString());
+            }
+            break;
+            case MSG_AUTH_ERROR: {
+                mDialog.dismiss();
+                // 授权失败
+                Log.d("TAG", "授权失败");
+                ToastUtils.showToast(LoginActivity.this, "授权失败");
+                Log.d("TAG", msg.toString());
+            }
+            break;
+            case MSG_AUTH_COMPLETE: {
+                final String type = third_type;
+                // 授权成功
+                Log.d("TAG", "授权成功");
+                mDialog.dismiss();
+                HashMap<String, Object> hashMap = (HashMap<String, Object>) msg.obj;
+                String userInfo = StrUtils.format("", hashMap);
+                XLog.d("userInfo-->" + userInfo);
+                try {
+                    JSONObject object = new JSONObject(userInfo);
+                    if ("qq".equals(type)) {
+                        avatarUrl = object.optString("figureurl_qq_2");
+                        getQQUnionid(qzone, type);
+                    } else {
+                        avatarUrl = object.optString("headimgurl");
+                        openid = object.optString("unionid");
+                        ThirdLogin(openid, type);
+                    }
+                    XLog.d("avatarUrl-->" + avatarUrl);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //final String openid = platform.getDb().getUserId();
+
+
+            }
+            break;
+        }
+        return false;
+    }
+
+    private void ThirdLogin(final String openid, final String type) {
+        RetrofitUtil.getInstance().ThirdLogin(openid, type, new Subscriber<BaseResponse<LoginRegisterModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<LoginRegisterModel> baseResponse) {
+                XLog.d("code"+baseResponse.getCode());
+                XLog.d("code"+baseResponse.getData().getOpenid());
+                XLog.d("code"+baseResponse.getCode());
+                if (baseResponse.code == 200) {
+                    SharedPreferencesUtils.put(LoginActivity.this, "openid", baseResponse.getData().getOpenid());
+                   // if ("1".equals(isWeb)) {
+                        startMainActivity();
+//                    } else {
+//                        startWebActivity();
+//                    }
+                } else {
+                    SharedPreferencesUtils.put(LoginActivity.this, "type", type);
+                    SharedPreferencesUtils.put(LoginActivity.this, "openid", openid);
+                    SharedPreferencesUtils.put(LoginActivity.this, "avatarUrl", avatarUrl);
+                    startFrameActivity(Constants.FRAGMENT_Third_LOGIN);
+                }
+            }
+        });
+    }
+
 //    @OnClick({R.id.bt_login})
 //    public void onclick(View v) {
 //        switch (v.getId()) {

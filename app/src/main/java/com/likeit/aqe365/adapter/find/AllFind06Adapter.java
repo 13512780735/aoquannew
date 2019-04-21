@@ -23,5 +23,6 @@ public class AllFind06Adapter extends BaseQuickAdapter<HospitalListModel.ListBea
         ImageLoader.getInstance().displayImage(item.getLogo(), (CircleImageView) helper.getView(R.id.iv_avatar));
         helper.setText(R.id.tv_title, item.getName());
         helper.setText(R.id.tv_address, item.getAddress());
+        helper.addOnClickListener(R.id.tv_location);
     }
 }

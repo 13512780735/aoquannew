@@ -163,7 +163,39 @@ public class RetrofitUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+    /**
+     * 判断是否关联帐号
+     *
+     * @param openid
+     * @param type
+     * @param subscriber
+     */
+    public void ThirdLogin(String openid, String type
+            ,
+                           Subscriber<BaseResponse<LoginRegisterModel>> subscriber) {
+        mApiService.ThirdLogin(openid, type)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
+    /**
+     * 关联帐号
+     *
+     * @param openid
+     * @param type
+     * @param pwd
+     * @param subscriber
+     */
+    public void snsBind(String openid, String type, String mobile, String pwd,
+                        Subscriber<BaseResponse<LoginRegisterModel>> subscriber) {
+        mApiService.snsBind(openid, type, mobile, pwd)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
     /**
      * 短信接口
      *
@@ -974,9 +1006,9 @@ public class RetrofitUtil {
      *
      * @return
      */
-    public void Editdiary(String openid, String type, String keyword, String city, String pageNum,
+    public void Editdiary(String openid, String type, String keyword, String city, String id,String pageNum,
                           Subscriber<BaseResponse<HospitalandServeModel>> subscriber) {
-        mApiService.Editdiary(openid, type, keyword, city, pageNum)
+        mApiService.Editdiary(openid, type, keyword, city,id, pageNum)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

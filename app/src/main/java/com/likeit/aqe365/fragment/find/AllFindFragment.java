@@ -1,6 +1,7 @@
 package com.likeit.aqe365.fragment.find;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -61,6 +62,7 @@ public class AllFindFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     protected void lazyLoad() {
+
         initUI1();
     }
 
@@ -178,4 +180,6 @@ public class AllFindFragment extends BaseFragment implements SwipeRefreshLayout.
 
         }, 3000);
     }
+
+
 }

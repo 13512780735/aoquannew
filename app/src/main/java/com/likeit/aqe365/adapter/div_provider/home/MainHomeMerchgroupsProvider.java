@@ -17,6 +17,7 @@ import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.home.MainHomeMerchgroupsModel;
 import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.view.RatioImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -67,52 +68,59 @@ public class MainHomeMerchgroupsProvider extends BaseItemProvider<MainHomeMerchg
             llbg.setBackgroundColor(Color.parseColor(styleBean.getBg()));
             tvName.setTextColor(Color.parseColor(styleBean.getColor()));
             tvName.setText(item.getName());
-            Glide.with(mContext).load(item.getLogo())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.default_pic)
-                    .error(R.mipmap.default_pic)
-                    .centerCrop().override(1090, 1090*3/4)
-                    .crossFade().into((ImageView) helper.getView(R.id.iv_logo));
+//            Glide.with(mContext).load(item.getLogo())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .placeholder(R.mipmap.default_pic)
+//                    .error(R.mipmap.default_pic)
+//                    .centerCrop().override(1090, 1090*3/4)
+//                    .crossFade().into((ImageView) helper.getView(R.id.iv_logo));
+            ImageLoader.getInstance().displayImage(item.getLogo(),(ImageView) helper.getView(R.id.iv_logo));
             if (item.getData().size() == 1) {
-                Glide.with(mContext).load(item.getData().get(0))
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.default_pic)
-                        .error(R.mipmap.default_pic)
-                        .centerCrop().override(1090, 1090*3/4)
-                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
+//                Glide.with(mContext).load(item.getData().get(0))
+//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                        .placeholder(R.mipmap.default_pic)
+//                        .error(R.mipmap.default_pic)
+//                        .centerCrop().override(1090, 1090*3/4)
+//                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
+                ImageLoader.getInstance().displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
             } else if (item.getData().size() == 2) {
-                Glide.with(mContext).load(item.getData().get(0))
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.default_pic)
-                        .error(R.mipmap.default_pic)
-                        .centerCrop().override(1090, 1090*3/4)
-                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
-                Glide.with(mContext).load(item.getData().get(1))
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.default_pic)
-                        .error(R.mipmap.default_pic)
-                        .centerCrop().override(1090, 1090*3/4)
-                        .crossFade().into((RatioImageView) helper.getView(R.id.iv02));
+//                Glide.with(mContext).load(item.getData().get(0))
+//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                        .placeholder(R.mipmap.default_pic)
+//                        .error(R.mipmap.default_pic)
+//                        .centerCrop().override(1090, 1090*3/4)
+//                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
+                ImageLoader.getInstance().displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
+                ImageLoader.getInstance().displayImage(item.getData().get(1),(RatioImageView) helper.getView(R.id.iv02));
+//                Glide.with(mContext).load(item.getData().get(1))
+//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                        .placeholder(R.mipmap.default_pic)
+//                        .error(R.mipmap.default_pic)
+//                        .centerCrop().override(1090, 1090*3/4)
+//                        .crossFade().into((RatioImageView) helper.getView(R.id.iv02));
 
             } else if (item.getData().size() == 3) {
-                Glide.with(mContext).load(item.getData().get(0))
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.default_pic)
-                        .error(R.mipmap.default_pic)
-                        .centerCrop().override(1090, 1090*3/4)
-                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
-                Glide.with(mContext).load(item.getData().get(1))
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.default_pic)
-                        .error(R.mipmap.default_pic)
-                        .centerCrop().override(1090, 1090*3/4)
-                        .crossFade().into((RatioImageView) helper.getView(R.id.iv02));
-                Glide.with(mContext).load(item.getData().get(2))
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.default_pic)
-                        .error(R.mipmap.default_pic)
-                        .centerCrop().override(1090, 1090*3/4)
-                        .crossFade().into((RatioImageView) helper.getView(R.id.iv03));
+//                Glide.with(mContext).load(item.getData().get(0))
+//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                        .placeholder(R.mipmap.default_pic)
+//                        .error(R.mipmap.default_pic)
+//                        .centerCrop().override(1090, 1090*3/4)
+//                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
+                ImageLoader.getInstance().displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
+                ImageLoader.getInstance().displayImage(item.getData().get(1),(RatioImageView) helper.getView(R.id.iv02));
+                ImageLoader.getInstance().displayImage(item.getData().get(2),(RatioImageView) helper.getView(R.id.iv03));
+//                Glide.with(mContext).load(item.getData().get(1))
+//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                        .placeholder(R.mipmap.default_pic)
+//                        .error(R.mipmap.default_pic)
+//                        .centerCrop().override(1090, 1090*3/4)
+//                        .crossFade().into((RatioImageView) helper.getView(R.id.iv02));
+//                Glide.with(mContext).load(item.getData().get(2))
+//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                        .placeholder(R.mipmap.default_pic)
+//                        .error(R.mipmap.default_pic)
+//                        .centerCrop().override(1090, 1090*3/4)
+//                        .crossFade().into((RatioImageView) helper.getView(R.id.iv03));
             } else {
                 helper.getView(R.id.iv01).setVisibility(View.GONE);
                 helper.getView(R.id.iv02).setVisibility(View.GONE);

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.likeit.aqe365.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
@@ -24,6 +25,7 @@ public class ImageLoaderUtil {
                 .showImageForEmptyUri(R.drawable.banner_default).showImageOnFail(R.drawable.banner_default)
                 .showImageOnLoading(R.drawable.banner_default)
                 .extraForDownloader(extra)
+                .displayer(new RoundedBitmapDisplayer(20))
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
         return options;
     }

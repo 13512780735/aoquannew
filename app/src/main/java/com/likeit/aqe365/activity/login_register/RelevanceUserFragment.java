@@ -15,14 +15,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.elvishew.xlog.XLog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.MainActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.LoginRegisterModel;
+import com.likeit.aqe365.network.model.main.MainNavigationModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.view.BorderTextView;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Subscriber;
 
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
@@ -39,6 +55,19 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     private String type;
     private String openid;
     private String isWeb;
+
+    private String[] mIconSelectIds;//标题
+    private String[] mTitles;//未选中
+
+    private String[] mLinkurl;
+
+
+    ArrayList<String> stringArrayList = new ArrayList<String>();
+    ArrayList<String> stringArrayList1 = new ArrayList<String>();
+    ArrayList<String> stringArrayList2 = new ArrayList<String>();
+    private String linkurl;
+    private int index;
+
 
     public static RelevanceUserFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -58,6 +87,7 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     public void initUI() {
         setBackView();
         setTitle("关联帐号");
+        initTab();
         tv_relevance_forget_pwd = findView(R.id.tv_relevance_forget_pwd);
         tv_relevance = findView(R.id.tv_relevance);
         tb_re_pwd = findView(R.id.tb_re_pwd);
@@ -79,7 +109,21 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
             }
         });
     }
+    public void initTab() {
+        String navtab = SharedPreferencesUtils.getString(getActivity(), "navtab");
+        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
+        }.getType();
+        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
+        for (int i = 0; i < items.size(); i++) {
+            stringArrayList.add(items.get(i).getText());
+            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
+            stringArrayList2.add(items.get(i).getLinkurl());
+        }
+        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
+        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
 
+    }
 
     public void addListeners() {
         tv_relevance_forget_pwd.setOnClickListener(this);
@@ -103,35 +147,31 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     private void snsBind() {
         final String mobile = et_phone.getText().toString().trim();
         final String pwd = et_pwd.getText().toString().trim();
-//        RetrofitUtil.getInstance().snsBind(openid, type, mobile, pwd, new Subscriber<BaseResponse<LoginRegisterModel>>() {
-//            @Override
-//            public void onCompleted() {
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                LogUtils.d("错误：" + e);
-//            }
-//
-//            @Override
-//            public void onNext(BaseResponse<LoginRegisterModel> baseResponse) {
-//                if (baseResponse.code == 200) {
-//                    SharedPreferencesUtils.put(getActivity(), "phone", mobile);
-//                    SharedPreferencesUtils.put(getActivity(), "pwd", pwd);
-//                    SharedPreferencesUtils.put(getActivity(), "token", baseResponse.getData().getToken());
-//                    LogUtils.d(baseResponse.getData().getMember().getNickname());
-//                    if ("1".equals(isWeb)) {
-//                        startMainActivity();
-//                    } else {
-//                        startWebActivity();
-//                    }
-//                } else {
-//                    showProgress(baseResponse.getMsg());
-//                }
-//
-//            }
-//        });
+        RetrofitUtil.getInstance().snsBind(openid, type, mobile, pwd, new Subscriber<BaseResponse<LoginRegisterModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                XLog.d("错误：" + e);
+            }
+
+            @Override
+            public void onNext(BaseResponse<LoginRegisterModel> baseResponse) {
+                if (baseResponse.code == 200) {
+                    SharedPreferencesUtils.put(getActivity(), "phone", mobile);
+                    SharedPreferencesUtils.put(getActivity(), "pwd", pwd);
+                    SharedPreferencesUtils.put(getActivity(), "openid", baseResponse.getData().getOpenid());
+                   // XLog.d(baseResponse.getData().getMember().getNickname());
+                        startMainActivity();
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+
+            }
+        });
     }
 //    private void startWebActivity() {
 //        /**
@@ -141,14 +181,35 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
 //        Intent intent = new Intent(getActivity(), JsInterfaceActivity.class);
 //        startActivity(intent);
 //    }
-//    private void startMainActivity() {
+    private void startMainActivity() {
 //        Bundle bundle = new Bundle();
 //        bundle.putString("flag", "0");
 //        Intent intent = new Intent(getActivity(), MainActivity.class);
 //        intent.putExtras(bundle);
 //        startActivity(intent);
 //        AppManager.getAppManager().finishAllActivity();
-//    }
+
+        for (int i = 0; i < mLinkurl.length; i++) {
+            if (linkurl.equals(mLinkurl[i])) {
+                index = i;
+            } else {
+                index = 0;
+            }
+        }
+        Bundle bundle = new Bundle();
+        //  bundle.putString("flag", "0");
+        bundle.putStringArray("mTitles", mTitles);
+        bundle.putStringArray("mLinkurl", mLinkurl);
+        bundle.putStringArray("mIconSelectIds", mIconSelectIds);
+        bundle.putString("flag", "0");
+        bundle.putInt("index", index);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+
+        AppManager.getAppManager().finishAllActivity();
+    }
 
     private void startFrameActivity(int keyFragment) {
         Intent intent = new Intent(getActivity(), FrameActivity.class);

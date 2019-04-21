@@ -59,6 +59,7 @@ public class AllFind04Fragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     protected void lazyLoad() {
+        SharedPreferencesUtils.put(getActivity(),"findFlag","4");
         initUI1();
     }
 
