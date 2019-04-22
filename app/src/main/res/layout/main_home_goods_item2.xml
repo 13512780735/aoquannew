@@ -18,6 +18,7 @@
             android:id="@+id/iv_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:src="@mipmap/default_pic"
             app:is_height_fix_drawable_size_ratio="true" />
 
 

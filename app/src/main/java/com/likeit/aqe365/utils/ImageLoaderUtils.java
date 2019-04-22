@@ -108,7 +108,7 @@ public class ImageLoaderUtils {
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
                 .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型//
                 .decodingOptions(new BitmapFactory.Options())//设置图片的解码配置
-                .resetViewBeforeLoading(false)//设置图片在下载前是否重置，复位
+                .resetViewBeforeLoading(true)//设置图片在下载前是否重置，复位
                 .build();
         return options;
     }
