@@ -18,6 +18,7 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.find.FollowlistModel;
 import com.likeit.aqe365.network.model.member.NoticeListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,8 @@ public class Message05Fargment extends BaseFragment implements SwipeRefreshLayou
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String webUrl = data.get(position).getWeburl();
+                IntentUtils.intentTo(getActivity(), "", "", webUrl);
 //                String id = data.get(position).getId();
 //                Bundle bundle = new Bundle();
 //                bundle.putString("id", id);

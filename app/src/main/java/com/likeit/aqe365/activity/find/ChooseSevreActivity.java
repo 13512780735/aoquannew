@@ -92,7 +92,7 @@ public class ChooseSevreActivity extends BaseActivity implements SwipeRefreshLay
         } else if ("3".equals(flag)) {
             setTitle("关联医院服务");
             type = "tiezi";
-            ll_location.setVisibility(View.GONE);
+            ll_location.setVisibility(View.VISIBLE);
         }
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));

@@ -34,6 +34,12 @@ public class PhoneLoginFragment extends BaseFragment implements View.OnClickList
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initUI();
+        addListeners();
+    }
 
     public void initUI() {
         setBackView();

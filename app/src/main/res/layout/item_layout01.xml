@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/dp_5"
+    android:layout_height="wrap_content">
+    <!--android:background="@drawable/tag_bg"-->
+    <com.likeit.aqe365.view.BorderTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="牙科e  X"
+        android:paddingLeft="@dimen/dp_10"
+        android:singleLine="true"
+        android:maxEms="10"
+        android:ellipsize="end"
+        android:paddingRight="@dimen/dp_10"
+        android:textColor="@color/theme_bg_tex"
+        android:textSize="12sp"
+        app:contentBackColor="#504D98FE"
+        app:cornerRadius="@dimen/dp_10"
+        app:strokeColor01="@color/theme_bg_tex"
+        app:strokeWidth01="1dp">
+
+    </com.likeit.aqe365.view.BorderTextView>
+<!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:text="X"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:textColor="@color/theme_bg_tex"/>-->
+
+</LinearLayout>

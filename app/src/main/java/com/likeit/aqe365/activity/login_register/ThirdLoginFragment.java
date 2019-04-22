@@ -2,19 +2,19 @@ package com.likeit.aqe365.activity.login_register;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
+import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
@@ -36,26 +36,29 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
         fragment.setArguments(bundle);
         return fragment;
     }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        avatarUrl = SharedPreferencesUtils.getString(getActivity(), "avatarUrl");
+        initUI();
+        addListeners();
+    }
 
     public void initUI() {
+        ImageLoaderUtils imageLoaderUtils=ImageLoaderUtils.getInstance(getActivity());
         setBackView();
         setTitle("联合登录");
         tv_register_quick = findView(R.id.tv_register_quick);
         tv_relevance = findView(R.id.tv_relevance);
-        tv_register_quick.setContentColorResource01(Color.parseColor(theme_bg_tex));
-        tv_register_quick.setStrokeColor01(Color.parseColor(theme_bg_tex));
-        tv_relevance.setContentColorResource01(Color.parseColor("#FFFFFF"));
-        tv_relevance.setStrokeColor01(Color.parseColor(theme_bg_tex));
-        tv_relevance.setTextColor(Color.parseColor(theme_bg_tex));
+//        tv_register_quick.setContentColorResource01(Color.parseColor(theme_bg_tex));
+//        tv_register_quick.setStrokeColor01(Color.parseColor(theme_bg_tex));
+//        tv_relevance.setContentColorResource01(Color.parseColor("#FFFFFF"));
+//        tv_relevance.setStrokeColor01(Color.parseColor(theme_bg_tex));
+//        tv_relevance.setTextColor(Color.parseColor(theme_bg_tex));
         iv_avatar = findView(R.id.iv_avatar);
       //  LogUtils.d("avatarUrl-->"+avatarUrl);
-        ImageLoader.getInstance().displayImage(avatarUrl, iv_avatar);
+        imageLoaderUtils.displayImage(avatarUrl, iv_avatar);
     }
 
     public void initData() {
@@ -93,7 +96,7 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
 
     @Override
     protected void lazyLoad() {
-        avatarUrl = SharedPreferencesUtils.getString(getActivity(), "avatarUrl");
+
         initUI();
         addListeners();
         initData();

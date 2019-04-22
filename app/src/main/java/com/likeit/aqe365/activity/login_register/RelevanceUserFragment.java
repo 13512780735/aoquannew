@@ -82,6 +82,8 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
         type = SharedPreferencesUtils.getString(getActivity(), "type");
         openid = SharedPreferencesUtils.getString(getActivity(), "openid");
         isWeb=SharedPreferencesUtils.getString(getActivity(),"isWeb");
+        initUI();
+        addListeners();
     }
 
     public void initUI() {

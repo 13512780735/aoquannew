@@ -37,11 +37,17 @@ import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.utils.photo.PhotoUtils;
+import com.likeit.aqe365.view.BorderRelativeLayout;
+import com.likeit.aqe365.view.BorderTextView;
+import com.likeit.aqe365.view.CustomTagLayout;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutAdapter;
 import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView;
 import com.zhaoshuang.weixinrecorded.RecordedActivity;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -94,9 +100,11 @@ public class SendPostActivity extends BaseActivity
     LinearLayout ll_hospital;
     @BindView(R.id.tv_hospital)
     TextView tv_hospital;
+    @BindView(R.id.tagLayout)
+    CustomTagLayout mTagLayout;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter01 gridViewAddImgesAdpter;
-    private List<BoardListModel.ListBean> list;
+
     private FlowLayoutAdapter<BoardListModel.ListBean> flowLayoutAdapter;
     private String videoPath = "";
     private String videoImg = "";
@@ -122,6 +130,9 @@ public class SendPostActivity extends BaseActivity
     private String hospitalId = "";
     String userids = "";
     private List<BoardListModel.ListBean> listHuati;
+    List<BoardListModel.ListBean> data = new ArrayList<>();
+    ArrayList<BoardListModel.ListBean> mList = new ArrayList<>();
+    private LinearLayout mLlAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,17 +140,7 @@ public class SendPostActivity extends BaseActivity
         setContentView(R.layout.activity_send_post);
         datas = new ArrayList<>();
         list1 = new ArrayList<>();
-        list = new ArrayList<>();
         listHuati = new ArrayList<>();
-        BoardListModel.ListBean listBean = new BoardListModel.ListBean();
-        listBean.setId("");
-        listBean.setDesc("");
-        listBean.setIsattention("");
-        listBean.setLogo("");
-        listBean.setParticipant("");
-        listBean.setPostcount("");
-        listBean.setTitle("+自定义话题");
-        list.add(listBean);
         initTab();
         initUI();
         PhotoUtils.getInstance().init(this, true, new PhotoUtils.OnSelectListener() {
@@ -207,43 +208,44 @@ public class SendPostActivity extends BaseActivity
         gridViewAddImgesAdpter = new GridViewAddImgesAdpter01(datas, this);
         gridViewAddImgesAdpter.setMaxImages(4);
         mGridView.setAdapter(gridViewAddImgesAdpter);
-
-        /**
-         * 话题数据
-         */
-        flowLayoutAdapter = new FlowLayoutAdapter<BoardListModel.ListBean>(list) {
-
+        mLlAdd = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_layout2, null);
+        mLlAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void bindDataToView(ViewHolder holder, int position, BoardListModel.ListBean bean) {
-                holder.setText(R.id.tv, bean.getTitle());
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MoreTopic01Activity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", (Serializable) mList);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 101);
             }
+        });
+        initLayout(mList);
+    }
 
-            @Override
-            public void onItemClick(int position, BoardListModel.ListBean bean) {
-                if (position == 0) {
-                    Intent intent = new Intent(mContext, MoreTopicActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("data", (Serializable) list);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, 101);
-                    return;
-                } else {
-                    list.remove(position);
-                    flowLayoutAdapter.remove(position);
+    private void initLayout(ArrayList<BoardListModel.ListBean> list) {
+        //移除所有自布局
+        mTagLayout.removeAllViewsInLayout();
+
+
+        for (int i = 0; i < list.size(); i++) {
+            View view = LayoutInflater.from(SendPostActivity.this).inflate(R.layout.item_layout01, mTagLayout, false);
+            view.setTag(i);
+            BorderTextView text = (BorderTextView) view.findViewById(R.id.tv_name);
+            text.setText(mList.get(i).getTitle() + "  X");
+            //点击移除标签
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int i = (int) view.getTag();
+                    mTagLayout.removeView(view);
+                    mList.remove(i);
+                    initLayout(mList);
                 }
-
-            }
-
-            @Override
-            public int getItemLayoutID(int position, BoardListModel.ListBean bean) {
-                if (position == 0) {
-                    return R.layout.item_layout2;
-                }
-                return R.layout.item_layout;
-            }
-
-        };
-        ((FlowLayoutScrollView) findViewById(R.id.flsv)).setAdapter(flowLayoutAdapter);
+            });
+            mTagLayout.addView(view);
+        }
+        //   mTagLayout.addView(mEtInput);
+        mTagLayout.addView(mLlAdd);
     }
 
     private void moodPost() {
@@ -357,6 +359,8 @@ public class SendPostActivity extends BaseActivity
                     startActivity(intent);
                     AppManager.getAppManager().finishAllActivity();
                 } else {
+                    bids = "";
+                    userid = "";
                     showToast(baseResponse.getMsg());
 
                 }
@@ -365,10 +369,10 @@ public class SendPostActivity extends BaseActivity
     }
 
 
-    String[] takePhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA,RECORD_AUDIO};
+    String[] takePhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA, RECORD_AUDIO};
     String[] selectPhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
 
-    @OnClick({R.id.iv_up_pic, R.id.iv_relevant_users, R.id.iv_takephoto, R.id.iv_video})
+    @OnClick({R.id.iv_up_pic, R.id.iv_relevant_users, R.id.iv_takephoto, R.id.iv_video,})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_up_pic://相册
@@ -455,14 +459,14 @@ public class SendPostActivity extends BaseActivity
                 video_img.setImageBitmap(bitmap);
             }
         } else if (resultCode == 101) {
-            list.clear();
-            flowLayoutAdapter.clear();
+            mList.clear();
+            initLayout(mList);
             List<BoardListModel.ListBean> list1 = (List<BoardListModel.ListBean>) data.getExtras().getSerializable("data");
-            list = list1;
-            flowLayoutAdapter.addAll(list);
-            flowLayoutAdapter.notifyDataSetChanged();
-            list.remove(0);
-            listHuati = list;
+            XLog.e("list1--》" + list1);
+            mList.addAll(list1);
+            initLayout(mList);
+
+            listHuati = mList;
         } else if (resultCode == 102) {
             userName = "";
             List<ConcernsListModel.ListBean> dataUser = (List<ConcernsListModel.ListBean>) data.getExtras().getSerializable("data");

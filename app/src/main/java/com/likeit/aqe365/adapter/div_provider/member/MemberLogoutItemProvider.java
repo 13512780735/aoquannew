@@ -41,6 +41,7 @@ public class MemberLogoutItemProvider extends BaseItemProvider<MemberLogoutItemM
             @Override
             public void onClick(View view) {
                 SharedPreferencesUtils.put(mContext, "openid", "");
+                SharedPreferencesUtils.put(mContext,"pwd","");
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("linkurl", "");

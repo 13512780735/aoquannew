@@ -62,7 +62,7 @@ public class FindFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        mTitles = new ArrayList<>(Arrays.asList("推荐", "关注", "话题", "附近", "用户", "医院"));//, "医院"
+        mTitles = new ArrayList<>(Arrays.asList("医院", "推荐", "关注", "话题", "附近", "用户"));//, "医院"
         name = "推荐";
 
         initUI();
@@ -86,9 +86,9 @@ public class FindFragment extends BaseFragment {
                 } else if ("医院".equals(name)) {
                     findFlag = "6";
                 }
-                Bundle bundle=new Bundle();
-                bundle.putString("findFlag",findFlag);
-                toActivity(FindSearchActivity.class,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putString("findFlag", findFlag);
+                toActivity(FindSearchActivity.class, bundle);
             }
         });
 
@@ -163,11 +163,9 @@ public class FindFragment extends BaseFragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    SharedPreferencesUtils.put(getActivity(), "findFlag", position);
-                    AllFindFragment tab1 = new AllFindFragment();
-                    return tab1;
+                    AllFind06Fragment tab6 = new AllFind06Fragment();
+                    return tab6;
                 case 1:
-                    SharedPreferencesUtils.put(getActivity(), "findFlag", position);
                     AllFind02Fragment tab2 = new AllFind02Fragment();
                     return tab2;
                 case 2:
@@ -180,8 +178,8 @@ public class FindFragment extends BaseFragment {
                     AllFind05Fragment tab5 = new AllFind05Fragment();
                     return tab5;
                 case 5:
-                    AllFind06Fragment tab6 = new AllFind06Fragment();
-                    return tab6;
+                    AllFindFragment tab1 = new AllFindFragment();
+                    return tab1;
             }
 
             return null;
@@ -190,7 +188,7 @@ public class FindFragment extends BaseFragment {
     }
 
     public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-        private String[] mTitles = new String[]{"推荐", "关注", "话题", "附近", "用户", "医院"};
+        private String[] mTitles = new String[]{"医院","推荐", "关注", "话题", "附近", "用户"};
         List<Fragment> mList;
 
         public MyFragmentPagerAdapter(FragmentManager fm, List<Fragment> mList) {

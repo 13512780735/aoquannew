@@ -92,13 +92,11 @@
             android:layout_marginRight="@dimen/dp_10"
             android:background="@color/line"></View>
 
-        <com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView
-            android:id="@+id/flsv"
-            android:layout_width="match_parent"
+        <com.likeit.aqe365.view.CustomTagLayout
+            android:id="@+id/tagLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="6dp"
-            app:height_space="10dp"
-            app:width_space="10dp"></com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutScrollView>
+            android:layout_margin="@dimen/dp_10" />
 
         <!--<View-->
             <!--android:layout_width="match_parent"-->

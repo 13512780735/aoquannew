@@ -70,42 +70,40 @@ public class MainMenuItemProvider extends BaseItemProvider<MainHomeMenuModel, Ba
                         //group.setVisibility(View.GONE);
                     }
                 }
-                linearParams.height=(120*1+20)*2;
+                linearParams.height = (120 * 1 + 20) * 2;
                 rlMenuBg.setLayoutParams(linearParams);
             } else {
                 mPageSize = row * rownum;
-                linearParams.height=(120*2+20)*2;
+                linearParams.height = (120 * 2 + 20) * 2;
                 rlMenuBg.setLayoutParams(linearParams);
             }
         } else {
             mPageSize = data.getData().size();
-            //  group.setVisibility(View.GONE);
             if (rownum == 3) {
-                if(mPageSize%3>0){
+                if (mPageSize % 3 > 0) {
                     // linearParams.height = 60*(Integer.valueOf(mPageSize/3)+1)+14;
-                    linearParams.height=(120*(Integer.valueOf(mPageSize/3+1))+20)*2;
+                    linearParams.height = (120 * (Integer.valueOf(mPageSize / 3 + 1)) + 20) * 2;
                     rlMenuBg.setLayoutParams(linearParams);
-                }else{
-                    linearParams.height=(120*(Integer.valueOf(mPageSize/3))+20)*2;
+                } else {
+                    linearParams.height = (120 * (Integer.valueOf(mPageSize / 3)) + 20) * 2;
                     rlMenuBg.setLayoutParams(linearParams);
                 }
-            }
-            else if (rownum == 4) {
-                if(mPageSize%4>0){
+            } else if (rownum == 4) {
+                if (mPageSize % 4 > 0) {
                     // linearParams.height = 60*(Integer.valueOf(mPageSize/3)+1)+14;
-                    linearParams.height=(120*(Integer.valueOf(mPageSize/4+1))+20)*2;
+                    linearParams.height = (120 * (Integer.valueOf(mPageSize / 4 + 1)) + 20) * 2;
                     rlMenuBg.setLayoutParams(linearParams);
-                }else{
-                    linearParams.height=(120*(Integer.valueOf(mPageSize/4))+20)*2;
+                } else {
+                    linearParams.height = (120 * (Integer.valueOf(mPageSize / 4)) + 20) * 2;
                     rlMenuBg.setLayoutParams(linearParams);
                 }
             } else if (rownum == 5) {
-                if(mPageSize%5>0){
+                if (mPageSize % 5 > 0) {
                     // linearParams.height = 60*(Integer.valueOf(mPageSize/3)+1)+14;
-                    linearParams.height=(120*(Integer.valueOf(mPageSize/5+1))+20)*2;
+                    linearParams.height = (120 * (Integer.valueOf(mPageSize / 5 + 1)) + 20) * 2;
                     rlMenuBg.setLayoutParams(linearParams);
-                }else{
-                    linearParams.height=(120*(Integer.valueOf(mPageSize/5))+20)*2;
+                } else {
+                    linearParams.height = (120 * (Integer.valueOf(mPageSize / 5)) + 20) * 2;
                     rlMenuBg.setLayoutParams(linearParams);
                 }
             }
@@ -134,10 +132,10 @@ public class MainMenuItemProvider extends BaseItemProvider<MainHomeMenuModel, Ba
                     Object obj = gridView.getItemAtPosition(position);
                     if (obj != null && obj instanceof MainHomeMenuModel.DataBean) {
                         System.out.println(obj);
-                        String id=((MainHomeMenuModel.DataBean) obj).getParams().getId();
-                        String linkUrl=((MainHomeMenuModel.DataBean) obj).getLinkurl();
-                        String webUrl=((MainHomeMenuModel.DataBean) obj).getWeburl();
-                        IntentUtils.intentTo(mContext, linkUrl, id,webUrl);
+                        String id = ((MainHomeMenuModel.DataBean) obj).getParams().getId();
+                        String linkUrl = ((MainHomeMenuModel.DataBean) obj).getLinkurl();
+                        String webUrl = ((MainHomeMenuModel.DataBean) obj).getWeburl();
+                        IntentUtils.intentTo(mContext, linkUrl, id, webUrl);
                         //Toast.makeText(mContext, ((MainHomeMenuModel.DataBean) obj).getName(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -149,17 +147,17 @@ public class MainMenuItemProvider extends BaseItemProvider<MainHomeMenuModel, Ba
 
 
         //添加小圆点
-      //  ivPoints = new ImageView[totalPage];
+        //  ivPoints = new ImageView[totalPage];
 
-       // ivPoints.
+        // ivPoints.
 
-        if(group!=null){
+        if (group != null) {
             group.removeAllViews();
         }
-        ivPoints=new ImageView[totalPage];
+        ivPoints = new ImageView[totalPage];
         for (int i = 0; i < totalPage; i++) {
             //循坏加入点点图片组
-            if(totalPage==1){
+            if (totalPage == 1) {
                 group.setVisibility(View.GONE);
             }
             ivPoints[i] = new ImageView(mContext);

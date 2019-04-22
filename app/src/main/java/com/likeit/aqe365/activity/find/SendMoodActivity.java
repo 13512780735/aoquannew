@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.app.Activity;
 
@@ -38,6 +39,8 @@ import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
 import com.likeit.aqe365.utils.photo.PhotoUtils;
+import com.likeit.aqe365.view.BorderTextView;
+import com.likeit.aqe365.view.CustomTagLayout;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.cyflowlayoutlibrary.FlowLayoutAdapter;
@@ -89,10 +92,11 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
     IconfontTextView iv_up_pic;
     @BindView(R.id.iv_takephoto)
     IconfontTextView iv_takephoto;
+    @BindView(R.id.tagLayout)
+    CustomTagLayout mTagLayout;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter01 gridViewAddImgesAdpter;
     private List<BoardListModel.ListBean> list;
-    private FlowLayoutAdapter<BoardListModel.ListBean> flowLayoutAdapter;
     private String videoPath = "";
     private String videoImg = "";
     private static String savePath;
@@ -119,7 +123,9 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
     ArrayList<String> stringArrayList2 = new ArrayList<String>();
     List<BoardListModel.ListBean> dataT = new ArrayList<>();//话题
     private List<BoardListModel.ListBean> listHuati;
-
+    List<BoardListModel.ListBean> data = new ArrayList<>();
+    ArrayList<BoardListModel.ListBean> mList = new ArrayList<>();
+    private LinearLayout mLlAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,46 +199,48 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
         gridViewAddImgesAdpter = new GridViewAddImgesAdpter01(datas, this);
         gridViewAddImgesAdpter.setMaxImages(4);
         mGridView.setAdapter(gridViewAddImgesAdpter);
-
         /**
          * 话题数据
          */
-        flowLayoutAdapter = new FlowLayoutAdapter<BoardListModel.ListBean>(list) {
-
+        mLlAdd = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_layout2, null);
+        mLlAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void bindDataToView(ViewHolder holder, int position, BoardListModel.ListBean bean) {
-                holder.setText(R.id.tv, bean.getTitle());
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MoreTopic01Activity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", (Serializable) mList);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 101);
             }
-
-            @Override
-            public void onItemClick(int position, BoardListModel.ListBean bean) {
-                if (position == 0) {
-                    dataT = list;
-                    Intent intent = new Intent(mContext, MoreTopicActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("data", (Serializable) dataT);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, 101);
-                    return;
-                } else {
-                    list.remove(position);
-                    flowLayoutAdapter.remove(position);
-                }
-
-            }
-
-            @Override
-            public int getItemLayoutID(int position, BoardListModel.ListBean bean) {
-                if (position == 0) {
-                    return R.layout.item_layout2;
-                }
-                return R.layout.item_layout;
-            }
-
-        };
-        ((FlowLayoutScrollView) findViewById(R.id.flsv)).setAdapter(flowLayoutAdapter);
+        });
+        initLayout(mList);
     }
 
+    private void initLayout(ArrayList<BoardListModel.ListBean> list) {
+        //移除所有自布局
+        mTagLayout.removeAllViewsInLayout();
+
+
+        for (int i = 0; i < list.size(); i++) {
+            View view = LayoutInflater.from(SendMoodActivity.this).inflate(R.layout.item_layout01, mTagLayout, false);
+            view.setTag(i);
+            BorderTextView text = (BorderTextView) view.findViewById(R.id.tv_name);
+            text.setText(mList.get(i).getTitle() + "  X");
+            //点击移除标签
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int i = (int) view.getTag();
+                    mTagLayout.removeView(view);
+                    mList.remove(i);
+                    initLayout(mList);
+                }
+            });
+            mTagLayout.addView(view);
+        }
+        //   mTagLayout.addView(mEtInput);
+        mTagLayout.addView(mLlAdd);
+    }
     private void moodPost() {
         if (listHuati.size() > 0) {
             for (int i = 0; i < listHuati.size(); i++) {
@@ -337,6 +345,8 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
                     startActivity(intent);
                     AppManager.getAppManager().finishAllActivity();
                 } else {
+                    bids = "";
+                    userid = "";
                     showToast(baseResponse.getMsg());
 
                 }
@@ -438,14 +448,14 @@ public class SendMoodActivity extends BaseActivity implements EasyPermissions.Pe
                 video_img.setImageBitmap(bitmap);
             }
         } else if (resultCode == 101) {
-            list.clear();
-            flowLayoutAdapter.clear();
+            mList.clear();
+            initLayout(mList);
             List<BoardListModel.ListBean> list1 = (List<BoardListModel.ListBean>) data.getExtras().getSerializable("data");
-            list = list1;
-            flowLayoutAdapter.addAll(list);
-            flowLayoutAdapter.notifyDataSetChanged();
-            list.remove(0);
-            listHuati = list;
+            XLog.e("list1--》" + list1);
+            mList.addAll(list1);
+            initLayout(mList);
+
+            listHuati = mList;
         } else if (resultCode == 102) {
             userName = "";
             List<ConcernsListModel.ListBean> dataUser = (List<ConcernsListModel.ListBean>) data.getExtras().getSerializable("data");

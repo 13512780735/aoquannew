@@ -31,6 +31,7 @@ import com.likeit.aqe365.adapter.cart.CartRecom01Adapter;
 import com.likeit.aqe365.adapter.cart.ShopcartExpandableListViewAdapter;
 import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.network.consts.Consts;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.cart.CartListModel01;
@@ -474,7 +475,8 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
             public void onNext(BaseResponse<OrderCreateModel> baseResponse) {
                 XLog.e("code" + baseResponse.getCode());
                 if (baseResponse.getCode() == 200) {
-                    String url = "https://wx.aqe365.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
+
+                    String url = Consts.APP_HOST_web+"/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=order.create";
                     String webUrl = url + "&openid=" + openid;
                     IntentUtils.intentTo(getActivity(), "", "", webUrl);
                 } else {

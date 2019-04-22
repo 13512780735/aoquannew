@@ -51,6 +51,12 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        //initUI();
+        addListeners();
+    }
 
     public void addListeners() {
         tb_re_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

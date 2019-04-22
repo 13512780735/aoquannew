@@ -29,6 +29,12 @@ public class RegisterProtocolFragment extends BaseFragment {
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initUI();
+        addListeners();
+    }
 
     public void initUI() {
         setBackView();

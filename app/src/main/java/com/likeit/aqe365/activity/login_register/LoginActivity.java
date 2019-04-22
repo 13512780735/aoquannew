@@ -441,9 +441,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onNext(BaseResponse<LoginRegisterModel> baseResponse) {
-                XLog.d("code"+baseResponse.getCode());
-                XLog.d("code"+baseResponse.getData().getOpenid());
-                XLog.d("code"+baseResponse.getCode());
+                XLog.d("TAG+code"+baseResponse.getCode());
+                Log.d("TAG", baseResponse.getMsg());
                 if (baseResponse.code == 200) {
                     SharedPreferencesUtils.put(LoginActivity.this, "openid", baseResponse.getData().getOpenid());
                    // if ("1".equals(isWeb)) {
@@ -457,6 +456,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     SharedPreferencesUtils.put(LoginActivity.this, "avatarUrl", avatarUrl);
                     startFrameActivity(Constants.FRAGMENT_Third_LOGIN);
                 }
+              //  startFrameActivity(Constants.FRAGMENT_Third_LOGIN);
             }
         });
     }

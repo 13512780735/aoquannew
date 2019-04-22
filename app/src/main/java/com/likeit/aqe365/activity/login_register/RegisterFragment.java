@@ -69,8 +69,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     public void onStart() {
         super.onStart();
         isWeb = SharedPreferencesUtils.getString(getContext(), "isWeb");
+        initUI();
+        addListeners();
     }
-
     public void initUI() {
         setBackView();
         setTitle("立即注册");
@@ -86,10 +87,15 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         protocol_tv01 = findView(R.id.protocol_tv01);//注册协议入口
         tv_register = findView(R.id.tv_register);//注册进入主页入口
         checkBox = findView(R.id.checkbox01);
-        tvSendCode.setOnClickListener(this);
         tvSendCode.setContentColorResource01(Color.parseColor("#FFFFFF"));
         tvSendCode.setStrokeColor01(Color.parseColor(theme_bg_tex));
         tvSendCode.setTextColor(Color.parseColor(theme_bg_tex));
+        tvSendCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendCode();
+            }
+        });
         if (!checkBox.isChecked()) {
             showProgress("請同意條款");
             return;
@@ -192,9 +198,9 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 Register(password);
                 LoaddingShow();
                 break;
-            case R.id.send_code_btn:
-                sendCode();
-                break;
+//            case R.id.send_code_btn:
+//                sendCode();
+//                break;
         }
     }
 
@@ -217,15 +223,15 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 // LoaddingDismiss();
 
                 if (baseResponse.code == 200) {
-//                    SharedPreferencesUtils.put(getActivity(), "phone", mobile);
+//                    startWebActivity();
+//                }       SharedPreferencesUtils.put(getActivity(), "phone", mobile);
 //                    SharedPreferencesUtils.put(getActivity(), "pwd", password);
-//                    SharedPreferencesUtils.put(getActivity(), "token", baseResponse.getData().getToken());
+//                    SharedPreferencesUtils.put(getActivity(), "token", baseResponse.getData().getO);
 //                    // LogUtils.d(baseResponse.getData().getMember().getNickname());
 //                    if ("1".equals(isWeb)) {
 //                        startMainActivity();
 //                    } else {
-//                        startWebActivity();
-//                    }
+                    toActivity(LoginActivity.class);
 
 
                 } else {
