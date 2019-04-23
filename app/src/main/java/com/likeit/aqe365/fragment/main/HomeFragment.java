@@ -141,17 +141,25 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     protected void lazyLoad() {
         iconTypeface = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
         city = SharedPreferencesUtils.getString(getContext(), "city");
+        String startAdv = SharedPreferencesUtils.getString(getActivity(), "startAdv");
+        XLog.e("startAdv" + startAdv);
         initTab();
-        initStartAdv();
+//        if (startAdv != null) {
+//            initStartAdv();
+//        } else {
+//            return;
+//        }
+
+
     }
 
     private void initStartAdv() {
-        String startAdv = SharedPreferencesUtils.getString(getActivity(), "startAdv");
-        Type type = new TypeToken<MainNavigationModel.StartadvBean>() {
-        }.getType();
-        MainNavigationModel.StartadvBean items = new Gson().fromJson(startAdv, type);
-        XLog.e("items" + items);
-        MainNavigationModel.StartadvBean.ParamsBean paramsBean = items.getParams();
+
+//        Type type = new TypeToken<MainNavigationModel.StartadvBean>() {
+//        }.getType();
+        //  MainNavigationModel.StartadvBean items = new Gson().fromJson(startAdv, type);
+        // XLog.e("items" + items);
+        // MainNavigationModel.StartadvBean.ParamsBean paramsBean = items.getParams();
         dialog = new HomeAdvFragment();
         dialog.show(getChildFragmentManager(), "tag");
 

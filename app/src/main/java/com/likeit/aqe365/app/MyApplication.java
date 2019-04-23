@@ -116,7 +116,7 @@ public class MyApplication extends Application {
      * Bugly更新
      */
     private void initBugly() {
-        Bugly.init(getApplicationContext(), "54573e34e3", false);
+        Bugly.init(getApplicationContext(), "a8042d9287", false);
         Beta.autoCheckUpgrade = true;//设置自动检查
         Beta.upgradeCheckPeriod = 60 * 60 * 1000;
         Beta.largeIconId = R.mipmap.ic_launcher;
