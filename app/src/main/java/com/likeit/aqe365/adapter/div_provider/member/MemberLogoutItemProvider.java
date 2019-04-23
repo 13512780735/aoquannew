@@ -12,6 +12,7 @@ import com.likeit.aqe365.activity.login_register.LoginActivity;
 import com.likeit.aqe365.activity.user.ChangePwdActivity;
 import com.likeit.aqe365.network.model.member.MemberLogoutItemModel;
 import com.likeit.aqe365.utils.AppManager;
+import com.likeit.aqe365.utils.AppManager01;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderTextView;
 
@@ -37,19 +38,21 @@ public class MemberLogoutItemProvider extends BaseItemProvider<MemberLogoutItemM
         tvLogout.setTextColor(Color.parseColor(data.getStyle().getLogouttextcolor()));
         tvLogout.setStrokeColor01(Color.parseColor(data.getStyle().getLogoutbordercolor()));
         tvLogout.setContentColorResource01(Color.parseColor(data.getStyle().getLogoutbgcolor()));
-        tvLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferencesUtils.put(mContext, "openid", "");
-                SharedPreferencesUtils.put(mContext,"pwd","");
-                Intent intent = new Intent(mContext, LoginActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("linkurl", "");
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-                AppManager.getAppManager().finishActivity();
-            }
-        });
+        helper.addOnClickListener(R.id.tv_logout);
+//        tvLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SharedPreferencesUtils.put(mContext, "openid", "");
+//                SharedPreferencesUtils.put(mContext,"pwd","");
+//                Intent intent = new Intent(mContext, LoginActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("linkurl", "");
+//                intent.putExtras(bundle);
+//                mContext.startActivity(intent);
+//                AppManager.getAppManager().finishActivity();
+//              //  AppManager01.getAppManager().finishAllActivity();
+//            }
+//        });
         tvChangePwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

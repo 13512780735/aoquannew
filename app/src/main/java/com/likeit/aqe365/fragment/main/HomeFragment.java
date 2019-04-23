@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,15 +19,19 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.elvishew.xlog.XLog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.SearchLayoutActivity;
 import com.likeit.aqe365.adapter.div_provider.home.MainHomeAdapter;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.fragment.find.CommentDialogFragment;
 import com.likeit.aqe365.fragment.goods.GoodDetailTabAdapter;
 import com.likeit.aqe365.fragment.home.Attention01Fragment;
 import com.likeit.aqe365.fragment.home.Attention02Fragment;
 import com.likeit.aqe365.fragment.home.AttentionFragment;
 import com.likeit.aqe365.fragment.home.Home01Fragment;
+import com.likeit.aqe365.fragment.home.HomeAdvFragment;
 import com.likeit.aqe365.network.ApiService;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.DiyTabModel;
@@ -50,6 +55,7 @@ import com.likeit.aqe365.network.model.home.MainHomeSeckillgroupModel;
 import com.likeit.aqe365.network.model.home.MainHomeTitleModel;
 import com.likeit.aqe365.network.model.home.MainHomeVideoModel;
 import com.likeit.aqe365.network.model.home.MainHomekitchenwindowModel;
+import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.HttpUtil;
 import com.likeit.aqe365.utils.IntentUtils;
@@ -64,6 +70,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,6 +130,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private DiyTabModel diyTabModel;
     private ArrayList<String> mTitles;
     private String city;
+    private HomeAdvFragment dialog;
 
     @Override
     protected int setContentView() {
@@ -134,9 +142,21 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         iconTypeface = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
         city = SharedPreferencesUtils.getString(getContext(), "city");
         initTab();
+        initStartAdv();
+    }
 
+    private void initStartAdv() {
+        String startAdv = SharedPreferencesUtils.getString(getActivity(), "startAdv");
+        Type type = new TypeToken<MainNavigationModel.StartadvBean>() {
+        }.getType();
+        MainNavigationModel.StartadvBean items = new Gson().fromJson(startAdv, type);
+        XLog.e("items" + items);
+        MainNavigationModel.StartadvBean.ParamsBean paramsBean = items.getParams();
+        dialog = new HomeAdvFragment();
+        dialog.show(getChildFragmentManager(), "tag");
 
     }
+
 
     @Override
     public void onResume() {
@@ -198,17 +218,17 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         right_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id="";
-                String linkUrl=diyTabModel.getParams().getTab_righticonurl();
-                IntentUtils.intentTo(getActivity(),linkUrl,id,"");
+                String id = "";
+                String linkUrl = diyTabModel.getParams().getTab_righticonurl();
+                IntentUtils.intentTo(getActivity(), linkUrl, id, "");
             }
         });
         back_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id="";
-                String linkUrl=diyTabModel.getParams().getTab_lefticonurl();
-                IntentUtils.intentTo(getActivity(),linkUrl,id,"");
+                String id = "";
+                String linkUrl = diyTabModel.getParams().getTab_lefticonurl();
+                IntentUtils.intentTo(getActivity(), linkUrl, id, "");
             }
         });
         if (stringArrayList.size() != 0) {
@@ -350,7 +370,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             } else if ("merchgroups".equals(id)) {//店铺组
                 MainHomeMerchgroupsModel mainHomeMerchgroupsModel = JSON.parseObject(items.optString(i).toString(), MainHomeMerchgroupsModel.class);
                 mMessages.add(mainHomeMerchgroupsModel);
-            }else if ("marketing".equals(id)) {//类别组
+            } else if ("marketing".equals(id)) {//类别组
                 MainHomeMarkingModel mainHomeMarkingModel = JSON.parseObject(items.optString(i).toString(), MainHomeMarkingModel.class);
                 mMessages.add(mainHomeMarkingModel);
             }

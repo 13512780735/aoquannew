@@ -121,6 +121,7 @@
         <activity android:name=".activity.Custom.CustomActivity" />
         <activity android:name=".activity.login_register.GuideActivity" />
         <activity android:name=".activity.cart.SelectAddressActivity" />
+        <activity android:name=".activity.cart.MemberCartActivity" />
         <activity android:name=".wxapi.PayActivity" />
         <activity android:name=".wxapi.WXPayEntryActivity" />
         <activity android:name=".activity.cart.EditAddressActivity" />

@@ -448,8 +448,9 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
             String linkurl = object.optString("linkurl");
             String id = object.optJSONObject("params").optString("id");
             String weburl = object.optString("weburl");
-            String type = object.optString("weburl");
-            String member = object.optString("weburl");
+            String type =  object.optJSONObject("params").optString("type");
+            String member =  object.optJSONObject("params").optString("member");
+            XLog.json(str);
             XLog.e("linkurl" + linkurl);
             XLog.e("id" + id);
             XLog.e("weburl" + weburl);

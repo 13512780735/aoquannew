@@ -52,7 +52,7 @@
     <string name="third_login_now">立即登录</string>
     <string name="login_send_code">发送验证码</string>
     <string name="login_confirm">确定</string>
-    <string name="login_details">为了给您更好的服务，请关联一个XXXX帐号</string>
+    <string name="login_details">为了给您更好的服务，请关联一个澳泉医销网帐号</string>
     <string name="login_register_quick">快速注册</string>
     <string name="login_quick_relevance">立即关联</string>
     <string name="login_relevance">关联</string>

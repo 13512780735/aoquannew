@@ -88,7 +88,7 @@ public class GuideActivity extends BaseActivity {
     private void initView() {
         setContentView(R.layout.activity_guide);
         mBackgroundBanner = findViewById(R.id.banner_guide_background);
-        Button btn_guide_enter = findView(R.id.btn_guide_enter);
+      //  Button btn_guide_enter = findView(R.id.btn_guide_enter);
         //  btn_guide_enter.setBackgroundColor(Color.parseColor("#000000"));
         handler = new Handler();
         handler.postDelayed(runnable = new Runnable() {
@@ -126,7 +126,7 @@ public class GuideActivity extends BaseActivity {
          * 在 BGABanner 里已经帮开发者处理了防止重复点击事件
          * 在 BGABanner 里已经帮开发者处理了「跳过按钮」和「进入按钮」的显示与隐藏
          */
-        mBackgroundBanner.setEnterSkipViewIdAndDelegate(R.id.btn_guide_enter, R.id.tv_guide_skip, new BGABanner.GuideDelegate() {
+        mBackgroundBanner.setEnterSkipViewIdAndDelegate(0,R.id.tv_guide_skip, new BGABanner.GuideDelegate() {
             @Override
             public void onClickEnterOrSkip() {
                 if ("0".equals(isLogin)) {

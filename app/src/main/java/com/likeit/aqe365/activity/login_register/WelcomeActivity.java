@@ -51,7 +51,7 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
         view = View.inflate(this, R.layout.activity_welcome, null);
         setContentView(view);
-        isSuccess=SharedPreferencesUtils.getBoolean(mContext,"isSuccess");
+        isSuccess = SharedPreferencesUtils.getBoolean(mContext, "isSuccess");
         if (isSuccess) {
             openPermission();
         }
@@ -60,6 +60,7 @@ public class WelcomeActivity extends BaseActivity {
         isLogin = "0";
         SharedPreferencesUtils.put(this, "isLogin", isLogin);
     }
+
     private final int REQUEST_CONTACT = 50;
 
     private void openPermission() {
@@ -74,7 +75,7 @@ public class WelcomeActivity extends BaseActivity {
 
                         Toast.makeText(WelcomeActivity.this, "授予權限成功: " + requestCode, Toast.LENGTH_SHORT).show();
                         isSuccess = true;
-                        SharedPreferencesUtils.put(mContext,"isSuccess",true);
+                        SharedPreferencesUtils.put(mContext, "isSuccess", true);
 
                     }
 
@@ -108,7 +109,12 @@ public class WelcomeActivity extends BaseActivity {
                     List<MainNavigationModel.ItemsBean> items = mainNavigationModel.getItems();
                     Gson gson = new Gson();
                     String json = gson.toJson(items);
+
+                    String json1 = gson.toJson(mainNavigationModel.getStartadv());
+
+
                     SharedPreferencesUtils.put(mContext, "navtab", json);
+                    SharedPreferencesUtils.put(mContext, "startAdv", json1);
                     SharedPreferencesUtils.put(mContext, "iconcolor", baseResponse.getData().getStyle().getIconcolor());
                     SharedPreferencesUtils.put(mContext, "iconcoloron", baseResponse.getData().getStyle().getIconcoloron());
                     SharedPreferencesUtils.put(mContext, "theme_bg_tex", baseResponse.getData().getApp_basic().getApp_shopcolor());

@@ -166,20 +166,21 @@ public class FindFragment extends BaseFragment {
                     AllFind06Fragment tab6 = new AllFind06Fragment();
                     return tab6;
                 case 1:
-                    AllFind02Fragment tab2 = new AllFind02Fragment();
-                    return tab2;
-                case 2:
-                    AllFind03Fragment tab3 = new AllFind03Fragment();
-                    return tab3;
-                case 3:
-                    AllFind04Fragment tab4 = new AllFind04Fragment();
-                    return tab4;
-                case 4:
-                    AllFind05Fragment tab5 = new AllFind05Fragment();
-                    return tab5;
-                case 5:
                     AllFindFragment tab1 = new AllFindFragment();
                     return tab1;
+                case 2:
+                    AllFind02Fragment tab2 = new AllFind02Fragment();
+                    return tab2;
+                case 3:
+                    AllFind03Fragment tab3 = new AllFind03Fragment();
+                    return tab3;
+                case 4:
+                    AllFind04Fragment tab4 = new AllFind04Fragment();
+                    return tab4;
+                case 5:
+                    AllFind05Fragment tab5 = new AllFind05Fragment();
+                    return tab5;
+
             }
 
             return null;

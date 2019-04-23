@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.utils.AppManager;
+import com.likeit.aqe365.utils.AppManager01;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.view.tablayout.bean.CustomTabEntity;
@@ -59,6 +60,7 @@ public abstract class AbstractCommonTabLayout extends AppCompatActivity {
         StatusBarUtil.setLightMode(this);
         //StatusBarUtil.setColor(this, color, 0);
         AppManager.getAppManager().addActivity(this);
+       // AppManager01.getAppManager().addActivity(this);
         mContext = this;
         setContentView();
         initViews();

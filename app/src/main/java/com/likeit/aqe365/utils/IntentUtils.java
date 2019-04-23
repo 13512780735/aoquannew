@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.activity.Custom.CustomActivity;
 import com.likeit.aqe365.activity.MainActivity;
+import com.likeit.aqe365.activity.cart.MemberCartActivity;
 import com.likeit.aqe365.activity.detail.GoodDetailActivity;
 import com.likeit.aqe365.activity.find.ChoicenessDiaryActivity;
 import com.likeit.aqe365.activity.find.ChooseActivity;
@@ -251,7 +252,12 @@ public class IntentUtils {
             Intent intent = new Intent(mContext, ChoicenessDiaryActivity.class);
             mContext.startActivity(intent);
         }
+        //购物车
+        else if ("member_cart".equals(linkUrl)) {
+            Intent intent = new Intent(mContext, MemberCartActivity.class);
+            mContext.startActivity(intent);
 
+        }
 
         //网页
         else if ("".equals(linkUrl)) {
@@ -262,34 +268,35 @@ public class IntentUtils {
 
     }
 
-    //    /**
-//     * 底部导航数据
-//     */
-//    private static String[] mIconSelectIds;//标题
-//    private static String[] mTitles;//未选中
-//
-//    private static String[] mLinkurl;
-//    private static String linkurl;
-//    private int index;
-//
-//    static ArrayList<String> stringArrayList = new ArrayList<String>();
-//    static ArrayList<String> stringArrayList1 = new ArrayList<String>();
-//    static ArrayList<String> stringArrayList2 = new ArrayList<String>();
-//
-//    private static void initTab(Context mContext) {
-//        String navtab = SharedPreferencesUtils.getString(mContext, "navtab");
-//        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
-//        }.getType();
-//        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
-//        for (int i = 0; i < items.size(); i++) {
-//            stringArrayList.add(items.get(i).getText());
-//            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
-//            stringArrayList2.add(items.get(i).getLinkurl());
-//        }
-//        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
-//        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
-//        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
-//    }
+    /**
+     * 底部导航数据
+     */
+    private static String[] mIconSelectIds;//标题
+    private static String[] mTitles;//未选中
+
+    private static String[] mLinkurl;
+    private static String linkurl;
+    private int index;
+
+    static ArrayList<String> stringArrayList = new ArrayList<String>();
+    static ArrayList<String> stringArrayList1 = new ArrayList<String>();
+    static ArrayList<String> stringArrayList2 = new ArrayList<String>();
+
+    private static void initTab(Context mContext) {
+        String navtab = SharedPreferencesUtils.getString(mContext, "navtab");
+        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
+        }.getType();
+        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
+        for (int i = 0; i < items.size(); i++) {
+            stringArrayList.add(items.get(i).getText());
+            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
+            stringArrayList2.add(items.get(i).getLinkurl());
+        }
+        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
+        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
+    }
+
     public static void intentTos(Context mContext, String linkUrl, String id, String webUrl, String type) {
         //帖子详情+id
         if ("discover.diary.postdetails".equals(linkUrl)) {

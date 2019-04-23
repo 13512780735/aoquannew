@@ -10,8 +10,8 @@
         <com.likeit.aqe365.view.guide.BGABanner
             android:id="@+id/banner_guide_background"
             style="@style/MatchMatch"
-            app:banner_pageChangeDuration="1000"
-            app:banner_pointAutoPlayAble="false"
+            app:banner_pageChangeDuration="5000"
+            app:banner_pointAutoPlayAble="true"
             app:banner_pointContainerBackground="@android:color/transparent"
             app:banner_pointDrawable="@drawable/selector_banner_unequal"
             app:banner_pointTopBottomMargin="15dp"
@@ -36,7 +36,7 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-    <Button
+<!--    <Button
         android:id="@+id/btn_guide_enter"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/width40"
@@ -49,5 +49,5 @@
         android:textColor="@color/white"
         android:textSize="16sp"
 
-        tools:visibility="gone" />
+        tools:visibility="gone" />-->
 </RelativeLayout>

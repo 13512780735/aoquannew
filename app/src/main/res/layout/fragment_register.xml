@@ -328,7 +328,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="《XXXX用户协议》"
+            android:text="《澳泉医销网用户协议》"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
     </LinearLayout>

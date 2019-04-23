@@ -1,10 +1,12 @@
 package com.likeit.aqe365.activity.login_register;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.method.HideReturnsTransformationMethod;
@@ -56,18 +58,20 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     private String openid;
     private String isWeb;
 
-    private String[] mIconSelectIds;//标题
-    private String[] mTitles;//未选中
 
-    private String[] mLinkurl;
+    /**
+     * 底部导航数据
+     */
+    private static String[] mIconSelectIds;//标题
+    private static String[] mTitles;//未选中
 
-
-    ArrayList<String> stringArrayList = new ArrayList<String>();
-    ArrayList<String> stringArrayList1 = new ArrayList<String>();
-    ArrayList<String> stringArrayList2 = new ArrayList<String>();
-    private String linkurl;
+    private static String[] mLinkurl;
+    private static String linkurl;
     private int index;
 
+    static ArrayList<String> stringArrayList = new ArrayList<String>();
+    static ArrayList<String> stringArrayList1 = new ArrayList<String>();
+    static ArrayList<String> stringArrayList2 = new ArrayList<String>();
 
     public static RelevanceUserFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -81,15 +85,31 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
         super.onStart();
         type = SharedPreferencesUtils.getString(getActivity(), "type");
         openid = SharedPreferencesUtils.getString(getActivity(), "openid");
-        isWeb=SharedPreferencesUtils.getString(getActivity(),"isWeb");
+        isWeb = SharedPreferencesUtils.getString(getActivity(), "isWeb");
         initUI();
+        initTab(getActivity());
         addListeners();
+    }
+
+    private void initTab(FragmentActivity activity) {
+        String navtab = SharedPreferencesUtils.getString(getActivity(), "navtab");
+        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
+        }.getType();
+        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
+        for (int i = 0; i < items.size(); i++) {
+            stringArrayList.add(items.get(i).getText());
+            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
+            stringArrayList2.add(items.get(i).getLinkurl());
+        }
+        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
+        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
     }
 
     public void initUI() {
         setBackView();
         setTitle("关联帐号");
-        initTab();
+
         tv_relevance_forget_pwd = findView(R.id.tv_relevance_forget_pwd);
         tv_relevance = findView(R.id.tv_relevance);
         tb_re_pwd = findView(R.id.tb_re_pwd);
@@ -111,21 +131,7 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
             }
         });
     }
-    public void initTab() {
-        String navtab = SharedPreferencesUtils.getString(getActivity(), "navtab");
-        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
-        }.getType();
-        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
-        for (int i = 0; i < items.size(); i++) {
-            stringArrayList.add(items.get(i).getText());
-            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
-            stringArrayList2.add(items.get(i).getLinkurl());
-        }
-        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
-        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
-        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
 
-    }
 
     public void addListeners() {
         tv_relevance_forget_pwd.setOnClickListener(this);
@@ -149,6 +155,8 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     private void snsBind() {
         final String mobile = et_phone.getText().toString().trim();
         final String pwd = et_pwd.getText().toString().trim();
+        XLog.e("openid" + openid);
+        XLog.e("openid" + type);
         RetrofitUtil.getInstance().snsBind(openid, type, mobile, pwd, new Subscriber<BaseResponse<LoginRegisterModel>>() {
             @Override
             public void onCompleted() {
@@ -157,17 +165,18 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
 
             @Override
             public void onError(Throwable e) {
-                XLog.d("错误：" + e);
             }
 
             @Override
             public void onNext(BaseResponse<LoginRegisterModel> baseResponse) {
+                XLog.e("msg" + baseResponse.getMsg());
                 if (baseResponse.code == 200) {
                     SharedPreferencesUtils.put(getActivity(), "phone", mobile);
                     SharedPreferencesUtils.put(getActivity(), "pwd", pwd);
                     SharedPreferencesUtils.put(getActivity(), "openid", baseResponse.getData().getOpenid());
-                   // XLog.d(baseResponse.getData().getMember().getNickname());
-                        startMainActivity();
+                    // XLog.d(baseResponse.getData().getMember().getNickname());
+                     startMainActivity();
+                    //toActivity(LoginActivity.class);
                 } else {
                     showProgress(baseResponse.getMsg());
                 }
@@ -175,7 +184,12 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
             }
         });
     }
-//    private void startWebActivity() {
+
+
+
+
+
+    //    private void startWebActivity() {
 //        /**
 //         * 跳转网页
 //         */
@@ -191,20 +205,19 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
 //        startActivity(intent);
 //        AppManager.getAppManager().finishAllActivity();
 
-        for (int i = 0; i < mLinkurl.length; i++) {
-            if (linkurl.equals(mLinkurl[i])) {
-                index = i;
-            } else {
-                index = 0;
-            }
-        }
+//        for (int i = 0; i < mLinkurl.length; i++) {
+//            if (linkurl.equals(mLinkurl[i])) {
+//                index = i;
+//            } else {
+//                index = 0;
+//            }
+//        }
         Bundle bundle = new Bundle();
-        //  bundle.putString("flag", "0");
         bundle.putStringArray("mTitles", mTitles);
         bundle.putStringArray("mLinkurl", mLinkurl);
         bundle.putStringArray("mIconSelectIds", mIconSelectIds);
         bundle.putString("flag", "0");
-        bundle.putInt("index", index);
+        bundle.putInt("index", 0);
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

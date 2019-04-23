@@ -75,7 +75,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String third_type;
     private String uid;
     private String isWeb;
-    private String openid;
     private String avatarUrl;
     private LoginActivity mContext;
     private String[] mIconSelectIds;//标题
@@ -92,6 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String theme_bg_tex;
     private FrameLayout ll_frameLayout;
     private Platform qzone;
+    private MainNavigationModel mainNavigationModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         StatusBarUtil.setLightMode(this);
         ButterKnife.bind(this);
         linkurl = getIntent().getStringExtra("linkurl");
-        initTab();
+        initData();
         initUI();
         initView();
         addListeners();
@@ -157,21 +157,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    public void initTab() {
-        String navtab = SharedPreferencesUtils.getString(mContext, "navtab");
-        Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
-        }.getType();
-        List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
-        for (int i = 0; i < items.size(); i++) {
-            stringArrayList.add(items.get(i).getText());
-            stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
-            stringArrayList2.add(items.get(i).getLinkurl());
-        }
-        mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
-        mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
-        mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
 
+    private void initData() {
+        RetrofitUtil.getInstance().getMainNavigation("1", new Subscriber<BaseResponse<MainNavigationModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<MainNavigationModel> baseResponse) {
+                if (baseResponse.getCode() == 200) {
+                    mainNavigationModel = baseResponse.getData();
+                    List<MainNavigationModel.ItemsBean> items = mainNavigationModel.getItems();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(items);
+                    SharedPreferencesUtils.put(mContext, "navtab", json);
+                    SharedPreferencesUtils.put(mContext, "iconcolor", baseResponse.getData().getStyle().getIconcolor());
+                    SharedPreferencesUtils.put(mContext, "iconcoloron", baseResponse.getData().getStyle().getIconcoloron());
+                    SharedPreferencesUtils.put(mContext, "theme_bg_tex", baseResponse.getData().getApp_basic().getApp_shopcolor());
+                    for (int i = 0; i < items.size(); i++) {
+                        stringArrayList.add(items.get(i).getText());
+                        stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
+                        stringArrayList2.add(items.get(i).getLinkurl());
+                    }
+                    mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
+                    mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+                    mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
+                }
+            }
+        });
     }
+
 
     public void addListeners() {
         tb_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -240,7 +262,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 s = split[split.length - 1];
                 split = s.split("\"");
                 s = split[1];
-                openid = s;
+                String openid = s;
                 XLog.d("uuid-->" + s);
                 ThirdLogin(openid, type);
             }
@@ -314,8 +336,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     SharedPreferencesUtils.put(LoginActivity.this, "phone", phone);
                     SharedPreferencesUtils.put(LoginActivity.this, "pwd", pwd);
                     SharedPreferencesUtils.put(LoginActivity.this, "openid", baseResponse.getData().getOpenid());
-                    SharedPreferencesUtils.put(LoginActivity.this, "avatar", baseResponse.getData().getAvatar());
-                    SharedPreferencesUtils.put(LoginActivity.this, "nickname", baseResponse.getData().getNickname());
                     startMainActivity();
 
                 } else {
@@ -409,7 +429,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         getQQUnionid(qzone, type);
                     } else {
                         avatarUrl = object.optString("headimgurl");
-                        openid = object.optString("unionid");
+                       String openid = object.optString("unionid");
                         ThirdLogin(openid, type);
                     }
                     XLog.d("avatarUrl-->" + avatarUrl);

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -22,6 +23,7 @@ import com.likeit.aqe365.fragment.main.GoodsFragment;
 import com.likeit.aqe365.fragment.main.HomeFragment;
 import com.likeit.aqe365.fragment.main.MemberFragment;
 import com.likeit.aqe365.fragment.main.NoticeFragment;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.photo.PhotoUtils;
 import com.likeit.aqe365.view.tablayout.widget.AbstractCommonTabLayout;
@@ -42,7 +44,7 @@ import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
-public class MainActivity extends AbstractCommonTabLayout implements EasyPermissions.PermissionCallbacks  {
+public class MainActivity extends AbstractCommonTabLayout implements EasyPermissions.PermissionCallbacks {
     private String[] mIconSelectIds;//标题
 
     private String[] mTitles;//未选中
@@ -69,7 +71,8 @@ public class MainActivity extends AbstractCommonTabLayout implements EasyPermiss
 
     }
 
-    String[] takeLocation= {ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION};
+    String[] takeLocation = {ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION};
+
     /**
      * 初始化数据
      */
@@ -77,6 +80,8 @@ public class MainActivity extends AbstractCommonTabLayout implements EasyPermiss
     protected void initData() {
         super.initData();
         //setSelectDefaultIndex(0);//设置默认的选项
+        XLog.e("flag" + flag);
+        XLog.e("index" + index);
         /**
          * 获取权限问题
          */
@@ -114,6 +119,7 @@ public class MainActivity extends AbstractCommonTabLayout implements EasyPermiss
             EasyPermissions.requestPermissions(this, "权限", requestCode, perms);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
@@ -258,5 +264,23 @@ public class MainActivity extends AbstractCommonTabLayout implements EasyPermiss
         mLocationClient.startLocation();
     }
 
+    private long firstTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        long secondTime = System.currentTimeMillis();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (secondTime - firstTime < 2000) {
+                //finish();
+                AppManager.getAppManager().finishAllActivity();
+                // System.exit(0);
+            } else {
+                Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                firstTime = System.currentTimeMillis();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

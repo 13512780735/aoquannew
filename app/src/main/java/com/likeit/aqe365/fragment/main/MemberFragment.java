@@ -1,14 +1,17 @@
 package com.likeit.aqe365.fragment.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.fastjson.JSON;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.login_register.LoginActivity;
@@ -28,7 +31,9 @@ import com.likeit.aqe365.network.model.member.MemberIconGroupItemModel;
 import com.likeit.aqe365.network.model.member.MemberItemModel;
 import com.likeit.aqe365.network.model.member.MemberLogoutItemModel;
 import com.likeit.aqe365.network.model.member.MemberMenu3Model;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.HttpUtil;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
@@ -171,9 +176,44 @@ public class MemberFragment extends BaseFragment implements SwipeRefreshLayout.O
                 mRecyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 adapter.setEnableLoadMore(true);//启用加载
+
+                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        XLog.e("点击了2222");
+                        SharedPreferencesUtils.put(getActivity(), "openid", "");
+                        SharedPreferencesUtils.put(getActivity(),"pwd","");
+                        SharedPreferencesUtils.put(getActivity(),"navtab","");
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("linkurl", "");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        //getActivity().finish();
+                        AppManager.getAppManager().finishActivity();
+                        //  AppManager01.getAppManager().finishAllActivity();
+                    }
+                });
+
             }
         }, 2000);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+//        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//            @Override
+//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+//                XLog.e("点击了");
+//                SharedPreferencesUtils.put(getActivity(), "openid", "");
+//                SharedPreferencesUtils.put(getActivity(),"pwd","");
+//                Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("linkurl", "");
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//                getActivity().finish();
+//                AppManager.getAppManager().finishActivity();
+//                //  AppManager01.getAppManager().finishAllActivity();
+//            }
+//        });
     }
 
     @Override
