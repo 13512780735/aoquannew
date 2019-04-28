@@ -71,7 +71,7 @@ public class MyFensiActivity extends BaseActivity implements SwipeRefreshLayout.
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("bid", data.get(position).getId());
+                bundle.putString("id", data.get(position).getId());
                 toActivity(UserInfoActivity.class, bundle);
             }
         });

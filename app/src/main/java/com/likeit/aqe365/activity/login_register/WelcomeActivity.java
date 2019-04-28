@@ -15,6 +15,7 @@ import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.PermissionUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StringUtil;
@@ -52,6 +53,8 @@ public class WelcomeActivity extends BaseActivity {
         view = View.inflate(this, R.layout.activity_welcome, null);
         setContentView(view);
         isSuccess = SharedPreferencesUtils.getBoolean(mContext, "isSuccess");
+       // PermissionUtil.requestPermission(this, com.yanzhenjie.permission.runtime.Permission.Group.STORAGE);
+
         if (isSuccess) {
             openPermission();
         }

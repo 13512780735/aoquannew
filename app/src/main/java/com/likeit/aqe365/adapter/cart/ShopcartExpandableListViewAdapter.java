@@ -10,11 +10,14 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.cart.CartListModel01;
 import com.likeit.aqe365.utils.ImageLoaderUtils;
+import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.view.SlideView;
 
 import java.util.List;
@@ -123,7 +126,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        mImageLoader=ImageLoaderUtils.getInstance(context);
+        mImageLoader = ImageLoaderUtils.getInstance(context);
         SlideView slideView = null;
         final ChildHolder cholder;
         if (convertView == null) {
@@ -132,6 +135,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             slideView = new SlideView(context, context.getResources(), view);
             convertView = slideView;
             cholder.cb_check = (CheckBox) convertView.findViewById(R.id.check_box);
+            cholder.ll_product = convertView.findViewById(R.id.ll_product);
             cholder.iv_url = (ImageView) convertView.findViewById(R.id.iv_adapter_list_pic);
 
             cholder.tv_product_desc = (TextView) convertView.findViewById(R.id.tv_intro);
@@ -189,6 +193,16 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
                 notifyDataSetChanged();
             }
         });
+        cholder.ll_product.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = product.getTitle();
+                XLog.e("name" + name);
+                String linkUrl = product.getLinkurl();
+                String webUrl = product.getWeburl();
+                IntentUtils.intentTo(context, linkUrl, "", webUrl);
+            }
+        });
         return convertView;
     }
 
@@ -212,6 +226,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
         CheckBox cb_check;
 
         TextView tv_product_name;
+        LinearLayout ll_product;
         TextView tv_product_desc;
         TextView tv_type_size;
         TextView tv_price;

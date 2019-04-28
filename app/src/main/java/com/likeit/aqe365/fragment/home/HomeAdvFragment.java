@@ -2,7 +2,6 @@ package com.likeit.aqe365.fragment.home;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,21 +14,15 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-import com.bumptech.glide.Glide;
 import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.MainActivity;
-import com.likeit.aqe365.activity.login_register.GuideActivity;
-import com.likeit.aqe365.activity.login_register.LoginActivity;
-import com.likeit.aqe365.network.model.home.MainHomeBannerModel;
 import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.utils.ImageLoaderUtil;
 import com.likeit.aqe365.utils.IntentUtils;
@@ -49,6 +42,7 @@ public class HomeAdvFragment extends DialogFragment implements OnItemClickListen
     private Handler handler;
     private Runnable runnable;
     private ImageView ivClose;
+    private String startAdv;
 
     public HomeAdvFragment() {
         // Required empty public constructor
@@ -69,6 +63,7 @@ public class HomeAdvFragment extends DialogFragment implements OnItemClickListen
         getDialog().setCanceledOnTouchOutside(true);
         getDialog().setCancelable(true);
         View view = inflater.inflate(R.layout.fragment_home_adv, container, false);
+        startAdv = SharedPreferencesUtils.getString(getActivity(), "startAdv");
         initData();
         initUI(view);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -77,24 +72,23 @@ public class HomeAdvFragment extends DialogFragment implements OnItemClickListen
 
     private void initData() {
 
-        String startAdv = SharedPreferencesUtils.getString(getActivity(), "startAdv");
+        if (startAdv != null) {
+            Type type = new TypeToken<MainNavigationModel.StartadvBean>() {
+            }.getType();
+            MainNavigationModel.StartadvBean items = new Gson().fromJson(startAdv, type);
+            XLog.e("items" + items);
+            MainNavigationModel.StartadvBean.ParamsBean paramsBean = items.getParams();
+            List<MainNavigationModel.StartadvBean.DataBean> item = items.getData();
+            Gson gson = new Gson();
+            String json = gson.toJson(item);
 
-        Type type = new TypeToken<MainNavigationModel.StartadvBean>() {
-        }.getType();
-        MainNavigationModel.StartadvBean items = new Gson().fromJson(startAdv, type);
-
-        XLog.e("items" + items);
-        MainNavigationModel.StartadvBean.ParamsBean paramsBean = items.getParams();
-        List<MainNavigationModel.StartadvBean.DataBean> item = items.getData();
-        Gson gson = new Gson();
-        String json = gson.toJson(item);
-
-        adList = items.getData();
+            adList = items.getData();
+        }
     }
 
     private void initUI(View view) {
         mBanner = view.findViewById(R.id.banner);
-        ivClose=view.findViewById(R.id.iv_close);
+        ivClose = view.findViewById(R.id.iv_close);
 //        mBanner.setLayoutParams(new LinearLayout.LayoutParams(
 //                ViewGroup.LayoutParams.MATCH_PARENT, h_screen / 6*2));
         mBanner.startTurning(4000);
@@ -154,7 +148,7 @@ public class HomeAdvFragment extends DialogFragment implements OnItemClickListen
 
         @Override
         public void UpdateUI(Context context, int position, MainNavigationModel.StartadvBean.DataBean data) {
-          //  Glide.with(getActivity()).load(data.getImgurl()).into(imageView);
+            //  Glide.with(getActivity()).load(data.getImgurl()).into(imageView);
 
             ImageLoaderUtil.getImageLoader(getActivity()).displayImage(data.getImgurl(), imageView, ImageLoaderUtil.getPhotoImageOption());
         }

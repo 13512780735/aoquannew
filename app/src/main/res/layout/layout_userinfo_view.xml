@@ -60,7 +60,6 @@
         <TextView
             android:layout_width="@dimen/width100"
             android:layout_height="match_parent"
-            android:drawableRight="@mipmap/icon_star"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_5"
@@ -89,7 +88,6 @@
             android:layout_width="@dimen/width100"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:drawableRight="@mipmap/icon_star"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_5"
             android:text="手机号" />

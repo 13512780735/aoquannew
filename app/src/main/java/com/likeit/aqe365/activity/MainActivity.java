@@ -173,7 +173,8 @@ public class MainActivity extends AbstractCommonTabLayout implements EasyPermiss
         mTitles = getIntent().getStringArrayExtra("mTitles");
         mLinkurl = getIntent().getStringArrayExtra("mLinkurl");
         mIconSelectIds = getIntent().getStringArrayExtra("mIconSelectIds");
-
+        XLog.e("mTitles"+mTitles.length);
+        XLog.e("mTitles"+mTitles);
         for (String linkurl : mLinkurl) {
             if ("home".equals(linkurl)) {
                 mFragments.add(new HomeFragment());

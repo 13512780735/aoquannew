@@ -47,6 +47,19 @@ public class JsInterfaceLogic {
     public void app_linkurl(String str) {
         mFragment.app_linkurl(str);
     }
+
+    //电话
+    @JavascriptInterface
+    public void tel(String str) {
+        mFragment.tel(str);
+    }
+
+    //定位
+    @JavascriptInterface
+    public void navigation(String str) {
+        mFragment.navigation(str);
+    }
+
     @JavascriptInterface
     public void tologin() {
         mFragment.tologin();
@@ -59,7 +72,7 @@ public class JsInterfaceLogic {
 
     @JavascriptInterface
     public String is_app() {
-       return "Android";
+        return "Android";
     }
 
     @JavascriptInterface

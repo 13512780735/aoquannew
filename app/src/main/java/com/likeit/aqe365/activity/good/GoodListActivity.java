@@ -264,6 +264,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
                         mMessageImg.setText(StringUtil.decode("\\u" + "e682"));
                         flag01 = 0;
                         SharedPreferencesUtils.put(this, "flag01", flag01);
+
                         initAdapter();
                         break;
                 }
@@ -442,6 +443,10 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         merchid = merchid1;
         cid = cid1;
         //  ToastUtils.showToast(mContext,"attribute"+attribute);
+        if (data != null) {
+            data.clear();
+            mAdapter.notifyDataSetChanged();
+        }
         initAdapter();
     }
 }

@@ -1,6 +1,9 @@
 package com.likeit.aqe365.network.util;
 
 
+import com.ihsanbal.logging.Level;
+import com.ihsanbal.logging.LoggingInterceptor;
+import com.likeit.aqe365.BuildConfig;
 import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.network.ApiService;
 import com.likeit.aqe365.network.model.CaseIdEntity;
@@ -57,16 +60,16 @@ import com.likeit.aqe365.network.model.pay.BalacePayModel;
 import com.likeit.aqe365.network.model.pay.PayModel;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.internal.platform.Platform;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -92,12 +95,30 @@ public class RetrofitUtil {
      * 私有构造方法
      */
     private RetrofitUtil() {
+
+        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+        httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        if (BuildConfig.DEBUG)
+
+        {
+            //打印网络请求日志
+            LoggingInterceptor httpLoggingInterceptor = new LoggingInterceptor.Builder()
+                    .loggable(BuildConfig.DEBUG)
+                    .setLevel(Level.BASIC)
+                    .log(Platform.INFO)
+                    .request("Request")
+                    .response("Response")
+                    .build();
+            httpClientBuilder.addInterceptor(httpLoggingInterceptor);
+
+        }
+
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(builder.build())
+                .client(httpClientBuilder.build())
                 .baseUrl(Consts.APP_HOST)
                 .build();
         mApiService = mRetrofit.create(ApiService.class);

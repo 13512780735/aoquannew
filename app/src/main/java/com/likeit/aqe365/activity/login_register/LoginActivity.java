@@ -108,11 +108,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         linkurl = getIntent().getStringExtra("linkurl");
         initData();
         initUI();
-        initView();
+
         addListeners();
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        XLog.e("执行了");
+        initView();
+    }
 
     public void initUI() {
         tb_password = findViewById(R.id.tb_re_pwd);

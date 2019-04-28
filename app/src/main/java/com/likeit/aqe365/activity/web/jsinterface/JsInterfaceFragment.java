@@ -4,6 +4,8 @@ package com.likeit.aqe365.activity.web.jsinterface;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.amap.api.maps.model.LatLng;
 import com.elvishew.xlog.XLog;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.login_register.LoginActivity;
@@ -45,6 +48,7 @@ import com.likeit.aqe365.utils.CustomDialog;
 import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.LoaddingDialog;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.wxapi.MD5;
 import com.likeit.aqe365.wxapi.alipay.PayResult;
 import com.tencent.mm.sdk.modelpay.PayReq;
@@ -59,6 +63,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -439,6 +444,127 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
 
     }
 
+    /**
+     * 打电话
+     * Intent intent = new Intent();
+     * //设置拨打电话的动作
+     * intent.setAction(Intent.ACTION_CALL);
+     * //设置拨打电话的号码
+     * intent.setData(Uri.parse("tel:" + phone));
+     * //开启打电话的意图
+     * startActivity(intent);
+     */
+    @Override
+    public void tel(String str) {
+        super.tel(str);
+        XLog.e("tel:" + str);
+        Intent intent = new Intent();
+        //设置拨打电话的动作
+        intent.setAction(Intent.ACTION_CALL);
+        //设置拨打电话的号码
+        intent.setData(Uri.parse("tel:" + str));
+        //开启打电话的意图
+        startActivity(intent);
+    }
+
+    /**
+     * 定位
+     *
+     * @param str
+     */
+    @Override
+    public void navigation(String str) {
+        super.navigation(str);
+        XLog.e("navigation:" + str);
+        try {
+            JSONObject object = new JSONObject(str);
+            String mAddressStr = object.optString("address");
+            String lat = object.optString("lat");
+            String lng = object.optString("lng");
+            XLog.json(str);
+            XLog.e("address" + mAddressStr);
+            XLog.e("lat" + lat);
+            XLog.e("lng" + lng);
+
+            double mLat = Double.valueOf(lat);
+            double mLng = Double.valueOf(lng);
+            goToGaodeMap(mLat, mLng, mAddressStr);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 跳转高德地图
+     */
+    private void goToGaodeMap(double mLat, double mLng, String mAddressStr) {
+        if (!isInstalled("com.autonavi.minimap")) {
+            ToastUtils.showToast(getActivity(),"请先安装高德地图客户端");
+            return;
+        }
+        LatLng endPoint = BD2GCJ(new LatLng(mLat, mLng));//坐标转换
+        StringBuffer stringBuffer = new StringBuffer("androidamap://route?sourceApplication=").append("amap");
+        stringBuffer.append("&dlat=").append(endPoint.latitude)
+                .append("&dlon=").append(endPoint.longitude)
+                .append("&dev=").append(0)
+                // .append("&type=").append("drive")
+                .append("&dname=" + mAddressStr)
+                .append("&t=").append(0);
+        //  .append("&style=").append(2);
+        Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(stringBuffer.toString()));
+        intent.setPackage("com.autonavi.minimap");
+        startActivity(intent);
+    }
+
+    /**
+     * 检测程序是否安装
+     *
+     * @param packageName
+     * @return
+     */
+    private boolean isInstalled(String packageName) {
+        PackageManager manager = getActivity().getPackageManager();
+        //获取所有已安装程序的包信息
+        List<PackageInfo> installedPackages = manager.getInstalledPackages(0);
+        if (installedPackages != null) {
+            for (PackageInfo info : installedPackages) {
+                if (info.packageName.equals(packageName))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * BD-09 坐标转换成 GCJ-02 坐标
+     */
+    public static LatLng BD2GCJ(LatLng bd) {
+        double x = bd.longitude - 0.0065, y = bd.latitude - 0.006;
+        double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * Math.PI);
+        double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * Math.PI);
+
+        double lng = z * Math.cos(theta);//lng
+        double lat = z * Math.sin(theta);//lat
+        return new LatLng(lat, lng);
+    }
+
+    /**
+     * GCJ-02 坐标转换成 BD-09 坐标
+     */
+    public static LatLng GCJ2BD(LatLng bd) {
+        double x = bd.longitude, y = bd.latitude;
+        double z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * Math.PI);
+        double theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * Math.PI);
+        double tempLon = z * Math.cos(theta) + 0.0065;
+        double tempLat = z * Math.sin(theta) + 0.006;
+        return new LatLng(tempLat, tempLon);
+    }
+
+    /**
+     * 跳链接
+     *
+     * @param str
+     */
     @Override
     public void app_linkurl(String str) {
         super.app_linkurl(str);
@@ -448,8 +574,8 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
             String linkurl = object.optString("linkurl");
             String id = object.optJSONObject("params").optString("id");
             String weburl = object.optString("weburl");
-            String type =  object.optJSONObject("params").optString("type");
-            String member =  object.optJSONObject("params").optString("member");
+            String type = object.optJSONObject("params").optString("type");
+            String member = object.optJSONObject("params").optString("member");
             XLog.json(str);
             XLog.e("linkurl" + linkurl);
             XLog.e("id" + id);

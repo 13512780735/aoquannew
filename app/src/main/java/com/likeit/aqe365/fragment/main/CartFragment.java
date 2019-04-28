@@ -204,15 +204,25 @@ public class CartFragment extends BaseFragment implements ShopcartExpandableList
         mTvGoToPay.setOnClickListener(this);
         mToolbarRighTv.setOnClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mExListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                String linkUrl = products.get(childPosition).getLinkurl();
-                String webUrl = products.get(childPosition).getWeburl();
-                IntentUtils.intentTo(getActivity(), linkUrl, "", webUrl);
-                return true;
-            }
-        });
+//        mExListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+//                XLog.e("groupPosition"+groupPosition);
+//                XLog.e("childPosition"+childPosition);
+//               // XLog.e("msg:"+);
+////                List<CartListModel01.ListBeanXX.ListBeanX> child =children.get(groupPosition);
+////               // products.get(groupPosition).getLinkurl();
+////              //  String linkUrl =  products.get(groupPosition).getLinkurl();
+////               // String webUrl = children.get(groupPosition).get(childPosition).getWeburl();
+////                String name= child.get(childPosition).getTitle();
+////              //  XLog.e("linkUrl"+linkUrl);
+////               // XLog.e("webUrl"+webUrl);
+////                XLog.e("name"+name);
+//
+//               // IntentUtils.intentTo(getActivity(), linkUrl, "", webUrl);
+//                return true;
+//            }
+//        });
     }
 
     /**

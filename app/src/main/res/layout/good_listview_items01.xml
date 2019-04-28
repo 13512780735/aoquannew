@@ -11,6 +11,7 @@
         android:id="@+id/goods_listview_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@mipmap/default_pic"
         app:is_height_fix_drawable_size_ratio="true"
         />
 

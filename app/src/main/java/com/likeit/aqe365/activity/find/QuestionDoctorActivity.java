@@ -164,6 +164,7 @@ public class QuestionDoctorActivity extends BaseActivity implements ActionSheet.
         RequestBody requestApiTitle = RequestBody.create(MediaType.parse("multipart/form-data"), title);
         RequestBody requestApiContent = RequestBody.create(MediaType.parse("multipart/form-data"), content);
         List<MultipartBody.Part> list1 = new ArrayList<>();
+        XLog.e("requestApiKey->"+requestApiKey);
         /**
          * 术前
          */
@@ -174,9 +175,12 @@ public class QuestionDoctorActivity extends BaseActivity implements ActionSheet.
                     RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
                     MultipartBody.Part body = MultipartBody.Part.createFormData("image[]", file.getName(), requestFile);// pictures 是参数名
                     list1.add(body);
+
+                    XLog.e("body->"+body);
                 }
             }
         }
+
         RetrofitUtil.getInstance().quiz(requestApiKey, requestApiTitle, requestApiContent, list1, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {

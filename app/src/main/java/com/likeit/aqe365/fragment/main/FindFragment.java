@@ -69,7 +69,7 @@ public class FindFragment extends BaseFragment {
     }
 
     private void initUI() {
-        setTitle("发现");
+        setTitle("附近");
         setRightImage(R.mipmap.icon_nav_search, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

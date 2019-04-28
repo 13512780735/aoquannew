@@ -31,7 +31,7 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 
     @Override
     public void convert(BaseViewHolder helper, MainHomeMarkingModel data, int position) {
-         mImageLoader = ImageLoaderUtils.getInstance(mContext);
+        mImageLoader = ImageLoaderUtils.getInstance(mContext);
 //        int ScreenWidth = ScreenUtil.getScreenWidth();
 //        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ((RatioImageView) helper.getView(R.id.iv_01)).getLayoutParams();
 //        layoutParams.width = (ScreenWidth - 30) / 4;
@@ -68,9 +68,9 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 
             }
         });
-
-
-        if (seckillBean.getData().size() == 2) {
+        if (seckillBean.getData() == null) {
+            return;
+        } else if (seckillBean.getData().size() == 2) {
 //            Glide.with(mContext).load(seckillBean.getData().get(0).getThumb())
 //                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
 //                    .placeholder(R.mipmap.default_pic)
@@ -83,8 +83,8 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4)
 //                    .crossFade().into((RatioImageView) helper.getView(R.id.iv_02));
-            mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_01));
-            mImageLoader.displayImage(seckillBean.getData().get(1).getThumb(),(RatioImageView) helper.getView(R.id.iv_02));
+            mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_01));
+            mImageLoader.displayImage(seckillBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_02));
             helper.setOnClickListener(R.id.iv_01, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,7 +109,7 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_01));
-            mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_01));
+            mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_01));
             helper.setOnClickListener(R.id.iv_01, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -142,8 +142,8 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_04));
-            mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_03));
-            mImageLoader.displayImage(renqibangBean.getData().get(1).getThumb(),(RatioImageView) helper.getView(R.id.iv_04));
+            mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_03));
+            mImageLoader.displayImage(renqibangBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_04));
             helper.setOnClickListener(R.id.iv_03, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -168,7 +168,7 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_03));
-            mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_03));
+            mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_03));
             helper.setOnClickListener(R.id.iv_03, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -209,8 +209,8 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_06));
-            mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_05));
-            mImageLoader.displayImage(groupbuyBean.getData().get(1).getThumb(),(RatioImageView) helper.getView(R.id.iv_06));
+            mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_05));
+            mImageLoader.displayImage(groupbuyBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_06));
             helper.setOnClickListener(R.id.iv_05, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -235,7 +235,7 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_05));
-            mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_05));
+            mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_05));
             helper.setOnClickListener(R.id.iv_05, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -262,7 +262,7 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_07));
-            mImageLoader.displayImage(haohuoBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_07));
+            mImageLoader.displayImage(haohuoBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_07));
             helper.setOnClickListener(R.id.iv_07, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -288,7 +288,7 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_08));
-            mImageLoader.displayImage(xinpinBean.getData().get(0).getThumb(),(RatioImageView) helper.getView(R.id.iv_08));
+            mImageLoader.displayImage(xinpinBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_08));
             helper.setOnClickListener(R.id.iv_08, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

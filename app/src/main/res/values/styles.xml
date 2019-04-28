@@ -20,9 +20,12 @@
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowBackground">@color/defualt_window_background</item>
 
     </style>
+
     <style name="AnimationActivity" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
@@ -61,6 +64,7 @@
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/txt_14</item>
     </style>
+
     <style name="CommonBottomDialogStyle" parent="@android:style/Theme.Dialog">
         <item name="colorPrimary">@color/appColorPrimary</item>
         <item name="colorPrimaryDark">@color/appColorPrimaryDark</item>
@@ -82,6 +86,7 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
     </style>
+
     <style name="fresco_rect">
         <item name="fadeDuration">300</item>
         <item name="actualImageScaleType">centerCrop</item>
@@ -108,9 +113,11 @@
     <style name="mycheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/address_check</item>
     </style>
+
     <style name="RadioButtonStyles">
         <item name="android:button">@drawable/selector_radio_bg</item>
     </style>
+
     <style name="LetterIndexTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -121,7 +128,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/cp_gray</item>
     </style>
-
 
 
     <style name="bran_online_supervise_dialog" parent="@android:style/Theme.Dialog">

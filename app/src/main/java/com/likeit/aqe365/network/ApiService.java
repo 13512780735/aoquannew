@@ -3,7 +3,6 @@ package com.likeit.aqe365.network;
 import com.likeit.aqe365.adapter.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.network.consts.Consts;
 import com.likeit.aqe365.network.model.BaseResponse;
-import com.likeit.aqe365.network.model.CaseEntity;
 import com.likeit.aqe365.network.model.CaseIdEntity;
 import com.likeit.aqe365.network.model.DiyTabModel;
 import com.likeit.aqe365.network.model.EmptyEntity;
@@ -56,7 +55,6 @@ import com.likeit.aqe365.network.model.pay.BalacePayModel;
 import com.likeit.aqe365.network.model.pay.PayModel;
 
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -65,7 +63,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import rx.Observable;
 
 

@@ -103,4 +103,12 @@ public class BaseFragment<T extends BasePresenterInterface> extends Fragment {
 
     public void app_linkurl(String str) {
     }
+
+    public void tel(String str) {
+        XLog.e("tel:->" + str);
+    }
+
+    public void navigation(String str) {
+        XLog.e("tel:->" + str);
+    }
 }

@@ -5,9 +5,9 @@ android {
     defaultConfig {
         applicationId "com.likeit.aqe365"
         minSdkVersion 21
-        targetSdkVersion 22
-        versionCode 20
-        versionName "3.0.7"
+        targetSdkVersion 24
+        versionCode 21
+        versionName "3.0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
@@ -150,4 +150,8 @@ dependencies {
     // implementation "com.mob.sdk:MobSDK:2018.0319.1724"
     // implementation 'com.github.OCNYang:CartLayout:v1.0.1'
     implementation project(':cartlayout')
+    implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+  // implementation 'com.yanzhenjie.permission:support:2.0.1'
 }

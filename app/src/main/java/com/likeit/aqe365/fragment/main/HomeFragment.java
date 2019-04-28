@@ -142,14 +142,17 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         iconTypeface = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
         city = SharedPreferencesUtils.getString(getContext(), "city");
         String startAdv = SharedPreferencesUtils.getString(getActivity(), "startAdv");
-        XLog.e("startAdv" + startAdv);
-        initTab();
-//        if (startAdv != null) {
-//            initStartAdv();
-//        } else {
-//            return;
-//        }
 
+        Type type = new TypeToken<MainNavigationModel.StartadvBean>() {
+        }.getType();
+        MainNavigationModel.StartadvBean items = new Gson().fromJson(startAdv, type);
+        if (items != null) {
+            initStartAdv();
+        } else{
+            XLog.e("执行此方法");
+        }
+
+            initTab();
 
     }
 

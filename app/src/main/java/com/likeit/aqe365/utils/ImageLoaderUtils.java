@@ -61,7 +61,7 @@ public class ImageLoaderUtils {
                 .memoryCache(new UsingFreqLimitedMemoryCache(MEMORY_CACHE_SIZE))
                 .memoryCache(new WeakMemoryCache())
                 .diskCacheSize(DISK_CACHE_SIZE)
-                .diskCacheFileCount(300)
+                .diskCacheFileCount(100)
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密
                 .tasksProcessingOrder(QueueProcessingType.FIFO)
                 .defaultDisplayImageOptions(getDefaultOptions())

@@ -125,18 +125,31 @@ public class MemberCartActivity extends BaseActivity implements ShopcartExpandab
     static ArrayList<String> stringArrayList2 = new ArrayList<String>();
 
     private void initTab() {
+        stringArrayList.clear();
+        stringArrayList1.clear();
+        stringArrayList2
+                .clear();
+//        stringArrayList=null;
+//        stringArrayList1=null;
+//        stringArrayList2=null;
         String navtab = SharedPreferencesUtils.getString(mContext, "navtab");
         Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
         }.getType();
         List<MainNavigationModel.ItemsBean> items = new Gson().fromJson(navtab, type);
+        XLog.e("mTitles99->" + items.size());
         for (int i = 0; i < items.size(); i++) {
             stringArrayList.add(items.get(i).getText());
             stringArrayList1.add(StringUtil.decode("\\u" + items.get(i).getIconclasscode()));
             stringArrayList2.add(items.get(i).getLinkurl());
         }
+        XLog.e("mTitles12->" + stringArrayList.size());
+
         mTitles = stringArrayList.toArray(new String[stringArrayList.size()]);
         mLinkurl = stringArrayList2.toArray(new String[stringArrayList2.size()]);
+
         mIconSelectIds = stringArrayList1.toArray(new String[stringArrayList1.size()]);
+
+        XLog.e("mTitles10->" + mTitles.length);
     }
 
     public void initUI() {
@@ -181,9 +194,11 @@ public class MemberCartActivity extends BaseActivity implements ShopcartExpandab
         header = LayoutInflater.from(mContext).inflate(R.layout.empty_shopcart, null);
         mTvGoHome = header.findViewById(R.id.tv_go_home);
         mRecyclerView = footer.findViewById(R.id.RecyclerView);
+
         mTvGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                XLog.e("mTitles88->" + mTitles.length);
                 Bundle bundle = new Bundle();
                 bundle.putString("flag", "0");
                 bundle.putStringArray("mTitles", mTitles);
@@ -191,6 +206,7 @@ public class MemberCartActivity extends BaseActivity implements ShopcartExpandab
                 bundle.putStringArray("mIconSelectIds", mIconSelectIds);
                 bundle.putInt("index", 0);
                 toActivity(MainActivity.class, bundle);
+                finish();
                 AppManager.getAppManager().finishAllActivity();
             }
         });

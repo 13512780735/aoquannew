@@ -102,7 +102,7 @@ public class UserInfoActivity extends BaseActivity implements ActionSheet.OnActi
             @Override
             public void onFinish(File outputFile, Uri outputUri) {
                // Bitmap bitmap = PhotoUtils.getBitmapFromUri(outputUri, UserInfoActivity.this);
-
+                XLog.e("path->"+outputFile.getAbsolutePath());
                 Bitmap bitmap = null;
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), outputUri);
@@ -124,6 +124,7 @@ public class UserInfoActivity extends BaseActivity implements ActionSheet.OnActi
     }
 
     private void upAvatar(final String base64Token) {
+
         XLog.e("base64Token-->"+base64Token);
         LoaddingShow();
         RetrofitUtil.getInstance().UpAvatar(openid, base64Token, new Subscriber<BaseResponse<AvatarModel>>() {
