@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,6 +25,7 @@ import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.NineGridTestLayout;
 import com.likeit.aqe365.view.RoundImageView;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.List;
 
@@ -46,7 +48,8 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
         mImageLoader= ImageLoaderUtils.getInstance(mContext);
         mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_title, item.getNickname());
-        helper.setText(R.id.tv_content, item.getContent());
+       // helper.setText(R.id.tv_content, item.getContent());
+        RichText.from(item.getContent()).into((TextView) helper.getView(R.id.tv_content));
         helper.setText(R.id.tv_time, item.getCreatetime());
         helper.setText(R.id.tv_huati, item.getHuati());
         iscollect = item.getIscollect();

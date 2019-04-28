@@ -24,14 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +44,7 @@ import com.likeit.aqe365.utils.IntentUtils;
 import com.likeit.aqe365.utils.LoaddingDialog;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.ToastUtils;
+import com.likeit.aqe365.view.MyX5WebView;
 import com.likeit.aqe365.wxapi.MD5;
 import com.likeit.aqe365.wxapi.alipay.PayResult;
 import com.tencent.mm.sdk.modelpay.PayReq;
@@ -81,12 +77,12 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
     TextView mTvToolbarTitle;
     @BindView(R.id.img_toolbar_back)
     ImageView mImgToolbarBack;
-    @BindView(R.id.web)
-    WebView mWebView;
-    @BindView(R.id.load_error_layout)
-    LinearLayout ll_control_error;
-    @BindView(R.id.online_error_btn_retry)
-    RelativeLayout error;
+    @BindView(R.id.main_web)
+    MyX5WebView mWebView;
+//    @BindView(R.id.load_error_layout)
+//    LinearLayout ll_control_error;
+//    @BindView(R.id.online_error_btn_retry)
+//    RelativeLayout error;
 
 
     private LoaddingDialog mDialog;
@@ -145,7 +141,7 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
     private CustomDialog dialog;
     private boolean mIsLoadSuccess;
     private View mErrorView;
-    private WebSettings mWebSettings;
+    private com.tencent.smtt.sdk.WebSettings mWebSettings;
     private String token;
     private String url;
     private int RESULT_OK;
@@ -177,15 +173,56 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
 //            url = Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&token=" + token;
 //            // url="http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=" + mobile + "&pwd=" + pwd + "&act=auto";
 //        }
-        error.setOnClickListener(new View.OnClickListener() {
+//        error.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ll_control_error.setVisibility(View.GONE);
+//                mWebView.reload();
+//            }
+//        });
+       // setupUI();
+        initWebViewSettings();
+        return view;
+    }
+    private void initWebViewSettings() {
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.addJavascriptInterface(new JsInterfaceLogic(this), "app");
+        mWebSettings = mWebView.getSettings();
+        mWebSettings.setJavaScriptEnabled(true);    //允许加载javascript
+        mWebSettings.setSupportZoom(false);          //允许缩放
+        mWebSettings.setBuiltInZoomControls(false);  //原网页基础上缩放
+        mWebSettings.setUseWideViewPort(false);      //任意比例缩放
+        mWebSettings.setLoadWithOverviewMode(true);
+        mWebSettings.setDomStorageEnabled(true);
+        mWebSettings.setDefaultTextEncodingName("UTF-8");
+        mWebSettings.setAllowContentAccess(true); // 是否可访问Content Provider的资源，默认值 true
+        mWebSettings.setAllowFileAccess(true);    // 是否可访问本地文件，默认值 true
+        // 是否允许通过file url加载的Javascript读取本地文件，默认值 false
+        mWebSettings.setAllowFileAccessFromFileURLs(true);
+        // 是否允许通过file url加载的Javascript读取全部资源(包括文件,http,https)，默认值 false
+        mWebSettings.setAllowUniversalAccessFromFileURLs(true);
+        mOpenFileWebChromeClient = new OpenFileWebChromeClient(getActivity());
+        //mWebView.setWebChromeClient(mOpenFileWebChromeClient);
+
+        // this.getSettingsExtension().setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);//extension
+        // settings 的设计
+        mWebView.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onClick(View v) {
-                ll_control_error.setVisibility(View.GONE);
-                mWebView.reload();
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
+                    mWebView.goBack();
+                    return true;
+                }
+                return false;
+
             }
         });
-        setupUI();
-        return view;
+        mImgToolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWebView.goBack();
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -219,94 +256,100 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
     }
 
 
-    private void setupUI() {
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.addJavascriptInterface(new JsInterfaceLogic(this), "app");
-        mWebSettings = mWebView.getSettings();
-        mWebSettings.setJavaScriptEnabled(true);    //允许加载javascript
-        mWebSettings.setSupportZoom(false);          //允许缩放
-        mWebSettings.setBuiltInZoomControls(false);  //原网页基础上缩放
-        mWebSettings.setUseWideViewPort(false);      //任意比例缩放
-        mWebSettings.setLoadWithOverviewMode(true);
-        mWebSettings.setDomStorageEnabled(true);
-        mWebSettings.setDefaultTextEncodingName("UTF-8");
-        mWebSettings.setAllowContentAccess(true); // 是否可访问Content Provider的资源，默认值 true
-        mWebSettings.setAllowFileAccess(true);    // 是否可访问本地文件，默认值 true
-        // 是否允许通过file url加载的Javascript读取本地文件，默认值 false
-        mWebSettings.setAllowFileAccessFromFileURLs(true);
-        // 是否允许通过file url加载的Javascript读取全部资源(包括文件,http,https)，默认值 false
-        mWebSettings.setAllowUniversalAccessFromFileURLs(true);
-        mOpenFileWebChromeClient = new OpenFileWebChromeClient(getActivity());
-        mWebView.setWebChromeClient(mOpenFileWebChromeClient);
-//        mWebView.setWebChromeClient(new WebChromeClient() {
-//                        @Override
-//            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-//                result.confirm();
-//                return super.onJsAlert(view, url, message, result);
+//    private void setupUI() {
+//        mWebView.getSettings().setJavaScriptEnabled(true);
+//        mWebView.addJavascriptInterface(new JsInterfaceLogic(this), "app");
+//        mWebSettings = mWebView.getSettings();
+//        mWebSettings.setJavaScriptEnabled(true);    //允许加载javascript
+//        mWebSettings.setSupportZoom(false);          //允许缩放
+//        mWebSettings.setBuiltInZoomControls(false);  //原网页基础上缩放
+//        mWebSettings.setUseWideViewPort(false);      //任意比例缩放
+//        mWebSettings.setLoadWithOverviewMode(true);
+//        mWebSettings.setDomStorageEnabled(true);
+//
+//        mWebSettings.setAppCacheEnabled(true);
+//        mWebSettings.setSaveFormData(true);
+//        mWebSettings.setDomStorageEnabled(true);
+//        mWebSettings.setDatabaseEnabled(true);
+//        mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+//        mWebSettings.setDefaultTextEncodingName("UTF-8");
+//        mWebSettings.setAllowContentAccess(true); // 是否可访问Content Provider的资源，默认值 true
+//        mWebSettings.setAllowFileAccess(true);    // 是否可访问本地文件，默认值 true
+//        // 是否允许通过file url加载的Javascript读取本地文件，默认值 false
+//        mWebSettings.setAllowFileAccessFromFileURLs(true);
+//        // 是否允许通过file url加载的Javascript读取全部资源(包括文件,http,https)，默认值 false
+//        mWebSettings.setAllowUniversalAccessFromFileURLs(true);
+//        mOpenFileWebChromeClient = new OpenFileWebChromeClient(getActivity());
+//        mWebView.setWebChromeClient(mOpenFileWebChromeClient);
+////        mWebView.setWebChromeClient(new WebChromeClient() {
+////                        @Override
+////            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+////                result.confirm();
+////                return super.onJsAlert(view, url, message, result);
+////            }
+////        });
+//        mWebView.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                view.loadUrl(url);
+//
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                super.onPageStarted(view, url, favicon);
+//                //  mDialog.show();
+//
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                // mWebView.setVisibility(View.VISIBLE);
+//                mDialog.dismiss();
+//                //hideErrorPage();
+//                //super.onPageFinished(view, url);
+//                if (!isError) {
+//                    isSuccess = true;
+//                    //回调成功后的相关操作
+//                    ll_control_error.setVisibility(View.GONE);
+//                    mWebView.setVisibility(View.VISIBLE);
+//                } else {
+//                    isError = false;
+//                    ll_control_error.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+//                super.onReceivedError(view, request, error);
+//                isError = true;
+//                isSuccess = false;
+//                //6.0以上执行
+//                mWebView.setVisibility(View.GONE);
+//                ll_control_error.setVisibility(View.VISIBLE);
 //            }
 //        });
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-
-                return true;
-            }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                //  mDialog.show();
-
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                // mWebView.setVisibility(View.VISIBLE);
-                mDialog.dismiss();
-                //hideErrorPage();
-                //super.onPageFinished(view, url);
-                if (!isError) {
-                    isSuccess = true;
-                    //回调成功后的相关操作
-                    ll_control_error.setVisibility(View.GONE);
-                    mWebView.setVisibility(View.VISIBLE);
-                } else {
-                    isError = false;
-                    ll_control_error.setVisibility(View.VISIBLE);
-                }
-            }
-
-
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                super.onReceivedError(view, request, error);
-                isError = true;
-                isSuccess = false;
-                //6.0以上执行
-                mWebView.setVisibility(View.GONE);
-                ll_control_error.setVisibility(View.VISIBLE);
-            }
-        });
-
-        mWebView.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
-                    mWebView.goBack();
-                    return true;
-                }
-                return false;
-
-            }
-        });
-        mImgToolbarBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mWebView.goBack();
-            }
-        });
-    }
+//
+//        mWebView.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
+//                    mWebView.goBack();
+//                    return true;
+//                }
+//                return false;
+//
+//            }
+//        });
+//        mImgToolbarBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mWebView.goBack();
+//            }
+//        });
+//    }
 
     @Override
     public void showNativeMessage(String message) {
@@ -364,13 +407,19 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
 
     @Override
     public void execJavaScript(@NonNull String js) {
-        mWebView.evaluateJavascript(js, new ValueCallback<String>() {
+        mWebView.evaluateJavascript(js, new com.tencent.smtt.sdk.ValueCallback<String>() {
             @Override
             public void onReceiveValue(String s) {
-                //showNativeMessage("调用JS方法后得到的返回值是：" + s);
-                //window.history.go(-1);
+
             }
         });
+//        mWebView.evaluateJavascript(js, new ValueCallback<String>() {
+//            @Override
+//            public void onReceiveValue(String s) {
+//                //showNativeMessage("调用JS方法后得到的返回值是：" + s);
+//                //window.history.go(-1);
+//            }
+//        });
     }
 
     /**

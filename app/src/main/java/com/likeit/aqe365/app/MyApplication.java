@@ -3,6 +3,7 @@ package com.likeit.aqe365.app;
 import android.Manifest;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.main.MainNavigationModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.service.X5NetService;
 import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.image.GImageLoader;
@@ -65,13 +67,18 @@ public class MyApplication extends Application {
         initData1();
 
         MobSDK.init(this);//shareSDk初始化
+        preInitX5Core();
         // ZXingLibrary.initDisplayOpinion(this);
         // initX5WebView();
         // DemoHelper.getInstance().init(mContext);
         //
         //                                             initX5WebView();
     }
-
+    private void preInitX5Core() {
+        //预加载x5内核
+        Intent intent = new Intent(this, X5NetService.class);
+        startService(intent);
+    }
 
     private void initData1() {
         RetrofitUtil.getInstance().getMainNavigation("1", new Subscriber<BaseResponse<MainNavigationModel>>() {

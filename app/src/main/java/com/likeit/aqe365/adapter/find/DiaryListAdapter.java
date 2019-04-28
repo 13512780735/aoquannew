@@ -3,6 +3,7 @@ package com.likeit.aqe365.adapter.find;
 
 import android.graphics.Color;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -13,6 +14,7 @@ import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderTextView;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.RatioImageView;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.List;
 
@@ -35,7 +37,8 @@ public class DiaryListAdapter extends BaseQuickAdapter<DiaryListModel.ListBean, 
         mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
         helper.setText(R.id.tv_name, item.getNickname());
         helper.setText(R.id.tv_time, item.getEdittime());
-        helper.setText(R.id.tv_content, item.getContent());
+       // helper.setText(R.id.tv_content, item.getContent());
+        RichText.from(item.getContent()).into((TextView) helper.getView(R.id.tv_content));
         helper.setText(R.id.tv_title, "浏览：" + item.getViews());
         final BorderTextView tvAttention = helper.getView(R.id.tv_attention);
         tvAttention.setVisibility(View.VISIBLE);

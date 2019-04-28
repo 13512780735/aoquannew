@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -25,6 +26,7 @@ import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.IconfontTextView;
 import com.likeit.aqe365.view.NineGridTestLayout;
 import com.likeit.aqe365.view.RoundImageView;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.List;
 
@@ -51,7 +53,8 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
         XLog.e("item.getAvatar()"+item.getAvatar());
         mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_title, item.getNickname());
-        helper.setText(R.id.tv_content, item.getContent());
+      //  helper.setText(R.id.tv_content, item.getContent());
+        RichText.from(item.getContent()).into((TextView) helper.getView(R.id.tv_content));
         helper.setText(R.id.tv_time, item.getCreatetime());
         helper.setText(R.id.tv_huati, item.getHuati());
         tvIsCollect=helper.getView(R.id.tv_iscollect);

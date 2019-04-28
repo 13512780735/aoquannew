@@ -54,10 +54,16 @@
         android:layout_height="1dp"
         android:background="#AAAAAA" />
 -->
-    <WebView
+   <!-- <WebView
         android:id="@+id/web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
       />
-    <include layout="@layout/layout_load_error"/>
+    <include layout="@layout/layout_load_error"/>-->
+
+    <com.likeit.aqe365.view.MyX5WebView
+        android:id="@+id/main_web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.likeit.aqe365.view.MyX5WebView>
 </LinearLayout>
