@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -47,8 +48,12 @@ import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.MyX5WebView;
 import com.likeit.aqe365.wxapi.MD5;
 import com.likeit.aqe365.wxapi.alipay.PayResult;
+import com.tencent.mm.sdk.constants.ConstantsAPI;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
@@ -113,19 +118,22 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
                     SharedPreferencesUtils.put(getActivity(), "code", resultStatus);
 //                    // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        Toast.makeText(getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
-                        mPresenter.clickBtn1();
+                       // Toast.makeText(getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
+                        //  mPresenter.clickBtn1();
+                        IntentUtils.intentTo(getActivity(), "", "", succurl);
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
-                            Toast.makeText(getActivity(), "支付结果确认中", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), "支付结果确认中", Toast.LENGTH_SHORT).show();
                             mPresenter.clickBtn2();
+                            IntentUtils.intentTo(getActivity(), "", "", faildurl);
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(getActivity(), "支付失败", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), "支付失败", Toast.LENGTH_SHORT).show();
                             Log.d("TAG", "resultStatus-->" + resultStatus);
-                            mPresenter.clickBtn2();
+                            // mPresenter.clickBtn2();
+                            IntentUtils.intentTo(getActivity(), "", "", faildurl);
 
                         }
                     }
@@ -146,6 +154,8 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
     private String url;
     private int RESULT_OK;
     private OpenFileWebChromeClient mOpenFileWebChromeClient;
+    private String succurl;
+    private String faildurl;
 
     @Nullable
     @Override
@@ -180,10 +190,11 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
 //                mWebView.reload();
 //            }
 //        });
-       // setupUI();
+        // setupUI();
         initWebViewSettings();
         return view;
     }
+
     private void initWebViewSettings() {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.addJavascriptInterface(new JsInterfaceLogic(this), "app");
@@ -371,6 +382,9 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
     @Override
     public void showWeChatPay(String str) {
         super.showWeChatPay(str);
+        XLog.e("微信支付：" + str);
+        XLog.json(str);
+
         try {
             JSONObject object = new JSONObject(str);
             String appId = object.optString("appid");
@@ -378,6 +392,10 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
             String prepayId = object.optString("prepay_id");
             String nonceStr = object.optString("nonce_str");
             String packageValue = "Sign=Wxpay";
+            succurl = object.optString("succurl");
+            faildurl = object.optString("faildurl");
+            SharedPreferencesUtils.put(getActivity(), "succurl", succurl);
+            SharedPreferencesUtils.put(getActivity(), "faildurl", faildurl);
             long timeMills = System.currentTimeMillis() / 1000;
             String timeStamp = String.valueOf(timeMills);
             String stringA =
@@ -401,6 +419,8 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
     @Override
     public void showAlipayPay(String str) {
         super.showAlipayPay(str);
+        XLog.e("支付宝支付：" + str);
+
         alipay(str);
     }
 
@@ -428,28 +448,37 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
      * @param data
      */
     private void alipay(String data) {
+        try {
+            JSONObject object = new JSONObject(data);
+            final String payInfo = object.optString("data");
+            succurl = object.optString("succurl");
+            faildurl = object.optString("faildurl");
+//            SharedPreferencesUtils.put(getActivity(), "succurl", succurl);
+//            SharedPreferencesUtils.put(getActivity(), "faildurl", faildurl);
 
-        final String payInfo = data;
+            // final String payInfo = data;
 
-        Runnable payRunnable = new Runnable() {
+            Runnable payRunnable = new Runnable() {
 
-            @Override
-            public void run() {
-                // 构造PayTask 对象
-                PayTask alipay = new PayTask(getActivity());
-                // 调用支付接口，获取支付结果
-                String result = alipay.pay(payInfo, true);
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
-        };
+                @Override
+                public void run() {
+                    // 构造PayTask 对象
+                    PayTask alipay = new PayTask(getActivity());
+                    // 调用支付接口，获取支付结果
+                    String result = alipay.pay(payInfo, true);
+                    Message msg = new Message();
+                    msg.what = SDK_PAY_FLAG;
+                    msg.obj = result;
+                    mHandler.sendMessage(msg);
+                }
+            };
 
-        // 必须异步调用
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
-
+            // 必须异步调用
+            Thread payThread = new Thread(payRunnable);
+            payThread.start();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -543,12 +572,13 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
             e.printStackTrace();
         }
     }
+
     /**
      * 跳转高德地图
      */
     private void goToGaodeMap(double mLat, double mLng, String mAddressStr) {
         if (!isInstalled("com.autonavi.minimap")) {
-            ToastUtils.showToast(getActivity(),"请先安装高德地图客户端");
+            ToastUtils.showToast(getActivity(), "请先安装高德地图客户端");
             return;
         }
         LatLng endPoint = BD2GCJ(new LatLng(mLat, mLng));//坐标转换
@@ -683,7 +713,7 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-                Toast.makeText(getActivity(), "錯誤", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "错误", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -693,6 +723,7 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         });
         oks.show(getActivity());
     }
+
 
     public class OpenFileWebChromeClient extends WebChromeClient {
         public static final int REQUEST_FILE_PICKER = 1;

@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
@@ -74,7 +77,17 @@ public class MainHomeMerchgroupsProvider extends BaseItemProvider<MainHomeMerchg
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090*3/4)
 //                    .crossFade().into((ImageView) helper.getView(R.id.iv_logo));
-            mImageLoader.displayImage(item.getLogo(),(ImageView) helper.getView(R.id.iv_logo));
+           // mImageLoader.displayImage(item.getLogo(),(ImageView) helper.getView(R.id.iv_logo));
+
+            Glide.with(mContext)
+                    .load(item.getLogo())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (ImageView) helper.getView(R.id.iv_logo));
+
             if (item.getData().size() == 1) {
 //                Glide.with(mContext).load(item.getData().get(0))
 //                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -82,7 +95,15 @@ public class MainHomeMerchgroupsProvider extends BaseItemProvider<MainHomeMerchg
 //                        .error(R.mipmap.default_pic)
 //                        .centerCrop().override(1090, 1090*3/4)
 //                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
-                mImageLoader.displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
+                //mImageLoader.displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
+                Glide.with(mContext)
+                        .load(item.getData().get(0))
+                        .override(600, 600)
+                        .animate(R.anim.item_alpha_in)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true)
+                        .priority(Priority.HIGH)
+                        .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv01));
             } else if (item.getData().size() == 2) {
 //                Glide.with(mContext).load(item.getData().get(0))
 //                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -90,8 +111,24 @@ public class MainHomeMerchgroupsProvider extends BaseItemProvider<MainHomeMerchg
 //                        .error(R.mipmap.default_pic)
 //                        .centerCrop().override(1090, 1090*3/4)
 //                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
-                mImageLoader.displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
-                mImageLoader.displayImage(item.getData().get(1),(RatioImageView) helper.getView(R.id.iv02));
+               // mImageLoader.displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
+                Glide.with(mContext)
+                        .load(item.getData().get(0))
+                        .override(600, 600)
+                        .animate(R.anim.item_alpha_in)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true)
+                        .priority(Priority.HIGH)
+                        .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv01));
+                Glide.with(mContext)
+                        .load(item.getData().get(1))
+                        .override(600, 600)
+                        .animate(R.anim.item_alpha_in)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true)
+                        .priority(Priority.HIGH)
+                        .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv02));
+               // mImageLoader.displayImage(item.getData().get(1),(RatioImageView) helper.getView(R.id.iv02));
 //                Glide.with(mContext).load(item.getData().get(1))
 //                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
 //                        .placeholder(R.mipmap.default_pic)
@@ -106,9 +143,33 @@ public class MainHomeMerchgroupsProvider extends BaseItemProvider<MainHomeMerchg
 //                        .error(R.mipmap.default_pic)
 //                        .centerCrop().override(1090, 1090*3/4)
 //                        .crossFade().into((RatioImageView) helper.getView(R.id.iv01));
-                mImageLoader.displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
-                mImageLoader.displayImage(item.getData().get(1),(RatioImageView) helper.getView(R.id.iv02));
-                mImageLoader.displayImage(item.getData().get(2),(RatioImageView) helper.getView(R.id.iv03));
+//                mImageLoader.displayImage(item.getData().get(0),(RatioImageView) helper.getView(R.id.iv01));
+//                mImageLoader.displayImage(item.getData().get(1),(RatioImageView) helper.getView(R.id.iv02));
+//                mImageLoader.displayImage(item.getData().get(2),(RatioImageView) helper.getView(R.id.iv03));
+                Glide.with(mContext)
+                        .load(item.getData().get(0))
+                        .override(600, 600)
+                        .animate(R.anim.item_alpha_in)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true)
+                        .priority(Priority.HIGH)
+                        .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv01));
+                Glide.with(mContext)
+                        .load(item.getData().get(1))
+                        .override(600, 600)
+                        .animate(R.anim.item_alpha_in)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true)
+                        .priority(Priority.HIGH)
+                        .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv02));
+                Glide.with(mContext)
+                        .load(item.getData().get(2))
+                        .override(600, 600)
+                        .animate(R.anim.item_alpha_in)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true)
+                        .priority(Priority.HIGH)
+                        .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv03));
 //                Glide.with(mContext).load(item.getData().get(1))
 //                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
 //                        .placeholder(R.mipmap.default_pic)

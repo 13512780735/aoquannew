@@ -12,8 +12,9 @@
         android:id="@+id/search_block"
         android:layout_width="match_parent"
         android:layout_height="@dimen/width40"
-        android:layout_marginTop="@dimen/width25"
         android:background="@color/white"
+
+        android:layout_marginTop="@dimen/dp_5"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="10dp">

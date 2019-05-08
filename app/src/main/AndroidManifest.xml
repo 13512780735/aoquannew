@@ -124,7 +124,19 @@
         <activity android:name=".activity.cart.SelectAddressActivity" />
         <activity android:name=".activity.cart.MemberCartActivity" />
         <activity android:name=".wxapi.PayActivity" />
-        <activity android:name=".wxapi.WXPayEntryActivity" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wx53ba9da9956a74aa" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.cart.EditAddressActivity" />
         <activity android:name=".view.photoview.ViewPagerActivity" />
         <activity android:name=".activity.indent.GoodsIndentActivity" />

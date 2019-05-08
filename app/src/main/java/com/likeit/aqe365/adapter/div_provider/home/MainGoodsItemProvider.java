@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
@@ -282,7 +285,20 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
 //                    .centerCrop().override(1090, 1090*3/4)
 //                    .crossFade().into(ivPicture);
 
-            mImageLoader.displayImage(item.getThumb(),ivPicture);
+        //    mImageLoader.displayImage(item.getThumb(),ivPicture);
+
+
+            Glide.with(mContext)
+                    .load(item.getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into(ivPicture);
+
+
+
             tvTitle.setText(item.getTitle());
             tv_price01.setText(paramsBean.getProductpricetext() + ":");
             tv_price02.setText(item.getProductprice());
@@ -364,7 +380,17 @@ public class MainGoodsItemProvider extends BaseItemProvider<MainHomeGoodModel, B
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090*3/4)
 //                    .crossFade().into(ivPicture);
-            mImageLoader.displayImage(item.getThumb(),ivPicture);
+          //  mImageLoader.displayImage(item.getThumb(),ivPicture);
+
+            Glide.with(mContext)
+                    .load(item.getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into(ivPicture);
+
             tvTitle.setText(item.getTitle());
             tv_price01.setText(paramsBean.getProductpricetext() + ":");
             tv_price02.setText(item.getProductprice());

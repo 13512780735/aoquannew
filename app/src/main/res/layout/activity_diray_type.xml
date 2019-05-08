@@ -9,10 +9,10 @@
     <RelativeLayout
         android:id="@id/titleBar"
         android:layout_width="match_parent"
-        android:layout_height="70dip"
+        android:layout_height="50dip"
         android:background="@color/defualt_window_background"
         android:orientation="vertical"
-        android:paddingTop="20dip">
+     >
 
         <LinearLayout
             android:id="@+id/back_view"

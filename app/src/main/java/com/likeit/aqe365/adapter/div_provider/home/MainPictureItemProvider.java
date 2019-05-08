@@ -5,6 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
@@ -70,7 +73,15 @@ public class MainPictureItemProvider extends BaseItemProvider<MainHomePictureMod
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090*3/4)
 //                    .crossFade().into(ivPicture);
-            mImageLoader.displayImage(item.getImgurl(),ivPicture);
+           // mImageLoader.displayImage(item.getImgurl(),ivPicture);
+            Glide.with(mContext)
+                    .load(item.getImgurl())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( ivPicture);
         }
     }
 }

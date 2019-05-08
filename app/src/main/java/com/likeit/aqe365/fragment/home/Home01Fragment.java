@@ -97,11 +97,18 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
     @Override
     protected void lazyLoad() {
         city = SharedPreferencesUtils.getString(getContext(), "city");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         initData();
     }
+
     private void initData() {
 
-        loaddingDialog.show();
+      //  loaddingDialog.show();
         String url = ApiService.Main_Home;
         RequestParams params = new RequestParams();
         params.put("openid", "");
@@ -132,14 +139,14 @@ public class Home01Fragment extends BaseFragment implements SwipeRefreshLayout.O
 
             @Override
             public void failed(Throwable e) {
-                loaddingDialog.dismiss();
+                //loaddingDialog.dismiss();
                 XLog.e(e);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                loaddingDialog.dismiss();
+              //  loaddingDialog.dismiss();
             }
         });
     }

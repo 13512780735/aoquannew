@@ -278,7 +278,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initData() {
-        loaddingDialog.show();
         String url = ApiService.Main_Home;
         RequestParams params = new RequestParams();
         params.put("openid", "");
@@ -309,14 +308,12 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             @Override
             public void failed(Throwable e) {
-                loaddingDialog.dismiss();
                 XLog.e(e);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                loaddingDialog.dismiss();
             }
         });
     }

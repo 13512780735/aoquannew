@@ -47,6 +47,8 @@ public class AllFind02Adapter extends BaseQuickAdapter<FollowlistModel.ListBean,
     protected void convert(final BaseViewHolder helper, final FollowlistModel.ListBean item) {
         mImageLoader= ImageLoaderUtils.getInstance(mContext);
         mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
+
+
         helper.setText(R.id.tv_title, item.getNickname());
        // helper.setText(R.id.tv_content, item.getContent());
         RichText.from(item.getContent()).into((TextView) helper.getView(R.id.tv_content));

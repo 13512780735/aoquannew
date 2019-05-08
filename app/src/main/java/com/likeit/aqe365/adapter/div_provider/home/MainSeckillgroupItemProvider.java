@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -126,7 +127,18 @@ public class MainSeckillgroupItemProvider extends BaseItemProvider<MainHomeSecki
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090*3/4)
 //                    .crossFade().into(ivPic);
-            ImageLoader.getInstance().displayImage(item.getThumb(),ivPic);
+          //  ImageLoader.getInstance().displayImage(item.getThumb(),ivPic);
+
+            Glide.with(mContext)
+                    .load(item.getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( ivPic);
+
+
             tvNewPrice.setText("¥" + item.getPrice());
             tvOrdPrice.setText("¥" + item.getMarketprice());
             tvOrdPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

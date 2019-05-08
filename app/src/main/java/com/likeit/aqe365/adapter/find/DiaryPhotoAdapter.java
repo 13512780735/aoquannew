@@ -7,11 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.find.DiaryphotoModel;
+import com.likeit.aqe365.utils.GlideRoundTransform;
 import com.likeit.aqe365.utils.ImageLoaderUtils;
+import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.RoundImageView;
 import com.likeit.aqe365.view.photoview.ViewPagerActivity;
 
@@ -64,7 +70,18 @@ public class DiaryPhotoAdapter extends BaseQuickAdapter<DiaryphotoModel.ListBean
 //            w_screen = (dm.widthPixels - 60) / 4;
 //            h_screen = w_screen;
 //            iv_Img.setLayoutParams(linearParams);
-            mImageLoader.displayImage(item, iv_Img);
+         //   mImageLoader.displayImage(item, iv_Img);
+
+            Glide.with(mContext)
+                    .load(item)
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                    .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext,10))
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into(iv_Img);
         }
     }
 }

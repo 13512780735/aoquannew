@@ -5,6 +5,9 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeit.aqe365.R;
@@ -46,7 +49,17 @@ public class MainVideoItemProvider extends BaseItemProvider<MainHomeVideoModel, 
 //                .error(R.mipmap.default_pic)
 //                .centerCrop().override(1090, 1090*3/4)
 //                .crossFade().into(imageView);
-        mImageLoader.displayImage(data.getParams().getPoster(),imageView);
+        //mImageLoader.displayImage(data.getParams().getPoster(),imageView);
+
+        Glide.with(mContext)
+                .load(data.getParams().getPoster())
+                .override(600, 600)
+                .animate(R.anim.item_alpha_in)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .priority(Priority.HIGH)
+                .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( imageView);
+
         detailPlayer.getTitleTextView().setVisibility(View.GONE);
         detailPlayer.getBackButton().setVisibility(View.GONE);
 

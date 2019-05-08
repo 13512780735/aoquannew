@@ -10,6 +10,10 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.elvishew.xlog.XLog;
@@ -18,6 +22,7 @@ import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.find.MoodListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.GlideRoundTransform;
 import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.PopupWindowUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
@@ -51,7 +56,15 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
         ImageLoaderUtils mImageLoader = ImageLoaderUtils.getInstance(mContext);
         XLog.e("item.getNickname()"+item.getNickname());
         XLog.e("item.getAvatar()"+item.getAvatar());
-        mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
+      //  mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_img));
+        Glide.with(mContext)
+                .load(item.getAvatar())
+                .override(600, 600)
+                .animate(R.anim.item_alpha_in)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .priority(Priority.HIGH)
+                .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (CircleImageView) helper.getView(R.id.iv_img));
         helper.setText(R.id.tv_title, item.getNickname());
       //  helper.setText(R.id.tv_content, item.getContent());
         RichText.from(item.getContent()).into((TextView) helper.getView(R.id.tv_content));
@@ -91,7 +104,19 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
         } else {
             layout.setVisibility(View.GONE);
             fr_video.setVisibility(View.VISIBLE);
-            mImageLoader.displayImage(item.getVideoimage(), iv_video_img);
+            //mImageLoader.displayImage(item.getVideoimage(), iv_video_img);
+
+            Glide.with(mContext)
+                    .load(item.getVideoimage())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                    .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext,20))
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (CircleImageView) helper.getView(R.id.iv_video_img));
+
         }
 
         helper.getView(R.id.tv_likes).setOnClickListener(new View.OnClickListener() {

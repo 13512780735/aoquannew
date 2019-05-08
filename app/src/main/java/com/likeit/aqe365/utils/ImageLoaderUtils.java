@@ -65,6 +65,7 @@ public class ImageLoaderUtils {
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密
                 .tasksProcessingOrder(QueueProcessingType.FIFO)
                 .defaultDisplayImageOptions(getDefaultOptions())
+
                 .imageDownloader(new BaseImageDownloader(context, CONNECTION_TIME_OUT, READ_TIME_OUT))
                 .writeDebugLogs()
                 .build();
@@ -108,6 +109,7 @@ public class ImageLoaderUtils {
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
                 .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型//
                 .decodingOptions(new BitmapFactory.Options())//设置图片的解码配置
+                .displayer(new FadeInBitmapDisplayer(200))
                 .resetViewBeforeLoading(true)//设置图片在下载前是否重置，复位
                 .build();
         return options;
@@ -124,7 +126,7 @@ public class ImageLoaderUtils {
                 .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型//
                 .decodingOptions(new BitmapFactory.Options())//设置图片的解码配置
                 .resetViewBeforeLoading(true)//设置图片在下载前是否重置，复位
-                .displayer(new FadeInBitmapDisplayer(400))
+                .displayer(new FadeInBitmapDisplayer(200))
                 .build();
         return options;
     }

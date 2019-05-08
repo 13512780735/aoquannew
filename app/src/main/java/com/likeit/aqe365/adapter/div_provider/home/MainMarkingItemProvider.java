@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chaychan.adapter.BaseItemProvider;
 import com.likeit.aqe365.R;
@@ -83,8 +86,27 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4)
 //                    .crossFade().into((RatioImageView) helper.getView(R.id.iv_02));
-            mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_01));
-            mImageLoader.displayImage(seckillBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_02));
+          //  mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_01));
+            Glide.with(mContext)
+                    .load(seckillBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_01));
+
+
+
+            Glide.with(mContext)
+                    .load(seckillBean.getData().get(1).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_02));
+          //  mImageLoader.displayImage(seckillBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_02));
             helper.setOnClickListener(R.id.iv_01, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,7 +131,16 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_01));
-            mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_01));
+           // mImageLoader.displayImage(seckillBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_01));
+
+            Glide.with(mContext)
+                    .load(seckillBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_01));
             helper.setOnClickListener(R.id.iv_01, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -142,8 +173,26 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_04));
-            mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_03));
-            mImageLoader.displayImage(renqibangBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_04));
+//            mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_03));
+//            mImageLoader.displayImage(renqibangBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_04));
+
+            Glide.with(mContext)
+                    .load(renqibangBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_03));
+            Glide.with(mContext)
+                    .load(renqibangBean.getData().get(1).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_04));
+
             helper.setOnClickListener(R.id.iv_03, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -168,7 +217,15 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_03));
-            mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_03));
+         //   mImageLoader.displayImage(renqibangBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_03));
+            Glide.with(mContext)
+                    .load(renqibangBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_03));
             helper.setOnClickListener(R.id.iv_03, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -209,8 +266,24 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_06));
-            mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_05));
-            mImageLoader.displayImage(groupbuyBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_06));
+//            mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_05));
+//            mImageLoader.displayImage(groupbuyBean.getData().get(1).getThumb(), (RatioImageView) helper.getView(R.id.iv_06));
+            Glide.with(mContext)
+                    .load(groupbuyBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_05));
+            Glide.with(mContext)
+                    .load(groupbuyBean.getData().get(1).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_06));
             helper.setOnClickListener(R.id.iv_05, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -235,7 +308,15 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_05));
-            mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_05));
+           // mImageLoader.displayImage(groupbuyBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_05));
+            Glide.with(mContext)
+                    .load(groupbuyBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_05));
             helper.setOnClickListener(R.id.iv_05, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -262,7 +343,15 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_07));
-            mImageLoader.displayImage(haohuoBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_07));
+           // mImageLoader.displayImage(haohuoBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_07));
+            Glide.with(mContext)
+                    .load(haohuoBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_07));
             helper.setOnClickListener(R.id.iv_07, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -288,7 +377,15 @@ public class MainMarkingItemProvider extends BaseItemProvider<MainHomeMarkingMod
 //                    .placeholder(R.mipmap.default_pic)
 //                    .error(R.mipmap.default_pic)
 //                    .centerCrop().override(1090, 1090 * 3 / 4).crossFade().into((RatioImageView) helper.getView(R.id.iv_08));
-            mImageLoader.displayImage(xinpinBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_08));
+           // mImageLoader.displayImage(xinpinBean.getData().get(0).getThumb(), (RatioImageView) helper.getView(R.id.iv_08));
+            Glide.with(mContext)
+                    .load(xinpinBean.getData().get(0).getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RatioImageView) helper.getView(R.id.iv_08));
             helper.setOnClickListener(R.id.iv_08, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

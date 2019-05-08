@@ -5,10 +5,15 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.find.DiaryListModel;
+import com.likeit.aqe365.utils.GlideRoundTransform;
 import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.view.BorderTextView;
@@ -34,7 +39,16 @@ public class DiaryListAdapter extends BaseQuickAdapter<DiaryListModel.ListBean, 
         ImageLoaderUtils mImageLoader = ImageLoaderUtils.getInstance(mContext);
         iv01 = helper.getView(R.id.iv01);
         iv02 = helper.getView(R.id.iv02);
-        mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
+      //  mImageLoader.displayImage(item.getAvatar(), (CircleImageView) helper.getView(R.id.iv_avatar));
+        Glide.with(mContext)
+                .load(item.getAvatar())
+                .override(600, 600)
+                .animate(R.anim.item_alpha_in)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                .skipMemoryCache(true)
+                .priority(Priority.HIGH)
+                .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into((CircleImageView) helper.getView(R.id.iv_avatar));
         helper.setText(R.id.tv_name, item.getNickname());
         helper.setText(R.id.tv_time, item.getEdittime());
        // helper.setText(R.id.tv_content, item.getContent());

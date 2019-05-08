@@ -9,10 +9,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/width70"
+        android:layout_height="@dimen/width50"
         android:background="@color/white"
         android:minHeight="?android:attr/actionBarSize"
-        android:paddingTop="@dimen/dp20">
+        >
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="?android:attr/actionBarSize"

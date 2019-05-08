@@ -6,10 +6,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.find.PostListModel;
+import com.likeit.aqe365.utils.GlideRoundTransform;
 import com.likeit.aqe365.utils.ImageLoaderUtils;
 import com.likeit.aqe365.view.CircleImageView;
 import com.likeit.aqe365.view.RatioImageView;
@@ -48,15 +53,41 @@ public class AllFind01Adapter extends BaseQuickAdapter<PostListModel.ListBean, B
         helper.setText(R.id.tv_detail, item.getTitle());
         helper.setText(R.id.tv_name, item.getNickname());
         helper.setText(R.id.tv_dis, item.getCoordinate());
-        mImageLoader.displayImage(item.getAvatar(), ivAvatar);
+        //mImageLoader.displayImage(item.getAvatar(), ivAvatar);
+        Glide.with(mContext)
+                .load(item.getAvatar())
+                .override(600, 600)
+                .animate(R.anim.item_alpha_in)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .priority(Priority.HIGH)
+                .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into(ivAvatar);
+
+
         if ("0".equals(item.getTypes())) {
             ivPicture.setVisibility(View.VISIBLE);
             fr_video.setVisibility(View.GONE);
-            mImageLoader.displayImage(item.getThumb(), ivPicture);
+            //mImageLoader.displayImage(item.getThumb(), ivPicture);
+            Glide.with(mContext)
+                    .load(item.getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into(ivPicture);
         } else {
             ivPicture.setVisibility(View.GONE);
             fr_video.setVisibility(View.VISIBLE);
-            mImageLoader.displayImage(item.getThumb(), iv_video_img);
+          //  mImageLoader.displayImage(item.getThumb(), iv_video_img);
+            Glide.with(mContext)
+                    .load(item.getThumb())
+                    .override(600, 600)
+                    .animate(R.anim.item_alpha_in)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(true)
+                    .priority(Priority.HIGH)
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into(iv_video_img);
         }
 
     }
