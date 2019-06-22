@@ -117,7 +117,6 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         iconTypeface = Typeface.createFromAsset(mContext.getAssets(), "iconfont.ttf");
         mMessageImg.setTypeface(iconTypeface);
         SharedPreferencesUtils.put(this, "flag01", flag01);
-        // LogUtils.d("GoodListActivity--cid-->" + cid);
         attribute = "";
         merchid = "";
         order = "";
@@ -139,15 +138,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         popupWindow = new FilterPopupWindow(GoodListActivity.this);
-        //  popupWindow.setClippingEnabled(false);
         popupWindow.setOnFilterInforCompleted(this);
-        //popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        // popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
-        //  popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        //set layoutManager
         initAdapter();
-        //onRefresh();
-        //  mAdapter.setEnableLoadMore(true);
 
         mSearchLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,9 +329,6 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             public void onNext(BaseResponse<CategoryListItemsModel> baseResponse) {
                 LoaddingDismiss();
                 if (baseResponse.code == 200) {
-//                    if (!mAdapter.isLoadMoreEnable()) {
-//                        mAdapter.setEnableLoadMore(true);
-//                    }
                     categoryListItemsModel = baseResponse.getData();
                     List<CategoryListItemsModel.ListBean> list = categoryListItemsModel.getList();
                     XLog.json(baseResponse.data.getList().toString());
@@ -363,28 +352,6 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
     @Override
     public void onLoadMoreRequested() {
-//        mSwipeRefreshLayout.setEnabled(false);
-//        TOTAL_COUNTER = Integer.valueOf(categoryListItemsModel.getTotal());
-//        if (mAdapter.getData().size() < PAGE_SIZE) {
-//            mAdapter.loadMoreEnd(true);
-//        } else {
-//            if (mCurrentCounter >= TOTAL_COUNTER) {
-//                mAdapter.loadMoreEnd(mLoadMoreEndGone);
-//            } else {
-//                if (isErr) {
-//                    pageNum += 1;
-//                    initData(pageNum, true);
-//                    //    mAdapter.addData(data);
-//                    mCurrentCounter = mAdapter.getData().size();
-//                    mAdapter.loadMoreComplete();
-//                } else {
-//                    isErr = true;
-//                    // Toast.makeText(getContext(), "错误", Toast.LENGTH_LONG).show();
-//                    mAdapter.loadMoreFail();
-//                }
-//            }
-//            mSwipeRefreshLayout.setEnabled(true);
-//        }
         TOTAL_COUNTER = Integer.valueOf(categoryListItemsModel.getTotal());
         mRecyclerView.postDelayed(new Runnable() {
             @Override

@@ -115,7 +115,7 @@ public class MoodListAdapter extends BaseQuickAdapter<MoodListModel.ListBean, Ba
                     .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext,20))
                     .skipMemoryCache(true)
                     .priority(Priority.HIGH)
-                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (CircleImageView) helper.getView(R.id.iv_video_img));
+                    .placeholder(R.mipmap.default_pic).error(R.mipmap.default_pic).into( (RoundImageView) helper.getView(R.id.iv_video_img));
 
         }
 

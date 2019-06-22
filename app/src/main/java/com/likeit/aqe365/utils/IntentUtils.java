@@ -48,6 +48,7 @@ public class IntentUtils {
 
 
     public static void intentTo(Context mContext, String linkUrl, String id, String webUrl) {
+        initTab(mContext);
         //自定義DIY
         if ("diypage".equals(linkUrl)) {
             Bundle bundle = new Bundle();
@@ -257,6 +258,26 @@ public class IntentUtils {
             Intent intent = new Intent(mContext, MemberCartActivity.class);
             mContext.startActivity(intent);
 
+        } else if ("home".equals(linkUrl)) {
+//            Intent intent = new Intent(mContext, MainActivity.class);
+//            mContext.startActivity(intent);
+            Bundle bundle = new Bundle();
+            //  bundle.putString("flag", "0");
+            bundle.putStringArray("mTitles", mTitles);
+            bundle.putStringArray("mLinkurl", mLinkurl);
+            bundle.putStringArray("mIconSelectIds", mIconSelectIds);
+            bundle.putString("flag", "0");
+            bundle.putInt("index", 0);
+            Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);;
+           intent.putExtras(bundle);
+            mContext.startActivity(intent);
+            AppManager.getAppManager().finishActivity();
+
+
+         //   AppManager.getAppManager().finishAllActivity();
+
+
+
         }
 
         //网页
@@ -283,6 +304,10 @@ public class IntentUtils {
     static ArrayList<String> stringArrayList2 = new ArrayList<String>();
 
     private static void initTab(Context mContext) {
+        stringArrayList.clear();
+        stringArrayList1.clear();
+        stringArrayList2
+                .clear();
         String navtab = SharedPreferencesUtils.getString(mContext, "navtab");
         Type type = new TypeToken<List<MainNavigationModel.ItemsBean>>() {
         }.getType();

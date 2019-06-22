@@ -61,7 +61,8 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     private CustomDialog dialog;
     public String openid;
     public LoaddingDialog loaddingDialog;
-    public String lat,lng;
+    public String lat, lng;
+
     /**
      * 初始化创建
      */
@@ -363,6 +364,18 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         });
     }
 
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
     /**
      * 提示信息
      */
@@ -460,7 +473,8 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     public void showToast(String msg) {
         ToastUtils.showToast(mContext, msg);
     }
-    public void showShare(String url){
+
+    public void showShare(String url) {
         Resources res = mContext.getResources();
         Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
         OnekeyShare oks = new OnekeyShare();
@@ -483,6 +497,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         // 启动分享GUI
         oks.show(mContext);
     }
+
     public void LoaddingDismiss() {
         if (loaddingDialog != null && loaddingDialog.isShowing()) {
             loaddingDialog.dismiss();

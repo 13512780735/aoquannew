@@ -28,7 +28,6 @@ import com.likeit.aqe365.utils.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Subscriber;
 

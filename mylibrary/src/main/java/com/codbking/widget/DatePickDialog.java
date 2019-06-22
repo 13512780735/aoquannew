@@ -33,7 +33,7 @@ public class DatePickDialog extends Dialog implements OnChangeLisener {
     //开始时间
     private Date startDate = new Date();
     //年分限制，默认上下5年
-    private int yearLimt = 20;
+    private int yearLimt = 100;
 
     private OnChangeLisener onChangeLisener;
 

@@ -1,9 +1,11 @@
 package com.likeit.aqe365.activity.web.model;
 
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.likeit.aqe365.activity.web.base.BaseFragment;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -84,8 +86,18 @@ public class JsInterfaceLogic {
             put("isStudent", false);
         }}).toString();
     }
-
-
+    @JavascriptInterface
+    public void openCart(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            Log.d("TAG88888", jsonObject.toString());
+//            String funcName = jsonObject.getString("funcName");
+//            String dataStr = jsonObject.getString("data");
+//            switchName(funcName, dataStr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     @JavascriptInterface
     public String isShowPay() {
         return new JSONObject(new HashMap(4) {{
